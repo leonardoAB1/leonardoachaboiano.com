@@ -1,46 +1,41 @@
-# Next.js build artifacts
-.next/
-out/
-build/
-*.tsbuildinfo
-next-env.d.ts
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Dependencies
-node_modules/
-.pnpm-store/
-pnpm-debug.log*
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# Environment variables
-.env
-.env.*
-!.env.example
+# testing
+/coverage
 
-# Deployment
-.vercel/
+# next.js
+/.next/
+/out/
 
-# OS
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
+*.pem
 
-# Editor configs
-.vscode/
-*.code-workspace
-.idea/
-*.swp
-*.swo
-
-# AI tool configs
-.cursor/
-.claude/
-CLAUDE.md
-
-# Local planning docs
-PLAN.md
-
-# Debug
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# Misc
-*.pem
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
