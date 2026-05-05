@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor configs
+.vscode/
+*.code-workspace
+.idea/
+*.swp
+*.swo
+
+# ai tool configs
+.cursor/
+.claude/
+CLAUDE.md
+AGENTS.md
+
+# local planning docs
+PLAN.md
