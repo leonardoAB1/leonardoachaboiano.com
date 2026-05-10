@@ -40,14 +40,21 @@ jobs:
           biome_status=0
           pnpm exec biome check --reporter=json . 2>/dev/null > biome-ci.json || biome_status=$?
           trap 'rm -f biome-ci.json' EXIT
+          set +e
           set -o pipefail
           python3 scripts/ci/biome_rdjsonl_for_reviewdog.py < biome-ci.json \
           | reviewdog -f=rdjsonl \
                       -name=biome \
                       -reporter=github-pr-review \
                       -filter-mode=added
-          pipeline_exit=$?
-          if [ "$pipeline_exit" -ne 0 ]; then exit "$pipeline_exit"; fi
+          py_exit=${PIPESTATUS[0]}
+          rd_exit=${PIPESTATUS[1]}
+          set -e
+          if [ "$py_exit" -ne 0 ]; then
+            echo "::error::scripts/ci/biome_rdjsonl_for_reviewdog.py exited with status ${py_exit}"
+            exit "$py_exit"
+          fi
+          if [ "$rd_exit" -ne 0 ]; then exit "$rd_exit"; fi
           exit "$biome_status"
 
       - name: Type check (tsc)
