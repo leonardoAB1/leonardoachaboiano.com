@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
+/*
+ * Raw CSS custom properties — these are the actual values that switch
+ * between light and dark mode. Tailwind never sees these directly;
+ * they are referenced by @theme inline below.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Ink — text hierarchy */
+  --ink-1: #0c0c0c;
+  --ink-2: #404040;
+  --ink-3: #737373;
+  --ink-4: #a8a8a8;
+
+  /* Surface — background hierarchy */
+  --surface-0: #ffffff;
+  --surface-1: #f7f7f7;
+  --surface-2: #efefef;
+  --surface-brand: #cfead9;
+
+  /* Border */
+  --border: #e5e5e5;
+  --border-subtle: #f0f0f0;
 }
 
+.dark {
+  --ink-1: #f5f5f5;
+  --ink-2: #d4d4d4;
+  --ink-3: #8c8c8c;
+  --ink-4: #606060;
+
+  --surface-0: #0a0a0a;
+  --surface-1: #141414;
+  --surface-2: #1f1f1f;
+  --surface-brand: #0d2318;
+
+  --border: #2a2a2a;
+  --border-subtle: #1c1c1c;
+}
+
+/*
+ * Tailwind design system — @theme inline means Tailwind generates utilities
+ * that reference these CSS vars at runtime rather than inlining static values.
+ * This is what makes dark mode work: changing --ink-1 in .dark automatically
+ * updates every bg-ink-1, text-ink-1, border-ink-1 utility.
+ *
+ * Brand colors are static (same in light and dark) so they go here directly.
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand */
+  --color-brand: #02777c;
+  --color-brand-dim: #015a5f;
+
+  /* Ink */
+  --color-ink-1: var(--ink-1);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+
+  /* Surface */
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-brand: var(--surface-brand);
+
+  /* Border */
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+
+  /* Typography — points to CSS vars injected by next/font in layout.tsx */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Code", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base resets */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--surface-0);
+  color: var(--ink-1);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
