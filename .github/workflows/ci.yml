@@ -51,6 +51,7 @@ jobs:
           py_exit="${pipe_status[0]:-0}"
           rd_exit="${pipe_status[1]:-0}"
           set -e
+          echo "biome_rdjsonl_py_exit=${py_exit} reviewdog_exit=${rd_exit} biome_check_exit=${biome_status}"
           if [ "$py_exit" -ne 0 ]; then
             echo "::error::scripts/ci/biome_rdjsonl_for_reviewdog.py exited with status ${py_exit}"
             exit "$py_exit"
