@@ -10,16 +10,16 @@ importers:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.2.2
-        version: 5.2.2(react-hook-form@7.75.0(react@19.2.4))
+        version: 5.2.2(react-hook-form@7.75.0(react@19.2.6))
       '@mdx-js/loader':
         specifier: ^3.1.1
         version: 3.1.1
       '@mdx-js/react':
         specifier: ^3.1.1
-        version: 3.1.1(@types/react@19.2.14)(react@19.2.4)
+        version: 3.1.1(@types/react@19.2.14)(react@19.2.6)
       '@next/mdx':
         specifier: ^16.2.4
-        version: 16.2.4(@mdx-js/loader@3.1.1)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))
+        version: 16.2.4(@mdx-js/loader@3.1.1)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.6))
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.3.0)
@@ -31,28 +31,28 @@ importers:
         version: 4.1.0
       framer-motion:
         specifier: ^12.38.0
-        version: 12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 12.38.0(react-dom@19.2.4(react@19.2.6))(react@19.2.6)
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
       lucide-react:
         specifier: ^1.14.0
-        version: 1.14.0(react@19.2.4)
+        version: 1.14.0(react@19.2.6)
       next:
         specifier: 16.2.6
-        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.6))(react@19.2.6)
       next-themes:
         specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 0.4.6(react-dom@19.2.4(react@19.2.6))(react@19.2.6)
       react:
-        specifier: 19.2.4
-        version: 19.2.4
+        specifier: 19.2.6
+        version: 19.2.6
       react-dom:
         specifier: 19.2.4
-        version: 19.2.4(react@19.2.4)
+        version: 19.2.4(react@19.2.6)
       react-hook-form:
         specifier: ^7.75.0
-        version: 7.75.0(react@19.2.4)
+        version: 7.75.0(react@19.2.6)
       reading-time:
         specifier: ^1.5.0
         version: 1.5.0
@@ -2236,8 +2236,8 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react@19.2.4:
-    resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
+  react@19.2.6:
+    resolution: {integrity: sha512-sfWGGfavi0xr8Pg0sVsyHMAOziVYKgPLNrS7ig+ivMNb3wbCBw3KxtflsGBAwD3gYQlE/AEZsTLgToRrSCjb0Q==}
     engines: {node: '>=0.10.0'}
 
   reading-time@1.5.0:
@@ -2861,10 +2861,10 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@hookform/resolvers@5.2.2(react-hook-form@7.75.0(react@19.2.4))':
+  '@hookform/resolvers@5.2.2(react-hook-form@7.75.0(react@19.2.6))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.75.0(react@19.2.4)
+      react-hook-form: 7.75.0(react@19.2.6)
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -3034,11 +3034,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4)':
+  '@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.6)':
     dependencies:
       '@types/mdx': 2.0.13
       '@types/react': 19.2.14
-      react: 19.2.4
+      react: 19.2.6
 
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
@@ -3053,12 +3053,12 @@ snapshots:
     dependencies:
       fast-glob: 3.3.1
 
-  '@next/mdx@16.2.4(@mdx-js/loader@3.1.1)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.4))':
+  '@next/mdx@16.2.4(@mdx-js/loader@3.1.1)(@mdx-js/react@3.1.1(@types/react@19.2.14)(react@19.2.6))':
     dependencies:
       source-map: 0.7.6
     optionalDependencies:
       '@mdx-js/loader': 3.1.1
-      '@mdx-js/react': 3.1.1(@types/react@19.2.14)(react@19.2.4)
+      '@mdx-js/react': 3.1.1(@types/react@19.2.14)(react@19.2.6)
 
   '@next/swc-darwin-arm64@16.2.6':
     optional: true
@@ -4110,14 +4110,14 @@ snapshots:
     dependencies:
       is-callable: 1.2.7
 
-  framer-motion@12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  framer-motion@12.38.0(react-dom@19.2.4(react@19.2.6))(react@19.2.6):
     dependencies:
       motion-dom: 12.38.0
       motion-utils: 12.36.0
       tslib: 2.8.1
     optionalDependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
+      react: 19.2.6
+      react-dom: 19.2.4(react@19.2.6)
 
   function-bind@1.1.2: {}
 
@@ -4626,9 +4626,9 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@1.14.0(react@19.2.4):
+  lucide-react@1.14.0(react@19.2.6):
     dependencies:
-      react: 19.2.4
+      react: 19.2.6
 
   magic-string@0.30.21:
     dependencies:
@@ -4996,21 +4996,21 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-themes@0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  next-themes@0.4.6(react-dom@19.2.4(react@19.2.6))(react@19.2.6):
     dependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
+      react: 19.2.6
+      react-dom: 19.2.4(react@19.2.6)
 
-  next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.6))(react@19.2.6):
     dependencies:
       '@next/env': 16.2.6
       '@swc/helpers': 0.5.15
       baseline-browser-mapping: 2.10.29
       caniuse-lite: 1.0.30001792
       postcss: 8.4.31
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-      styled-jsx: 5.1.6(@babel/core@7.29.0)(react@19.2.4)
+      react: 19.2.6
+      react-dom: 19.2.4(react@19.2.6)
+      styled-jsx: 5.1.6(@babel/core@7.29.0)(react@19.2.6)
     optionalDependencies:
       '@next/swc-darwin-arm64': 16.2.6
       '@next/swc-darwin-x64': 16.2.6
@@ -5172,18 +5172,18 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-dom@19.2.4(react@19.2.4):
+  react-dom@19.2.4(react@19.2.6):
     dependencies:
-      react: 19.2.4
+      react: 19.2.6
       scheduler: 0.27.0
 
-  react-hook-form@7.75.0(react@19.2.4):
+  react-hook-form@7.75.0(react@19.2.6):
     dependencies:
-      react: 19.2.4
+      react: 19.2.6
 
   react-is@16.13.1: {}
 
-  react@19.2.4: {}
+  react@19.2.6: {}
 
   reading-time@1.5.0: {}
 
@@ -5561,10 +5561,10 @@ snapshots:
     dependencies:
       inline-style-parser: 0.2.7
 
-  styled-jsx@5.1.6(@babel/core@7.29.0)(react@19.2.4):
+  styled-jsx@5.1.6(@babel/core@7.29.0)(react@19.2.6):
     dependencies:
       client-only: 0.0.1
-      react: 19.2.4
+      react: 19.2.6
     optionalDependencies:
       '@babel/core': 7.29.0
 
