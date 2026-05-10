@@ -1,0 +1,27 @@
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - pnpm-lock.yaml
+          - package.json
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file: .github/**
+
+content:
+  - changed-files:
+      - any-glob-to-any-file:
+          - content/**
+          - src/content/**
+
+docs:
+  - changed-files:
+      - any-glob-to-any-file: "**/*.md"
+
+app:
+  - changed-files:
+      - any-glob-to-any-file: src/app/**
+
+components:
+  - changed-files:
+      - any-glob-to-any-file: src/components/**
