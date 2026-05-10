@@ -7,13 +7,21 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json"]
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.json",
+      "**/*.css",
+      "**/*.graphql"
+    ]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 100,
+    "lineWidth": 80,
     "lineEnding": "lf"
   },
   "linter": {
@@ -35,6 +43,25 @@
       "jsxQuoteStyle": "double",
       "trailingCommas": "all",
       "semicolons": "always"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
+    }
+  },
+  "graphql": {
+    "formatter": {
+      "enabled": true
+    },
+    "linter": {
+      "enabled": true
     }
   },
   "assist": {
