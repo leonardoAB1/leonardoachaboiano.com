@@ -1,3 +1,9 @@
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - pnpm-lock.yaml
+          - package.json
+
 documentation:
   - changed-files:
       - any-glob-to-any-file:
