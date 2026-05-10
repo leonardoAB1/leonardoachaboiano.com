@@ -30,8 +30,7 @@ jobs:
         with:
           urls: |
             http://localhost:3000
-          startServerCommand: pnpm start
-          startServerReadyPattern: ready
+          configPath: ./.github/lighthouse/lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
           runs: 3
