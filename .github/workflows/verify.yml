@@ -1,4 +1,4 @@
-name: CI
+name: Verify
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   checks: write
 
 jobs:
-  ci:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -38,11 +38,11 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           biome_status=0
-          pnpm exec biome check --reporter=json . 2>/dev/null > biome-ci.json || biome_status=$?
-          trap 'rm -f biome-ci.json' EXIT
+          pnpm exec biome check --reporter=json . 2>/dev/null > biome-verify.json || biome_status=$?
+          trap 'rm -f biome-verify.json' EXIT
           set +e
           set -o pipefail
-          python3 scripts/ci/biome_rdjsonl_for_reviewdog.py < biome-ci.json \
+          python3 scripts/ci/biome_rdjsonl_for_reviewdog.py < biome-verify.json \
           | reviewdog -f=rdjsonl \
                       -name=biome \
                       -reporter=github-pr-review \
