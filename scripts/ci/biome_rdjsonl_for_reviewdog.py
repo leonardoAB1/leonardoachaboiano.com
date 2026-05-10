@@ -10,6 +10,7 @@ from pathlib import Path
 
 MAX_MESSAGE_CHARS = 45000
 TRUNCATION_NOTE = "\n(diff truncated for GitHub comment limit; run biome locally for the full preview)"
+FORMAT_STUB = "Formatter would have printed the following content"
 
 
 def _normalize_path(raw: str) -> str:
@@ -36,6 +37,13 @@ def _severity(raw: object) -> str:
     return "INFO"
 
 
+def _is_format_diagnostic(diagnostic: dict[str, object]) -> bool:
+    if diagnostic.get("category") == "format":
+        return True
+    message = diagnostic.get("message")
+    return isinstance(message, str) and FORMAT_STUB in message
+
+
 def _format_stdout(repo_root: Path, rel_posix: str) -> str | None:
     result = subprocess.run(
         ["pnpm", "exec", "biome", "format", rel_posix],
@@ -45,6 +53,9 @@ def _format_stdout(repo_root: Path, rel_posix: str) -> str | None:
         check=False,
     )
     if result.returncode != 0:
+        err = (result.stderr or "").strip()
+        if err:
+            print(f"biome format {rel_posix}: {err}", file=sys.stderr)
         return None
     return result.stdout
 
@@ -75,6 +86,18 @@ def _append_diff_block(message: str, diff_text: str) -> str:
     return message + f"\n\n```diff\n{trimmed}\n```"
 
 
+def _format_pr_message(diff_text: str) -> str:
+    if not diff_text.strip():
+        return (
+            "Formatting differs from Biome output. "
+            "CI could not build a diff preview; run pnpm exec biome check locally."
+        )
+    return _append_diff_block(
+        "Suggested Biome formatting (unified diff):",
+        diff_text,
+    )
+
+
 def _record_for_diagnostic(
     diagnostic: dict[str, object],
     diff_by_path: dict[str, str],
@@ -96,10 +119,9 @@ def _record_for_diagnostic(
     if not isinstance(message, str):
         message = ""
 
-    category = diagnostic.get("category")
-    if category == "format":
+    if _is_format_diagnostic(diagnostic):
         diff_text = diff_by_path.get(path, "")
-        message = _append_diff_block(message, diff_text)
+        message = _format_pr_message(diff_text)
 
     return {
         "message": message,
@@ -122,7 +144,7 @@ def _collect_format_diffs(
 ) -> dict[str, str]:
     paths: set[str] = set()
     for diagnostic in diagnostics:
-        if diagnostic.get("category") != "format":
+        if not _is_format_diagnostic(diagnostic):
             continue
         location = diagnostic.get("location")
         if not isinstance(location, dict):
@@ -181,8 +203,7 @@ def main() -> None:
             continue
 
         path = _normalize_path(raw_path)
-        category = diagnostic.get("category")
-        if category == "format":
+        if _is_format_diagnostic(diagnostic):
             if path in seen_format_paths:
                 continue
             seen_format_paths.add(path)
