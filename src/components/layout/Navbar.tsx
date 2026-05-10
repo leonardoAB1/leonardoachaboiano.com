@@ -9,14 +9,25 @@ export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-surface-0/90 backdrop-blur-sm">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b border-border",
+        "bg-surface-0/90 backdrop-blur-sm",
+      )}
+    >
       <nav
-        className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-6 sm:px-8"
+        className={cn(
+          "mx-auto flex h-14 w-full max-w-5xl",
+          "items-center justify-between px-6 sm:px-8",
+        )}
         aria-label="Main navigation"
       >
         <Link
           href="/"
-          className="text-sm font-semibold tracking-tight text-ink-1 transition-colors hover:text-brand"
+          className={cn(
+            "text-sm font-semibold tracking-tight",
+            "text-ink-1 transition-colors hover:text-brand",
+          )}
         >
           {siteConfig.name}
         </Link>
@@ -28,9 +39,8 @@ export function Navbar() {
                 href={link.href}
                 className={cn(
                   "text-sm transition-colors hover:text-ink-1",
-                  pathname === link.href
-                    ? "font-medium text-ink-1"
-                    : "text-ink-3",
+                  pathname === link.href && "font-medium text-ink-1",
+                  pathname !== link.href && "text-ink-3",
                 )}
               >
                 {link.label}
