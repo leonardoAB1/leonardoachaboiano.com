@@ -6,10 +6,10 @@ interface SectionProps {
   as?: React.ElementType;
 }
 
-export function Section({ children, className, as: Tag = "section" }: SectionProps) {
-  return (
-    <Tag className={cn("py-16 sm:py-24", className)}>
-      {children}
-    </Tag>
-  );
+export function Section({
+  children,
+  className,
+  as: Tag = "section",
+}: SectionProps) {
+  return <Tag className={cn("py-16 sm:py-24", className)}>{children}</Tag>;
 }
