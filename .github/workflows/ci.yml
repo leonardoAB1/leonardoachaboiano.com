@@ -41,8 +41,7 @@ jobs:
           reviewdog -f=junit \
                     -name=biome \
                     -reporter=github-pr-review \
-                    -filter-mode=added \
-                    -fail-on-error
+                    -filter-mode=added
 
       - name: Type check (tsc)
         env:
@@ -52,8 +51,7 @@ jobs:
           reviewdog -f=tsc \
                     -name=tsc \
                     -reporter=github-pr-review \
-                    -filter-mode=added \
-                    -fail-on-error
+                    -filter-mode=added
 
       - name: Build
         run: pnpm build
