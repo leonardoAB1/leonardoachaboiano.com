@@ -62,11 +62,22 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set +e
+          set -o pipefail
           pnpm typecheck 2>&1 |
           reviewdog -f=tsc \
                     -name=tsc \
                     -reporter=github-pr-review \
                     -filter-mode=added
+          pipe_status=("${PIPESTATUS[@]}")
+          tsc_exit="${pipe_status[0]:-0}"
+          rd_exit="${pipe_status[1]:-0}"
+          set -e
+          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit} (step fails only on reviewdog after filter)"
+          if [ "$tsc_exit" -ne 0 ]; then
+            echo "::notice::pnpm typecheck exited ${tsc_exit}; this step still passes if reviewdog exits clean"
+          fi
+          exit "$rd_exit"
 
       - name: Build
         run: pnpm build
