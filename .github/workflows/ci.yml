@@ -40,11 +40,11 @@ jobs:
           pnpm exec biome check --reporter=json . 2>/dev/null \
           | jq -c '
               .diagnostics[]
-              | select(.location.path.file != null)
+              | select(.location.path != null)
               | {
                   message: .description,
                   location: {
-                    path: .location.path.file,
+                    path: .location.path,
                     range: {
                       start: {
                         line: ((.location.span.start.line // 1) | if . < 1 then 1 else . end),
