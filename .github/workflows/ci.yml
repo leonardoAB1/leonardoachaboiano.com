@@ -47,8 +47,9 @@ jobs:
                       -name=biome \
                       -reporter=github-pr-review \
                       -filter-mode=added
-          py_exit=${PIPESTATUS[0]}
-          rd_exit=${PIPESTATUS[1]}
+          pipe_status=("${PIPESTATUS[@]}")
+          py_exit="${pipe_status[0]:-0}"
+          rd_exit="${pipe_status[1]:-0}"
           set -e
           if [ "$py_exit" -ne 0 ]; then
             echo "::error::scripts/ci/biome_rdjsonl_for_reviewdog.py exited with status ${py_exit}"
