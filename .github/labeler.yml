@@ -1,0 +1,25 @@
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - pnpm-lock.yaml
+          - package.json
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "**/*.md"
+          - content/**
+          - src/content/**
+
+enhancement:
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/app/**
+          - src/components/**
+          - src/lib/**
+          - src/hooks/**
+          - src/types/**
+          - src/styles/**
+          - next.config.*
+          - postcss.config.*
+          - tailwind.config.*
