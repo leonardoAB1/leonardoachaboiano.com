@@ -5,9 +5,7 @@
       { "metric": "interactive", "budget": 3000 },
       { "metric": "first-contentful-paint", "budget": 1500 }
     ],
-    "resourceSizes": [
-      { "resourceType": "total", "budget": 500 }
-    ],
+    "resourceSizes": [{ "resourceType": "total", "budget": 500 }],
     "scores": [
       { "category": "performance", "minScore": 90 },
       { "category": "accessibility", "minScore": 95 },
