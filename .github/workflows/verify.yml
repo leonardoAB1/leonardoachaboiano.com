@@ -79,6 +79,10 @@ jobs:
           fi
           exit "$rd_exit"
 
+      - name: Unit tests (Vitest)
+        if: success()
+        run: pnpm test:run
+
       - name: Cache Next.js compiler cache
         if: success()
         uses: actions/cache@v4
