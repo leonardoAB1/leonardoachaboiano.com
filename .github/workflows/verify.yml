@@ -1,0 +1,83 @@
+name: Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: Lint and format (Biome)
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          biome_status=0
+          pnpm exec biome check --reporter=json . 2>/dev/null > biome-verify.json || biome_status=$?
+          trap 'rm -f biome-verify.json' EXIT
+          set +e
+          set -o pipefail
+          python3 scripts/ci/biome_rdjsonl_for_reviewdog.py < biome-verify.json \
+          | reviewdog -f=rdjsonl \
+                      -name=biome \
+                      -reporter=github-pr-review \
+                      -filter-mode=added
+          pipe_status=("${PIPESTATUS[@]}")
+          py_exit="${pipe_status[0]:-0}"
+          rd_exit="${pipe_status[1]:-0}"
+          set -e
+          echo "biome_rdjsonl_py_exit=${py_exit} reviewdog_exit=${rd_exit} biome_check_exit=${biome_status} (step fails only on helper or reviewdog after filter)"
+          if [ "$py_exit" -ne 0 ]; then
+            echo "::error::scripts/ci/biome_rdjsonl_for_reviewdog.py exited with status ${py_exit}"
+            exit "$py_exit"
+          fi
+          exit "$rd_exit"
+
+      - name: Type check (tsc)
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          set -o pipefail
+          pnpm typecheck 2>&1 |
+          reviewdog -f=tsc \
+                    -name=tsc \
+                    -reporter=github-pr-review \
+                    -filter-mode=added
+          pipe_status=("${PIPESTATUS[@]}")
+          tsc_exit="${pipe_status[0]:-0}"
+          rd_exit="${pipe_status[1]:-0}"
+          set -e
+          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit} (step fails only on reviewdog after filter)"
+          if [ "$tsc_exit" -ne 0 ]; then
+            echo "::notice::pnpm typecheck exited ${tsc_exit}; this step still passes if reviewdog exits clean"
+          fi
+          exit "$rd_exit"
+
+      - name: Build
+        run: pnpm build
