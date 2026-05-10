@@ -34,6 +34,8 @@ jobs:
           reviewdog_version: latest
 
       - name: Lint and format (Biome)
+        id: biome_check
+        continue-on-error: true
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -51,14 +53,19 @@ jobs:
           py_exit="${pipe_status[0]:-0}"
           rd_exit="${pipe_status[1]:-0}"
           set -e
-          echo "biome_rdjsonl_py_exit=${py_exit} reviewdog_exit=${rd_exit} biome_check_exit=${biome_status} (step fails only on helper or reviewdog after filter)"
+          echo "biome_rdjsonl_py_exit=${py_exit} reviewdog_exit=${rd_exit} biome_check_exit=${biome_status}"
           if [ "$py_exit" -ne 0 ]; then
             echo "::error::scripts/ci/biome_rdjsonl_for_reviewdog.py exited with status ${py_exit}"
             exit "$py_exit"
           fi
-          exit "$rd_exit"
+          final=0
+          if [ "$biome_status" -ne 0 ]; then final=1; fi
+          if [ "$rd_exit" -ne 0 ]; then final=1; fi
+          exit "$final"
 
       - name: Type check (tsc)
+        id: typecheck_step
+        continue-on-error: true
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -73,11 +80,36 @@ jobs:
           tsc_exit="${pipe_status[0]:-0}"
           rd_exit="${pipe_status[1]:-0}"
           set -e
-          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit} (step fails only on reviewdog after filter)"
-          if [ "$tsc_exit" -ne 0 ]; then
-            echo "::notice::pnpm typecheck exited ${tsc_exit}; this step still passes if reviewdog exits clean"
+          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit}"
+          final=0
+          if [ "$tsc_exit" -ne 0 ]; then final=1; fi
+          if [ "$rd_exit" -ne 0 ]; then final=1; fi
+          exit "$final"
+
+      - name: Quality gate
+        if: always()
+        run: |
+          exit_code=0
+          if [ "${{ steps.biome_check.outcome }}" != "success" ]; then
+            echo "::error::Biome did not pass (see step logs and reviewdog comments on the PR if applicable)"
+            exit_code=1
           fi
-          exit "$rd_exit"
+          if [ "${{ steps.typecheck_step.outcome }}" != "success" ]; then
+            echo "::error::Typecheck did not pass (see step logs and reviewdog comments on the PR if applicable)"
+            exit_code=1
+          fi
+          exit "$exit_code"
+
+      - name: Cache Next.js compiler cache
+        if: success()
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml', 'package.json', 'next.config.ts') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-
 
       - name: Build
+        if: success()
         run: pnpm build
