@@ -79,5 +79,16 @@ jobs:
           fi
           exit "$rd_exit"
 
+      - name: Cache Next.js compiler cache
+        if: success()
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml', 'package.json', 'next.config.ts') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-
+
       - name: Build
+        if: success()
         run: pnpm build
