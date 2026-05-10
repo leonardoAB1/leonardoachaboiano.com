@@ -91,11 +91,11 @@ jobs:
         run: |
           exit_code=0
           if [ "${{ steps.biome_check.outcome }}" != "success" ]; then
-            echo "::error::Biome did not pass (see step logs and reviewdog comments on the PR if applicable)"
+            echo "::error::Biome did not pass"
             exit_code=1
           fi
           if [ "${{ steps.typecheck_step.outcome }}" != "success" ]; then
-            echo "::error::Typecheck did not pass (see step logs and reviewdog comments on the PR if applicable)"
+            echo "::error::Typecheck did not pass"
             exit_code=1
           fi
           exit "$exit_code"
