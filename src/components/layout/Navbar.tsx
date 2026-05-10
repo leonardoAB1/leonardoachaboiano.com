@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { navLinks, siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
@@ -32,22 +33,25 @@ export function Navbar() {
           {siteConfig.name}
         </Link>
 
-        <ul className="flex items-center gap-6">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={cn(
-                  "text-sm transition-colors hover:text-ink-1",
-                  pathname === link.href && "font-medium text-ink-1",
-                  pathname !== link.href && "text-ink-3",
-                )}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center gap-4 sm:gap-6">
+          <ul className="flex items-center gap-4 sm:gap-6">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "text-sm transition-colors hover:text-ink-1",
+                    pathname === link.href && "font-medium text-ink-1",
+                    pathname !== link.href && "text-ink-3",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );
