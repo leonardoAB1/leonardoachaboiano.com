@@ -21,7 +21,7 @@ export function Navbar() {
           {siteConfig.name}
         </Link>
 
-        <ul className="flex items-center gap-6" role="list">
+        <ul className="flex items-center gap-6">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
