@@ -30,10 +30,16 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - uses: reviewdog/action-setup@v1
+        if: github.event_name == 'pull_request'
         with:
           reviewdog_version: latest
 
       - name: Lint and format (Biome)
+        if: github.event_name != 'pull_request'
+        run: pnpm exec biome check .
+
+      - name: Lint and format (Biome reviewdog)
+        if: github.event_name == 'pull_request'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -59,6 +65,11 @@ jobs:
           exit "$rd_exit"
 
       - name: Type check (tsc)
+        if: github.event_name != 'pull_request'
+        run: pnpm typecheck
+
+      - name: Type check (tsc reviewdog)
+        if: github.event_name == 'pull_request'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
