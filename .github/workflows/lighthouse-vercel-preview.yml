@@ -1,0 +1,34 @@
+name: Lighthouse Vercel Preview
+
+# Runs after GitHub Deployments statuses (from the Vercel GitHub integration).
+# Keeps LH aligned with CDN, preview env vars, and edge behavior. Advisory by default:
+# configure branch protection to require Verify for merge; leave this unchecked if it is flaky.
+concurrency:
+  group: lighthouse-preview-${{ github.event.deployment.id }}
+  cancel-in-progress: true
+
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse-preview:
+    if: ${{ github.event.deployment_status.state == 'success' && github.event.deployment_status.environment_url != '' && github.event.deployment.environment != 'Production' && github.event.deployment.environment != 'production' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+
+      - name: Run Lighthouse CI (deployment URL)
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            ${{ github.event.deployment_status.environment_url }}
+          configPath: ./.github/lighthouse/lighthouserc.preview.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 3
+          budgetPath: ./.github/lighthouse/budget.json
