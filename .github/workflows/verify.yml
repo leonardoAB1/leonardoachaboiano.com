@@ -84,11 +84,15 @@ jobs:
           tsc_exit="${pipe_status[0]:-0}"
           rd_exit="${pipe_status[1]:-0}"
           set -e
-          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit} (step fails only on reviewdog after filter)"
-          if [ "$tsc_exit" -ne 0 ]; then
-            echo "::notice::pnpm typecheck exited ${tsc_exit}; this step still passes if reviewdog exits clean"
+          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit}"
+          if [ "$rd_exit" -ne 0 ]; then
+            echo "::error::reviewdog exited with status ${rd_exit}"
+            exit "$rd_exit"
           fi
-          exit "$rd_exit"
+          if [ "$tsc_exit" -ne 0 ]; then
+            echo "::error::pnpm typecheck exited with status ${tsc_exit}"
+            exit "$tsc_exit"
+          fi
 
       - name: Unit tests (Vitest)
         if: success()
