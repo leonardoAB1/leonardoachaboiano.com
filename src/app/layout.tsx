@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Providers } from "@/components/layout/Providers";
-import { Navbar } from "@/components/layout/Navbar";
+import type { ReactElement, ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
+import { Providers } from "@/components/layout/Providers";
 import { siteConfig } from "@/lib/constants";
 import "./globals.css";
 
@@ -28,8 +29,8 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children: ReactNode;
+}>): ReactElement {
   return (
     <html
       lang="en"
