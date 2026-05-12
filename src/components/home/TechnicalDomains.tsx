@@ -17,24 +17,24 @@ interface TechnicalDomain {
 
 const domains: TechnicalDomain[] = [
   {
-    title: "Robotics software",
+    title: "Electromechanical systems",
     description:
-      "ROS-aware architectures, tooling for simulation and bring-up, and disciplined interfaces between perception, planning, and actuation.",
+      "Actuators, sensors, and electronics codesigned with mechanical structure: tolerance stack-ups, mounting, routing, and assembly considered from the first sketch.",
   },
   {
-    title: "Embedded systems",
+    title: "Embedded systems & firmware",
     description:
-      "Firmware and drivers on resource-constrained hardware with attention to timing, safety, and long-term maintainability.",
+      "Firmware on STM32 and ESP32 with FreeRTOS, industrial protocols including CAN, I2C, and BLE, and control logic for real-time hardware operation.",
   },
   {
-    title: "Hardware & integration",
+    title: "Electronics & PCB design",
     description:
-      "Sensors, actuators, and electronics brought together with mechanical reality: tolerance, routing, EMI, and service access.",
+      "Schematic capture, layout, and reliability testing using KiCad and Altium: from breadboard prototype to production-ready board with measurement and validation routines.",
   },
   {
-    title: "Manufacturing & DFM",
+    title: "Mechanical design & manufacturing",
     description:
-      "Parts and assemblies designed for fabrication, assembly, and test, with clear drawings, revision control, and supplier feedback loops.",
+      "3D models and drawings in SolidWorks and Fusion 360, with DFMA and GD&T applied from day one: CNC machining, 3D printing, and supplier-ready documentation.",
   },
 ];
 
