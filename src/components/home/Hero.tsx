@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function Hero(): ReactElement {
   return (
-    <Section className="pb-16 pt-8 sm:pb-20 sm:pt-10">
+    <Section className="flex min-h-[calc(100svh-3.5rem)] flex-col justify-center pb-16 pt-8 sm:pb-20 sm:pt-10">
       <Container className="flex flex-col gap-8">
         <Eyebrow>Mechatronics engineer</Eyebrow>
         <Heading as="h1" className="max-w-4xl" size="xl">
