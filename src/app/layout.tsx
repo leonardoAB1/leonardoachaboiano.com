@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
 import { PersonSchema } from "@/components/shared/PersonSchema";
-import { siteConfig, socialLinks } from "@/lib/constants";
+import { siteConfig } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
