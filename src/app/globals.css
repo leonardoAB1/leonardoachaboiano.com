@@ -110,4 +110,21 @@ body {
         transparent 34rem
       );
   }
+
+  .section-blend {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 5rem,
+      black calc(100% - 5rem),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 5rem,
+      black calc(100% - 5rem),
+      transparent
+    );
+  }
 }

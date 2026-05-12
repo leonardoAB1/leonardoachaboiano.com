@@ -6,7 +6,7 @@ import { Heading, Text } from "@/components/ui/Typography";
 
 export function EngineeringPhilosophy(): ReactElement {
   return (
-    <Section className="bg-surface-brand/40 dark:bg-surface-brand/35">
+    <Section className="section-blend bg-surface-brand/40 dark:bg-surface-brand/35">
       <Container>
         <AnimatedSection className="flex flex-col gap-8">
           <Heading as="h2" size="md">
