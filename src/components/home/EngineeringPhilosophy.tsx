@@ -18,7 +18,8 @@ export function EngineeringPhilosophy(): ReactElement {
               There are several{" "}
               <span className="font-medium text-brand">proper</span> ways to
               solve any engineering problem. A{" "}
-              <span className="font-medium text-brand">proper</span> solution is
+              <span className="font-medium text-brand">proper</span>{" "}
+              solution is
               one considered from every relevant point of view: in accordance
               with established standards, procedures, and the specifications of
               the project. The engineer&apos;s role, unlike the
