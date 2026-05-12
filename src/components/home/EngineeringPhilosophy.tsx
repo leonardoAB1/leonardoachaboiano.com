@@ -2,12 +2,11 @@ import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import { Separator } from "@/components/ui/Separator";
 import { Heading, Text } from "@/components/ui/Typography";
 
 export function EngineeringPhilosophy(): ReactElement {
   return (
-    <Section className="border-y border-border-subtle bg-surface-brand/40 dark:bg-surface-brand/35">
+    <Section className="bg-surface-brand/40 dark:bg-surface-brand/35">
       <Container>
         <AnimatedSection className="flex flex-col gap-8">
           <Heading as="h2" size="md">
@@ -19,11 +18,10 @@ export function EngineeringPhilosophy(): ReactElement {
               <span className="font-medium text-brand">proper</span> ways to
               solve any engineering problem. A{" "}
               <span className="font-medium text-brand">proper</span>{" "}
-              solution is
-              one considered from every relevant point of view: in accordance
-              with established standards, procedures, and the specifications of
-              the project. The engineer&apos;s role, unlike the
-              scientist&apos;s, is to identify and deliver that solution.
+              solution is one considered from every relevant point of view: in
+              accordance with established standards, procedures, and the
+              specifications of the project. The engineer&apos;s role, unlike
+              the scientist&apos;s, is to identify and deliver that solution.
             </Text>
             <Text className="text-ink-2" size="md">
               <span className="font-medium text-brand">Proper</span> means
@@ -36,10 +34,10 @@ export function EngineeringPhilosophy(): ReactElement {
           <p className="max-w-2xl text-sm italic text-ink-3">
             &ldquo;Proper&rdquo; is one of my favorite words in English. Every
             time I face a new challenge, I find myself asking the same question:
-            what are the <span className="font-medium text-brand">proper</span>{" "}
-            ways to approach this?
+            what are the{" "}
+            <span className="font-medium text-brand">proper</span> ways to
+            approach this?
           </p>
-          <Separator className="max-w-2xl" />
         </AnimatedSection>
       </Container>
     </Section>
