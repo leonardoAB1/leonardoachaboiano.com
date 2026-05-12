@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
+import { PersonSchema } from "@/components/shared/PersonSchema";
 import { siteConfig } from "@/lib/constants";
 import "./globals.css";
 
@@ -16,13 +17,57 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const description =
+  "Leonardo Acha Boiano is a mechatronics and robotics engineer " +
+  "specializing in embedded systems, hardware-software integration, " +
+  "and robotics software. Explore his engineering portfolio, projects, " +
+  "and technical writing.";
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
   },
-  description: siteConfig.description,
+  description,
   metadataBase: new URL(siteConfig.url),
+  keywords: [
+    "Leonardo Acha Boiano",
+    "mechatronics engineer",
+    "robotics engineer",
+    "embedded systems",
+    "hardware software integration",
+    "robotics software",
+    "engineering portfolio",
+  ],
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description,
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
 };
 
 export default function RootLayout({
@@ -37,6 +82,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-screen flex-col bg-surface-0 text-ink-1 antialiased">
+        <PersonSchema />
         <Providers>
           <Navbar />
           <main className="flex-1">{children}</main>
