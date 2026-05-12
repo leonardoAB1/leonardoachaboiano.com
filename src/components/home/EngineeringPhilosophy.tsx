@@ -7,7 +7,7 @@ import { Heading, Text } from "@/components/ui/Typography";
 
 export function EngineeringPhilosophy(): ReactElement {
   return (
-    <Section className="border-t border-border-subtle bg-surface-1/50 dark:bg-surface-1/30">
+    <Section className="border-y border-border-subtle bg-surface-brand/40 dark:bg-surface-brand/35">
       <Container>
         <AnimatedSection className="flex flex-col gap-8">
           <Heading as="h2" size="md">
