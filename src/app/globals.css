@@ -79,3 +79,43 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+@layer utilities {
+  .home-background-wash {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(207, 234, 217, 0.42),
+        rgba(255, 255, 255, 0) 38rem
+      ),
+      radial-gradient(
+        circle at 18% 6%,
+        rgba(2, 119, 124, 0.14),
+        transparent 30rem
+      ),
+      radial-gradient(
+        circle at 82% 12%,
+        rgba(207, 234, 217, 0.55),
+        transparent 28rem
+      );
+  }
+
+  .dark .home-background-wash {
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(13, 35, 24, 0.68),
+        rgba(10, 10, 10, 0.18) 42rem
+      ),
+      radial-gradient(
+        circle at 18% 6%,
+        rgba(2, 119, 124, 0.34),
+        transparent 32rem
+      ),
+      radial-gradient(
+        circle at 80% 10%,
+        rgba(13, 35, 24, 0.78),
+        transparent 30rem
+      );
+  }
+}
