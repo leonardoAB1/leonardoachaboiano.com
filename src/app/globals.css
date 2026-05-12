@@ -83,39 +83,31 @@ body {
 @layer utilities {
   .home-background-wash {
     background-image:
-      linear-gradient(
-        180deg,
-        rgba(207, 234, 217, 0.42),
-        rgba(255, 255, 255, 0) 38rem
+      radial-gradient(
+        ellipse at 50% 12rem,
+        rgba(207, 234, 217, 0.5),
+        rgba(207, 234, 217, 0.16) 24rem,
+        transparent 48rem
       ),
       radial-gradient(
-        circle at 18% 6%,
-        rgba(2, 119, 124, 0.14),
+        circle at 50% 16rem,
+        rgba(2, 119, 124, 0.16),
         transparent 30rem
-      ),
-      radial-gradient(
-        circle at 82% 12%,
-        rgba(207, 234, 217, 0.55),
-        transparent 28rem
       );
   }
 
   .dark .home-background-wash {
     background-image:
-      linear-gradient(
-        180deg,
-        rgba(13, 35, 24, 0.68),
-        rgba(10, 10, 10, 0.18) 42rem
+      radial-gradient(
+        ellipse at 50% 12rem,
+        rgba(13, 35, 24, 0.85),
+        rgba(13, 35, 24, 0.38) 26rem,
+        transparent 52rem
       ),
       radial-gradient(
-        circle at 18% 6%,
-        rgba(2, 119, 124, 0.34),
-        transparent 32rem
-      ),
-      radial-gradient(
-        circle at 80% 10%,
-        rgba(13, 35, 24, 0.78),
-        transparent 30rem
+        circle at 50% 16rem,
+        rgba(2, 119, 124, 0.32),
+        transparent 34rem
       );
   }
 }
