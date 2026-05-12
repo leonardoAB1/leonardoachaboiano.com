@@ -15,14 +15,18 @@ export function EngineeringPhilosophy(): ReactElement {
           </Heading>
           <div className="flex max-w-2xl flex-col gap-6">
             <Text className="text-ink-2" size="md">
-              Good engineering is integration under constraint:
-              electromechanical systems only matter when software, hardware, and
-              process stay aligned through validation, revision, and handover.
+              There are several proper ways to solve any engineering problem. A
+              proper solution is one considered from every relevant point of
+              view: in accordance with established standards, procedures, and
+              the specifications of the project. The engineer&apos;s role,
+              unlike the scientist&apos;s, is to identify and deliver that
+              solution.
             </Text>
             <Text className="text-ink-2" size="md">
-              I default to explicit interfaces, measurable requirements, and
-              builds that teammates can operate without heroics. The goal is
-              reliability in the field, not novelty in the deck.
+              Proper means technically sound, but also manufacturable, safe,
+              maintainable, and reproducible. Standards and procedures are not
+              bureaucracy: they are accumulated knowledge about how solutions
+              fail in the real world. Meeting them is the work.
             </Text>
           </div>
           <Separator className="max-w-2xl" />
