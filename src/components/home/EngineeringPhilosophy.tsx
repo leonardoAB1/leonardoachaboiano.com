@@ -35,9 +35,8 @@ export function EngineeringPhilosophy(): ReactElement {
           <p className="max-w-2xl text-sm italic text-ink-3">
             &ldquo;Proper&rdquo; is one of my favorite words in English. Every
             time I face a new challenge, I find myself asking the same question:
-            what are the{" "}
-            <span className="font-medium text-brand">proper</span> ways to
-            approach this?
+            what are the <span className="font-medium text-brand">proper</span>{" "}
+            ways to approach this?
           </p>
           <Separator className="max-w-2xl" />
         </AnimatedSection>
