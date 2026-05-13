@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.2.0...v0.3.0) (2026-05-13)
+
+
+### Features
+
+* add home hero, philosophy, and technical domains ([#66](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/66)) ([74bf2f9](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/74bf2f99c3a38a301d7024a012755ba8c8fa3ef6))
+* add SEO foundation - sitemap, robots, metadata, JSON-LD ([#68](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/68)) ([3a4e214](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/3a4e214f880977521da3f3eb58f85bdabae3756e))
+
 ## [0.2.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.1.0...v0.2.0) (2026-05-11)
 
 
