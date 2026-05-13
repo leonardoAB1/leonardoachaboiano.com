@@ -12,7 +12,7 @@ export function Hero(): ReactElement {
       <Container className="flex flex-col gap-8">
         <Eyebrow>Mechatronics engineer</Eyebrow>
         <Heading as="h1" className="max-w-4xl" size="xl">
-          Systems that bridge software, hardware, and manufacturing.
+          Proud generalist
         </Heading>
         <Text className="max-w-2xl text-ink-2" size="lg">
           I work across embedded systems, robotics integration, and design for
