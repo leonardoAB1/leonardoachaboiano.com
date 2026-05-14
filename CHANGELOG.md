@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.1...v0.4.2) (2026-05-14)
+
+
+### Bug Fixes
+
+* social sharing preview - add og:image, web manifest, and solid favicon background ([#81](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/81)) ([692e458](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/692e458580f1f56705b865c72c260c95fa144cdf))
+
 ## [0.4.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.0...v0.4.1) (2026-05-14)
 
 
