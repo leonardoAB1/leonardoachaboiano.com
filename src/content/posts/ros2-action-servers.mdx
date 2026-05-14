@@ -1,0 +1,55 @@
+---
+title: Getting Started with ROS2 Action Servers
+description: Building concurrent robotic behaviors with the ROS2 action server pattern - from theory to working code
+publishedAt: "2025-04-10"
+tags:
+  - ros2
+  - robotics
+  - embedded
+draft: false
+---
+
+## What Are Action Servers?
+
+ROS2 action servers provide a pattern for long-running tasks that need feedback during execution and can be cancelled. Unlike services (request/response) or topics (fire-and-forget), actions are ideal for robot motions, navigation goals, and any task where progress monitoring matters.
+
+## A Minimal Action Server
+
+Here's a minimal action server in Python that counts to a goal value:
+
+```python
+import rclpy
+from rclpy.action import ActionServer
+from rclpy.node import Node
+from example_interfaces.action import Fibonacci
+
+class CounterActionServer(Node):
+    def __init__(self):
+        super().__init__("counter_action_server")
+        self._action_server = ActionServer(
+            self,
+            Fibonacci,
+            "counter",
+            self.execute_callback,
+        )
+
+    async def execute_callback(self, goal_handle):
+        self.get_logger().info("Executing goal...")
+        feedback_msg = Fibonacci.Feedback()
+        for i in range(goal_handle.request.order):
+            feedback_msg.partial_sequence = [i]
+            goal_handle.publish_feedback(feedback_msg)
+            await asyncio.sleep(1.0)
+        goal_handle.succeed()
+        result = Fibonacci.Result()
+        result.sequence = list(range(goal_handle.request.order))
+        return result
+```
+
+## Concurrent Goals
+
+The key challenge with action servers is handling concurrent goals. ROS2 provides goal policies that control whether new goals preempt existing ones or run in parallel. For a robotic arm, you typically want to abort the current motion when a new goal arrives.
+
+## Lessons from Production
+
+After wiring action servers to real hardware at cryoWrite AG, the most important lesson was: always implement goal cancellation. Hardware can behave unpredictably, and the ability to cleanly abort an ongoing motion is essential for safe operation.
