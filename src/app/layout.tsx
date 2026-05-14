@@ -17,18 +17,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const description =
-  "Leonardo Acha Boiano is a mechatronics engineer " +
-  "specializing in embedded systems, hardware-software integration, " +
-  "and robotics. Explore his engineering portfolio, projects, " +
-  "and technical writing.";
-
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
+    default: siteConfig.siteTitle,
     template: `%s - ${siteConfig.name}`,
   },
-  description,
+  description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
   keywords: [
     "Leonardo Acha Boiano",
@@ -45,14 +39,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
-    title: siteConfig.name,
-    description,
+    title: siteConfig.siteTitle,
+    description: siteConfig.description,
     siteName: siteConfig.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description,
+    title: siteConfig.siteTitle,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
