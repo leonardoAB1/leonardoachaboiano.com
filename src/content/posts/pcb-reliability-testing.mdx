@@ -1,0 +1,40 @@
+---
+title: PCB Design for Reliability Testing
+description: Designing test PCBs that minimize measurement artifacts and improve repeatability for photonic component characterization
+publishedAt: "2025-03-22"
+tags:
+  - pcb
+  - hardware
+  - testing
+draft: false
+---
+
+## The Problem with Contact Resistance
+
+When testing photonic components at Lumiphase AG, one of the biggest sources of measurement noise was contact resistance variation between test runs. The component's forward voltage would shift by tens of millivolts purely because the contact interface was inconsistent.
+
+## Design Principles for Test PCBs
+
+**1. Mechanical repeatability first**
+
+The PCB should constrain the component in X, Y, and Z with minimal tolerance stack-up. I used spring-loaded contacts (pogo pins) with a machined alignment guide to ensure repeatable contact force and position.
+
+**2. Separate force and sense lines**
+
+Four-wire (Kelvin) measurement eliminates the contact resistance from the measurement path. Run separate traces for current injection and voltage sensing, and bring them as close to the device-under-test as possible.
+
+**3. Guard rings for leakage current**
+
+At the low currents involved in photonic testing (sub-microamp), PCB surface leakage becomes significant. Guard rings connected to a buffer amp output reduce leakage current by orders of magnitude.
+
+## Math: Uncertainty Budget
+
+The total measurement uncertainty $u_{total}$ combines contributions from:
+
+$$u_{total} = \sqrt{u_{contact}^2 + u_{instrument}^2 + u_{thermal}^2}$$
+
+Minimizing $u_{contact}$ through mechanical design was the highest-leverage improvement available.
+
+## Key Takeaway
+
+Test fixture design is a first-class engineering discipline. The quality of your measurements is bounded by the quality of your fixtures.
