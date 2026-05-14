@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
 import { PersonSchema } from "@/components/shared/PersonSchema";
 import { siteConfig } from "@/lib/constants";
+import "@/styles/katex.css";
 import "./globals.css";
 
 const geistSans = Geist({
