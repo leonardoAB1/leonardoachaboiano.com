@@ -1,0 +1,36 @@
+---
+title: PCB Reliability Test Platform
+description: Automated measurement platform for photonic component characterization with custom test PCBs
+status: completed
+technologies:
+  - STM32
+  - Python
+  - KiCad
+  - SCPI
+  - NumPy
+tags:
+  - pcb
+  - hardware
+  - testing
+githubUrl: https://github.com/leonardoAB1
+featured: false
+publishedAt: "2025-01-01"
+---
+
+## Overview
+
+Developed a reliability testing platform at Lumiphase AG for characterizing photonic components under accelerated stress conditions. The project encompassed instrument selection, integration, coding measurement routines, and designing custom PCBs for sample fixation.
+
+## Architecture
+
+Python scripts orchestrate SCPI-controlled instruments (source meters, temperature chambers) via GPIB and USB. Custom KiCad PCBs provide mechanical fixation and electrical routing for the photonic samples under test.
+
+## Challenges
+
+- Minimizing contact resistance variation between test runs
+- Ensuring thermal uniformity across the sample area
+- Calibrating measurement routines against known reference standards
+
+## Lessons Learned
+
+Instrument automation with SCPI over GPIB is powerful but brittle - building retry logic and state validation into measurement scripts prevents silent data corruption.
