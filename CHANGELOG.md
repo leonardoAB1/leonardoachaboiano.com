@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.3.1...v0.4.0) (2026-05-14)
+
+
+### Features
+
+* add staggered scroll-entry and hover animations ([#77](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/77)) ([2ac589c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/2ac589c440428e71e3004cc3cf191d53db4ee696))
+
 ## [0.3.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.3.0...v0.3.1) (2026-05-14)
 
 
