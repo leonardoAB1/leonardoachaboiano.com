@@ -18,24 +18,23 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Leonardo Acha Boiano is a mechatronics and robotics engineer " +
-  "specializing in embedded systems, hardware-software integration, " +
-  "and robotics software. Explore his engineering portfolio, projects, " +
-  "and technical writing.";
+  "Engineering portfolio of Leonardo Acha Boiano - robotics engineer " +
+  "specializing in embedded systems, ROS2, and hardware-software integration.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: "Leonardo Acha Boiano - Mechatronics Engineer",
+    template: `%s | ${siteConfig.name}`,
   },
   description,
-  metadataBase: new URL(siteConfig.url),
   keywords: [
     "Leonardo Acha Boiano",
     "mechatronics engineer",
     "robotics engineer",
     "embedded systems",
     "hardware software integration",
+    "ROS2",
     "robotics software",
     "engineering portfolio",
   ],
@@ -45,14 +44,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
-    title: siteConfig.name,
-    description,
     siteName: siteConfig.name,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   robots: {
     index: true,
