@@ -1,6 +1,6 @@
 import sharp from "sharp";
 
-const HEAD_SCALE = 0.73;
+const HEAD_SCALE = 0.85;
 
 async function generate(inputPath, outputPath, outputSize) {
   // Sample the background color from a corner pixel
