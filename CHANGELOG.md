@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.2...v0.4.3) (2026-05-14)
+
+
+### Bug Fixes
+
+* social metadata - title length, description length, og image CTA ([#93](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/93)) ([24258a6](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/24258a60da83c52fe58f13075dd3c90447bd030b))
+
 ## [0.4.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.1...v0.4.2) (2026-05-14)
 
 
