@@ -1,6 +1,6 @@
 import sharp from "sharp";
 
-const HEAD_SCALE = 0.65;
+const HEAD_SCALE = 0.73;
 
 async function generate(inputPath, outputPath, outputSize) {
   // Sample the background color from a corner pixel
@@ -16,8 +16,12 @@ async function generate(inputPath, outputPath, outputSize) {
   const scaledSize = Math.round(outputSize * HEAD_SCALE);
   const offset = Math.round((outputSize - scaledSize) / 2);
 
+  // Radius -1 keeps the anti-aliased edge pixel inside the canvas so it
+  // blends against the green fill rather than producing a white halo.
   const circlesvg = Buffer.from(
-    `<svg><circle cx="${outputSize / 2}" cy="${outputSize / 2}" r="${outputSize / 2}" /></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${outputSize}" height="${outputSize}">` +
+    `<circle cx="${outputSize / 2}" cy="${outputSize / 2}" r="${outputSize / 2 - 1}" fill="white"/>` +
+    `</svg>`,
   );
 
   const scaledAvatar = await sharp(inputPath)
