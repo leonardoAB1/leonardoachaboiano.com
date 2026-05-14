@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.3...v0.4.4) (2026-05-14)
+
+
+### Bug Fixes
+
+* update site description and centralize siteConfig ([#95](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/95)) ([7f5c437](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/7f5c437f69ab870570e7bf4cffed8f8c86565d50))
+* update site description from cv, centralize keywords/locale/ogImage in siteConfig ([7f5c437](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/7f5c437f69ab870570e7bf4cffed8f8c86565d50))
+
 ## [0.4.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.2...v0.4.3) (2026-05-14)
 
 
