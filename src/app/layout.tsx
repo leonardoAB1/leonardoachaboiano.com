@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Leonardo Acha Boiano is a mechatronics and robotics engineer " +
+  "Leonardo Acha Boiano is a mechatronics engineer " +
   "specializing in embedded systems, hardware-software integration, " +
-  "and robotics software. Explore his engineering portfolio, projects, " +
+  "and robotics. Explore his engineering portfolio, projects, " +
   "and technical writing.";
 
 export const metadata: Metadata = {
