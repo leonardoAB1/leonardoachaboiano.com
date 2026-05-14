@@ -1,4 +1,4 @@
-// One-off script: adds a solid #02777C background to icon.png and apple-icon.png
+// One-off script: adds a solid #62d39e background to icon.png and apple-icon.png
 // so they display correctly in square contexts (WhatsApp, Windows tiles, etc.)
 // Run with: node scripts/fix-icon-bg.mjs
 import sharp from "sharp";
@@ -22,14 +22,14 @@ async function addSolidBackground(inputPath, outputPath, width, height, color) {
   console.log(`Updated: ${outputPath} (${width}x${height})`);
 }
 
-const teal = { r: 2, g: 119, b: 124 }; // #02777C
+const surfaceBrand = { r: 98, g: 211, b: 158 }; // #62d39e — matches the illustration circle
 
 await addSolidBackground(
   "src/app/icon.png",
   "src/app/icon.png",
   512,
   512,
-  teal
+  surfaceBrand
 );
 
 await addSolidBackground(
@@ -37,5 +37,5 @@ await addSolidBackground(
   "src/app/apple-icon.png",
   180,
   180,
-  teal
+  surfaceBrand
 );
