@@ -16,7 +16,11 @@ const container: Variants = {
 
 const item: Variants = {
   hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export function Hero(): ReactElement {
@@ -39,8 +43,9 @@ export function Hero(): ReactElement {
           </motion.div>
           <motion.div variants={item}>
             <Text className="max-w-2xl text-ink-2" size="lg">
-              I work across embedded systems, robotics integration, and design for
-              manufacturing, from prototypes to production-ready installations.
+              I work across embedded systems, robotics integration, and design
+              for manufacturing, from prototypes to production-ready
+              installations.
             </Text>
           </motion.div>
           <motion.div

@@ -42,7 +42,11 @@ const domains: TechnicalDomain[] = [
 
 const headingVariant: Variants = {
   hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const gridContainer: Variants = {
@@ -52,7 +56,11 @@ const gridContainer: Variants = {
 
 const cardItem: Variants = {
   hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const viewport = { margin: "-80px", once: true } as const;
@@ -83,11 +91,12 @@ export function TechnicalDomains(): ReactElement {
               <motion.li
                 key={domain.title}
                 variants={cardItem}
-                whileHover={{ y: -4, transition: { duration: 0.2, ease: "easeOut" } }}
+                whileHover={{
+                  y: -4,
+                  transition: { duration: 0.2, ease: "easeOut" },
+                }}
               >
-                <Card
-                  className="h-full shadow-none hover:border-brand/20 hover:shadow-sm dark:shadow-none"
-                >
+                <Card className="h-full shadow-none hover:border-brand/20 hover:shadow-sm dark:shadow-none">
                   <CardHeader>
                     <CardTitle>{domain.title}</CardTitle>
                     <CardDescription>{domain.description}</CardDescription>
