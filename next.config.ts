@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
     ],
   },
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 export default withMDX(nextConfig);
