@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.0...v0.4.1) (2026-05-14)
+
+
+### Bug Fixes
+
+* remove favicon.ico and use icon.png for circular favicon support ([#79](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/79)) ([5dc3238](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/5dc323800ef6d8402d145c7060261994987d3c2d))
+* remove favicon.ico so icon.png serves as circular favicon via link tag ([5dc3238](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/5dc323800ef6d8402d145c7060261994987d3c2d))
+
 ## [0.4.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.3.1...v0.4.0) (2026-05-14)
 
 
