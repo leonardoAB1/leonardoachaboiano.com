@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/constants";
 
 export const runtime = "edge";
-export const alt = `${siteConfig.name} - ${siteConfig.title}`;
+export const alt = `${siteConfig.name} - Mechatronics Engineer`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -34,17 +34,6 @@ export default function Image() {
         >
           <div
             style={{
-              fontSize: 18,
-              color: "#02777C",
-              letterSpacing: 5,
-              textTransform: "uppercase",
-              marginBottom: 28,
-            }}
-          >
-            Engineering Portfolio
-          </div>
-          <div
-            style={{
               fontSize: 76,
               color: "#f0f0f0",
               fontWeight: 700,
@@ -62,7 +51,7 @@ export default function Image() {
               marginBottom: 56,
             }}
           >
-            Mechatronics &amp; Robotics Engineer
+            Mechatronics Engineer
           </div>
           <div
             style={{
