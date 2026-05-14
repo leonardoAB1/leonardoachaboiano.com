@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/constants";
 
 export const runtime = "edge";
-export const alt = `${siteConfig.name} - Mechatronics Engineer`;
+export const alt = `${siteConfig.name} - ${siteConfig.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -41,7 +41,7 @@ export default function Image() {
               marginBottom: 20,
             }}
           >
-            Leonardo Acha Boiano
+            {siteConfig.name}
           </div>
           <div
             style={{
@@ -51,7 +51,7 @@ export default function Image() {
               marginBottom: 56,
             }}
           >
-            Mechatronics Engineer
+            {siteConfig.title}
           </div>
           <div
             style={{
@@ -60,7 +60,7 @@ export default function Image() {
               letterSpacing: 1,
             }}
           >
-            leonardoachaboiano.com
+            {siteConfig.url.replace("https://", "")}
           </div>
         </div>
       </div>
