@@ -8,10 +8,21 @@ export const siteConfig = {
   title: _title,
   siteTitle: `${_name} - ${_title} & Portfolio`,
   description:
-    "Mechatronics engineer specializing in embedded systems, robotics, " +
-    "and hardware-software integration. Portfolio, projects, and technical writing.",
+    "Mechatronics engineer with experience in robotics, embedded systems, and product design. " +
+    "Engineering portfolio, projects, and technical writing.",
   url: siteUrl,
   email: "leonardoacha@hotmail.com",
+  locale: "en_US",
+  ogImage: "/icon.png",
+  keywords: [
+    "Leonardo Acha Boiano",
+    "mechatronics engineer",
+    "robotics engineer",
+    "embedded systems",
+    "product design",
+    "hardware software integration",
+    "engineering portfolio",
+  ],
 } as const;
 
 export const navLinks = [
