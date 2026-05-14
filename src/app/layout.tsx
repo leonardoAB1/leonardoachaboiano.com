@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     title: siteConfig.siteTitle,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [{ url: "/icon.png", width: 512, height: 512, alt: siteConfig.name }],
   },
   twitter: {
     card: "summary_large_image",
