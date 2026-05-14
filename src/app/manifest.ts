@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Leonardo Acha Boiano",
     short_name: "LAB",
     description:
-      "Engineering portfolio of Leonardo Acha Boiano, mechatronics and robotics engineer.",
+      "Engineering portfolio of Leonardo Acha Boiano, mechatronics engineer.",
     start_url: "/",
     display: "standalone",
     background_color: "#0c1a1a",
