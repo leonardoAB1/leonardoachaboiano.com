@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { EngineeringPhilosophy } from "@/components/home/EngineeringPhilosophy";
 import { Hero } from "@/components/home/Hero";
 import { TechnicalDomains } from "@/components/home/TechnicalDomains";
 import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Engineering portfolio of Leonardo Acha Boiano - mechatronics engineer specializing in robotics, embedded systems, and hardware-software integration.",
+};
 
 const backgroundWashClasses = cn(
   "pointer-events-none absolute inset-0 -z-10",
