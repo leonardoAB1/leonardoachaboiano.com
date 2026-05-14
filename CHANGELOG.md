@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.3.0...v0.3.1) (2026-05-14)
+
+
+### Bug Fixes
+
+* update release auto-merge author check from bot to PAT user ([#74](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/74)) ([37aab81](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/37aab81764169652f5a8d2afbcaba701ec0a4ba5))
+* use PAT in auto-merge workflow so release-please triggers after merge ([#70](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/70)) ([bc0ae42](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/bc0ae42426ecb4c0e118baa9b0537b68bdc4c63b))
+
 ## [0.3.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.2.0...v0.3.0) (2026-05-13)
 
 
