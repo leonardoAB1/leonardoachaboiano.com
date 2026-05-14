@@ -61,6 +61,17 @@ export default function Image() {
         >
           {siteConfig.url.replace("https://", "")}
         </div>
+        <div
+          style={{
+            fontSize: 18,
+            color: "#02777C",
+            fontWeight: 600,
+            marginTop: 40,
+            letterSpacing: 0.5,
+          }}
+        >
+          View portfolio →
+        </div>
       </div>
     </div>,
     { ...size },

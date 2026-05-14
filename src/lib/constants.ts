@@ -1,9 +1,15 @@
 export const siteUrl = "https://leonardoachaboiano.com";
 
+const _name = "Leonardo Acha Boiano";
+const _title = "Mechatronics Engineer";
+
 export const siteConfig = {
-  name: "Leonardo Acha Boiano",
-  title: "Mechatronics Engineer",
-  description: "Engineering portfolio of Leonardo Acha Boiano.",
+  name: _name,
+  title: _title,
+  siteTitle: `${_name} - ${_title} & Portfolio`,
+  description:
+    "Mechatronics engineer specializing in embedded systems, robotics, " +
+    "and hardware-software integration. Portfolio, projects, and technical writing.",
   url: siteUrl,
   email: "leonardoacha@hotmail.com",
 } as const;
