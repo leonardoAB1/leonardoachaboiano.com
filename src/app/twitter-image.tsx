@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/constants";
 
 export const runtime = "nodejs";
 export const alt = `${siteConfig.name} - ${siteConfig.title}`;
-export const size = { width: 1200, height: 630 };
+export const size = { width: 1200, height: 675 };
 export const contentType = "image/png";
 
 export default function Image() {
@@ -53,7 +53,7 @@ export default function Image() {
               fontSize: 30,
               color: "#02777C",
               fontWeight: 400,
-              marginBottom: 44,
+              marginBottom: 48,
             }}
           >
             {siteConfig.title}
@@ -63,7 +63,7 @@ export default function Image() {
               width: 64,
               height: 2,
               background: "#02777C",
-              marginBottom: 44,
+              marginBottom: 48,
             }}
           />
           <div
@@ -102,8 +102,8 @@ export default function Image() {
           {/* Outer div acts as teal ring */}
           <div
             style={{
-              width: 292,
-              height: 292,
+              width: 300,
+              height: 300,
               borderRadius: "50%",
               background: "#02777C",
               padding: 4,
