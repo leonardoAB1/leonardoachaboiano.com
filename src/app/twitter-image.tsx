@@ -34,13 +34,13 @@ export default async function Image() {
           fontFamily: "Space Grotesk",
         }}
       >
-        {/* Portrait bleeds off the right edge, full card height */}
+        {/* Portrait — starts at x=700, bleeds off right edge */}
         <div
           style={{
             position: "absolute",
             right: 0,
             top: 0,
-            width: 640,
+            width: 500,
             height: "100%",
             overflow: "hidden",
             display: "flex",
@@ -57,27 +57,27 @@ export default async function Image() {
           />
         </div>
 
-        {/* Dark-to-transparent gradient covers the left portion of the portrait */}
+        {/* Gradient: solid dark until x=640, then fades to transparent by x=800 */}
         <div
           style={{
             position: "absolute",
             left: 0,
             top: 0,
-            width: 820,
+            width: 800,
             height: "100%",
             background:
-              "linear-gradient(90deg, #0c1a1a 52%, rgba(12,26,26,0) 100%)",
+              "linear-gradient(90deg, #0c1a1a 80%, rgba(12,26,26,0) 100%)",
             display: "flex",
           }}
         />
 
-        {/* Text — floats over the gradient */}
+        {/* Text — stays within the solid dark zone (ends ~x=598, solid until x=640) */}
         <div
           style={{
             position: "absolute",
             left: 0,
             top: 0,
-            width: 680,
+            width: 640,
             height: "100%",
             display: "flex",
             flexDirection: "column",
