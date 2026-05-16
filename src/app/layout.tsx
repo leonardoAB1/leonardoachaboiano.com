@@ -17,7 +17,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.siteTitle,
@@ -35,7 +34,14 @@ export const metadata: Metadata = {
     title: siteConfig.siteTitle,
     description: siteConfig.description,
     siteName: siteConfig.name,
-    images: [{ url: siteConfig.ogImage, width: 512, height: 512, alt: siteConfig.name }],
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 512,
+        height: 512,
+        alt: siteConfig.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

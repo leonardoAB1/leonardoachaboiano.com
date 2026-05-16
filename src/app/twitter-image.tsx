@@ -1,6 +1,6 @@
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { ImageResponse } from "next/og";
-import path from "path";
 import { siteConfig } from "@/lib/constants";
 
 export const runtime = "nodejs";
@@ -47,8 +47,10 @@ export default async function Image() {
           display: "flex",
         }}
       >
+        {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
         <img
           src={portraitSrc}
+          alt=""
           style={{
             width: "100%",
             height: "100%",
