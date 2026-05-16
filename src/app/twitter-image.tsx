@@ -34,13 +34,13 @@ export default async function Image() {
           fontFamily: "Space Grotesk",
         }}
       >
-        {/* Portrait — starts at x=700, bleeds off right edge */}
+        {/* Portrait — starts at x=580, bleeds off right edge */}
         <div
           style={{
             position: "absolute",
             right: 0,
             top: 0,
-            width: 500,
+            width: 620,
             height: "100%",
             overflow: "hidden",
             display: "flex",
@@ -57,7 +57,7 @@ export default async function Image() {
           />
         </div>
 
-        {/* Gradient: solid dark until x=640, then fades to transparent by x=800 */}
+        {/* Gradient: solid until ~x=480, then fades to transparent by x=800 */}
         <div
           style={{
             position: "absolute",
@@ -66,28 +66,28 @@ export default async function Image() {
             width: 800,
             height: "100%",
             background:
-              "linear-gradient(90deg, #0c1a1a 80%, rgba(12,26,26,0) 100%)",
+              "linear-gradient(90deg, #0c1a1a 60%, rgba(12,26,26,0) 100%)",
             display: "flex",
           }}
         />
 
-        {/* Text — stays within the solid dark zone (ends ~x=598, solid until x=640) */}
+        {/* Text — 80px padding both sides → 520px text zone, name at 44px ends ~x=524 */}
         <div
           style={{
             position: "absolute",
             left: 0,
             top: 0,
-            width: 640,
+            width: 680,
             height: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            padding: "0 0 0 80px",
+            padding: "0 80px",
           }}
         >
           <div
             style={{
-              fontSize: 50,
+              fontSize: 44,
               color: "#f0f0f0",
               fontWeight: 700,
               lineHeight: 1.05,
