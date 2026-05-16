@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/constants";
 
 export const runtime = "nodejs";
 export const alt = `${siteConfig.name} - ${siteConfig.title}`;
-export const size = { width: 1200, height: 675 };
+export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const FONT_BOLD =
@@ -106,7 +106,7 @@ export default async function Image() {
             color: "#02777C",
             fontWeight: 400,
             letterSpacing: 5,
-            marginBottom: 48,
+            marginBottom: 44,
           }}
         >
           MECHATRONICS ENGINEER
@@ -116,7 +116,7 @@ export default async function Image() {
           style={{
             display: "flex",
             flexDirection: "column",
-            marginBottom: 60,
+            marginBottom: 56,
           }}
         >
           <div
