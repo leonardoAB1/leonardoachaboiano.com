@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.4...v0.4.5) (2026-05-16)
+
+
+### Bug Fixes
+
+* platform-specific og images with portrait photo and correct dimensions ([#97](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/97)) ([fa0da27](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/fa0da272b6fbefb963b9eb86d490ec29bc8fe0d0))
+
 ## [0.4.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.3...v0.4.4) (2026-05-14)
 
 
