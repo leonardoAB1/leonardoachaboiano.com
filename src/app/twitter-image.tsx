@@ -8,15 +8,15 @@ export const alt = `${siteConfig.name} - ${siteConfig.title}`;
 export const size = { width: 1200, height: 675 };
 export const contentType = "image/png";
 
-const FONT_URL_BOLD =
+const FONT_BOLD =
   "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVnskPMU.ttf";
-const FONT_URL_REGULAR =
+const FONT_REGULAR =
   "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMU.ttf";
 
 export default async function Image() {
   const [fontBold, fontRegular] = await Promise.all([
-    fetch(FONT_URL_BOLD).then((r) => r.arrayBuffer()),
-    fetch(FONT_URL_REGULAR).then((r) => r.arrayBuffer()),
+    fetch(FONT_BOLD).then((r) => r.arrayBuffer()),
+    fetch(FONT_REGULAR).then((r) => r.arrayBuffer()),
   ]);
 
   const portraitBuffer = readFileSync(path.join(process.cwd(), "public/portrait.jpg"));
@@ -26,22 +26,24 @@ export default async function Image() {
     (
       <div
         style={{
+          position: "relative",
           width: "100%",
           height: "100%",
-          display: "flex",
-          flexDirection: "row",
           background: "#0c1a1a",
+          display: "flex",
           fontFamily: "Space Grotesk",
         }}
       >
-        {/* Portrait — fills full card height */}
+        {/* Portrait bleeds off the right edge, full card height */}
         <div
           style={{
-            width: 480,
+            position: "absolute",
+            right: 0,
+            top: 0,
+            width: 640,
             height: "100%",
-            flexShrink: 0,
-            display: "flex",
             overflow: "hidden",
+            display: "flex",
           }}
         >
           <img
@@ -55,34 +57,49 @@ export default async function Image() {
           />
         </div>
 
-        {/* Text panel */}
+        {/* Dark-to-transparent gradient covers the left portion of the portrait */}
         <div
           style={{
-            flex: 1,
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: 820,
+            height: "100%",
+            background:
+              "linear-gradient(90deg, #0c1a1a 52%, rgba(12,26,26,0) 100%)",
+            display: "flex",
+          }}
+        />
+
+        {/* Text — floats over the gradient */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: 680,
+            height: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            padding: "0 72px",
-            gap: 0,
+            padding: "0 80px",
           }}
         >
-          {/* Name */}
           <div
             style={{
-              fontSize: 68,
+              fontSize: 50,
               color: "#f0f0f0",
               fontWeight: 700,
-              lineHeight: 1.0,
-              marginBottom: 20,
+              lineHeight: 1.05,
+              marginBottom: 18,
             }}
           >
-            Leonardo Acha Boiano
+            {siteConfig.name}
           </div>
 
-          {/* Title */}
           <div
             style={{
-              fontSize: 16,
+              fontSize: 13,
               color: "#02777C",
               fontWeight: 400,
               letterSpacing: 5,
@@ -92,26 +109,28 @@ export default async function Image() {
             MECHATRONICS ENGINEER
           </div>
 
-          {/* Tagline — two lines, each div has one child (Satori constraint) */}
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-              marginBottom: 56,
+              marginBottom: 60,
             }}
           >
-            <div style={{ fontSize: 23, color: "#7ab8bb", fontWeight: 400, lineHeight: 1.6 }}>
+            <div
+              style={{ fontSize: 22, color: "#7ab8bb", fontWeight: 400, lineHeight: 1.6 }}
+            >
               I build the robots.
             </div>
-            <div style={{ fontSize: 23, color: "#7ab8bb", fontWeight: 400, lineHeight: 1.6 }}>
+            <div
+              style={{ fontSize: 22, color: "#7ab8bb", fontWeight: 400, lineHeight: 1.6 }}
+            >
               I&apos;m not one.
             </div>
           </div>
 
-          {/* Domain */}
           <div
             style={{
-              fontSize: 14,
+              fontSize: 13,
               color: "#3d6e70",
               fontWeight: 400,
               letterSpacing: 2,
