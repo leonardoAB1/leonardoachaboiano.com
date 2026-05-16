@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.4.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.3...v0.4.4) (2026-05-14)
+
+
+### Bug Fixes
+
+* update site description and centralize siteConfig ([#95](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/95)) ([7f5c437](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/7f5c437f69ab870570e7bf4cffed8f8c86565d50))
+* update site description from cv, centralize keywords/locale/ogImage in siteConfig ([7f5c437](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/7f5c437f69ab870570e7bf4cffed8f8c86565d50))
+
+## [0.4.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.2...v0.4.3) (2026-05-14)
+
+
+### Bug Fixes
+
+* social metadata - title length, description length, og image CTA ([#93](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/93)) ([24258a6](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/24258a60da83c52fe58f13075dd3c90447bd030b))
+
+## [0.4.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.1...v0.4.2) (2026-05-14)
+
+
+### Bug Fixes
+
+* social sharing preview - add og:image, web manifest, and solid favicon background ([#81](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/81)) ([692e458](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/692e458580f1f56705b865c72c260c95fa144cdf))
+
 ## [0.4.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.0...v0.4.1) (2026-05-14)
 
 
