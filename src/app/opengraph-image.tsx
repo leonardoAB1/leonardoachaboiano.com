@@ -8,7 +8,17 @@ export const alt = `${siteConfig.name} - ${siteConfig.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image() {
+const FONT_URL_BOLD =
+  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVnskPMU.ttf";
+const FONT_URL_REGULAR =
+  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMU.ttf";
+
+export default async function Image() {
+  const [fontBold, fontRegular] = await Promise.all([
+    fetch(FONT_URL_BOLD).then((r) => r.arrayBuffer()),
+    fetch(FONT_URL_REGULAR).then((r) => r.arrayBuffer()),
+  ]);
+
   const portraitBuffer = readFileSync(path.join(process.cwd(), "public/portrait.jpg"));
   const portraitSrc = `data:image/jpeg;base64,${portraitBuffer.toString("base64")}`;
 
@@ -21,9 +31,10 @@ export default function Image() {
           display: "flex",
           flexDirection: "row",
           background: "#0c1a1a",
+          fontFamily: "Space Grotesk",
         }}
       >
-        {/* Portrait — fills full card height, face centered */}
+        {/* Portrait — fills full card height */}
         <div
           style={{
             width: 460,
@@ -44,9 +55,6 @@ export default function Image() {
           />
         </div>
 
-        {/* Teal separator */}
-        <div style={{ width: 4, background: "#02777C", flexShrink: 0 }} />
-
         {/* Text panel */}
         <div
           style={{
@@ -55,61 +63,57 @@ export default function Image() {
             flexDirection: "column",
             justifyContent: "center",
             padding: "0 72px",
+            gap: 0,
           }}
         >
-          {/* Small accent line */}
-          <div
-            style={{
-              width: 48,
-              height: 3,
-              background: "#02777C",
-              marginBottom: 40,
-            }}
-          />
-
           {/* Name */}
           <div
             style={{
-              fontSize: 54,
+              fontSize: 68,
               color: "#f0f0f0",
               fontWeight: 700,
               lineHeight: 1.0,
-              marginBottom: 16,
+              marginBottom: 20,
             }}
           >
             Leonardo Acha Boiano
           </div>
 
-          {/* Title — spaced caps */}
+          {/* Title */}
           <div
             style={{
-              fontSize: 18,
+              fontSize: 16,
               color: "#02777C",
-              fontWeight: 500,
-              letterSpacing: 4,
-              marginBottom: 40,
+              fontWeight: 400,
+              letterSpacing: 5,
+              marginBottom: 44,
             }}
           >
             MECHATRONICS ENGINEER
           </div>
 
-          {/* Tagline */}
+          {/* Tagline — two lines, each div has one child (Satori constraint) */}
           <div
             style={{
-              fontSize: 22,
-              color: "#7ab8bb",
-              lineHeight: 1.5,
-              marginBottom: 56,
+              display: "flex",
+              flexDirection: "column",
+              marginBottom: 52,
             }}
           >
-            I build the robots. I&apos;m not one.
+            <div style={{ fontSize: 23, color: "#7ab8bb", fontWeight: 400, lineHeight: 1.6 }}>
+              I build the robots.
+            </div>
+            <div style={{ fontSize: 23, color: "#7ab8bb", fontWeight: 400, lineHeight: 1.6 }}>
+              I&apos;m not one.
+            </div>
           </div>
 
           {/* Domain */}
           <div
             style={{
-              fontSize: 15,
+              fontSize: 14,
               color: "#3d6e70",
+              fontWeight: 400,
               letterSpacing: 2,
             }}
           >
@@ -118,6 +122,12 @@ export default function Image() {
         </div>
       </div>
     ),
-    { ...size },
+    {
+      ...size,
+      fonts: [
+        { name: "Space Grotesk", data: fontBold, weight: 700, style: "normal" },
+        { name: "Space Grotesk", data: fontRegular, weight: 400, style: "normal" },
+      ],
+    },
   );
 }
