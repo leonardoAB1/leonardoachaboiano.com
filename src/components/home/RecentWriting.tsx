@@ -27,19 +27,19 @@ interface Post {
 
 const posts: Post[] = [
   {
-    date: "2025-04-10",
-    title: "Getting Started with ROS2 Action Servers",
+    date: "2025-04-08",
+    title: "SMD Hot Plate: From System Identification to PID Control",
     description:
-      "Building concurrent robotic behaviors with the ROS2 action server pattern",
-    tags: ["ROS2", "Robotics"],
+      "How I modeled the thermal dynamics of a DIY reflow hot plate in MATLAB and translated the controller to Arduino firmware",
+    tags: ["Control Systems", "Arduino", "MATLAB"],
     href: "/blog",
   },
   {
-    date: "2025-03-22",
-    title: "PCB Design for Reliability Testing",
+    date: "2025-02-14",
+    title: "Quadruped Kinematics: From MATLAB Workspace to 3D-Printed Legs",
     description:
-      "Lessons from designing measurement PCBs for photonic component characterization",
-    tags: ["PCB", "Hardware"],
+      "Walking through the inverse kinematics analysis and DFMA decisions that shaped the micro quadruped robot prototype",
+    tags: ["Robotics", "SolidWorks", "MATLAB"],
     href: "/blog",
   },
 ];
