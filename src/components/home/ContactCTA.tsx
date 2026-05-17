@@ -15,11 +15,10 @@ export function ContactCTA(): ReactElement {
           <div className="flex flex-col items-center gap-8 text-center">
             <div className="flex flex-col gap-4">
               <Heading as="h2" size="lg" className="mx-auto">
-                Let&apos;s build something meaningful.
+                Let&apos;s build something exciting.
               </Heading>
               <Text size="lg" className="mx-auto text-ink-2">
-                Open to robotics engineering roles, embedded systems projects,
-                and research collaborations.
+                Got an idea worth building? Let&apos;s talk.
               </Text>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
