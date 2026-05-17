@@ -10,7 +10,7 @@ export function Card({ className, ...props }: CardProps): ReactElement {
     <div
       className={cn(
         "rounded-2xl border border-border bg-surface-0 p-6 shadow-sm shadow-black/5",
-        "transition-colors duration-200 dark:shadow-black/20",
+        "transition-[colors,box-shadow] duration-200 dark:shadow-black/20",
         className,
       )}
       {...props}

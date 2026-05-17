@@ -79,3 +79,52 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+@layer utilities {
+  .home-background-wash {
+    background-image:
+      radial-gradient(
+        ellipse at 50% 12rem,
+        rgba(207, 234, 217, 0.5),
+        rgba(207, 234, 217, 0.16) 24rem,
+        transparent 48rem
+      ),
+      radial-gradient(
+        circle at 50% 16rem,
+        rgba(2, 119, 124, 0.16),
+        transparent 30rem
+      );
+  }
+
+  .dark .home-background-wash {
+    background-image:
+      radial-gradient(
+        ellipse at 50% 12rem,
+        rgba(13, 35, 24, 0.85),
+        rgba(13, 35, 24, 0.38) 26rem,
+        transparent 52rem
+      ),
+      radial-gradient(
+        circle at 50% 16rem,
+        rgba(2, 119, 124, 0.32),
+        transparent 34rem
+      );
+  }
+
+  .section-blend {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 5rem,
+      black calc(100% - 5rem),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 5rem,
+      black calc(100% - 5rem),
+      transparent
+    );
+  }
+}

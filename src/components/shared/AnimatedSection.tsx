@@ -1,14 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import type { ReactElement, ReactNode } from "react";
-import { cn } from "@/lib/utils";
 
 interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
   delay?: number;
 }
+
+const variants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0 },
+};
 
 export function AnimatedSection({
   children,
@@ -17,11 +21,12 @@ export function AnimatedSection({
 }: AnimatedSectionProps): ReactElement {
   return (
     <motion.div
-      className={cn(className)}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.45, ease: "easeOut", delay }}
+      className={className}
+      initial="hidden"
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay }}
+      variants={variants}
+      viewport={{ margin: "-80px", once: true }}
+      whileInView="show"
     >
       {children}
     </motion.div>

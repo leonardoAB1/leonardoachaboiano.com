@@ -1,5 +1,9 @@
 name: Verify
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
 on:
   push:
     branches: [main]
@@ -23,17 +27,23 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - uses: reviewdog/action-setup@v1
+        if: github.event_name == 'pull_request'
         with:
           reviewdog_version: latest
 
       - name: Lint and format (Biome)
+        if: github.event_name != 'pull_request'
+        run: pnpm exec biome check .
+
+      - name: Lint and format (Biome reviewdog)
+        if: github.event_name == 'pull_request'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -59,6 +69,11 @@ jobs:
           exit "$rd_exit"
 
       - name: Type check (tsc)
+        if: github.event_name != 'pull_request'
+        run: pnpm typecheck
+
+      - name: Type check (tsc reviewdog)
+        if: github.event_name == 'pull_request'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -73,11 +88,15 @@ jobs:
           tsc_exit="${pipe_status[0]:-0}"
           rd_exit="${pipe_status[1]:-0}"
           set -e
-          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit} (step fails only on reviewdog after filter)"
-          if [ "$tsc_exit" -ne 0 ]; then
-            echo "::notice::pnpm typecheck exited ${tsc_exit}; this step still passes if reviewdog exits clean"
+          echo "tsc_exit=${tsc_exit} reviewdog_exit=${rd_exit}"
+          if [ "$rd_exit" -ne 0 ]; then
+            echo "::error::reviewdog exited with status ${rd_exit}"
+            exit "$rd_exit"
           fi
-          exit "$rd_exit"
+          if [ "$tsc_exit" -ne 0 ]; then
+            echo "::error::pnpm typecheck exited with status ${tsc_exit}"
+            exit "$tsc_exit"
+          fi
 
       - name: Unit tests (Vitest)
         if: success()
