@@ -26,13 +26,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "ROS2 Robotic Arm Control",
-    tags: ["ROS2", "Python", "Embedded"],
-    description:
-      "Real-time control system for a 6-DOF arm with concurrent action servers",
-    href: "/projects",
-  },
-  {
     title: "IoT Battery Management System",
     tags: ["MQTT", "CAN", "ESP32"],
     description:
