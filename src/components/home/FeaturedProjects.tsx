@@ -26,17 +26,24 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "IoT Battery Management System",
-    tags: ["MQTT", "CAN", "ESP32"],
+    title: "Differential Drive Robot",
+    tags: ["KiCad", "Python", "SolidWorks", "DFMA"],
     description:
-      "MQTT/CAN-based IoT integration for electric motorcycle batteries",
+      "Mobile robot with custom PCB, 3D-printed DFMA parts, and closed-loop motor control achieving 5% error margin",
     href: "/projects",
   },
   {
-    title: "PCB Reliability Test Platform",
-    tags: ["KiCad", "STM32", "Python"],
+    title: "Micro Quadruped Robot",
+    tags: ["SolidWorks", "MATLAB", "3D Printing"],
     description:
-      "Automated measurement platform for photonic component characterization",
+      "Affordable quadruped with full kinematic analysis in MATLAB and SolidWorks, validated through simulation and physical testing",
+    href: "/projects",
+  },
+  {
+    title: "Smoke Detector Camera",
+    tags: ["ESP32", "C", "ESP-IDF", "SolidWorks"],
+    description:
+      "IoT smoke detection device integrating ESP32CAM, C firmware on ESP-IDF, and SolidWorks-designed housing for remote monitoring",
     href: "/projects",
   },
 ];
