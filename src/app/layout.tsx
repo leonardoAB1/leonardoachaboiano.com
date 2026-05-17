@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import type { ReactElement, ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
@@ -67,8 +68,8 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children: ReactNode;
+}>): ReactElement {
   return (
     <html
       lang="en"
