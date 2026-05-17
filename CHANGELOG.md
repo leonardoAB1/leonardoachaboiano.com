@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.5...v0.5.0) (2026-05-17)
+
+
+### Features
+
+* add shared interaction components ([#54](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/54)) ([1b7a346](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1b7a346659da729c3fc82078bec889a1ab59a523))
+
 ## [0.4.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.4...v0.4.5) (2026-05-16)
 
 
