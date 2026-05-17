@@ -46,6 +46,48 @@ const projects: Project[] = [
       "IoT smoke detection device integrating ESP32CAM, C firmware on ESP-IDF, and SolidWorks-designed housing for remote monitoring",
     href: "/projects",
   },
+  {
+    title: "Propeller Levitated Arm",
+    tags: ["SolidWorks", "Arduino", "MATLAB", "IMU"],
+    description:
+      "Dual-propeller levitation rig with IMU feedback and MATLAB-validated control algorithm, complex parts manufactured via 3D printing",
+    href: "/projects",
+  },
+  {
+    title: "Hot Plate for SMD Soldering",
+    tags: ["Arduino", "MATLAB", "PCB", "Control"],
+    description:
+      "SMD reflow hot plate with MATLAB-designed temperature controller, capable of tracking a reflow curve or holding a setpoint",
+    href: "/projects",
+  },
+  {
+    title: "Can Crusher System",
+    tags: ["SolidWorks", "Fluidsim", "Electropneumatics"],
+    description:
+      "Automatic can crusher with electropneumatic control circuits designed in Fluidsim and mechanism modeled in SolidWorks",
+    href: "/projects",
+  },
+  {
+    title: "Portable Battery Trolley",
+    tags: ["SolidWorks", "Stress Analysis", "Welding"],
+    description:
+      "Field-tested trolley under 20 kg carrying 200-250 kg of batteries, stress-simulated in SolidWorks and taken to production by Swiss Contact",
+    href: "/projects",
+  },
+  {
+    title: "Analog Temperature Alarm",
+    tags: ["Proteus", "PCB", "CNC", "Analog"],
+    description:
+      "Analog buzzer alarm circuit simulated in Proteus, validated on breadboard, and manufactured on a CNC-milled PCB",
+    href: "/projects",
+  },
+  {
+    title: "Coronavirus Data App",
+    tags: ["Python", "Tkinter", "pandas", "matplotlib"],
+    description:
+      "GUI app to query, visualize, and compare COVID-19 data across countries using public APIs and standard Python data libraries",
+    href: "/projects",
+  },
 ];
 
 const headingVariant: Variants = {
