@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import type { ReactElement, ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
@@ -17,42 +18,36 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const description =
-  "Leonardo Acha Boiano is a mechatronics and robotics engineer " +
-  "specializing in embedded systems, hardware-software integration, " +
-  "and robotics software. Explore his engineering portfolio, projects, " +
-  "and technical writing.";
-
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
+    default: siteConfig.siteTitle,
     template: `%s - ${siteConfig.name}`,
   },
-  description,
+  description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
-  keywords: [
-    "Leonardo Acha Boiano",
-    "mechatronics engineer",
-    "robotics engineer",
-    "embedded systems",
-    "hardware software integration",
-    "robotics software",
-    "engineering portfolio",
-  ],
+  keywords: [...siteConfig.keywords],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: siteConfig.locale,
     url: siteConfig.url,
-    title: siteConfig.name,
-    description,
+    title: siteConfig.siteTitle,
+    description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 512,
+        height: 512,
+        alt: siteConfig.name,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description,
+    title: siteConfig.siteTitle,
+    description: siteConfig.description,
   },
   robots: {
     index: true,
@@ -73,8 +68,8 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children: ReactNode;
+}>): ReactElement {
   return (
     <html
       lang="en"
