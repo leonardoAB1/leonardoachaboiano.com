@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.5.0...v0.6.0) (2026-05-17)
+
+
+### Features
+
+* add home page second half sections ([#84](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/84)) ([4069e9d](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/4069e9d8f2f9f118ddf13970ae8ac841d7119820))
+
 ## [0.5.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.5...v0.5.0) (2026-05-17)
 
 
