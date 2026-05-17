@@ -37,8 +37,14 @@ const entries: TimelineEntry[] = [
     location: "Stafa, Switzerland",
   },
   {
-    date: "Jan - Jul 2024",
+    date: "Jun - Jul 2024",
     role: "Hardware Engineer",
+    org: "Mobi Latam",
+    location: "Santa Cruz, Bolivia",
+  },
+  {
+    date: "Jan - Jun 2024",
+    role: "Hardware Engineer Intern",
     org: "Mobi Latam",
     location: "Santa Cruz, Bolivia",
   },
