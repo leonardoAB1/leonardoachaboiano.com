@@ -5,7 +5,6 @@ import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { Hero } from "@/components/home/Hero";
 import { RecentWriting } from "@/components/home/RecentWriting";
 import { TechnicalDomains } from "@/components/home/TechnicalDomains";
-import { Timeline } from "@/components/home/Timeline";
 import { cn } from "@/lib/utils";
 
 const backgroundWashClasses = cn(
@@ -22,7 +21,6 @@ export default function HomePage(): ReactElement {
       <TechnicalDomains />
       <FeaturedProjects />
       <RecentWriting />
-      <Timeline />
       <ContactCTA />
     </div>
   );
