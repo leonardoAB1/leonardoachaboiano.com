@@ -3,7 +3,6 @@
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import { type ReactElement, useEffect, useState } from "react";
-import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
@@ -94,7 +93,10 @@ export function Hero(): ReactElement {
           </div>
         </div>
 
-        <Container>
+        {/* Left-aligned wrapper instead of centered Container - shifts both
+            columns toward the left while the globe stays in its fixed
+            absolute position on the right. */}
+        <div className="w-full max-w-5xl px-6 sm:px-8">
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-12">
             {/* Left: hero copy */}
             <motion.div
@@ -205,7 +207,7 @@ export function Hero(): ReactElement {
               </div>
             </motion.div>
           </div>
-        </Container>
+        </div>
       </Section>
 
       {/* Mobile: fullscreen globe sheet, shown when a role is tapped */}
