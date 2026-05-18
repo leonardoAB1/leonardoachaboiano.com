@@ -38,10 +38,21 @@ function naturalArcAltitude(d: {
   return Math.max(0.015, Math.sin(angle / 2) * 0.4);
 }
 
+// Camera is at (0, 40, 320) → looks down at angle atan2(40,320) ≈ 7.1° from equator.
+// That 7.1° is the latitude that appears at the visual centre when rotation.x = 0.
+const CAM_ELEVATION = Math.atan2(40, 320); // ≈ 0.124 rad
+
 // THREE.SphereGeometry UV derivation: at rotation.y=0 the camera (+Z) sees lng=-90°.
 // To centre longitude L: rotation.y = L_rad + π/2.
 function targetRotationY(lngDeg: number) {
   return (lngDeg * Math.PI) / 180 + Math.PI / 2;
+}
+
+// The camera's visual centre sits at ~7.1°N when rotation.x = 0.
+// To bring latitude L to the visual centre: rotation.x = L_rad − CAM_ELEVATION.
+// Verified: Basel 47.6°N → +0.706 rad, Santa Cruz −17.8°S → −0.434 rad.
+function targetRotationX(latDeg: number) {
+  return (latDeg * Math.PI) / 180 - CAM_ELEVATION;
 }
 
 // Normalise target to take the shortest arc from current rotation.
@@ -62,7 +73,9 @@ export function GlobeVisualization({
   const globeRef = useRef<any>(null);
   const cameraRef = useRef<any>(null);
   const rendererRef = useRef<any>(null);
-  const targetRotXRef = useRef(-0.12); // vertical tilt, matches initial globe.rotation.x
+  const targetRotXRef = useRef(
+    targetRotationX(timelineEntries[activeIndex].coordinates[0]),
+  );
   const targetRotYRef = useRef(
     targetRotationY(timelineEntries[activeIndex].coordinates[1]),
   );
@@ -84,11 +97,10 @@ export function GlobeVisualization({
     // Kill any drag momentum so it doesn't fight the programmatic target.
     stopMomentumRef.current();
 
-    // Reset the vertical tilt to the default view so the longitude centering
-    // is unambiguous — a tilted globe sees the wrong latitude at the equator.
-    targetRotXRef.current = -0.12;
-
     const entry = timelineEntries[activeIndex];
+
+    // Set X rotation to bring the target's latitude to the visual centre.
+    targetRotXRef.current = targetRotationX(entry.coordinates[0]);
     const raw = targetRotationY(entry.coordinates[1]);
 
     // Shortest-path normalisation prevents the globe spinning the long way around.
@@ -158,9 +170,14 @@ export function GlobeVisualization({
       // ── Lighting ──────────────────────────────────────────────────────────
       // Very dim ambient so the night-side of the Earth stays nearly black,
       // letting city lights in the texture dominate.
-      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-      const sun = new THREE.DirectionalLight(0xffffff, 0.8);
-      sun.position.set(-2, 1, 1);
+      // HemisphereLight: sky=brand-teal, ground=black.
+      // Creates the characteristic teal illumination seen in the mockup —
+      // the lit side of the globe picks up the teal sky colour while the
+      // dark oceans stay near-black.
+      scene.add(new THREE.HemisphereLight(0x006677, 0x000000, 2.2));
+      // Directional "sun" tinted teal, from upper-left to match mockup lighting
+      const sun = new THREE.DirectionalLight(0x55cccc, 0.9);
+      sun.position.set(-2, 1.5, 1);
       scene.add(sun);
 
       // ── Three-Globe ───────────────────────────────────────────────────────
@@ -244,7 +261,7 @@ export function GlobeVisualization({
 
       // Set initial rotation without animation
       globe.rotation.y = initRotY;
-      globe.rotation.x = -0.12; // subtle northern-hemisphere tilt
+      globe.rotation.x = targetRotXRef.current; // latitude-centred initial tilt
       targetRotYRef.current = initRotY;
       prevRotYRef.current = initRotY;
 
@@ -253,8 +270,10 @@ export function GlobeVisualization({
       // making city lights visible even on the globe's "unlit" dark side.
       globe.onGlobeReady(() => {
         const mat = globe.globeMaterial() as any;
-        mat.emissive = new THREE.Color(0x111111);
-        mat.emissiveIntensity = 0.35;
+        // Teal ocean self-glow: dark areas pick up the brand colour
+        // rather than rendering as pure black, matching the mockup.
+        mat.emissive = new THREE.Color(0x002233);
+        mat.emissiveIntensity = 0.55;
       });
 
       scene.add(globe);

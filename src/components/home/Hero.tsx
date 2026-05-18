@@ -3,7 +3,6 @@
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import { type ReactElement, useEffect, useState } from "react";
-import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
@@ -75,17 +74,14 @@ export function Hero(): ReactElement {
        * has overflow-hidden which clips the right-side bleed.
        */}
       <Section className="relative z-[1] flex min-h-[calc(100svh-3.5rem)] flex-col justify-center pb-16 pt-8 sm:pb-20 sm:pt-10">
-
         {/*
-         * Globe positioned at the bottom of the section with a negative
-         * bottom offset so ~8vh of the sphere crosses into the next section.
          */}
         <div
           aria-hidden="true"
           className="absolute hidden lg:block"
           style={{
-            right: "-8vw",
-            bottom: "-8vh",
+            right: "-0vw",
+            bottom: "-0vh",
             width: "min(65vw, calc(100svh - 3.5rem))",
             height: "min(65vw, calc(100svh - 3.5rem))",
             // Soft radial mask instead of hard border-radius clip.
@@ -102,7 +98,9 @@ export function Hero(): ReactElement {
           <GlobeVisualization activeIndex={selectedIndex} />
         </div>
 
-        <Container>
+        {/* Left-anchored: no mx-auto so both columns sit toward the left edge,
+            putting the timeline near the horizontal centre of the viewport. */}
+        <div className="w-full max-w-5xl px-6 sm:px-8">
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-12">
             {/* Left: hero copy */}
             <motion.div
@@ -213,7 +211,7 @@ export function Hero(): ReactElement {
               </div>
             </motion.div>
           </div>
-        </Container>
+        </div>
       </Section>
 
       {/* Mobile: fullscreen globe sheet, shown when a role is tapped */}
