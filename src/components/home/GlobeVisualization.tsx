@@ -34,7 +34,8 @@ function naturalArcAltitude(d: {
     Math.sin(lat1) * Math.sin(lat2) +
     Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLng);
   const angle = Math.acos(Math.max(-1, Math.min(1, cosA)));
-  return Math.sin(angle / 2) * 0.4;
+  // Minimum of 0.015 so very short arcs (Stafa→Basel) stay visible when zoomed in
+  return Math.max(0.015, Math.sin(angle / 2) * 0.4);
 }
 
 // THREE.SphereGeometry UV derivation: at rotation.y=0 the camera (+Z) sees lng=-90°.
@@ -306,7 +307,8 @@ export function GlobeVisualization({
         e.preventDefault();
         // Cap per-event delta so high-resolution trackpads don't jump wildly.
         const step = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 80) * 0.25;
-        userCamZ = Math.max(230, Math.min(520, userCamZ + step));
+        // Minimum 115: just outside the sphere surface (radius 100) with clearance
+        userCamZ = Math.max(115, Math.min(520, userCamZ + step));
       };
 
       container.addEventListener("pointerdown", onPointerDown);
