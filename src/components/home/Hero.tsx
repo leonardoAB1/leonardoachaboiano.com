@@ -148,7 +148,7 @@ export function Hero(): ReactElement {
               initial="hidden"
               animate="show"
               variants={timelineContainer}
-              className="relative z-10"
+              className="relative z-10 lg:pl-12"
             >
               <div className="relative">
                 <div
