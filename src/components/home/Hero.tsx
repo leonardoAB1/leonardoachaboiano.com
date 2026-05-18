@@ -66,31 +66,25 @@ export function Hero(): ReactElement {
   return (
     <>
       {/*
-       * `relative overflow-hidden` on Section:
-       * - `relative` makes it the containing block for the absolute globe
-       * - `overflow-hidden` clips the globe where it bleeds off the right edge
+       * z-[1] puts the entire hero section (and its globe) above subsequent
+       * sibling sections in the stacking order, so the globe can visually
+       * overlap the top of the next section.
+       * overflow-hidden is intentionally removed so the globe can bleed
+       * downward past the section boundary. The parent page wrapper still
+       * has overflow-hidden which clips the right-side bleed.
        */}
-      <Section className="relative flex min-h-[calc(100svh-3.5rem)] flex-col justify-center overflow-hidden pb-16 pt-8 sm:pb-20 sm:pt-10">
+      <Section className="relative z-[1] flex min-h-[calc(100svh-3.5rem)] flex-col justify-center pb-16 pt-8 sm:pb-20 sm:pt-10">
 
         {/*
-         * Globe: absolutely positioned at section level so it escapes the
-         * Container's max-width constraint and can fill the full right side.
-         * `pointer-events-none` so it doesn't block clicks on the timeline.
-         * Hidden on mobile - the modal handles mobile.
-         */}
-        {/*
-         * Outer strip: inset-y-0 makes it span the full section height,
-         * giving a reliable reference for vertical centering via flex.
-         * Inner square carries the actual globe canvas.
+         * Globe positioned at the bottom of the section with a negative
+         * bottom offset so ~8vh of the sphere crosses into the next section.
          */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 hidden lg:flex lg:items-center"
-          style={{ right: "-8vw", width: "50vw" }}
+          className="pointer-events-none absolute hidden lg:block"
+          style={{ right: "-8vw", bottom: "-8vh", width: "50vw", height: "50vw" }}
         >
-          <div style={{ width: "50vw", height: "50vw", flexShrink: 0 }}>
-            <GlobeVisualization activeIndex={selectedIndex} />
-          </div>
+          <GlobeVisualization activeIndex={selectedIndex} />
         </div>
 
         {/* Left-aligned wrapper instead of centered Container - shifts both
