@@ -32,10 +32,12 @@ export function GlobeVisualization({
     let width = canvas.offsetWidth;
     let globe: ReturnType<typeof createGlobe> | undefined;
 
-    const markers = timelineEntries.map((entry) => ({
-      location: entry.coordinates as [number, number],
-      size: 0.05,
-    }));
+    function buildMarkers(activeIdx: number) {
+      return timelineEntries.map((entry, i) => ({
+        location: entry.coordinates as [number, number],
+        size: i === activeIdx ? 0.08 : 0.04,
+      }));
+    }
 
     function startGlobe() {
       if (!canvas) return;
@@ -50,43 +52,46 @@ export function GlobeVisualization({
         dark: 1,
         diffuse: 1.2,
         mapSamples: 16000,
-        mapBrightness: 6,
-        baseColor: [0.05, 0.46, 0.48],
-        markerColor: [0.08, 0.9, 0.85],
-        glowColor: [0.05, 0.5, 0.5],
-        markers,
+        mapBrightness: 8,
+        mapBaseBrightness: 0,
+        baseColor: [0, 0, 0],
+        markerColor: [0.1, 0.95, 0.9],
+        glowColor: [0.02, 0.45, 0.5],
+        markers: buildMarkers(activeIndexRef.current),
       });
 
-      // Cobe v2 uses globe.update() in a manual rAF loop rather than onRender
+      // Cobe v2: drive animation with a manual requestAnimationFrame loop
       function tick() {
         if (!globe) return;
 
         const idx = activeIndexRef.current;
         const [latDeg, lngDeg] = timelineEntries[idx].coordinates;
-        const targetPhi = -(lngDeg * Math.PI) / 180;
 
-        // Smooth interpolation toward the target longitude
+        // Correct phi formula derived from cobe's coordinate system:
+        // At phi=0 the camera faces 0° lat / 0° lng.
+        // To centre longitude L, we need phi = -(PI/2 + L_rad).
+        const lngRad = (lngDeg * Math.PI) / 180;
+        const targetPhi = -(Math.PI / 2 + lngRad);
+
         phiRef.current += (targetPhi - phiRef.current) * 0.05;
 
-        globe.update({ phi: phiRef.current });
+        globe.update({
+          phi: phiRef.current,
+          markers: buildMarkers(idx),
+        });
 
-        // Position the label via 3D → 2D orthographic projection
+        // Label: project lat/lng → 2D canvas coords using cobe's orthographic model.
+        // At theta=0: cameraX = cos(lat)*cos(phi+lngRad), cameraY = sin(lat).
+        // Screen coords (range [0,1]): screenX = (cameraX+1)/2, screenY = (-cameraY+1)/2.
         if (labelRef.current && showLabel) {
           const latRad = (latDeg * Math.PI) / 180;
-          const lngRad = (lngDeg * Math.PI) / 180;
-          const diffPhi = lngRad - phiRef.current;
+          const cameraX = Math.cos(latRad) * Math.cos(phiRef.current + lngRad);
+          const cameraY = Math.sin(latRad);
+          const visible = -(Math.cos(latRad) * Math.sin(phiRef.current + lngRad)) >= 0;
 
-          const x3d = Math.cos(latRad) * Math.sin(diffPhi);
-          const y3d = Math.sin(latRad);
-          const z3d = Math.cos(latRad) * Math.cos(diffPhi);
-
-          const radius = width / 2;
-          const x2d = width / 2 + x3d * radius;
-          const y2d = width / 2 - y3d * radius;
-
-          labelRef.current.style.display = z3d > 0 ? "flex" : "none";
-          labelRef.current.style.left = `${x2d}px`;
-          labelRef.current.style.top = `${y2d}px`;
+          labelRef.current.style.display = visible ? "flex" : "none";
+          labelRef.current.style.left = `${((cameraX + 1) / 2) * width}px`;
+          labelRef.current.style.top = `${((-cameraY + 1) / 2) * width}px`;
         }
 
         rafId = requestAnimationFrame(tick);
@@ -116,11 +121,7 @@ export function GlobeVisualization({
 
   return (
     <div className="relative h-full w-full">
-      <canvas
-        ref={canvasRef}
-        className="h-full w-full"
-        style={{ aspectRatio: "1 / 1" }}
-      />
+      <canvas ref={canvasRef} className="h-full w-full" />
       {showLabel && (
         <div
           ref={labelRef}

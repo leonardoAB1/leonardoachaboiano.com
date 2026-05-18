@@ -66,7 +66,27 @@ export function Hero(): ReactElement {
 
   return (
     <>
-      <Section className="flex min-h-[calc(100svh-3.5rem)] flex-col justify-center pb-16 pt-8 sm:pb-20 sm:pt-10">
+      {/*
+       * `relative overflow-hidden` on Section:
+       * - `relative` makes it the containing block for the absolute globe
+       * - `overflow-hidden` clips the globe where it bleeds off the right edge
+       */}
+      <Section className="relative flex min-h-[calc(100svh-3.5rem)] flex-col justify-center overflow-hidden pb-16 pt-8 sm:pb-20 sm:pt-10">
+
+        {/*
+         * Globe: absolutely positioned at section level so it escapes the
+         * Container's max-width constraint and can fill the full right side.
+         * `pointer-events-none` so it doesn't block clicks on the timeline.
+         * Hidden on mobile - the modal handles mobile.
+         */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 hidden -translate-y-1/2 lg:block"
+          style={{ right: "-10vw", width: "90vh", height: "90vh" }}
+        >
+          <GlobeVisualization activeIndex={selectedIndex} />
+        </div>
+
         <Container>
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
             {/* Left: hero copy */}
@@ -116,70 +136,67 @@ export function Hero(): ReactElement {
               </motion.div>
             </motion.div>
 
-            {/* Right: globe background (desktop) + clickable timeline */}
-            <div className="relative">
-              {/* Globe sits behind the timeline on desktop, bleeds right for scale */}
-              <div className="absolute inset-0 -right-16 hidden overflow-hidden lg:block">
-                <GlobeVisualization activeIndex={selectedIndex} />
-              </div>
-
-              <motion.div
-                initial="hidden"
-                animate="show"
-                variants={timelineContainer}
-                className="relative z-10"
-              >
-                <div className="relative">
-                  <div
-                    aria-hidden="true"
-                    className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
-                  />
-                  <ul className="flex flex-col gap-6">
-                    {timelineEntries.map((entry, index) => {
-                      const isActive = index === selectedIndex;
-                      return (
-                        <motion.li
-                          key={entry.date + entry.org}
-                          variants={timelineItem}
-                          className="relative flex gap-5 pl-8"
+            {/*
+             * Right column: the clickable timeline. On desktop it overlays
+             * on top of the globe (which is absolutely positioned at section
+             * level behind everything).
+             */}
+            <motion.div
+              initial="hidden"
+              animate="show"
+              variants={timelineContainer}
+              className="relative z-10"
+            >
+              <div className="relative">
+                <div
+                  aria-hidden="true"
+                  className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
+                />
+                <ul className="flex flex-col gap-6">
+                  {timelineEntries.map((entry, index) => {
+                    const isActive = index === selectedIndex;
+                    return (
+                      <motion.li
+                        key={entry.date + entry.org}
+                        variants={timelineItem}
+                        className="relative flex gap-5 pl-8"
+                      >
+                        {/* Active dot is filled; inactive is hollow */}
+                        <div
+                          aria-hidden="true"
+                          className={cn(
+                            "absolute left-0 top-[6px] h-3 w-3 rounded-full border-2 border-brand transition-colors duration-200",
+                            isActive ? "bg-brand" : "bg-surface-0",
+                          )}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleSelect(index)}
+                          className={cn(
+                            "flex w-full flex-col gap-0.5 text-left transition-opacity duration-200",
+                            !isActive && "opacity-50 hover:opacity-80",
+                          )}
+                          aria-pressed={isActive}
                         >
-                          {/* Active dot is filled; inactive is hollow */}
-                          <div
-                            aria-hidden="true"
-                            className={cn(
-                              "absolute left-0 top-[6px] h-3 w-3 rounded-full border-2 border-brand transition-colors duration-200",
-                              isActive ? "bg-brand" : "bg-surface-0",
-                            )}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => handleSelect(index)}
-                            className={cn(
-                              "flex w-full flex-col gap-0.5 text-left transition-opacity duration-200",
-                              !isActive && "opacity-50 hover:opacity-80",
-                            )}
-                            aria-pressed={isActive}
-                          >
-                            <span className="text-xs text-ink-4">
-                              {entry.date}
-                            </span>
-                            <p className="text-sm font-semibold text-ink-1">
-                              {entry.role}
-                            </p>
-                            <p className="text-xs text-ink-2">
-                              {entry.org}&nbsp;&middot;&nbsp;{entry.location}
-                            </p>
-                            {entry.note && (
-                              <p className="text-xs text-ink-3">{entry.note}</p>
-                            )}
-                          </button>
-                        </motion.li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              </motion.div>
-            </div>
+                          <span className="text-xs text-ink-4">
+                            {entry.date}
+                          </span>
+                          <p className="text-sm font-semibold text-ink-1">
+                            {entry.role}
+                          </p>
+                          <p className="text-xs text-ink-2">
+                            {entry.org}&nbsp;&middot;&nbsp;{entry.location}
+                          </p>
+                          {entry.note && (
+                            <p className="text-xs text-ink-3">{entry.note}</p>
+                          )}
+                        </button>
+                      </motion.li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </motion.div>
           </div>
         </Container>
       </Section>
