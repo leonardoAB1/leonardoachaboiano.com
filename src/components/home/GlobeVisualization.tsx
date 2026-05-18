@@ -16,10 +16,11 @@ export function GlobeVisualization({
 }: GlobeVisualizationProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const phiRef = useRef(0);
+  const prevPhiRef = useRef(0);   // previous frame phi, used to compute rotation velocity
+  const scaleRef = useRef(1);     // current zoom scale, driven by rotation velocity
   const labelRef = useRef<HTMLDivElement>(null);
   const activeIndexRef = useRef(activeIndex);
 
-  // Keep a ref in sync so the onRender closure always reads the latest value
   useEffect(() => {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
@@ -29,7 +30,8 @@ export function GlobeVisualization({
     if (!canvas) return;
 
     let rafId = 0;
-    let width = canvas.offsetWidth;
+    let canvasW = canvas.offsetWidth;
+    let canvasH = canvas.offsetHeight;
     let globe: ReturnType<typeof createGlobe> | undefined;
 
     function buildMarkers(activeIdx: number) {
@@ -41,57 +43,67 @@ export function GlobeVisualization({
 
     function startGlobe() {
       if (!canvas) return;
-      width = canvas.offsetWidth;
+      canvasW = canvas.offsetWidth;
+      canvasH = canvas.offsetHeight;
 
       globe = createGlobe(canvas, {
         devicePixelRatio,
-        width: width * devicePixelRatio,
-        height: width * devicePixelRatio,
+        width: canvasW * devicePixelRatio,
+        height: canvasH * devicePixelRatio,
         phi: phiRef.current,
         theta: 0.2,
         dark: 1,
         diffuse: 1.2,
         mapSamples: 16000,
-        mapBrightness: 8,
+        // baseColor must be non-zero: continents = baseColor × mapBrightness × texture.
+        // With black base the texture contribution is always zero and the globe goes dark.
+        mapBrightness: 6,
         mapBaseBrightness: 0,
-        baseColor: [0, 0, 0],
+        baseColor: [0.04, 0.22, 0.26],
         markerColor: [0.1, 0.95, 0.9],
         glowColor: [0.02, 0.45, 0.5],
         markers: buildMarkers(activeIndexRef.current),
       });
 
-      // Cobe v2: drive animation with a manual requestAnimationFrame loop
       function tick() {
         if (!globe) return;
 
         const idx = activeIndexRef.current;
         const [latDeg, lngDeg] = timelineEntries[idx].coordinates;
-
-        // Correct phi formula derived from cobe's coordinate system:
-        // At phi=0 the camera faces 0° lat / 0° lng.
-        // To centre longitude L, we need phi = -(PI/2 + L_rad).
         const lngRad = (lngDeg * Math.PI) / 180;
-        const targetPhi = -(Math.PI / 2 + lngRad);
 
+        // phi = -(PI/2 + lng_rad) centres the given longitude at the front of the globe
+        const targetPhi = -(Math.PI / 2 + lngRad);
         phiRef.current += (targetPhi - phiRef.current) * 0.05;
+
+        // Zoom: scale up proportional to sqrt of angular velocity so even small
+        // rotations (nearby locations) produce a noticeable zoom-in feel.
+        const velocity = Math.abs(phiRef.current - prevPhiRef.current);
+        prevPhiRef.current = phiRef.current;
+        const targetScale = 1 + Math.min(Math.sqrt(velocity * 8), 0.28);
+        scaleRef.current += (targetScale - scaleRef.current) * 0.06;
 
         globe.update({
           phi: phiRef.current,
+          scale: scaleRef.current,
           markers: buildMarkers(idx),
         });
 
-        // Label: project lat/lng → 2D canvas coords using cobe's orthographic model.
-        // At theta=0: cameraX = cos(lat)*cos(phi+lngRad), cameraY = sin(lat).
-        // Screen coords (range [0,1]): screenX = (cameraX+1)/2, screenY = (-cameraY+1)/2.
+        // Project lat/lng → 2D overlay coords.
+        // cobe's orthographic model at theta=0:
+        //   cameraX = cos(lat) × cos(phi + lng)  (accounts for aspect ratio)
+        //   cameraY = sin(lat)
+        // Screen [0,1]: x = (cameraX / aspectRatio + 1) / 2, y = (-cameraY + 1) / 2
         if (labelRef.current && showLabel) {
           const latRad = (latDeg * Math.PI) / 180;
           const cameraX = Math.cos(latRad) * Math.cos(phiRef.current + lngRad);
           const cameraY = Math.sin(latRad);
           const visible = -(Math.cos(latRad) * Math.sin(phiRef.current + lngRad)) >= 0;
+          const aspectRatio = canvasW / canvasH;
 
           labelRef.current.style.display = visible ? "flex" : "none";
-          labelRef.current.style.left = `${((cameraX + 1) / 2) * width}px`;
-          labelRef.current.style.top = `${((-cameraY + 1) / 2) * width}px`;
+          labelRef.current.style.left = `${((cameraX / aspectRatio + 1) / 2) * canvasW}px`;
+          labelRef.current.style.top = `${((-cameraY + 1) / 2) * canvasH}px`;
         }
 
         rafId = requestAnimationFrame(tick);
@@ -102,8 +114,9 @@ export function GlobeVisualization({
 
     const observer = new ResizeObserver(() => {
       if (!canvas) return;
-      const newWidth = canvas.offsetWidth;
-      if (Math.abs(newWidth - width) < 1) return;
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      if (Math.abs(w - canvasW) < 1 && Math.abs(h - canvasH) < 1) return;
       cancelAnimationFrame(rafId);
       globe?.destroy();
       startGlobe();
