@@ -82,7 +82,14 @@ export function Hero(): ReactElement {
         <div
           aria-hidden="true"
           className="absolute hidden lg:block"
-          style={{ right: "-8vw", bottom: "-8vh", width: "50vw", height: "50vw" }}
+          style={{
+            right: "-8vw",
+            bottom: "-8vh",
+            width: "min(50vw, 680px)",
+            height: "min(50vw, 680px)",
+            borderRadius: "50%",
+            overflow: "hidden",
+          }}
         >
           <GlobeVisualization activeIndex={selectedIndex} />
         </div>

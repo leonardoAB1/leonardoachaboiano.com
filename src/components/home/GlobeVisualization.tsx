@@ -44,7 +44,7 @@ export function GlobeVisualization({
     targetRotationY(timelineEntries[activeIndex].coordinates[1]),
   );
   const prevRotYRef = useRef(targetRotYRef.current);
-  const camZRef = useRef(260);
+  const camZRef = useRef(320);
 
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
@@ -96,10 +96,13 @@ export function GlobeVisualization({
       const H = container.offsetHeight;
 
       // ── Renderer ──────────────────────────────────────────────────────────
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      // alpha:false + opaque clear colour eliminates the visible white/grey
+      // square in light mode. The container is clipped to a circle via CSS
+      // border-radius so the "space" background appears as a dark disc, not a box.
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(W, H);
-      renderer.setClearColor(0x000000, 0); // transparent canvas background
+      renderer.setClearColor(0x030508, 1); // near-black "space" background
       container.appendChild(renderer.domElement);
       rendererRef.current = renderer;
 
@@ -110,10 +113,10 @@ export function GlobeVisualization({
       // Offset Y slightly so the view tilts toward the northern hemisphere,
       // matching the mockup perspective.
       const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 2000);
-      camera.position.set(0, 40, 260);
+      camera.position.set(0, 40, 320);
       camera.lookAt(0, 0, 0);
       cameraRef.current = camera;
-      camZRef.current = 260;
+      camZRef.current = 320;
 
       // ── Lighting ──────────────────────────────────────────────────────────
       // Very dim ambient so the night-side of the Earth stays nearly black,
@@ -258,7 +261,7 @@ export function GlobeVisualization({
         e.preventDefault();
         // Cap per-event delta so high-resolution trackpads don't jump wildly.
         const step = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 80) * 0.25;
-        userCamZ = Math.max(150, Math.min(420, userCamZ + step));
+        userCamZ = Math.max(230, Math.min(520, userCamZ + step));
       };
 
       container.addEventListener("pointerdown", onPointerDown);
