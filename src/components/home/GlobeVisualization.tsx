@@ -71,12 +71,16 @@ export function GlobeVisualization({
   // Populated by the init effect; called by Effect 1 to clear drag momentum
   // before setting a new programmatic target so the two don't fight each other.
   const stopMomentumRef = useRef<() => void>(() => {});
+  // Tracks activeIndex for the animation loop (which runs as a closure and
+  // can't read the prop directly after it changes).
+  const activeIndexRef = useRef(activeIndex);
 
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
   useEffect(() => {
     if (!globeRef.current) return;
 
+    activeIndexRef.current = activeIndex;
     // Kill any drag momentum so it doesn't fight the programmatic target.
     stopMomentumRef.current();
 
@@ -278,6 +282,9 @@ export function GlobeVisualization({
         velY = 0;
       };
 
+      // Tracks the camera Z used for the last marker rebuild
+      let lastMarkerCamZ = camZRef.current;
+
       const onPointerDown = (e: PointerEvent) => {
         isDragging = true;
         dragStartX = e.clientX;
@@ -373,6 +380,13 @@ export function GlobeVisualization({
         camZRef.current += (targetZ - camZRef.current) * 0.06;
         camera.position.z = camZRef.current;
 
+        // Rebuild point markers when zoom changes enough so their radius stays
+        // proportional to camera distance (constant apparent screen size).
+        if (Math.abs(camera.position.z - lastMarkerCamZ) > 3) {
+          lastMarkerCamZ = camera.position.z;
+          globe.pointsData(buildPoints(activeIndexRef.current, camera.position.z));
+        }
+
         renderer.render(scene, camera);
       }
 
@@ -457,12 +471,16 @@ export function GlobeVisualization({
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
-function buildPoints(activeIdx: number) {
+// camZ defaults to 320 (the initial camera distance). The radius scales
+// linearly with camera distance so markers keep a constant angular size on
+// screen — smaller when zoomed in, larger when zoomed out.
+function buildPoints(activeIdx: number, camZ = 320) {
+  const scale = camZ / 320;
   return timelineEntries.map((entry, i) => ({
     lat: entry.coordinates[0],
     lng: entry.coordinates[1],
     altitude: i === activeIdx ? 0.025 : 0.01,
     color: i === activeIdx ? "#02fffe" : "rgba(2,255,254,0.45)",
-    radius: i === activeIdx ? 0.55 : 0.28,
+    radius: (i === activeIdx ? 0.55 : 0.28) * scale,
   }));
 }
