@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import { type ReactElement, useEffect, useState } from "react";
+import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
@@ -85,8 +86,10 @@ export function Hero(): ReactElement {
           style={{
             right: "-8vw",
             bottom: "-8vh",
-            width: "min(50vw, 680px)",
-            height: "min(50vw, 680px)",
+            // max is the hero section height (100svh - navbar) so the globe
+            // can never be taller than the section it sits inside
+            width: "min(65vw, calc(100svh - 3.5rem))",
+            height: "min(65vw, calc(100svh - 3.5rem))",
             borderRadius: "50%",
             overflow: "hidden",
           }}
@@ -94,10 +97,7 @@ export function Hero(): ReactElement {
           <GlobeVisualization activeIndex={selectedIndex} />
         </div>
 
-        {/* Left-aligned wrapper instead of centered Container - shifts both
-            columns toward the left while the globe stays in its fixed
-            absolute position on the right. */}
-        <div className="ml-[4vw] w-full max-w-5xl px-6 sm:px-8">
+        <Container>
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-12">
             {/* Left: hero copy */}
             <motion.div
@@ -155,7 +155,7 @@ export function Hero(): ReactElement {
               initial="hidden"
               animate="show"
               variants={timelineContainer}
-              className="relative z-10 lg:pl-12"
+              className="relative z-10"
             >
               <div className="relative">
                 <div
@@ -208,7 +208,7 @@ export function Hero(): ReactElement {
               </div>
             </motion.div>
           </div>
-        </div>
+        </Container>
       </Section>
 
       {/* Mobile: fullscreen globe sheet, shown when a role is tapped */}
