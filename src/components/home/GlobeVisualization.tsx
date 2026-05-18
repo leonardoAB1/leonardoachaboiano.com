@@ -40,6 +40,7 @@ export function GlobeVisualization({
   const globeRef = useRef<any>(null);
   const cameraRef = useRef<any>(null);
   const rendererRef = useRef<any>(null);
+  const targetRotXRef = useRef(-0.12); // vertical tilt, matches initial globe.rotation.x
   const targetRotYRef = useRef(
     targetRotationY(timelineEntries[activeIndex].coordinates[1]),
   );
@@ -229,14 +230,17 @@ export function GlobeVisualization({
       // the container (e.g. moving fast across the screen).
       let isDragging = false;
       let dragStartX = 0;
+      let dragStartY = 0;
       let dragStartRotY = 0;
-      // Separate user-controlled zoom target so it survives the velocity zoom
+      let dragStartRotX = 0;
       let userCamZ = camZRef.current;
 
       const onPointerDown = (e: PointerEvent) => {
         isDragging = true;
         dragStartX = e.clientX;
+        dragStartY = e.clientY;
         dragStartRotY = targetRotYRef.current;
+        dragStartRotX = targetRotXRef.current;
         container.setPointerCapture(e.pointerId);
         container.style.cursor = "grabbing";
       };
@@ -244,9 +248,22 @@ export function GlobeVisualization({
       const onPointerMove = (e: PointerEvent) => {
         if (!isDragging) return;
         const deltaX = e.clientX - dragStartX;
-        // One full container width = one full rotation (2π)
+        const deltaY = e.clientY - dragStartY;
+
+        // Horizontal drag → Y rotation (longitude)
+        // Full container width = one full 360° rotation
         targetRotYRef.current =
           dragStartRotY + (deltaX / container.offsetWidth) * Math.PI * 2;
+
+        // Vertical drag → X rotation (latitude tilt)
+        // Drag up (negative deltaY) tilts the north pole toward the viewer.
+        // Clamped to ±90° so the globe can't flip upside-down.
+        const rawX =
+          dragStartRotX - (deltaY / container.offsetHeight) * Math.PI;
+        targetRotXRef.current = Math.max(
+          -Math.PI / 2,
+          Math.min(Math.PI / 2, rawX),
+        );
       };
 
       const onPointerUp = (e: PointerEvent) => {
@@ -281,8 +298,8 @@ export function GlobeVisualization({
         // globe tracks the pointer directly. For programmatic timeline moves
         // use the slow ease for a cinematic feel.
         const lerpFactor = isDragging ? 0.8 : 0.05;
-        const curY = globe.rotation.y;
-        globe.rotation.y += (targetRotYRef.current - curY) * lerpFactor;
+        globe.rotation.y += (targetRotYRef.current - globe.rotation.y) * lerpFactor;
+        globe.rotation.x += (targetRotXRef.current - globe.rotation.x) * lerpFactor;
 
         // Auto-zoom during fast programmatic rotations; also honour the
         // user's scroll-wheel zoom level.
