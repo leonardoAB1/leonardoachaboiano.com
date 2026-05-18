@@ -86,9 +86,9 @@ export function Hero(): ReactElement {
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 hidden lg:flex lg:items-center"
-          style={{ right: "-8vw", width: "60vw" }}
+          style={{ right: "-8vw", width: "50vw" }}
         >
-          <div style={{ width: "60vw", height: "60vw", flexShrink: 0 }}>
+          <div style={{ width: "50vw", height: "50vw", flexShrink: 0 }}>
             <GlobeVisualization activeIndex={selectedIndex} />
           </div>
         </div>

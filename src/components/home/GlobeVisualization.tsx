@@ -118,9 +118,8 @@ export function GlobeVisualization({
       // ── Lighting ──────────────────────────────────────────────────────────
       // Very dim ambient so the night-side of the Earth stays nearly black,
       // letting city lights in the texture dominate.
-      scene.add(new THREE.AmbientLight(0x111133, 0.6));
-      // A soft directional light from top-left simulates the sun.
-      const sun = new THREE.DirectionalLight(0x9999ff, 0.5);
+      scene.add(new THREE.AmbientLight(0x334466, 2.5));
+      const sun = new THREE.DirectionalLight(0xaaaacc, 0.9);
       sun.position.set(-2, 1, 1);
       scene.add(sun);
 
@@ -208,6 +207,15 @@ export function GlobeVisualization({
       globe.rotation.x = -0.12; // subtle northern-hemisphere tilt
       targetRotYRef.current = initRotY;
       prevRotYRef.current = initRotY;
+
+      // Boost the night texture's apparent brightness by adding self-illumination.
+      // MeshPhongMaterial.emissive adds a constant colour independent of lighting,
+      // making city lights visible even on the globe's "unlit" dark side.
+      globe.onGlobeReady(() => {
+        const mat = globe.globeMaterial() as any;
+        mat.emissive = new THREE.Color(0x223355);
+        mat.emissiveIntensity = 0.7;
+      });
 
       scene.add(globe);
       globeRef.current = globe;
