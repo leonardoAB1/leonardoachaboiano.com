@@ -86,12 +86,17 @@ export function Hero(): ReactElement {
           style={{
             right: "-8vw",
             bottom: "-8vh",
-            // max is the hero section height (100svh - navbar) so the globe
-            // can never be taller than the section it sits inside
             width: "min(65vw, calc(100svh - 3.5rem))",
             height: "min(65vw, calc(100svh - 3.5rem))",
-            borderRadius: "50%",
-            overflow: "hidden",
+            // Soft radial mask instead of hard border-radius clip.
+            // border-radius+overflow:hidden creates a sharp dark ring where the
+            // Three.js sphere doesn't quite reach the circle edge.
+            // A gradient mask fades the edges to transparent, hiding the gap
+            // and blending the atmosphere glow naturally into the page.
+            WebkitMaskImage:
+              "radial-gradient(circle at center, black 52%, transparent 72%)",
+            maskImage:
+              "radial-gradient(circle at center, black 52%, transparent 72%)",
           }}
         >
           <GlobeVisualization activeIndex={selectedIndex} />

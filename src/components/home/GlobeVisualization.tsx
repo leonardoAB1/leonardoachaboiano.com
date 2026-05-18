@@ -121,8 +121,8 @@ export function GlobeVisualization({
       // ── Lighting ──────────────────────────────────────────────────────────
       // Very dim ambient so the night-side of the Earth stays nearly black,
       // letting city lights in the texture dominate.
-      scene.add(new THREE.AmbientLight(0x334466, 2.5));
-      const sun = new THREE.DirectionalLight(0xaaaacc, 0.9);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+      const sun = new THREE.DirectionalLight(0xffffff, 0.8);
       sun.position.set(-2, 1, 1);
       scene.add(sun);
 
@@ -216,8 +216,8 @@ export function GlobeVisualization({
       // making city lights visible even on the globe's "unlit" dark side.
       globe.onGlobeReady(() => {
         const mat = globe.globeMaterial() as any;
-        mat.emissive = new THREE.Color(0x223355);
-        mat.emissiveIntensity = 0.7;
+        mat.emissive = new THREE.Color(0x111111);
+        mat.emissiveIntensity = 0.35;
       });
 
       scene.add(globe);
