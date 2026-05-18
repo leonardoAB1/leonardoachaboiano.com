@@ -16,6 +16,27 @@ const CAREER_ARCS = [
   { startLat: 47.2292, startLng: 8.73, endLat: 47.5596, endLng: 7.5886 },
 ];
 
+// Arc altitude proportional to the great-circle angle between endpoints.
+// Close locations (Stafa→Basel, ~22 km) get a nearly flat arc;
+// distant ones (SC→Stafa, ~11 000 km / ~91°) get a moderate rise.
+// Formula: sin(angle/2) × 0.4 — naturally scales from 0 to 0.4.
+function naturalArcAltitude(d: {
+  startLat: number;
+  startLng: number;
+  endLat: number;
+  endLng: number;
+}): number {
+  const r = Math.PI / 180;
+  const lat1 = d.startLat * r;
+  const lat2 = d.endLat * r;
+  const dLng = (d.endLng - d.startLng) * r;
+  const cosA =
+    Math.sin(lat1) * Math.sin(lat2) +
+    Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLng);
+  const angle = Math.acos(Math.max(-1, Math.min(1, cosA)));
+  return Math.sin(angle / 2) * 0.4;
+}
+
 // THREE.SphereGeometry UV derivation: at rotation.y=0 the camera (+Z) sees lng=-90°.
 // To centre longitude L: rotation.y = L_rad + π/2.
 function targetRotationY(lngDeg: number) {
@@ -159,7 +180,7 @@ export function GlobeVisualization({
         .arcEndLat("endLat")
         .arcEndLng("endLng")
         .arcColor(() => ["#02777C", "#02777C"])
-        .arcAltitude(0.35)
+        .arcAltitude((d: any) => naturalArcAltitude(d))
         .arcStroke(0.4)
         .arcDashLength(0.35)
         .arcDashGap(0.15)
