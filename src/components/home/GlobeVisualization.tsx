@@ -68,11 +68,21 @@ export function GlobeVisualization({
   );
   const prevRotYRef = useRef(targetRotYRef.current);
   const camZRef = useRef(320);
+  // Populated by the init effect; called by Effect 1 to clear drag momentum
+  // before setting a new programmatic target so the two don't fight each other.
+  const stopMomentumRef = useRef<() => void>(() => {});
 
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
   useEffect(() => {
     if (!globeRef.current) return;
+
+    // Kill any drag momentum so it doesn't fight the programmatic target.
+    stopMomentumRef.current();
+
+    // Reset the vertical tilt to the default view so the longitude centering
+    // is unambiguous — a tilted globe sees the wrong latitude at the equator.
+    targetRotXRef.current = -0.12;
 
     const entry = timelineEntries[activeIndex];
     const raw = targetRotationY(entry.coordinates[1]);
@@ -261,6 +271,12 @@ export function GlobeVisualization({
       let velY = 0;
       let lastRotX = 0;
       let lastRotY = 0;
+
+      // Expose to Effect 1 so clicking a location clears momentum immediately
+      stopMomentumRef.current = () => {
+        velX = 0;
+        velY = 0;
+      };
 
       const onPointerDown = (e: PointerEvent) => {
         isDragging = true;
