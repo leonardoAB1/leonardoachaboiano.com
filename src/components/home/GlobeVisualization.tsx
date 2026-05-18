@@ -234,6 +234,11 @@ export function GlobeVisualization({
       let dragStartRotY = 0;
       let dragStartRotX = 0;
       let userCamZ = camZRef.current;
+      // Momentum: last-frame rotation delta, decays after pointer release
+      let velX = 0;
+      let velY = 0;
+      let lastRotX = 0;
+      let lastRotY = 0;
 
       const onPointerDown = (e: PointerEvent) => {
         isDragging = true;
@@ -241,6 +246,9 @@ export function GlobeVisualization({
         dragStartY = e.clientY;
         dragStartRotY = targetRotYRef.current;
         dragStartRotX = targetRotXRef.current;
+        // Clear any lingering momentum so the grab feels immediate
+        velX = 0;
+        velY = 0;
         container.setPointerCapture(e.pointerId);
         container.style.cursor = "grabbing";
       };
@@ -250,16 +258,15 @@ export function GlobeVisualization({
         const deltaX = e.clientX - dragStartX;
         const deltaY = e.clientY - dragStartY;
 
-        // Horizontal drag → Y rotation (longitude)
-        // Full container width = one full 360° rotation
-        targetRotYRef.current =
-          dragStartRotY + (deltaX / container.offsetWidth) * Math.PI * 2;
+        // Uniform sensitivity: one globe-radius of pointer travel = 90° rotation.
+        // The sphere fills ~78% of the container, so apparent radius ≈ height × 0.39.
+        // Using the same factor for both axes eliminates the 2× asymmetry that
+        // made diagonal drags feel erratic.
+        const globeRadiusPx = container.offsetHeight * 0.39;
+        const sensitivity = Math.PI / 2 / globeRadiusPx;
 
-        // Vertical drag → X rotation (latitude tilt)
-        // Drag up (negative deltaY) tilts the north pole toward the viewer.
-        // Clamped to ±90° so the globe can't flip upside-down.
-        const rawX =
-          dragStartRotX - (deltaY / container.offsetHeight) * Math.PI;
+        targetRotYRef.current = dragStartRotY + deltaX * sensitivity;
+        const rawX = dragStartRotX - deltaY * sensitivity;
         targetRotXRef.current = Math.max(
           -Math.PI / 2,
           Math.min(Math.PI / 2, rawX),
@@ -294,12 +301,27 @@ export function GlobeVisualization({
       function animate() {
         rafId = requestAnimationFrame(animate);
 
-        // During a drag use a high lerp factor (near-instant follow) so the
-        // globe tracks the pointer directly. For programmatic timeline moves
-        // use the slow ease for a cinematic feel.
-        const lerpFactor = isDragging ? 0.8 : 0.05;
+        // lerpFactor=1.0 during drag: globe follows pointer with zero lag.
+        // lerpFactor=0.05 for programmatic timeline transitions: cinematic ease.
+        const lerpFactor = isDragging ? 1.0 : 0.05;
         globe.rotation.y += (targetRotYRef.current - globe.rotation.y) * lerpFactor;
         globe.rotation.x += (targetRotXRef.current - globe.rotation.x) * lerpFactor;
+
+        // ── Momentum ─────────────────────────────────────────────────────────
+        if (isDragging) {
+          // Sample velocity from actual rotation change this frame
+          velX = globe.rotation.x - lastRotX;
+          velY = globe.rotation.y - lastRotY;
+        } else if (Math.abs(velX) > 0.0001 || Math.abs(velY) > 0.0001) {
+          // Coasting after release: push the targets forward by the decaying velocity
+          targetRotYRef.current += velY;
+          const coastX = targetRotXRef.current + velX;
+          targetRotXRef.current = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, coastX));
+          velX *= 0.88; // halves every ~5 frames at 60fps
+          velY *= 0.88;
+        }
+        lastRotX = globe.rotation.x;
+        lastRotY = globe.rotation.y;
 
         // Auto-zoom during fast programmatic rotations; also honour the
         // user's scroll-wheel zoom level.
