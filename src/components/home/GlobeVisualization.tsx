@@ -1,151 +1,321 @@
 "use client";
 
-import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 import { timelineEntries } from "@/data/timeline";
 
 interface GlobeVisualizationProps {
   activeIndex: number;
-  /** When true the globe fills the container; label is shown */
   showLabel?: boolean;
+}
+
+// Career arcs: unique location transitions in chronological order
+const CAREER_ARCS = [
+  // Santa Cruz → Stafa (Bolivia to Switzerland)
+  { startLat: -17.7833, startLng: -63.1821, endLat: 47.2292, endLng: 8.73 },
+  // Stafa → Basel (within Switzerland)
+  { startLat: 47.2292, startLng: 8.73, endLat: 47.5596, endLng: 7.5886 },
+];
+
+// THREE.SphereGeometry UV derivation: at rotation.y=0 the camera (+Z) sees lng=-90°.
+// To centre longitude L: rotation.y = L_rad + π/2.
+function targetRotationY(lngDeg: number) {
+  return (lngDeg * Math.PI) / 180 + Math.PI / 2;
+}
+
+// Normalise target to take the shortest arc from current rotation.
+function shortestPath(current: number, target: number) {
+  let t = target;
+  while (t - current > Math.PI) t -= 2 * Math.PI;
+  while (t - current < -Math.PI) t += 2 * Math.PI;
+  return t;
 }
 
 export function GlobeVisualization({
   activeIndex,
   showLabel = true,
 }: GlobeVisualizationProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const phiRef = useRef(0);
-  const prevPhiRef = useRef(0);   // previous frame phi, used to compute rotation velocity
-  const scaleRef = useRef(1);     // current zoom scale, driven by rotation velocity
-  const labelRef = useRef<HTMLDivElement>(null);
-  const activeIndexRef = useRef(activeIndex);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Mutable state shared between the two effects via refs (no re-renders needed).
+  const globeRef = useRef<any>(null);
+  const cameraRef = useRef<any>(null);
+  const rendererRef = useRef<any>(null);
+  const targetRotYRef = useRef(
+    targetRotationY(timelineEntries[activeIndex].coordinates[1]),
+  );
+  const prevRotYRef = useRef(targetRotYRef.current);
+  const camZRef = useRef(260);
+
+  // ── Effect 1: react to activeIndex changes ───────────────────────────────
+  // Separated from the init effect so changes don't re-create the globe.
   useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
+    if (!globeRef.current) return;
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const entry = timelineEntries[activeIndex];
+    const raw = targetRotationY(entry.coordinates[1]);
 
-    let rafId = 0;
-    let canvasW = canvas.offsetWidth;
-    let canvasH = canvas.offsetHeight;
-    let globe: ReturnType<typeof createGlobe> | undefined;
+    // Shortest-path normalisation prevents the globe spinning the long way around.
+    targetRotYRef.current = shortestPath(
+      globeRef.current.rotation.y,
+      raw,
+    );
 
-    function buildMarkers(activeIdx: number) {
-      return timelineEntries.map((entry, i) => ({
-        location: entry.coordinates as [number, number],
-        size: i === activeIdx ? 0.08 : 0.04,
-      }));
+    // Update marker sizes: active entry gets a larger, brighter dot.
+    globeRef.current.pointsData(buildPoints(activeIndex));
+
+    // Swap the HTML label to the new location.
+    if (showLabel) {
+      globeRef.current.htmlElementsData([
+        { lat: entry.coordinates[0], lng: entry.coordinates[1], label: entry.location },
+      ]);
     }
+  }, [activeIndex, showLabel]);
 
-    function startGlobe() {
-      if (!canvas) return;
-      canvasW = canvas.offsetWidth;
-      canvasH = canvas.offsetHeight;
+  // ── Effect 2: initialise Three.js + three-globe (runs once) ─────────────
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-      globe = createGlobe(canvas, {
-        devicePixelRatio,
-        width: canvasW * devicePixelRatio,
-        height: canvasH * devicePixelRatio,
-        phi: phiRef.current,
-        theta: 0.2,
-        dark: 1,
-        diffuse: 1.2,
-        mapSamples: 16000,
-        // baseColor must be non-zero: continents = baseColor × mapBrightness × texture.
-        // With black base the texture contribution is always zero and the globe goes dark.
-        mapBrightness: 6,
-        mapBaseBrightness: 0,
-        baseColor: [0.04, 0.22, 0.26],
-        markerColor: [0.1, 0.95, 0.9],
-        glowColor: [0.02, 0.45, 0.5],
-        markers: buildMarkers(activeIndexRef.current),
-      });
+    let cancelled = false;
 
-      function tick() {
-        if (!globe) return;
+    // Collect all cleanup callbacks so the return function is comprehensive.
+    // Blog recommendation: use a cleanupFns array to prevent GPU memory leaks.
+    const cleanupFns: Array<() => void> = [];
 
-        const idx = activeIndexRef.current;
-        const [latDeg, lngDeg] = timelineEntries[idx].coordinates;
-        const lngRad = (lngDeg * Math.PI) / 180;
+    (async () => {
+      // Dynamic imports prevent SSR errors (three-globe uses `window` at module level).
+      const [ThreeGlobeModule, THREE] = await Promise.all([
+        import("three-globe"),
+        import("three"),
+      ]);
 
-        // phi = -(PI/2 + lng_rad) centres the given longitude at the front of the globe
-        const targetPhi = -(Math.PI / 2 + lngRad);
-        phiRef.current += (targetPhi - phiRef.current) * 0.05;
+      if (cancelled) return; // component unmounted before imports resolved
 
-        // Zoom: scale up proportional to sqrt of angular velocity so even small
-        // rotations (nearby locations) produce a noticeable zoom-in feel.
-        const velocity = Math.abs(phiRef.current - prevPhiRef.current);
-        prevPhiRef.current = phiRef.current;
-        const targetScale = 1 + Math.min(Math.sqrt(velocity * 8), 0.28);
-        scaleRef.current += (targetScale - scaleRef.current) * 0.06;
+      const ThreeGlobe = ThreeGlobeModule.default;
+      const W = container.offsetWidth;
+      const H = container.offsetHeight;
 
-        globe.update({
-          phi: phiRef.current,
-          scale: scaleRef.current,
-          markers: buildMarkers(idx),
-        });
+      // ── Renderer ──────────────────────────────────────────────────────────
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(W, H);
+      renderer.setClearColor(0x000000, 0); // transparent canvas background
+      container.appendChild(renderer.domElement);
+      rendererRef.current = renderer;
 
-        // Project lat/lng → 2D overlay coords.
-        // cobe's orthographic model at theta=0:
-        //   cameraX = cos(lat) × cos(phi + lng)  (accounts for aspect ratio)
-        //   cameraY = sin(lat)
-        // Screen [0,1]: x = (cameraX / aspectRatio + 1) / 2, y = (-cameraY + 1) / 2
-        if (labelRef.current && showLabel) {
-          const latRad = (latDeg * Math.PI) / 180;
-          const cameraX = Math.cos(latRad) * Math.cos(phiRef.current + lngRad);
-          const cameraY = Math.sin(latRad);
-          const visible = -(Math.cos(latRad) * Math.sin(phiRef.current + lngRad)) >= 0;
-          const aspectRatio = canvasW / canvasH;
+      // ── Scene ─────────────────────────────────────────────────────────────
+      const scene = new THREE.Scene();
 
-          labelRef.current.style.display = visible ? "flex" : "none";
-          labelRef.current.style.left = `${((cameraX / aspectRatio + 1) / 2) * canvasW}px`;
-          labelRef.current.style.top = `${((-cameraY + 1) / 2) * canvasH}px`;
-        }
+      // ── Camera ────────────────────────────────────────────────────────────
+      // Offset Y slightly so the view tilts toward the northern hemisphere,
+      // matching the mockup perspective.
+      const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 2000);
+      camera.position.set(0, 40, 260);
+      camera.lookAt(0, 0, 0);
+      cameraRef.current = camera;
+      camZRef.current = 260;
 
-        rafId = requestAnimationFrame(tick);
+      // ── Lighting ──────────────────────────────────────────────────────────
+      // Very dim ambient so the night-side of the Earth stays nearly black,
+      // letting city lights in the texture dominate.
+      scene.add(new THREE.AmbientLight(0x111133, 0.6));
+      // A soft directional light from top-left simulates the sun.
+      const sun = new THREE.DirectionalLight(0x9999ff, 0.5);
+      sun.position.set(-2, 1, 1);
+      scene.add(sun);
+
+      // ── Three-Globe ───────────────────────────────────────────────────────
+      const entry = timelineEntries[activeIndex];
+      const initRotY = targetRotationY(entry.coordinates[1]);
+
+      const globe = new ThreeGlobe({ waitForGlobeReady: true, animateIn: false })
+        // Earth night texture: NASA city-lights-from-space imagery
+        .globeImageUrl(
+          "//unpkg.com/three-globe/example/img/earth-night.jpg",
+        )
+        // Subtle bump map adds surface topology relief
+        .bumpImageUrl(
+          "//unpkg.com/three-globe/example/img/earth-topology.png",
+        )
+        .showAtmosphere(true)
+        .atmosphereColor("#02777C") // brand teal atmospheric glow
+        .atmosphereAltitude(0.18)
+        // Career location markers
+        .pointsData(buildPoints(activeIndex))
+        .pointLat("lat")
+        .pointLng("lng")
+        .pointAltitude("altitude")
+        .pointColor("color")
+        .pointRadius("radius")
+        .pointResolution(16)
+        .pointsMerge(false)
+        // Career journey arcs (animated dashes Bolivia → Stafa → Basel)
+        .arcsData(CAREER_ARCS)
+        .arcStartLat("startLat")
+        .arcStartLng("startLng")
+        .arcEndLat("endLat")
+        .arcEndLng("endLng")
+        .arcColor(() => ["#02777C", "#02777C"])
+        .arcAltitude(0.35)
+        .arcStroke(0.4)
+        .arcDashLength(0.35)
+        .arcDashGap(0.15)
+        .arcDashAnimateTime(2400)
+        .arcsTransitionDuration(400);
+
+      // HTML label overlay: uses three-globe's built-in projected DOM elements.
+      if (showLabel) {
+        globe
+          .htmlElementsData([
+            { lat: entry.coordinates[0], lng: entry.coordinates[1], label: entry.location },
+          ])
+          .htmlElement((d: any) => {
+            const el = document.createElement("div");
+            el.style.cssText = [
+              "display:flex",
+              "align-items:center",
+              "gap:6px",
+              "pointer-events:none",
+              "white-space:nowrap",
+            ].join(";");
+
+            const dot = document.createElement("span");
+            dot.style.cssText =
+              "width:8px;height:8px;border-radius:50%;background:#02777C;flex-shrink:0;box-shadow:0 0 6px #02777C";
+
+            const tag = document.createElement("span");
+            tag.style.cssText = [
+              "background:rgba(2,119,124,0.82)",
+              "color:#e0fafa",
+              "padding:3px 9px",
+              "border-radius:4px",
+              "font-size:11px",
+              "font-family:var(--font-sans,system-ui)",
+              "letter-spacing:0.03em",
+              "box-shadow:0 2px 10px rgba(0,0,0,0.5)",
+            ].join(";");
+            tag.textContent = d.label;
+
+            el.appendChild(dot);
+            el.appendChild(tag);
+            return el;
+          })
+          .htmlAltitude(0.04);
       }
 
-      rafId = requestAnimationFrame(tick);
-    }
+      // Set initial rotation without animation
+      globe.rotation.y = initRotY;
+      globe.rotation.x = -0.12; // subtle northern-hemisphere tilt
+      targetRotYRef.current = initRotY;
+      prevRotYRef.current = initRotY;
 
-    const observer = new ResizeObserver(() => {
-      if (!canvas) return;
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
-      if (Math.abs(w - canvasW) < 1 && Math.abs(h - canvasH) < 1) return;
-      cancelAnimationFrame(rafId);
-      globe?.destroy();
-      startGlobe();
-    });
+      scene.add(globe);
+      globeRef.current = globe;
 
-    startGlobe();
-    observer.observe(canvas);
+      // ── Animation loop ────────────────────────────────────────────────────
+      let rafId = 0;
+
+      function animate() {
+        rafId = requestAnimationFrame(animate);
+
+        // Smooth rotation toward target longitude
+        const curY = globe.rotation.y;
+        const tgtY = targetRotYRef.current;
+        globe.rotation.y += (tgtY - curY) * 0.05;
+
+        // Zoom: camera Z decreases (moves closer) proportional to rotation speed.
+        // Using sqrt compression so nearby-location transitions also feel kinetic.
+        const velocity = Math.abs(globe.rotation.y - prevRotYRef.current);
+        prevRotYRef.current = globe.rotation.y;
+        const zoomIn = Math.min(Math.sqrt(velocity * 6), 0.25);
+        const targetZ = 260 * (1 - zoomIn);
+        camZRef.current += (targetZ - camZRef.current) * 0.06;
+        camera.position.z = camZRef.current;
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // ── Resize handler ────────────────────────────────────────────────────
+      const ro = new ResizeObserver(() => {
+        const w = container.offsetWidth;
+        const h = container.offsetHeight;
+        renderer.setSize(w, h);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      });
+      ro.observe(container);
+
+      // ── Cleanup registration ──────────────────────────────────────────────
+      // Comprehensive teardown prevents GPU memory leaks (each leaked WebGL
+      // context occupies ~200 MB of GPU memory and browsers cap them at ~16).
+      cleanupFns.push(
+        // 1. Stop the render loop
+        () => cancelAnimationFrame(rafId),
+        // 2. Stop watching container size
+        () => ro.disconnect(),
+        // 3. Traverse scene and dispose all GPU resources
+        () =>
+          scene.traverse((obj: any) => {
+            if (!obj.isMesh) return;
+            obj.geometry?.dispose();
+            const mats: any[] = Array.isArray(obj.material)
+              ? obj.material
+              : [obj.material];
+            mats.forEach((m) => {
+              if (!m) return;
+              // Dispose every texture slot
+              (
+                [
+                  "map",
+                  "bumpMap",
+                  "normalMap",
+                  "specularMap",
+                  "emissiveMap",
+                  "alphaMap",
+                  "aoMap",
+                  "lightMap",
+                ] as const
+              ).forEach((slot) => m[slot]?.dispose());
+              m.dispose();
+            });
+          }),
+        // 4. Dispose the WebGL renderer (releases the WebGL context)
+        () => renderer.dispose(),
+        // 5. Remove the <canvas> element that the renderer appended
+        () => {
+          if (container.contains(renderer.domElement)) {
+            container.removeChild(renderer.domElement);
+          }
+        },
+        // 6. Null refs so Effect 1 doesn't attempt updates after teardown
+        () => {
+          globeRef.current = null;
+          cameraRef.current = null;
+          rendererRef.current = null;
+        },
+      );
+    })();
 
     return () => {
-      cancelAnimationFrame(rafId);
-      observer.disconnect();
-      globe?.destroy();
+      cancelled = true;
+      cleanupFns.forEach((fn) => fn());
     };
-  }, [showLabel]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  return (
-    <div className="relative h-full w-full">
-      <canvas ref={canvasRef} className="h-full w-full" />
-      {showLabel && (
-        <div
-          ref={labelRef}
-          className="pointer-events-none absolute hidden -translate-x-1/2 -translate-y-full items-center gap-1.5 whitespace-nowrap pb-2"
-        >
-          <span className="h-2 w-2 rounded-full bg-brand" />
-          <span className="rounded bg-surface-0/80 px-2 py-0.5 text-xs font-medium text-ink-1 backdrop-blur-sm">
-            {timelineEntries[activeIndex].location}
-          </span>
-        </div>
-      )}
-    </div>
-  );
+  return <div ref={containerRef} className="h-full w-full" />;
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+function buildPoints(activeIdx: number) {
+  return timelineEntries.map((entry, i) => ({
+    lat: entry.coordinates[0],
+    lng: entry.coordinates[1],
+    altitude: i === activeIdx ? 0.025 : 0.01,
+    color: i === activeIdx ? "#02fffe" : "rgba(2,255,254,0.45)",
+    radius: i === activeIdx ? 0.55 : 0.28,
+  }));
 }
