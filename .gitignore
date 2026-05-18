@@ -49,10 +49,9 @@ next-env.d.ts
 *.swp
 *.swo
 
-# ai tool configs
+# ai tool configs - commit instruction files, ignore runtime artifacts
 .cursor/
 .claude/
-CLAUDE.md
 AGENTS.md
 
 # local planning docs
