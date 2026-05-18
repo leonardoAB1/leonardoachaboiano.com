@@ -79,16 +79,23 @@ export function Hero(): ReactElement {
          * `pointer-events-none` so it doesn't block clicks on the timeline.
          * Hidden on mobile - the modal handles mobile.
          */}
+        {/*
+         * Outer strip: inset-y-0 makes it span the full section height,
+         * giving a reliable reference for vertical centering via flex.
+         * Inner square carries the actual globe canvas.
+         */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 hidden -translate-y-1/2 lg:block"
-          style={{ right: "-10vw", width: "70vw", height: "70vw" }}
+          className="pointer-events-none absolute inset-y-0 hidden lg:flex lg:items-center"
+          style={{ right: "-8vw", width: "60vw" }}
         >
-          <GlobeVisualization activeIndex={selectedIndex} />
+          <div style={{ width: "60vw", height: "60vw", flexShrink: 0 }}>
+            <GlobeVisualization activeIndex={selectedIndex} />
+          </div>
         </div>
 
         <Container>
-          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
+          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-12">
             {/* Left: hero copy */}
             <motion.div
               className="flex flex-col gap-8"
