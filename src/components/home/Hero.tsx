@@ -96,7 +96,7 @@ export function Hero(): ReactElement {
         {/* Left-aligned wrapper instead of centered Container - shifts both
             columns toward the left while the globe stays in its fixed
             absolute position on the right. */}
-        <div className="w-full max-w-5xl px-6 sm:px-8">
+        <div className="ml-[4vw] w-full max-w-5xl px-6 sm:px-8">
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-12">
             {/* Left: hero copy */}
             <motion.div
