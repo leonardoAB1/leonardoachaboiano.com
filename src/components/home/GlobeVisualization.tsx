@@ -43,9 +43,10 @@ function naturalArcAltitude(d: {
 const CAM_ELEVATION = Math.atan2(40, 320); // ≈ 0.124 rad
 
 // THREE.SphereGeometry UV derivation: at rotation.y=0 the camera (+Z) sees lng=-90°.
-// To centre longitude L: rotation.y = L_rad + π/2.
+// As rotation.y increases, visible longitude DECREASES: visible_lng = -π/2 - rotation.y
+// To centre longitude L: rotation.y = -(L_rad + π/2)  ← note the leading minus.
 function targetRotationY(lngDeg: number) {
-  return (lngDeg * Math.PI) / 180 + Math.PI / 2;
+  return -((lngDeg * Math.PI) / 180 + Math.PI / 2);
 }
 
 // The camera's visual centre sits at ~7.1°N when rotation.x = 0.
