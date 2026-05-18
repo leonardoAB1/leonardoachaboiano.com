@@ -1,11 +1,28 @@
 export const siteUrl = "https://leonardoachaboiano.com";
 
+const _name = "Leonardo Acha Boiano";
+const _title = "Mechatronics Engineer";
+
 export const siteConfig = {
-  name: "Leonardo Acha Boiano",
-  title: "Mechatronics Engineer",
-  description: "Engineering portfolio of Leonardo Acha Boiano.",
+  name: _name,
+  title: _title,
+  siteTitle: `${_name} - ${_title} & Portfolio`,
+  description:
+    "Mechatronics engineer with experience in robotics, embedded systems, and product design. " +
+    "Engineering portfolio, projects, and technical writing.",
   url: siteUrl,
   email: "leonardoacha@hotmail.com",
+  locale: "en_US",
+  ogImage: "/icon.png",
+  keywords: [
+    "Leonardo Acha Boiano",
+    "mechatronics engineer",
+    "robotics engineer",
+    "embedded systems",
+    "product design",
+    "hardware software integration",
+    "engineering portfolio",
+  ],
 } as const;
 
 export const navLinks = [
