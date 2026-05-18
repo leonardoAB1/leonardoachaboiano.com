@@ -81,7 +81,7 @@ export function Hero(): ReactElement {
          */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute hidden lg:block"
+          className="absolute hidden lg:block"
           style={{ right: "-8vw", bottom: "-8vh", width: "50vw", height: "50vw" }}
         >
           <GlobeVisualization activeIndex={selectedIndex} />

@@ -220,23 +220,75 @@ export function GlobeVisualization({
       scene.add(globe);
       globeRef.current = globe;
 
+      // ── Pointer / wheel interaction ───────────────────────────────────────
+      // Pointer Events API covers both mouse and touch in one set of handlers.
+      // setPointerCapture keeps the drag alive even when the pointer leaves
+      // the container (e.g. moving fast across the screen).
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartRotY = 0;
+      // Separate user-controlled zoom target so it survives the velocity zoom
+      let userCamZ = camZRef.current;
+
+      const onPointerDown = (e: PointerEvent) => {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartRotY = targetRotYRef.current;
+        container.setPointerCapture(e.pointerId);
+        container.style.cursor = "grabbing";
+      };
+
+      const onPointerMove = (e: PointerEvent) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - dragStartX;
+        // One full container width = one full rotation (2π)
+        targetRotYRef.current =
+          dragStartRotY + (deltaX / container.offsetWidth) * Math.PI * 2;
+      };
+
+      const onPointerUp = (e: PointerEvent) => {
+        if (!isDragging) return;
+        isDragging = false;
+        container.releasePointerCapture(e.pointerId);
+        container.style.cursor = "grab";
+      };
+
+      // Zoom with scroll wheel. passive:false required to call preventDefault.
+      const onWheel = (e: WheelEvent) => {
+        e.preventDefault();
+        // Cap per-event delta so high-resolution trackpads don't jump wildly.
+        const step = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 80) * 0.25;
+        userCamZ = Math.max(150, Math.min(420, userCamZ + step));
+      };
+
+      container.addEventListener("pointerdown", onPointerDown);
+      container.addEventListener("pointermove", onPointerMove);
+      container.addEventListener("pointerup", onPointerUp);
+      container.addEventListener("pointercancel", onPointerUp);
+      container.addEventListener("wheel", onWheel, { passive: false });
+      container.style.cursor = "grab";
+
       // ── Animation loop ────────────────────────────────────────────────────
       let rafId = 0;
 
       function animate() {
         rafId = requestAnimationFrame(animate);
 
-        // Smooth rotation toward target longitude
+        // During a drag use a high lerp factor (near-instant follow) so the
+        // globe tracks the pointer directly. For programmatic timeline moves
+        // use the slow ease for a cinematic feel.
+        const lerpFactor = isDragging ? 0.8 : 0.05;
         const curY = globe.rotation.y;
-        const tgtY = targetRotYRef.current;
-        globe.rotation.y += (tgtY - curY) * 0.05;
+        globe.rotation.y += (targetRotYRef.current - curY) * lerpFactor;
 
-        // Zoom: camera Z decreases (moves closer) proportional to rotation speed.
-        // Using sqrt compression so nearby-location transitions also feel kinetic.
+        // Auto-zoom during fast programmatic rotations; also honour the
+        // user's scroll-wheel zoom level.
         const velocity = Math.abs(globe.rotation.y - prevRotYRef.current);
         prevRotYRef.current = globe.rotation.y;
-        const zoomIn = Math.min(Math.sqrt(velocity * 6), 0.25);
-        const targetZ = 260 * (1 - zoomIn);
+        const zoomIn = isDragging
+          ? 0
+          : Math.min(Math.sqrt(velocity * 6), 0.25);
+        const targetZ = userCamZ * (1 - zoomIn);
         camZRef.current += (targetZ - camZRef.current) * 0.06;
         camera.position.z = camZRef.current;
 
@@ -261,7 +313,13 @@ export function GlobeVisualization({
       cleanupFns.push(
         // 1. Stop the render loop
         () => cancelAnimationFrame(rafId),
-        // 2. Stop watching container size
+        // 2. Remove interaction listeners
+        () => container.removeEventListener("pointerdown", onPointerDown),
+        () => container.removeEventListener("pointermove", onPointerMove),
+        () => container.removeEventListener("pointerup", onPointerUp),
+        () => container.removeEventListener("pointercancel", onPointerUp),
+        () => container.removeEventListener("wheel", onWheel),
+        // 3. Stop watching container size
         () => ro.disconnect(),
         // 3. Traverse scene and dispose all GPU resources
         () =>
