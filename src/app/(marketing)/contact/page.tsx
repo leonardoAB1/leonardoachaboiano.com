@@ -11,7 +11,7 @@ import { siteConfig, socialLinks } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Leonardo Acha Boiano - mechatronics and robotics engineer. Available for project collaborations, embedded systems work, and engineering inquiries.",
+    "Get in touch! Available for project collaborations, embedded systems work, and engineering inquiries.",
 };
 
 const contactLinks = [
@@ -46,7 +46,7 @@ export default function ContactPage(): ReactElement {
             Let&apos;s talk
           </Heading>
           <Text size="md" className="max-w-xl">
-            Whether you&apos;re working on a robotics project, looking for an
+            Whether you&apos;re working on a tech project, looking for an
             embedded systems engineer, or just want to say hello - I&apos;d love
             to hear from you.
           </Text>
