@@ -191,8 +191,8 @@ function loadTexture(THREE: ThreeNamespace, url: string): Promise<Texture> {
 
 const GLOBE_FADE_EASE = [0.22, 1, 0.36, 1] as const;
 const GLOBE_FADE_CSS_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-const GLOBE_FADE_DURATION_S = 0.65;
-const GLOBE_FADE_DURATION_MS = 650;
+const GLOBE_FADE_DURATION_S = 0.4;
+const GLOBE_FADE_DURATION_MS = 400;
 const GLOBE_FADE_REDUCED_S = 0.15;
 const GLOBE_FADE_REDUCED_MS = 150;
 
