@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import type {
   CanvasTexture,
   Material,
@@ -12,7 +13,10 @@ import type {
   Texture,
   WebGLRenderer,
 } from "three";
+import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
 import { timelineEntries } from "@/data/timeline";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { GLOBE_TEXTURES } from "@/lib/globe-textures";
 
 type ThreeNamespace = typeof import("three");
 
@@ -245,6 +249,14 @@ function makeGlowTexture(
   return new THREE.CanvasTexture(canvas);
 }
 
+function loadTexture(THREE: ThreeNamespace, url: string): Promise<Texture> {
+  return new Promise((resolve, reject) => {
+    new THREE.TextureLoader().load(url, resolve, undefined, reject);
+  });
+}
+
+const GLOBE_FADE_EASE = [0.22, 1, 0.36, 1] as const;
+
 // Build THREE.Sprite objects for each timeline location and add them to the globe.
 // Sprites are billboards: they always face the camera regardless of globe rotation,
 // so the gradient always reads correctly. depthTest:true ensures the opaque globe
@@ -282,6 +294,9 @@ export function GlobeVisualization({
   activeIndex,
   showLabel = true,
 }: GlobeVisualizationProps) {
+  const [isReady, setIsReady] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const fadeDuration = prefersReducedMotion ? 0.15 : 0.55;
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Mutable state shared between the two effects via refs (no re-renders needed).
@@ -442,11 +457,9 @@ export function GlobeVisualization({
         animateIn: false,
       })
         // NASA Blue Marble: daytime composite, natural land colours
-        .globeImageUrl(
-          "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg",
-        )
+        .globeImageUrl(GLOBE_TEXTURES.blueMarble)
         // Subtle bump map adds surface topology relief
-        .bumpImageUrl("//unpkg.com/three-globe/example/img/earth-topology.png")
+        .bumpImageUrl(GLOBE_TEXTURES.topology)
         .showAtmosphere(true)
         .atmosphereColor("#02e0e8") // bright cyan glow, matches mockup ring
         .atmosphereAltitude(0.28)
@@ -525,80 +538,70 @@ export function GlobeVisualization({
       let cloudMesh: Mesh | null = null;
 
       globe.onGlobeReady(() => {
-        const mat = globe.globeMaterial() as MeshPhongMaterial;
-        mat.specular = new THREE.Color(0x000000);
-        mat.shininess = 0;
-        mat.needsUpdate = true;
+        void (async () => {
+          if (cancelled) return;
 
-        // City lights as population indicator: the NASA night texture is used as
-        // an emissiveMap so it adds self-illumination on top of the Blue Marble.
-        // Low intensity keeps Blue Marble dominant; dense urban areas glow amber.
-        const nightLoader = new THREE.TextureLoader();
-        nightLoader.load(
-          "//unpkg.com/three-globe/example/img/earth-night.jpg",
-          (nightTex) => {
+          const mat = globe.globeMaterial() as MeshPhongMaterial;
+          mat.specular = new THREE.Color(0x000000);
+          mat.shininess = 0;
+          mat.needsUpdate = true;
+
+          try {
+            const [nightTex, cloudTex] = await Promise.all([
+              loadTexture(THREE, GLOBE_TEXTURES.night),
+              loadTexture(THREE, GLOBE_TEXTURES.clouds),
+            ]);
+            if (cancelled) return;
+
             nightTex.colorSpace = THREE.SRGBColorSpace;
             mat.emissiveMap = nightTex;
             mat.emissive = new THREE.Color(1, 1, 1);
             mat.emissiveIntensity = 0.8;
             mat.needsUpdate = true;
-          },
-        );
 
-        // Cloud layer: a sphere sitting just above the globe surface (radius 102
-        // vs globe radius 100). Added as a child of the globe object so it
-        // inherits globe rotation automatically; the per-frame nudge below adds
-        // a slow atmospheric drift on top of that.
-        const loader = new THREE.TextureLoader();
-        loader.load(
-          "//unpkg.com/three-globe/example/img/earth-clouds.png",
-          (tex) => {
             const geo = new THREE.SphereGeometry(102, 64, 64);
             const cloudMat = new THREE.MeshPhongMaterial({
-              map: tex,
-              // Same texture as alpha: white cloud = opaque, black sky = transparent.
-              alphaMap: tex,
+              map: cloudTex,
+              alphaMap: cloudTex,
               transparent: true,
               opacity: 0.9,
-              // depthWrite:false prevents the transparent sphere from punching
-              // holes in the atmosphere glow rendered behind it.
               depthWrite: false,
             });
             cloudMesh = new THREE.Mesh(geo, cloudMat);
             globe.add(cloudMesh);
-          },
-        );
+          } catch {
+            if (cancelled) return;
+          }
 
-        // City glow sprites: one shared texture + material for all ~56 cities.
-        // Sharing the material means one GPU texture upload regardless of city count.
-        // Size is fixed (no zoom scaling) since they're background texture, not markers.
-        const cityTex = makeGlowTexture(THREE, "#ffe8a8", 0.28);
-        cityTexRef.current = cityTex;
-        const cityMat = new THREE.SpriteMaterial({
-          map: cityTex,
-          transparent: true,
-          depthTest: true,
-          depthWrite: false,
-        });
-        WORLD_CITIES.forEach((city) => {
-          const pos = latLngToLocal(city.lat, city.lng, 0.005);
-          const s = new THREE.Sprite(cityMat);
-          s.position.set(pos.x, pos.y, pos.z);
-          s.scale.setScalar(6.5);
-          globe.add(s);
-        });
+          const cityTex = makeGlowTexture(THREE, "#ffe8a8", 0.28);
+          cityTexRef.current = cityTex;
+          const cityMat = new THREE.SpriteMaterial({
+            map: cityTex,
+            transparent: true,
+            depthTest: true,
+            depthWrite: false,
+          });
+          WORLD_CITIES.forEach((city) => {
+            const pos = latLngToLocal(city.lat, city.lng, 0.005);
+            const s = new THREE.Sprite(cityMat);
+            s.position.set(pos.x, pos.y, pos.z);
+            s.scale.setScalar(6.5);
+            globe.add(s);
+          });
 
-        // Build the initial set of glowing sprites for timeline locations.
-        // Done inside onGlobeReady so the globe's scene graph is fully set up
-        // before we add children to it.
-        const spriteData = buildSprites(
-          initialActiveIndex,
-          camPosRef.current.z,
-          THREE,
-          globe,
-        );
-        spritesRef.current = spriteData.map((d) => d.sprite);
-        spriteTexturesRef.current = spriteData.map((d) => d.tex);
+          const spriteData = buildSprites(
+            initialActiveIndex,
+            camPosRef.current.z,
+            THREE,
+            globe,
+          );
+          spritesRef.current = spriteData.map((d) => d.sprite);
+          spriteTexturesRef.current = spriteData.map((d) => d.tex);
+
+          if (!cancelled) {
+            setIsReady(true);
+          }
+        })();
       });
 
       scene.add(globe);
@@ -872,6 +875,7 @@ export function GlobeVisualization({
           rendererRef.current = null;
           threeRef.current = null;
         },
+        () => setIsReady(false),
       );
     })();
 
@@ -883,5 +887,24 @@ export function GlobeVisualization({
     };
   }, []);
 
-  return <div ref={containerRef} className="h-full w-full" />;
+  return (
+    <div className="relative h-full w-full">
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        initial={false}
+        animate={{ opacity: isReady ? 0 : 1 }}
+        transition={{ duration: fadeDuration, ease: GLOBE_FADE_EASE }}
+      >
+        <GlobePlaceholder />
+      </motion.div>
+      <motion.div
+        ref={containerRef}
+        className="absolute inset-0 h-full w-full"
+        initial={false}
+        animate={{ opacity: isReady ? 1 : 0 }}
+        transition={{ duration: fadeDuration, ease: GLOBE_FADE_EASE }}
+      />
+    </div>
+  );
 }

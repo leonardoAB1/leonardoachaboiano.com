@@ -1,15 +1,27 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { type ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import { timelineEntries } from "@/data/timeline";
 import { cn } from "@/lib/utils";
 import { GlobeModal } from "./GlobeModal";
-import { GlobeVisualization } from "./GlobeVisualization";
+import { GlobePlaceholder } from "./GlobePlaceholder";
+
+const GlobeVisualization = dynamic(
+  () => import("./GlobeVisualization").then((mod) => mod.GlobeVisualization),
+  { ssr: false, loading: () => <GlobePlaceholder /> },
+);
 
 // Reads the browser media query on the client. Returns false during SSR
 // (server always renders as "desktop") then corrects after hydration.
@@ -59,6 +71,10 @@ export function Hero(): ReactElement {
   const [showFade, setShowFade] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    void import("./GlobeVisualization");
+  }, []);
 
   const handleTimelineScroll = useCallback(() => {
     const el = scrollRef.current;
@@ -179,10 +195,16 @@ export function Hero(): ReactElement {
                 ref={scrollRef}
                 onScroll={handleTimelineScroll}
                 className="max-h-[28rem] overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                style={showFade ? {
-                  WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
-                  maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
-                } : undefined}
+                style={
+                  showFade
+                    ? {
+                        WebkitMaskImage:
+                          "linear-gradient(to bottom, black 70%, transparent 100%)",
+                        maskImage:
+                          "linear-gradient(to bottom, black 70%, transparent 100%)",
+                      }
+                    : undefined
+                }
               >
                 <div className="relative">
                   <div
