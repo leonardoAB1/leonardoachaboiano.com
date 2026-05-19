@@ -36,27 +36,66 @@ const skillGroups: { category: string; skills: string[] }[] = [
   },
   {
     category: "Embedded & Robotics",
-    skills: ["STM32", "ESP32", "ROS2", "FreeRTOS", "BLE", "CAN", "I2C", "MQTT"],
+    skills: [
+      "STM32",
+      "ESP32",
+      "ROS2",
+      "FreeRTOS",
+      "BLE",
+      "CAN",
+      "I2C",
+      "MQTT",
+    ],
   },
   {
     category: "Electronics & PCB",
-    skills: ["KiCad", "Altium", "Proteus", "LTSpice", "Breadboarding", "Soldering"],
+    skills: [
+      "KiCad",
+      "Altium",
+      "Proteus",
+      "LTSpice",
+      "Breadboarding",
+      "Soldering",
+    ],
   },
   {
     category: "Mechanical Design",
-    skills: ["SolidWorks", "Fusion 360", "AutoCAD", "DFMA", "GD&T", "CNC Lathe", "3D Printing", "Laser Cutting"],
+    skills: [
+      "SolidWorks",
+      "Fusion 360",
+      "AutoCAD",
+      "DFMA",
+      "GD&T",
+      "CNC Lathe",
+      "3D Printing",
+      "Laser Cutting",
+    ],
   },
   {
     category: "Tools",
-    skills: ["Git/GitHub", "MATLAB", "PLC (Tia Portal)", "Ladder", "FBD", "P&ID", "FluidSIM"],
+    skills: [
+      "Git/GitHub",
+      "MATLAB",
+      "PLC (Tia Portal)",
+      "Ladder",
+      "FBD",
+      "P&ID",
+      "FluidSIM",
+    ],
   },
 ];
 
 const achievements = [
   { label: "Champion, ICPC Regional Contest", date: "Aug 2024" },
-  { label: "Diploma of Honour, 2nd place - Mechatronic Eng term 2-2023", date: "Apr 2024" },
+  {
+    label: "Diploma of Honour, 2nd place - Mechatronic Eng term 2-2023",
+    date: "Apr 2024",
+  },
   { label: "Certified SOLIDWORKS Associate (CSWA)", date: "Nov 2023" },
-  { label: "Diploma of Honour, 2nd place - Mechatronic Eng term 1-2023", date: "Sep 2023" },
+  {
+    label: "Diploma of Honour, 2nd place - Mechatronic Eng term 1-2023",
+    date: "Sep 2023",
+  },
   { label: "Excellence Scholarship x3", date: "2021-2022" },
   { label: "Rotary Youth Exchange Ambassador to Canada", date: "2018-2019" },
 ];
@@ -75,9 +114,7 @@ const languages = [
 export default function CVPage(): ReactElement {
   return (
     <div className="bg-surface-0">
-      {/* ------------------------------------------------------------------ */}
-      {/* Header                                                              */}
-      {/* ------------------------------------------------------------------ */}
+      {/* Header */}
       <Section as="header" className="py-8 sm:py-12">
         <Container>
           <AnimatedSection>
@@ -96,7 +133,7 @@ export default function CVPage(): ReactElement {
                     |
                   </span>
                   <a
-                    className="hover:text-brand transition-colors"
+                    className="transition-colors hover:text-brand"
                     href={`mailto:${siteConfig.email}`}
                   >
                     {siteConfig.email}
@@ -113,18 +150,12 @@ export default function CVPage(): ReactElement {
 
       <Separator />
 
-      {/* ------------------------------------------------------------------ */}
-      {/* Two-column content                                                  */}
-      {/* ------------------------------------------------------------------ */}
+      {/* Two-column content */}
       <Section className="py-8 sm:py-12">
         <Container>
           <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-[1fr_17rem] lg:gap-x-16">
-
-            {/* -------------------------------------------------------------- */}
-            {/* Left: main content                                              */}
-            {/* -------------------------------------------------------------- */}
+            {/* Left: main content */}
             <div className="space-y-10">
-
               {/* Work Experience */}
               <AnimatedSection>
                 <Eyebrow className="mb-6">Work Experience</Eyebrow>
@@ -132,7 +163,12 @@ export default function CVPage(): ReactElement {
                   {workExperience.map((entry) => (
                     <TimelineEntry
                       key={`${entry.org}-${entry.dateRange}`}
-                      {...entry}
+                      dateRange={entry.dateRange}
+                      role={entry.role}
+                      org={entry.org}
+                      location={entry.location}
+                      bullets={entry.bullets}
+                      note={entry.note}
                     />
                   ))}
                 </div>
@@ -147,7 +183,11 @@ export default function CVPage(): ReactElement {
                   {education.map((entry) => (
                     <TimelineEntry
                       key={`${entry.org}-${entry.dateRange}`}
-                      {...entry}
+                      dateRange={entry.dateRange}
+                      role={entry.role}
+                      org={entry.org}
+                      location={entry.location}
+                      note={entry.note}
                     />
                   ))}
                 </div>
@@ -178,18 +218,18 @@ export default function CVPage(): ReactElement {
               </AnimatedSection>
             </div>
 
-            {/* -------------------------------------------------------------- */}
-            {/* Right: sidebar                                                  */}
-            {/* -------------------------------------------------------------- */}
+            {/* Right: sidebar */}
             <div className="space-y-10 lg:sticky lg:top-8 lg:self-start">
-
               {/* Languages */}
               <AnimatedSection delay={0.1}>
                 <Eyebrow className="mb-6">Languages</Eyebrow>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   {languages.map(({ name, level, flag }) => (
                     <div key={name} className="flex items-center gap-3">
-                      <span className="text-2xl leading-none" aria-hidden="true">
+                      <span
+                        aria-hidden="true"
+                        className="text-2xl leading-none"
+                      >
                         {flag}
                       </span>
                       <div className="flex flex-col gap-0.5">
@@ -220,7 +260,6 @@ export default function CVPage(): ReactElement {
                 </ul>
               </AnimatedSection>
             </div>
-
           </div>
         </Container>
       </Section>
