@@ -225,19 +225,13 @@ export default function CVPage(): ReactElement {
                 <Eyebrow className="mb-6">Languages</Eyebrow>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   {languages.map(({ name, level, flag }) => (
-                    <div key={name} className="flex items-center gap-3">
-                      <span
-                        aria-hidden="true"
-                        className="text-2xl leading-none"
-                      >
-                        {flag}
-                      </span>
-                      <div className="flex flex-col gap-0.5">
-                        <span className="text-sm font-medium text-ink-1">
-                          {name}
-                        </span>
-                        <span className="text-xs text-ink-4">{level}</span>
-                      </div>
+                    <div
+                      key={name}
+                      className="flex flex-col gap-1"
+                      aria-label={name}
+                    >
+                      <span className="text-2xl leading-none">{flag}</span>
+                      <span className="text-xs text-ink-4">{level}</span>
                     </div>
                   ))}
                 </div>
