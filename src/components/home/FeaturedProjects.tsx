@@ -2,12 +2,10 @@
 
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Badge } from "@/components/ui/Badge";
-import { buttonClasses } from "@/components/ui/Button";
 import {
   Card,
   CardContent,
@@ -16,14 +14,12 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 import { Heading } from "@/components/ui/Typography";
-import { cn } from "@/lib/utils";
 
 interface Project {
   title: string;
   image: string;
   tags: string[];
   description: string;
-  href: string;
 }
 
 const projects: Project[] = [
@@ -33,7 +29,6 @@ const projects: Project[] = [
     tags: ["KiCad", "Python", "SolidWorks", "DFMA"],
     description:
       "Mobile robot with custom PCB, 3D-printed DFMA parts, and closed-loop motor control achieving 5% error margin",
-    href: "/projects",
   },
   {
     title: "Micro Quadruped Robot",
@@ -41,7 +36,6 @@ const projects: Project[] = [
     tags: ["SolidWorks", "MATLAB", "3D Printing"],
     description:
       "Affordable quadruped with full kinematic analysis in MATLAB and SolidWorks, validated through simulation and physical testing",
-    href: "/projects",
   },
   {
     title: "Smoke Detector Camera",
@@ -49,7 +43,6 @@ const projects: Project[] = [
     tags: ["ESP32", "C", "ESP-IDF", "SolidWorks"],
     description:
       "IoT smoke detection device integrating ESP32CAM, C firmware on ESP-IDF, and SolidWorks-designed housing for remote monitoring",
-    href: "/projects",
   },
   {
     title: "Propeller Levitated Arm",
@@ -57,7 +50,6 @@ const projects: Project[] = [
     tags: ["SolidWorks", "Arduino", "MATLAB", "IMU"],
     description:
       "Dual-propeller levitation rig with IMU feedback and MATLAB-validated control algorithm, complex parts manufactured via 3D printing",
-    href: "/projects",
   },
   {
     title: "Hot Plate for SMD Soldering",
@@ -65,7 +57,6 @@ const projects: Project[] = [
     tags: ["Arduino", "MATLAB", "PCB", "Control"],
     description:
       "SMD reflow hot plate with MATLAB-designed temperature controller, capable of tracking a reflow curve or holding a setpoint",
-    href: "/projects",
   },
   {
     title: "Can Crusher System",
@@ -73,7 +64,6 @@ const projects: Project[] = [
     tags: ["SolidWorks", "Fluidsim", "Electropneumatics"],
     description:
       "Automatic can crusher with electropneumatic control circuits designed in Fluidsim and mechanism modeled in SolidWorks",
-    href: "/projects",
   },
   {
     title: "Portable Battery Trolley",
@@ -81,7 +71,6 @@ const projects: Project[] = [
     tags: ["SolidWorks", "Stress Analysis", "Welding"],
     description:
       "Field-tested trolley under 20 kg carrying 200-250 kg of batteries, stress-simulated in SolidWorks and taken to production by Swiss Contact",
-    href: "/projects",
   },
   {
     title: "Analog Temperature Alarm",
@@ -89,7 +78,6 @@ const projects: Project[] = [
     tags: ["Proteus", "PCB", "CNC", "Analog"],
     description:
       "Analog buzzer alarm circuit simulated in Proteus, validated on breadboard, and manufactured on a CNC-milled PCB",
-    href: "/projects",
   },
   {
     title: "Coronavirus Data App",
@@ -97,7 +85,6 @@ const projects: Project[] = [
     tags: ["Python", "Tkinter", "pandas", "matplotlib"],
     description:
       "GUI app to query, visualize, and compare COVID-19 data across countries using public APIs and standard Python data libraries",
-    href: "/projects",
   },
 ];
 
@@ -172,7 +159,7 @@ export function FeaturedProjects(): ReactElement {
                     <CardTitle>{project.title}</CardTitle>
                     <CardDescription>{project.description}</CardDescription>
                   </CardHeader>
-                  <CardContent className="mt-auto flex flex-col gap-4 pt-4">
+                  <CardContent className="mt-auto pt-4">
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
                         <Badge key={tag} tone="neutral">
@@ -180,31 +167,11 @@ export function FeaturedProjects(): ReactElement {
                         </Badge>
                       ))}
                     </div>
-                    <Link
-                      href={project.href}
-                      className="text-sm font-medium text-brand hover:text-brand-dim transition-colors duration-200"
-                    >
-                      View project &rarr;
-                    </Link>
                   </CardContent>
                 </Card>
               </motion.li>
             ))}
           </motion.ul>
-          <motion.div
-            className="flex justify-center"
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            variants={headingVariant}
-          >
-            <Link
-              href="/projects"
-              className={cn(buttonClasses({ variant: "secondary" }))}
-            >
-              View all projects
-            </Link>
-          </motion.div>
         </div>
       </Container>
     </Section>
