@@ -135,18 +135,18 @@ export function Hero(): ReactElement {
                     buttonClasses({ size: "lg", variant: "primary" }),
                     "text-center",
                   )}
-                  href="/projects"
+                  href="/cv"
                 >
-                  View projects
+                  View CV
                 </Link>
                 <Link
                   className={cn(
                     buttonClasses({ size: "lg", variant: "secondary" }),
                     "text-center",
                   )}
-                  href="/cv"
+                  href="/contact"
                 >
-                  View CV
+                  Get in touch
                 </Link>
               </motion.div>
             </motion.div>
