@@ -28,6 +28,18 @@ const contactLinks = [
     external: true,
   },
   {
+    label: "Instagram",
+    href: socialLinks.instagram,
+    description: "Photos and behind-the-scenes",
+    external: true,
+  },
+  {
+    label: "Facebook",
+    href: socialLinks.facebook,
+    description: "Connect on Facebook",
+    external: true,
+  },
+  {
     label: "Email",
     href: socialLinks.email,
     description: siteConfig.email,
@@ -47,7 +59,7 @@ export default function ContactPage(): ReactElement {
           </Heading>
           <Text size="md" className="max-w-xl">
             Whether you&apos;re working on a tech project, looking for an
-            embedded systems engineer, or just want to say hello - I&apos;d love
+            embedded systems engineer, or just want to connect, I&apos;d love
             to hear from you.
           </Text>
         </div>
