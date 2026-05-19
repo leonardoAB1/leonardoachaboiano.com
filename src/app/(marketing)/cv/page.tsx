@@ -101,10 +101,10 @@ const achievements = [
 ];
 
 const languages = [
-  { name: "Spanish", level: "Native", flag: "🇧🇴🇦🇷" },
-  { name: "English", level: "Fluent", flag: "🇬🇧" },
-  { name: "German", level: "A2", flag: "🇩🇪" },
-  { name: "Italian", level: "A2", flag: "🇮🇹" },
+  { name: "Spanish", level: "Native", countries: ["bo", "ar"] },
+  { name: "English", level: "Fluent", countries: ["gb"] },
+  { name: "German", level: "A2", countries: ["de"] },
+  { name: "Italian", level: "A2", countries: ["it"] },
 ];
 
 // ---------------------------------------------------------------------------
@@ -224,13 +224,24 @@ export default function CVPage(): ReactElement {
               <AnimatedSection delay={0.1}>
                 <Eyebrow className="mb-6">Languages</Eyebrow>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  {languages.map(({ name, level, flag }) => (
+                  {languages.map(({ name, level, countries }) => (
                     <div
                       key={name}
-                      className="flex flex-col gap-1"
+                      className="flex flex-col gap-1.5"
                       aria-label={name}
                     >
-                      <span className="text-2xl leading-none">{flag}</span>
+                      <div className="flex gap-1">
+                        {countries.map((code) => (
+                          <img
+                            key={code}
+                            alt=""
+                            className="rounded-sm"
+                            height={18}
+                            src={`https://flagcdn.com/32x24/${code}.png`}
+                            width={24}
+                          />
+                        ))}
+                      </div>
                       <span className="text-xs text-ink-4">{level}</span>
                     </div>
                   ))}
