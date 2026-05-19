@@ -36,5 +36,7 @@ export const navLinks = [
 export const socialLinks = {
   github: "https://github.com/leonardoAB1",
   linkedin: "https://www.linkedin.com/in/leonardoachaboiano",
+  instagram: "https://www.instagram.com/leonardo.ab1/",
+  facebook: "https://www.facebook.com/leonardo.achaboiano",
   email: "mailto:leonardoacha@hotmail.com",
 } as const;
