@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.6.0...v0.7.0) (2026-05-19)
+
+
+### Features
+
+* add interactive globe timeline to hero section ([#111](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/111)) ([afdb92c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/afdb92c6a5811b43d64419272a5b5dacaabb3f68))
+
 ## [0.6.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.5.0...v0.6.0) (2026-05-17)
 
 
