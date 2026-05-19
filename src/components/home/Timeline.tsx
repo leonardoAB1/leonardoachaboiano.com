@@ -2,8 +2,8 @@ import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import { timelineEntries, type TimelineEntryType } from "@/data/timeline";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
+import { type TimelineEntryType, timelineEntries } from "@/data/timeline";
 
 const TYPE_LABEL: Record<NonNullable<TimelineEntryType>, string> = {
   work: "Work",
