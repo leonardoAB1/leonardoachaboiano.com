@@ -102,7 +102,7 @@ const achievements = [
 
 const languages = [
   { name: "Spanish", level: "Native", countries: ["bo", "ar"] },
-  { name: "English", level: "Fluent", countries: ["gb"] },
+  { name: "English", level: "Fluent", countries: ["us"] },
   { name: "German", level: "A2", countries: ["de"] },
   { name: "Italian", level: "A2", countries: ["it"] },
 ];
