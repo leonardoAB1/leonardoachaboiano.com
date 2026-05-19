@@ -167,7 +167,7 @@ export function Hero(): ReactElement {
                * vertical line — its height is the full content height, not
                * the clipped viewport, so h-[calc(100%-1rem)] spans all entries.
                */}
-              <div className="max-h-[28rem] overflow-y-auto overflow-x-hidden">
+              <div className="max-h-[28rem] overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="relative">
                   <div
                     aria-hidden="true"
