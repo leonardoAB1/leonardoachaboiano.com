@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.2...v0.8.0) (2026-05-19)
+
+
+### Features
+
+* add cv page with timeline layout ([#86](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/86)) ([9dd8257](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9dd82571e20e17138a63180d0e3e8c417ef39803))
+
 ## [0.7.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.1...v0.7.2) (2026-05-19)
 
 
