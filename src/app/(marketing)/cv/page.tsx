@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import type { ReactElement } from "react";
 import { DownloadButton } from "@/components/cv/DownloadButton";
 import { SkillBadge } from "@/components/cv/SkillBadge";
@@ -36,16 +37,7 @@ const skillGroups: { category: string; skills: string[] }[] = [
   },
   {
     category: "Embedded & Robotics",
-    skills: [
-      "STM32",
-      "ESP32",
-      "ROS2",
-      "FreeRTOS",
-      "BLE",
-      "CAN",
-      "I2C",
-      "MQTT",
-    ],
+    skills: ["STM32", "ESP32", "ROS2", "FreeRTOS", "BLE", "CAN", "I2C", "MQTT"],
   },
   {
     category: "Electronics & PCB",
@@ -225,14 +217,11 @@ export default function CVPage(): ReactElement {
                 <Eyebrow className="mb-6">Languages</Eyebrow>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
                   {languages.map(({ name, level, countries }) => (
-                    <div
-                      key={name}
-                      className="flex flex-col gap-1.5"
-                      aria-label={name}
-                    >
+                    <div key={name} className="flex flex-col gap-1.5">
+                      <span className="sr-only">{name}</span>
                       <div className="flex gap-1">
                         {countries.map((code) => (
-                          <img
+                          <Image
                             key={code}
                             alt=""
                             className="rounded-sm"
