@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.0...v0.9.1) (2026-05-19)
+
+
+### Bug Fixes
+
+* remove broken links and unbuilt page references ([#124](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/124)) ([59279c5](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/59279c59d2472a3b07254569179800bbd65763a8))
+
 ## [0.9.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.8.0...v0.9.0) (2026-05-19)
 
 
