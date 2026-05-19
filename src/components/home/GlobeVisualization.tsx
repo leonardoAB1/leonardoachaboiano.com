@@ -86,74 +86,6 @@ const CAREER_ARCS = [
   { startLat: 47.2292, startLng: 8.73, endLat: 47.5596, endLng: 7.5886 },
 ];
 
-// Background city texture layer - major world population centers.
-// These render as small warm-yellowish dots via three-globe's merged point system.
-// Static data, merged into one draw call, so adding ~42 cities costs almost nothing.
-const WORLD_CITIES = [
-  // North America
-  { lat: 40.71, lng: -74.01 },
-  { lat: 34.05, lng: -118.24 },
-  { lat: 41.88, lng: -87.63 },
-  { lat: 19.43, lng: -99.13 },
-  { lat: 43.7, lng: -79.42 },
-  { lat: 45.5, lng: -73.57 },
-  { lat: 29.76, lng: -95.37 },
-  { lat: 33.45, lng: -112.07 },
-  // South America
-  { lat: -23.55, lng: -46.63 },
-  { lat: -34.6, lng: -58.38 },
-  { lat: -12.05, lng: -77.04 },
-  { lat: 4.71, lng: -74.07 },
-  { lat: -0.23, lng: -78.52 },
-  { lat: -15.78, lng: -47.93 },
-  { lat: -17.78, lng: -63.18 },
-  // Europe
-  { lat: 51.51, lng: -0.13 },
-  { lat: 48.85, lng: 2.35 },
-  { lat: 52.52, lng: 13.41 },
-  { lat: 41.9, lng: 12.5 },
-  { lat: 40.42, lng: -3.7 },
-  { lat: 55.75, lng: 37.62 },
-  { lat: 47.56, lng: 7.59 },
-  { lat: 47.37, lng: 8.54 },
-  { lat: 48.21, lng: 16.37 },
-  { lat: 50.09, lng: 14.43 },
-  { lat: 59.33, lng: 18.07 },
-  { lat: 60.17, lng: 24.94 },
-  { lat: 52.23, lng: 21.01 },
-  { lat: 50.45, lng: 30.52 },
-  { lat: 41.38, lng: 2.16 },
-  { lat: 53.34, lng: -6.27 },
-  // Asia
-  { lat: 35.69, lng: 139.69 },
-  { lat: 39.9, lng: 116.41 },
-  { lat: 31.23, lng: 121.47 },
-  { lat: 22.32, lng: 114.17 },
-  { lat: 1.35, lng: 103.82 },
-  { lat: 28.61, lng: 77.21 },
-  { lat: 19.08, lng: 72.88 },
-  { lat: 37.57, lng: 126.98 },
-  { lat: 13.75, lng: 100.52 },
-  { lat: 21.03, lng: 105.85 },
-  { lat: 25.2, lng: 55.27 },
-  { lat: 41.01, lng: 28.95 },
-  { lat: 24.87, lng: 67.01 },
-  { lat: 23.73, lng: 90.4 },
-  { lat: 14.09, lng: 100.6 },
-  // Africa
-  { lat: 30.06, lng: 31.25 },
-  { lat: -33.93, lng: 18.42 },
-  { lat: -26.2, lng: 28.04 },
-  { lat: 6.45, lng: 3.4 },
-  { lat: -1.29, lng: 36.82 },
-  { lat: -8.84, lng: 13.23 },
-  { lat: 5.35, lng: -4.0 },
-  { lat: 14.69, lng: -17.44 },
-  // Oceania
-  { lat: -33.87, lng: 151.21 },
-  { lat: -37.81, lng: 144.96 },
-  { lat: -36.87, lng: 174.77 },
-];
 
 // Arc altitude proportional to the great-circle angle between endpoints.
 // Close locations (Stafa→Basel, ~22 km) get a nearly flat arc;
@@ -258,8 +190,8 @@ function loadTexture(THREE: ThreeNamespace, url: string): Promise<Texture> {
 
 const GLOBE_FADE_EASE = [0.22, 1, 0.36, 1] as const;
 const GLOBE_FADE_CSS_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-const GLOBE_FADE_DURATION_S = 1.25;
-const GLOBE_FADE_DURATION_MS = 1250;
+const GLOBE_FADE_DURATION_S = 0.65;
+const GLOBE_FADE_DURATION_MS = 650;
 const GLOBE_FADE_REDUCED_S = 0.15;
 const GLOBE_FADE_REDUCED_MS = 150;
 
@@ -326,8 +258,6 @@ export function GlobeVisualization({
   // Sprites and their canvas textures - rebuilt when activeIndex changes.
   const spritesRef = useRef<MarkerSprite[]>([]);
   const spriteTexturesRef = useRef<CanvasTexture[]>([]);
-  // City glow sprite texture - single shared allocation, never rebuilt.
-  const cityTexRef = useRef<CanvasTexture | null>(null);
   const targetRotXRef = useRef(
     targetRotationX(timelineEntries[activeIndex].coordinates[0]),
   );
@@ -593,22 +523,6 @@ export function GlobeVisualization({
           } catch {
             if (cancelled) return;
           }
-
-          const cityTex = makeGlowTexture(THREE, "#ffe8a8", 0.28);
-          cityTexRef.current = cityTex;
-          const cityMat = new THREE.SpriteMaterial({
-            map: cityTex,
-            transparent: true,
-            depthTest: true,
-            depthWrite: false,
-          });
-          WORLD_CITIES.forEach((city) => {
-            const pos = latLngToLocal(city.lat, city.lng, 0.005);
-            const s = new THREE.Sprite(cityMat);
-            s.position.set(pos.x, pos.y, pos.z);
-            s.scale.setScalar(6.5);
-            globe.add(s);
-          });
 
           const spriteData = buildSprites(
             initialActiveIndex,
@@ -876,8 +790,6 @@ export function GlobeVisualization({
           });
           spriteTexturesRef.current = [];
           spritesRef.current = [];
-          cityTexRef.current?.dispose();
-          cityTexRef.current = null;
         },
         // 5. Traverse scene and dispose all GPU resources
         () =>
