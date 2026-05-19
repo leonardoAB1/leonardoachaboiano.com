@@ -87,7 +87,6 @@ const CAREER_ARCS = [
   { startLat: 47.2292, startLng: 8.73, endLat: 47.5596, endLng: 7.5886 },
 ];
 
-
 // Arc altitude proportional to the great-circle angle between endpoints.
 // Close locations (Stafa→Basel, ~22 km) get a nearly flat arc;
 // distant ones (SC→Stafa, ~11 000 km / ~91°) get a moderate rise.
@@ -533,7 +532,11 @@ export function GlobeVisualization({
 
           // Build shared glow textures once - reused on every activeIndex change.
           activeMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 1.0);
-          inactiveMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 0.55);
+          inactiveMarkerTexRef.current = makeGlowTexture(
+            THREE,
+            "#02fffe",
+            0.55,
+          );
           spritesRef.current = buildSprites(
             initialActiveIndex,
             camPosRef.current.z,
