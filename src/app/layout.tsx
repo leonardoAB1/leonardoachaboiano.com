@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactElement, ReactNode } from "react";
@@ -6,6 +8,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
 import { PersonSchema } from "@/components/shared/PersonSchema";
 import { siteConfig } from "@/lib/constants";
+import { GLOBE_TEXTURE_PRELOAD_HREFS } from "@/lib/globe-textures";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -76,6 +79,11 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
+      <head>
+        {GLOBE_TEXTURE_PRELOAD_HREFS.map((href) => (
+          <link key={href} rel="preload" as="image" href={href} />
+        ))}
+      </head>
       <body className="flex min-h-screen flex-col bg-surface-0 text-ink-1 antialiased">
         <PersonSchema />
         <Providers>
@@ -83,6 +91,8 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </Providers>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

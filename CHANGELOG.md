@@ -1,5 +1,33 @@
 # Changelog
 
+## [0.8.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.2...v0.8.0) (2026-05-19)
+
+
+### Features
+
+* add cv page with timeline layout ([#86](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/86)) ([9dd8257](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9dd82571e20e17138a63180d0e3e8c417ef39803))
+
+## [0.7.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.1...v0.7.2) (2026-05-19)
+
+
+### Bug Fixes
+
+* resolve biome formatting errors in GlobeVisualization ([d374e71](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/d374e71669dac106c57da697689db2baa70f1fb3))
+
+## [0.7.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.0...v0.7.1) (2026-05-19)
+
+
+### Performance Improvements
+
+* remove city sprite layer and reduce globe fade-in ([#117](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/117)) ([309edaf](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/309edaf3b69a8d3a7cbb9c5cffec9fd0a365f5c4))
+
+## [0.7.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.6.0...v0.7.0) (2026-05-19)
+
+
+### Features
+
+* add interactive globe timeline to hero section ([#111](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/111)) ([afdb92c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/afdb92c6a5811b43d64419272a5b5dacaabb3f68))
+
 ## [0.6.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.5.0...v0.6.0) (2026-05-17)
 
 
