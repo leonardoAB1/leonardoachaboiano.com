@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.1...v0.9.2) (2026-05-19)
+
+
+### Bug Fixes
+
+* add hyperlink to name in cv pdf title ([#126](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/126)) ([cf578e3](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/cf578e3d8256f5cbeabf9050558861c6e8a94ea1))
+* add hyperlink to name in cv pdf title pointing to personal website ([cf578e3](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/cf578e3d8256f5cbeabf9050558861c6e8a94ea1))
+
 ## [0.9.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.0...v0.9.1) (2026-05-19)
 
 
