@@ -496,27 +496,43 @@ export function GlobeVisualization({
       let cloudMesh: Mesh | null = null;
 
       globe.onGlobeReady(() => {
-        void (async () => {
-          if (cancelled) return;
+        if (cancelled) return;
 
-          const mat = globe.globeMaterial() as MeshPhongMaterial;
-          mat.specular = new THREE.Color(0x000000);
-          mat.shininess = 0;
-          mat.needsUpdate = true;
+        const mat = globe.globeMaterial() as MeshPhongMaterial;
+        mat.specular = new THREE.Color(0x000000);
+        mat.shininess = 0;
+        mat.needsUpdate = true;
 
-          try {
-            const [nightTex, cloudTex] = await Promise.all([
-              loadTexture(THREE, GLOBE_TEXTURES.night),
-              loadTexture(THREE, GLOBE_TEXTURES.clouds),
-            ]);
+        // Blue marble + topology are already applied by three-globe at this point.
+        // Build sprites and reveal immediately - no need to wait for night/clouds.
+        activeMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 1.0);
+        inactiveMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 0.55);
+        spritesRef.current = buildSprites(
+          initialActiveIndex,
+          camPosRef.current.z,
+          THREE,
+          globe,
+          activeMarkerTexRef.current,
+          inactiveMarkerTexRef.current,
+        );
+        revealGlobe();
+
+        // Stream in night lights and clouds after reveal - each applies as soon
+        // as it arrives without blocking the other.
+        void loadTexture(THREE, GLOBE_TEXTURES.night)
+          .then((nightTex) => {
             if (cancelled) return;
-
             nightTex.colorSpace = THREE.SRGBColorSpace;
             mat.emissiveMap = nightTex;
             mat.emissive = new THREE.Color(1, 1, 1);
             mat.emissiveIntensity = 0.8;
             mat.needsUpdate = true;
+          })
+          .catch(() => {});
 
+        void loadTexture(THREE, GLOBE_TEXTURES.clouds)
+          .then((cloudTex) => {
+            if (cancelled) return;
             const geo = new THREE.SphereGeometry(102, 64, 64);
             const cloudMat = new THREE.MeshPhongMaterial({
               map: cloudTex,
@@ -527,26 +543,8 @@ export function GlobeVisualization({
             });
             cloudMesh = new THREE.Mesh(geo, cloudMat);
             globe.add(cloudMesh);
-          } catch {
-            if (cancelled) return;
-          }
-
-          // Build shared glow textures once - reused on every activeIndex change.
-          activeMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 1.0);
-          inactiveMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 0.55);
-          spritesRef.current = buildSprites(
-            initialActiveIndex,
-            camPosRef.current.z,
-            THREE,
-            globe,
-            activeMarkerTexRef.current,
-            inactiveMarkerTexRef.current,
-          );
-
-          if (!cancelled) {
-            revealGlobe();
-          }
-        })();
+          })
+          .catch(() => {});
       });
 
       globe.visible = false;
