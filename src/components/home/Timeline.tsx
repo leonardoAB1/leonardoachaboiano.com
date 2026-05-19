@@ -29,7 +29,7 @@ export function Timeline(): ReactElement {
             <ul className="flex flex-col gap-8">
               {timelineEntries.map((entry, index) => (
                 <AnimatedSection
-                  key={entry.date + entry.org}
+                  key={entry.dateRange + entry.org}
                   delay={index * 0.07}
                 >
                   <li className="relative flex gap-6 pl-8">
@@ -39,7 +39,7 @@ export function Timeline(): ReactElement {
                     />
                     <div className="flex flex-col gap-0.5">
                       <div className="flex items-center gap-2">
-                        <Eyebrow as="span">{entry.date}</Eyebrow>
+                        <Eyebrow as="span">{entry.dateRange}</Eyebrow>
                         {entry.type && entry.type !== "work" && (
                           <span className="rounded-full bg-surface-2 px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-ink-3">
                             {TYPE_LABEL[entry.type]}

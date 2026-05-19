@@ -8,6 +8,7 @@ import { Section } from "@/components/layout/Section";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
+import { timelineEntries } from "@/data/timeline";
 import { siteConfig } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -17,68 +18,16 @@ export const metadata: Metadata = {
 };
 
 // ---------------------------------------------------------------------------
-// Data
+// Data derived from the single source of truth in @/data/timeline
 // ---------------------------------------------------------------------------
 
-const workExperience = [
-  {
-    dateRange: "Aug 2025 - Present",
-    role: "Robotics Engineer",
-    org: "cryoWrite AG",
-    location: "Basel-Stadt, Switzerland",
-    bullets: [
-      "Developing and maintaining ROS2 robotic systems with concurrent actions and hardware integration",
-      "On-site system installation, servicing, and preventive maintenance for deployed client systems",
-    ],
-  },
-  {
-    dateRange: "Feb 2025 - Jul 2025",
-    role: "Robotics Intern",
-    org: "cryoWrite AG",
-    location: "Basel, Switzerland",
-    bullets: [
-      "Spearheaded company-wide documentation strategy in Confluence for internal knowledge sharing",
-    ],
-  },
-  {
-    dateRange: "Aug 2024 - Jan 2025",
-    role: "Reliability Testing & Hardware Design Intern",
-    org: "Lumiphase AG",
-    location: "Stafa, ZH, Switzerland",
-    bullets: [
-      "Implemented new test methods: instrument selection, integration, and measurement routine coding",
-      "Designed PCBs for sample fixation and electrical routing",
-      "Lab operations: instrument setup, hardware installation, calibration routine development",
-    ],
-  },
-  {
-    dateRange: "Jan 2024 - Jul 2024",
-    role: "Hardware Engineer",
-    org: "Mobi Latam",
-    location: "Santa Cruz, Bolivia",
-    bullets: [
-      "Integrated MQTT and CAN-based IoT batteries into existing workflow via APIs",
-      "Designed and prototyped solenoid actuators and control PCB for electric motorcycle battery security",
-      "Product development and logistics coordination with Chinese business partners",
-    ],
-  },
-  {
-    dateRange: "Mar 2023 - May 2023",
-    role: "Mechanical Design Intern",
-    org: "Reality HC",
-    location: "Santa Cruz, Bolivia",
-  },
-] as const;
+const workExperience = timelineEntries.filter(
+  (e) => e.type === "work" && e.cvVisible !== false,
+);
 
-const education = [
-  {
-    dateRange: "2020 - 2024",
-    role: "B.S. Mechatronics Engineering",
-    org: "San Pablo Bolivian Catholic University",
-    location: "Santa Cruz, Bolivia",
-    note: "GPA 3.7/4 - Graduated with Honours - President of the Scientific Society (2023-2024)",
-  },
-] as const;
+const education = timelineEntries.filter(
+  (e) => e.type === "education" && e.cvVisible !== false,
+);
 
 const skillGroups: { category: string; skills: string[] }[] = [
   {
