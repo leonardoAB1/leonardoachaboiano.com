@@ -3,7 +3,6 @@ import { ContactCTA } from "@/components/home/ContactCTA";
 import { EngineeringPhilosophy } from "@/components/home/EngineeringPhilosophy";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { Hero } from "@/components/home/Hero";
-import { RecentWriting } from "@/components/home/RecentWriting";
 import { TechnicalDomains } from "@/components/home/TechnicalDomains";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +19,6 @@ export default function HomePage(): ReactElement {
       <EngineeringPhilosophy />
       <TechnicalDomains />
       <FeaturedProjects />
-      <RecentWriting />
       <ContactCTA />
     </div>
   );
