@@ -58,9 +58,8 @@ export default function ContactPage(): ReactElement {
             Let&apos;s talk
           </Heading>
           <Text size="md" className="max-w-xl">
-            Whether you&apos;re working on a tech project, looking for an
-            embedded systems engineer, or just want to connect, I&apos;d love to
-            hear from you.
+            Whether you have a project in mind, a question, or just want to say
+            hi, I&apos;d love to hear from you.
           </Text>
         </div>
 
