@@ -3,54 +3,13 @@ import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
+import { type TimelineEntryType, timelineEntries } from "@/data/timeline";
 
-interface TimelineEntry {
-  date: string;
-  role: string;
-  org: string;
-  location: string;
-  note?: string;
-}
-
-const entries: TimelineEntry[] = [
-  {
-    date: "Aug 2025 - Present",
-    role: "Robotics Engineer",
-    org: "cryoWrite AG",
-    location: "Basel, Switzerland",
-  },
-  {
-    date: "Feb - Jul 2025",
-    role: "Robotics Intern",
-    org: "cryoWrite AG",
-    location: "Basel, Switzerland",
-  },
-  {
-    date: "Aug 2024 - Jan 2025",
-    role: "Reliability Testing & Hardware Design Intern",
-    org: "Lumiphase AG",
-    location: "Stafa, Switzerland",
-  },
-  {
-    date: "Jun - Jul 2024",
-    role: "Hardware Engineer",
-    org: "Mobi Latam",
-    location: "Santa Cruz, Bolivia",
-  },
-  {
-    date: "Jan - Jun 2024",
-    role: "Hardware Engineer Intern",
-    org: "Mobi Latam",
-    location: "Santa Cruz, Bolivia",
-  },
-  {
-    date: "2020 - 2024",
-    role: "B.S. Mechatronics Engineering",
-    org: "San Pablo Catholic University",
-    location: "Santa Cruz, Bolivia",
-    note: "GPA 3.7/4 - Graduated with Honours",
-  },
-];
+const TYPE_LABEL: Record<NonNullable<TimelineEntryType>, string> = {
+  work: "Work",
+  education: "Education",
+  exchange: "Exchange",
+};
 
 export function Timeline(): ReactElement {
   return (
@@ -68,7 +27,7 @@ export function Timeline(): ReactElement {
               className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
             />
             <ul className="flex flex-col gap-8">
-              {entries.map((entry, index) => (
+              {timelineEntries.map((entry, index) => (
                 <AnimatedSection
                   key={entry.date + entry.org}
                   delay={index * 0.07}
@@ -79,7 +38,14 @@ export function Timeline(): ReactElement {
                       className="absolute left-0 top-[6px] h-3.5 w-3.5 rounded-full border-2 border-brand bg-surface-0"
                     />
                     <div className="flex flex-col gap-0.5">
-                      <Eyebrow as="span">{entry.date}</Eyebrow>
+                      <div className="flex items-center gap-2">
+                        <Eyebrow as="span">{entry.date}</Eyebrow>
+                        {entry.type && entry.type !== "work" && (
+                          <span className="rounded-full bg-surface-2 px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-ink-3">
+                            {TYPE_LABEL[entry.type]}
+                          </span>
+                        )}
+                      </div>
                       <p className="font-semibold text-ink-1">{entry.role}</p>
                       <Text size="sm" className="max-w-none text-ink-2">
                         {entry.org} &middot; {entry.location}
