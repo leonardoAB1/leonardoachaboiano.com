@@ -17,6 +17,7 @@ import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
 import { timelineEntries } from "@/data/timeline";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { GLOBE_TEXTURES } from "@/lib/globe-textures";
+import { cn } from "@/lib/utils";
 
 type ThreeNamespace = typeof import("three");
 
@@ -256,6 +257,13 @@ function loadTexture(THREE: ThreeNamespace, url: string): Promise<Texture> {
 }
 
 const GLOBE_FADE_EASE = [0.22, 1, 0.36, 1] as const;
+const GLOBE_FADE_CSS_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+function scheduleReveal(callback: () => void): void {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(callback);
+  });
+}
 
 // Build THREE.Sprite objects for each timeline location and add them to the globe.
 // Sprites are billboards: they always face the camera regardless of globe rotation,
@@ -297,6 +305,8 @@ export function GlobeVisualization({
   const [isReady, setIsReady] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
   const fadeDuration = prefersReducedMotion ? 0.15 : 0.55;
+  const fadeMsRef = useRef(550);
+  fadeMsRef.current = prefersReducedMotion ? 150 : 550;
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Mutable state shared between the two effects via refs (no re-renders needed).
@@ -421,7 +431,10 @@ export function GlobeVisualization({
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(W, H);
       renderer.setClearColor(0x000000, 0); // fully transparent
-      container.appendChild(renderer.domElement);
+      const canvas = renderer.domElement;
+      canvas.style.opacity = "0";
+      canvas.style.pointerEvents = "none";
+      container.appendChild(canvas);
       rendererRef.current = renderer;
 
       // ── Scene ─────────────────────────────────────────────────────────────
@@ -599,13 +612,29 @@ export function GlobeVisualization({
           spriteTexturesRef.current = spriteData.map((d) => d.tex);
 
           if (!cancelled) {
-            setIsReady(true);
+            revealGlobe();
           }
         })();
       });
 
+      globe.visible = false;
       scene.add(globe);
       globeRef.current = globe as unknown as GlobeInstance;
+
+      const revealGlobe = (): void => {
+        if (cancelled) return;
+        renderer.render(scene, camera);
+        scheduleReveal(() => {
+          if (cancelled) return;
+          globe.visible = true;
+          renderer.render(scene, camera);
+          const fadeMs = fadeMsRef.current;
+          canvas.style.transition = `opacity ${fadeMs}ms ${GLOBE_FADE_CSS_EASE}`;
+          canvas.style.opacity = "1";
+          canvas.style.pointerEvents = "auto";
+          setIsReady(true);
+        });
+      };
 
       // ── Pointer / wheel interaction ───────────────────────────────────────
       // Pointer Events API covers both mouse and touch in one set of handlers.
@@ -892,18 +921,18 @@ export function GlobeVisualization({
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        initial={false}
+        initial={{ opacity: 1 }}
         animate={{ opacity: isReady ? 0 : 1 }}
         transition={{ duration: fadeDuration, ease: GLOBE_FADE_EASE }}
       >
         <GlobePlaceholder />
       </motion.div>
-      <motion.div
+      <div
         ref={containerRef}
-        className="absolute inset-0 h-full w-full"
-        initial={false}
-        animate={{ opacity: isReady ? 1 : 0 }}
-        transition={{ duration: fadeDuration, ease: GLOBE_FADE_EASE }}
+        className={cn(
+          "absolute inset-0 h-full w-full",
+          !isReady && "pointer-events-none",
+        )}
       />
     </div>
   );
