@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.8.0...v0.9.0) (2026-05-19)
+
+
+### Features
+
+* add contact page and form route handler ([#85](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/85)) ([e1e388d](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/e1e388d9ce77977a2aab2f72aff3fb375f010f9f))
+
 ## [0.8.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.2...v0.8.0) (2026-05-19)
 
 
