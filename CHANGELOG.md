@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.1...v0.7.2) (2026-05-19)
+
+
+### Bug Fixes
+
+* resolve biome formatting errors in GlobeVisualization ([d374e71](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/d374e71669dac106c57da697689db2baa70f1fb3))
+
 ## [0.7.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.0...v0.7.1) (2026-05-19)
 
 
