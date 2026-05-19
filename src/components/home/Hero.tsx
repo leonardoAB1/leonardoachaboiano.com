@@ -80,8 +80,8 @@ export function Hero(): ReactElement {
           aria-hidden="true"
           className="absolute hidden lg:block"
           style={{
-            right: "-0vw",
-            bottom: "-0vh",
+            right: "6vw",
+            bottom: "2vh",
             width: "min(65vw, calc(100svh - 3.5rem))",
             height: "min(65vw, calc(100svh - 3.5rem))",
             // Soft radial mask instead of hard border-radius clip.
@@ -100,7 +100,7 @@ export function Hero(): ReactElement {
 
         {/* Left-anchored: no mx-auto so both columns sit toward the left edge,
             putting the timeline near the horizontal centre of the viewport. */}
-        <div className="w-full max-w-5xl px-6 sm:px-8">
+        <div className="w-full max-w-5xl px-6 sm:px-8 lg:ml-64">
           <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-12">
             {/* Left: hero copy */}
             <motion.div
@@ -160,54 +160,63 @@ export function Hero(): ReactElement {
               variants={timelineContainer}
               className="relative z-10"
             >
-              <div className="relative">
-                <div
-                  aria-hidden="true"
-                  className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
-                />
-                <ul className="flex flex-col gap-6">
-                  {timelineEntries.map((entry, index) => {
-                    const isActive = index === selectedIndex;
-                    return (
-                      <motion.li
-                        key={entry.date + entry.org}
-                        variants={timelineItem}
-                        className="relative flex gap-5 pl-8"
-                      >
-                        {/* Active dot is filled; inactive is hollow */}
-                        <div
-                          aria-hidden="true"
-                          className={cn(
-                            "absolute left-0 top-[6px] h-3 w-3 rounded-full border-2 border-brand transition-colors duration-200",
-                            isActive ? "bg-brand" : "bg-surface-0",
-                          )}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleSelect(index)}
-                          className={cn(
-                            "flex w-full flex-col gap-0.5 text-left transition-opacity duration-200",
-                            !isActive && "opacity-50 hover:opacity-80",
-                          )}
-                          aria-pressed={isActive}
+              {/*
+               * Scroll container: caps visible height at ~6 entries.
+               * overflow-x-hidden prevents any horizontal bleed.
+               * The inner div.relative is the positioning context for the
+               * vertical line — its height is the full content height, not
+               * the clipped viewport, so h-[calc(100%-1rem)] spans all entries.
+               */}
+              <div className="max-h-[28rem] overflow-y-auto overflow-x-hidden">
+                <div className="relative">
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
+                  />
+                  <ul className="flex flex-col gap-6">
+                    {timelineEntries.map((entry, index) => {
+                      const isActive = index === selectedIndex;
+                      return (
+                        <motion.li
+                          key={entry.date + entry.org}
+                          variants={timelineItem}
+                          className="relative flex gap-5 pl-8"
                         >
-                          <span className="text-xs text-ink-4">
-                            {entry.date}
-                          </span>
-                          <p className="text-sm font-semibold text-ink-1">
-                            {entry.role}
-                          </p>
-                          <p className="text-xs text-ink-2">
-                            {entry.org}&nbsp;&middot;&nbsp;{entry.location}
-                          </p>
-                          {entry.note && (
-                            <p className="text-xs text-ink-3">{entry.note}</p>
-                          )}
-                        </button>
-                      </motion.li>
-                    );
-                  })}
-                </ul>
+                          {/* Active dot is filled; inactive is hollow */}
+                          <div
+                            aria-hidden="true"
+                            className={cn(
+                              "absolute left-0 top-[6px] h-3 w-3 rounded-full border-2 border-brand transition-colors duration-200",
+                              isActive ? "bg-brand" : "bg-surface-0",
+                            )}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleSelect(index)}
+                            className={cn(
+                              "flex w-full flex-col gap-0.5 text-left transition-opacity duration-200",
+                              !isActive && "opacity-50 hover:opacity-80",
+                            )}
+                            aria-pressed={isActive}
+                          >
+                            <span className="text-xs text-ink-4">
+                              {entry.date}
+                            </span>
+                            <p className="text-sm font-semibold text-ink-1">
+                              {entry.role}
+                            </p>
+                            <p className="text-xs text-ink-2">
+                              {entry.org}&nbsp;&middot;&nbsp;{entry.location}
+                            </p>
+                            {entry.note && (
+                              <p className="text-xs text-ink-3">{entry.note}</p>
+                            )}
+                          </button>
+                        </motion.li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             </motion.div>
           </div>
