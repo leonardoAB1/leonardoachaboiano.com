@@ -219,7 +219,7 @@ export default function CVPage(): ReactElement {
             </div>
 
             {/* Right: sidebar */}
-            <div className="space-y-10 lg:sticky lg:top-8 lg:self-start">
+            <div className="space-y-10">
               {/* Languages */}
               <AnimatedSection delay={0.1}>
                 <Eyebrow className="mb-6">Languages</Eyebrow>
