@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.0...v0.7.1) (2026-05-19)
+
+
+### Performance Improvements
+
+* remove city sprite layer and reduce globe fade-in ([#117](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/117)) ([309edaf](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/309edaf3b69a8d3a7cbb9c5cffec9fd0a365f5c4))
+
 ## [0.7.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.6.0...v0.7.0) (2026-05-19)
 
 
