@@ -181,7 +181,7 @@ export function Hero(): ReactElement {
                       const isActive = index === selectedIndex;
                       return (
                         <motion.li
-                          key={entry.date + entry.org}
+                          key={entry.dateRange + entry.org}
                           variants={timelineItem}
                           className="relative flex gap-5 pl-8"
                         >
@@ -202,7 +202,7 @@ export function Hero(): ReactElement {
                             aria-pressed={isActive}
                           >
                             <span className="text-xs text-ink-4">
-                              {entry.date}
+                              {entry.dateRange}
                             </span>
                             <p className="text-sm font-semibold text-ink-1">
                               {entry.role}
