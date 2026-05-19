@@ -10,7 +10,11 @@ interface GlobeVisualizationProps {
 
 // Career arcs: unique location transitions in chronological order
 const CAREER_ARCS = [
-  // Santa Cruz → Stafa (Bolivia to Switzerland)
+  // Santa Cruz → Kamloops (Rotary Youth Exchange, 2018)
+  { startLat: -17.7833, startLng: -63.1821, endLat: 50.6745, endLng: -120.3273 },
+  // Kamloops → Santa Cruz (return from exchange, 2019)
+  { startLat: 50.6745, startLng: -120.3273, endLat: -17.7833, endLng: -63.1821 },
+  // Santa Cruz → Stafa (Bolivia to Switzerland, career move 2024)
   { startLat: -17.7833, startLng: -63.1821, endLat: 47.2292, endLng: 8.73 },
   // Stafa → Basel (within Switzerland)
   { startLat: 47.2292, startLng: 8.73, endLat: 47.5596, endLng: 7.5886 },
@@ -80,7 +84,6 @@ export function GlobeVisualization({
   const targetRotYRef = useRef(
     targetRotationY(timelineEntries[activeIndex].coordinates[1]),
   );
-  const prevRotYRef = useRef(targetRotYRef.current);
   const camZRef = useRef(320);
   // Populated by the init effect; called by Effect 1 to clear drag momentum
   // before setting a new programmatic target so the two don't fight each other.
@@ -105,10 +108,7 @@ export function GlobeVisualization({
     const raw = targetRotationY(entry.coordinates[1]);
 
     // Shortest-path normalisation prevents the globe spinning the long way around.
-    targetRotYRef.current = shortestPath(
-      globeRef.current.rotation.y,
-      raw,
-    );
+    targetRotYRef.current = shortestPath(globeRef.current.rotation.y, raw);
 
     // Update marker sizes: active entry gets a larger, brighter dot.
     globeRef.current.pointsData(buildPoints(activeIndex));
@@ -116,7 +116,11 @@ export function GlobeVisualization({
     // Swap the HTML label to the new location.
     if (showLabel) {
       globeRef.current.htmlElementsData([
-        { lat: entry.coordinates[0], lng: entry.coordinates[1], label: entry.location },
+        {
+          lat: entry.coordinates[0],
+          lng: entry.coordinates[1],
+          label: entry.location,
+        },
       ]);
     }
   }, [activeIndex, showLabel]);
@@ -146,13 +150,16 @@ export function GlobeVisualization({
       const H = container.offsetHeight;
 
       // ── Renderer ──────────────────────────────────────────────────────────
-      // alpha:false + opaque clear colour eliminates the visible white/grey
-      // square in light mode. The container is clipped to a circle via CSS
-      // border-radius so the "space" background appears as a dark disc, not a box.
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+      // alpha:true lets the canvas be transparent so the page background shows
+      // through in both light and dark mode. The container CSS clips it to a
+      // circle so there is no visible rectangle.
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+      });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(W, H);
-      renderer.setClearColor(0x030508, 1); // near-black "space" background
+      renderer.setClearColor(0x000000, 0); // fully transparent
       container.appendChild(renderer.domElement);
       rendererRef.current = renderer;
 
@@ -169,15 +176,12 @@ export function GlobeVisualization({
       camZRef.current = 320;
 
       // ── Lighting ──────────────────────────────────────────────────────────
-      // Very dim ambient so the night-side of the Earth stays nearly black,
-      // letting city lights in the texture dominate.
-      // HemisphereLight: sky=brand-teal, ground=black.
-      // Creates the characteristic teal illumination seen in the mockup —
-      // the lit side of the globe picks up the teal sky colour while the
-      // dark oceans stay near-black.
-      scene.add(new THREE.HemisphereLight(0x006677, 0x000000, 2.2));
-      // Directional "sun" tinted teal, from upper-left to match mockup lighting
-      const sun = new THREE.DirectionalLight(0x55cccc, 0.9);
+      // Soft neutral sky so the Blue Marble texture reads in its natural colours.
+      // Sky=pale blue (matches real sky light), ground=deep navy (ocean ambient).
+      scene.add(new THREE.HemisphereLight(0xaac4dd, 0x223344, 2.2));
+      // Warm-white "sun" from upper-left: kept weak so it contributes direction
+      // without creating a harsh terminator line.
+      const sun = new THREE.DirectionalLight(0xfff5e8, 0.6);
       sun.position.set(-2, 1.5, 1);
       scene.add(sun);
 
@@ -185,18 +189,19 @@ export function GlobeVisualization({
       const entry = timelineEntries[activeIndex];
       const initRotY = targetRotationY(entry.coordinates[1]);
 
-      const globe = new ThreeGlobe({ waitForGlobeReady: true, animateIn: false })
-        // Earth night texture: NASA city-lights-from-space imagery
+      const globe = new ThreeGlobe({
+        waitForGlobeReady: true,
+        animateIn: false,
+      })
+        // NASA Blue Marble: daytime composite, natural land colours
         .globeImageUrl(
-          "//unpkg.com/three-globe/example/img/earth-night.jpg",
+          "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg",
         )
         // Subtle bump map adds surface topology relief
-        .bumpImageUrl(
-          "//unpkg.com/three-globe/example/img/earth-topology.png",
-        )
+        .bumpImageUrl("//unpkg.com/three-globe/example/img/earth-topology.png")
         .showAtmosphere(true)
-        .atmosphereColor("#02777C") // brand teal atmospheric glow
-        .atmosphereAltitude(0.18)
+        .atmosphereColor("#02e0e8") // bright cyan glow, matches mockup ring
+        .atmosphereAltitude(0.28)
         // Career location markers
         .pointsData(buildPoints(activeIndex))
         .pointLat("lat")
@@ -224,7 +229,11 @@ export function GlobeVisualization({
       if (showLabel) {
         globe
           .htmlElementsData([
-            { lat: entry.coordinates[0], lng: entry.coordinates[1], label: entry.location },
+            {
+              lat: entry.coordinates[0],
+              lng: entry.coordinates[1],
+              label: entry.location,
+            },
           ])
           .htmlElement((d: any) => {
             const el = document.createElement("div");
@@ -264,17 +273,57 @@ export function GlobeVisualization({
       globe.rotation.y = initRotY;
       globe.rotation.x = targetRotXRef.current; // latitude-centred initial tilt
       targetRotYRef.current = initRotY;
-      prevRotYRef.current = initRotY;
 
       // Boost the night texture's apparent brightness by adding self-illumination.
       // MeshPhongMaterial.emissive adds a constant colour independent of lighting,
       // making city lights visible even on the globe's "unlit" dark side.
+      // Cloud mesh — declared here so the animate() closure can read it.
+      let cloudMesh: THREE.Mesh | null = null;
+
       globe.onGlobeReady(() => {
         const mat = globe.globeMaterial() as any;
-        // Teal ocean self-glow: dark areas pick up the brand colour
-        // rather than rendering as pure black, matching the mockup.
-        mat.emissive = new THREE.Color(0x002233);
-        mat.emissiveIntensity = 0.55;
+        mat.specular = new THREE.Color(0x000000);
+        mat.shininess = 0;
+        mat.needsUpdate = true;
+
+        // City lights as population indicator: the NASA night texture is used as
+        // an emissiveMap so it adds self-illumination on top of the Blue Marble.
+        // Low intensity keeps Blue Marble dominant; dense urban areas glow amber.
+        const nightLoader = new THREE.TextureLoader();
+        nightLoader.load(
+          "//unpkg.com/three-globe/example/img/earth-night.jpg",
+          (nightTex) => {
+            nightTex.colorSpace = THREE.SRGBColorSpace;
+            mat.emissiveMap = nightTex;
+            mat.emissive = new THREE.Color(1, 1, 1);
+            mat.emissiveIntensity = 0.8;
+            mat.needsUpdate = true;
+          },
+        );
+
+        // Cloud layer: a sphere sitting just above the globe surface (radius 102
+        // vs globe radius 100). Added as a child of the globe object so it
+        // inherits globe rotation automatically; the per-frame nudge below adds
+        // a slow atmospheric drift on top of that.
+        const loader = new THREE.TextureLoader();
+        loader.load(
+          "//unpkg.com/three-globe/example/img/earth-clouds.png",
+          (tex) => {
+            const geo = new THREE.SphereGeometry(102, 64, 64);
+            const cloudMat = new THREE.MeshPhongMaterial({
+              map: tex,
+              // Same texture as alpha: white cloud = opaque, black sky = transparent.
+              alphaMap: tex,
+              transparent: true,
+              opacity: 0.9,
+              // depthWrite:false prevents the transparent sphere from punching
+              // holes in the atmosphere glow rendered behind it.
+              depthWrite: false,
+            });
+            cloudMesh = new THREE.Mesh(geo, cloudMat);
+            globe.add(cloudMesh);
+          },
+        );
       });
 
       scene.add(globe);
@@ -349,7 +398,8 @@ export function GlobeVisualization({
       const onWheel = (e: WheelEvent) => {
         e.preventDefault();
         // Cap per-event delta so high-resolution trackpads don't jump wildly.
-        const step = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 80) * 0.25;
+        const step =
+          Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 80) * 0.25;
         // Minimum 115: just outside the sphere surface (radius 100) with clearance
         userCamZ = Math.max(115, Math.min(520, userCamZ + step));
       };
@@ -370,8 +420,10 @@ export function GlobeVisualization({
         // lerpFactor=1.0 during drag: globe follows pointer with zero lag.
         // lerpFactor=0.05 for programmatic timeline transitions: cinematic ease.
         const lerpFactor = isDragging ? 1.0 : 0.05;
-        globe.rotation.y += (targetRotYRef.current - globe.rotation.y) * lerpFactor;
-        globe.rotation.x += (targetRotXRef.current - globe.rotation.x) * lerpFactor;
+        globe.rotation.y +=
+          (targetRotYRef.current - globe.rotation.y) * lerpFactor;
+        globe.rotation.x +=
+          (targetRotXRef.current - globe.rotation.x) * lerpFactor;
 
         // ── Momentum ─────────────────────────────────────────────────────────
         if (isDragging) {
@@ -382,30 +434,32 @@ export function GlobeVisualization({
           // Coasting after release: push the targets forward by the decaying velocity
           targetRotYRef.current += velY;
           const coastX = targetRotXRef.current + velX;
-          targetRotXRef.current = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, coastX));
+          targetRotXRef.current = Math.max(
+            -Math.PI / 2,
+            Math.min(Math.PI / 2, coastX),
+          );
           velX *= 0.88; // halves every ~5 frames at 60fps
           velY *= 0.88;
         }
         lastRotX = globe.rotation.x;
         lastRotY = globe.rotation.y;
 
-        // Auto-zoom during fast programmatic rotations; also honour the
-        // user's scroll-wheel zoom level.
-        const velocity = Math.abs(globe.rotation.y - prevRotYRef.current);
-        prevRotYRef.current = globe.rotation.y;
-        const zoomIn = isDragging
-          ? 0
-          : Math.min(Math.sqrt(velocity * 6), 0.25);
-        const targetZ = userCamZ * (1 - zoomIn);
-        camZRef.current += (targetZ - camZRef.current) * 0.06;
+        // Smooth lerp toward the user's scroll-wheel zoom level.
+        // No velocity-based zoom: the globe rotates without any camera pull-back.
+        camZRef.current += (userCamZ - camZRef.current) * 0.06;
         camera.position.z = camZRef.current;
 
         // Rebuild point markers when zoom changes enough so their radius stays
         // proportional to camera distance (constant apparent screen size).
         if (Math.abs(camera.position.z - lastMarkerCamZ) > 3) {
           lastMarkerCamZ = camera.position.z;
-          globe.pointsData(buildPoints(activeIndexRef.current, camera.position.z));
+          globe.pointsData(
+            buildPoints(activeIndexRef.current, camera.position.z),
+          );
         }
+
+        // Slow atmospheric drift: clouds move independently of the globe surface.
+        if (cloudMesh) cloudMesh.rotation.y += 0.00025;
 
         renderer.render(scene, camera);
       }
