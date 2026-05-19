@@ -10,6 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
@@ -23,9 +24,7 @@ const GlobeVisualization = dynamic(
   { ssr: false, loading: () => <GlobePlaceholder /> },
 );
 
-// Reads the browser media query on the client. Returns false during SSR
-// (server always renders as "desktop") then corrects after hydration.
-function useIsMobile() {
+function useIsMobile(): boolean {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 1023px)");
@@ -65,6 +64,15 @@ const timelineItem: Variants = {
   },
 };
 
+const globeItem: Variants = {
+  hidden: { opacity: 0, x: 12 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.5 },
+  },
+};
+
 export function Hero(): ReactElement {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -89,44 +97,9 @@ export function Hero(): ReactElement {
 
   return (
     <>
-      {/*
-       * z-[1] puts the entire hero section (and its globe) above subsequent
-       * sibling sections in the stacking order, so the globe can visually
-       * overlap the top of the next section.
-       * overflow-hidden is intentionally removed so the globe can bleed
-       * downward past the section boundary. The parent page wrapper still
-       * has overflow-hidden which clips the right-side bleed.
-       */}
-      <Section className="relative z-[1] flex min-h-[calc(100svh-3.5rem)] flex-col justify-center pb-16 pt-8 sm:pb-20 sm:pt-10">
-        {/*
-         */}
-        <div
-          aria-hidden="true"
-          className="absolute hidden lg:block"
-          style={{
-            right: "6vw",
-            bottom: "2vh",
-            width: "min(65vw, calc(100svh - 3.5rem))",
-            height: "min(65vw, calc(100svh - 3.5rem))",
-            // Soft radial mask instead of hard border-radius clip.
-            // border-radius+overflow:hidden creates a sharp dark ring where the
-            // Three.js sphere doesn't quite reach the circle edge.
-            // A gradient mask fades the edges to transparent, hiding the gap
-            // and blending the atmosphere glow naturally into the page.
-            WebkitMaskImage:
-              "radial-gradient(circle at center, black 52%, transparent 72%)",
-            maskImage:
-              "radial-gradient(circle at center, black 52%, transparent 72%)",
-          }}
-        >
-          <GlobeVisualization activeIndex={selectedIndex} />
-        </div>
-
-        {/* Left-anchored: no mx-auto so both columns sit toward the left edge,
-            putting the timeline near the horizontal centre of the viewport. */}
-        <div className="w-full max-w-5xl px-6 sm:px-8 lg:ml-64">
-          <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[2fr_3fr] lg:gap-12">
-            {/* Left: hero copy */}
+      <Section className="flex min-h-[calc(100svh-3.5rem)] flex-col justify-center pb-16 pt-8 sm:pb-20 sm:pt-10">
+        <Container className="max-w-7xl">
+          <motion.div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.95fr)_minmax(0,1.25fr)] lg:gap-8 xl:gap-10">
             <motion.div
               className="flex flex-col gap-8"
               initial="hidden"
@@ -173,24 +146,11 @@ export function Hero(): ReactElement {
               </motion.div>
             </motion.div>
 
-            {/*
-             * Right column: the clickable timeline. On desktop it overlays
-             * on top of the globe (which is absolutely positioned at section
-             * level behind everything).
-             */}
             <motion.div
               initial="hidden"
               animate="show"
               variants={timelineContainer}
-              className="relative z-10"
             >
-              {/*
-               * Scroll container: caps visible height at ~6 entries.
-               * overflow-x-hidden prevents any horizontal bleed.
-               * The inner div.relative is the positioning context for the
-               * vertical line — its height is the full content height, not
-               * the clipped viewport, so h-[calc(100%-1rem)] spans all entries.
-               */}
               <div
                 ref={scrollRef}
                 onScroll={handleTimelineScroll}
@@ -220,7 +180,6 @@ export function Hero(): ReactElement {
                           variants={timelineItem}
                           className="relative flex gap-5 pl-8"
                         >
-                          {/* Active dot is filled; inactive is hollow */}
                           <div
                             aria-hidden="true"
                             className={cn(
@@ -257,11 +216,22 @@ export function Hero(): ReactElement {
                 </div>
               </div>
             </motion.div>
-          </div>
-        </div>
+
+            <motion.div
+              aria-hidden="true"
+              className="hidden lg:flex lg:items-center lg:justify-center"
+              initial="hidden"
+              animate="show"
+              variants={globeItem}
+            >
+              <div className="hero-globe-mask aspect-square w-full max-w-[min(100%,calc(100svh-10rem))]">
+                <GlobeVisualization activeIndex={selectedIndex} />
+              </div>
+            </motion.div>
+          </motion.div>
+        </Container>
       </Section>
 
-      {/* Mobile: fullscreen globe sheet, shown when a role is tapped */}
       <GlobeModal
         entry={isModalOpen ? timelineEntries[selectedIndex] : null}
         activeIndex={selectedIndex}
