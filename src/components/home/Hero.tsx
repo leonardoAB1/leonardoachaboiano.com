@@ -81,7 +81,12 @@ export function Hero(): ReactElement {
   const isMobile = useIsMobile();
 
   useEffect(() => {
+    // Start downloading the globe bundle and its heavy dependencies immediately
+    // when the hero mounts. By the time GlobeVisualization renders and calls
+    // its own dynamic imports, the modules are already in the browser cache.
     void import("./GlobeVisualization");
+    void import("three");
+    void import("three-globe");
   }, []);
 
   const handleTimelineScroll = useCallback(() => {
