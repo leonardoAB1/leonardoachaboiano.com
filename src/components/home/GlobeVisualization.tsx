@@ -284,7 +284,13 @@ export function GlobeVisualization({
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
   useEffect(() => {
-    if (!globeRef.current || !threeRef.current) return;
+    if (
+      !globeRef.current ||
+      !threeRef.current ||
+      !activeMarkerTexRef.current ||
+      !inactiveMarkerTexRef.current
+    )
+      return;
 
     activeIndexRef.current = activeIndex;
     // Kill any drag momentum so it doesn't fight the programmatic target.
@@ -316,8 +322,8 @@ export function GlobeVisualization({
       camPosRef.current.z,
       threeRef.current,
       globeRef.current,
-      activeMarkerTexRef.current!,
-      inactiveMarkerTexRef.current!,
+      activeMarkerTexRef.current,
+      inactiveMarkerTexRef.current,
     );
 
     // Swap the HTML label to the new location.
