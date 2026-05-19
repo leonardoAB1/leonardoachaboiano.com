@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
-import { type ReactElement, useEffect, useState } from "react";
+import { type ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
@@ -56,7 +56,15 @@ const timelineItem: Variants = {
 export function Hero(): ReactElement {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showFade, setShowFade] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+
+  const handleTimelineScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setShowFade(el.scrollTop + el.clientHeight < el.scrollHeight - 4);
+  }, []);
 
   const handleSelect = (index: number) => {
     setSelectedIndex(index);
@@ -168,11 +176,13 @@ export function Hero(): ReactElement {
                * the clipped viewport, so h-[calc(100%-1rem)] spans all entries.
                */}
               <div
+                ref={scrollRef}
+                onScroll={handleTimelineScroll}
                 className="max-h-[28rem] overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                style={{
+                style={showFade ? {
                   WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
                   maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
-                }}
+                } : undefined}
               >
                 <div className="relative">
                   <div
