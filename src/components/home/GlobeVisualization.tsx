@@ -1,7 +1,58 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type {
+  CanvasTexture,
+  Material,
+  Mesh,
+  MeshPhongMaterial,
+  Object3D,
+  PerspectiveCamera,
+  Sprite,
+  Texture,
+  WebGLRenderer,
+} from "three";
 import { timelineEntries } from "@/data/timeline";
+
+type ThreeNamespace = typeof import("three");
+
+interface CareerArc {
+  startLat: number;
+  startLng: number;
+  endLat: number;
+  endLng: number;
+}
+
+interface GlobeLabelDatum {
+  lat: number;
+  lng: number;
+  label: string;
+}
+
+interface GlobeInstance extends Object3D {
+  htmlElementsData: (data: GlobeLabelDatum[]) => GlobeInstance;
+  htmlElement: (fn: (d: GlobeLabelDatum) => HTMLElement) => GlobeInstance;
+  htmlAltitude: (alt: number) => GlobeInstance;
+  globeMaterial: () => Material;
+  onGlobeReady: (cb: () => void) => void;
+}
+
+interface MarkerSprite extends Sprite {
+  userData: { baseSize: number };
+}
+
+const MATERIAL_TEXTURE_SLOTS = [
+  "map",
+  "bumpMap",
+  "normalMap",
+  "specularMap",
+  "emissiveMap",
+  "alphaMap",
+  "aoMap",
+  "lightMap",
+] as const;
+
+type MaterialTextureSlot = (typeof MATERIAL_TEXTURE_SLOTS)[number];
 
 interface GlobeVisualizationProps {
   activeIndex: number;
@@ -11,9 +62,19 @@ interface GlobeVisualizationProps {
 // Career arcs: unique location transitions in chronological order
 const CAREER_ARCS = [
   // Santa Cruz → Kamloops (Rotary Youth Exchange, 2018)
-  { startLat: -17.7833, startLng: -63.1821, endLat: 50.6745, endLng: -120.3273 },
+  {
+    startLat: -17.7833,
+    startLng: -63.1821,
+    endLat: 50.6745,
+    endLng: -120.3273,
+  },
   // Kamloops → Santa Cruz (return from exchange, 2019)
-  { startLat: 50.6745, startLng: -120.3273, endLat: -17.7833, endLng: -63.1821 },
+  {
+    startLat: 50.6745,
+    startLng: -120.3273,
+    endLat: -17.7833,
+    endLng: -63.1821,
+  },
   // Santa Cruz → Stafa (Bolivia to Switzerland, career move 2024)
   { startLat: -17.7833, startLng: -63.1821, endLat: 47.2292, endLng: 8.73 },
   // Stafa → Basel (within Switzerland)
@@ -29,13 +90,13 @@ const WORLD_CITIES = [
   { lat: 34.05, lng: -118.24 },
   { lat: 41.88, lng: -87.63 },
   { lat: 19.43, lng: -99.13 },
-  { lat: 43.70, lng: -79.42 },
-  { lat: 45.50, lng: -73.57 },
+  { lat: 43.7, lng: -79.42 },
+  { lat: 45.5, lng: -73.57 },
   { lat: 29.76, lng: -95.37 },
   { lat: 33.45, lng: -112.07 },
   // South America
   { lat: -23.55, lng: -46.63 },
-  { lat: -34.60, lng: -58.38 },
+  { lat: -34.6, lng: -58.38 },
   { lat: -12.05, lng: -77.04 },
   { lat: 4.71, lng: -74.07 },
   { lat: -0.23, lng: -78.52 },
@@ -45,8 +106,8 @@ const WORLD_CITIES = [
   { lat: 51.51, lng: -0.13 },
   { lat: 48.85, lng: 2.35 },
   { lat: 52.52, lng: 13.41 },
-  { lat: 41.90, lng: 12.50 },
-  { lat: 40.42, lng: -3.70 },
+  { lat: 41.9, lng: 12.5 },
+  { lat: 40.42, lng: -3.7 },
   { lat: 55.75, lng: 37.62 },
   { lat: 47.56, lng: 7.59 },
   { lat: 47.37, lng: 8.54 },
@@ -60,7 +121,7 @@ const WORLD_CITIES = [
   { lat: 53.34, lng: -6.27 },
   // Asia
   { lat: 35.69, lng: 139.69 },
-  { lat: 39.90, lng: 116.41 },
+  { lat: 39.9, lng: 116.41 },
   { lat: 31.23, lng: 121.47 },
   { lat: 22.32, lng: 114.17 },
   { lat: 1.35, lng: 103.82 },
@@ -69,19 +130,19 @@ const WORLD_CITIES = [
   { lat: 37.57, lng: 126.98 },
   { lat: 13.75, lng: 100.52 },
   { lat: 21.03, lng: 105.85 },
-  { lat: 25.20, lng: 55.27 },
+  { lat: 25.2, lng: 55.27 },
   { lat: 41.01, lng: 28.95 },
   { lat: 24.87, lng: 67.01 },
-  { lat: 23.73, lng: 90.40 },
-  { lat: 14.09, lng: 100.60 },
+  { lat: 23.73, lng: 90.4 },
+  { lat: 14.09, lng: 100.6 },
   // Africa
   { lat: 30.06, lng: 31.25 },
   { lat: -33.93, lng: 18.42 },
-  { lat: -26.20, lng: 28.04 },
-  { lat: 6.45, lng: 3.40 },
+  { lat: -26.2, lng: 28.04 },
+  { lat: 6.45, lng: 3.4 },
   { lat: -1.29, lng: 36.82 },
   { lat: -8.84, lng: 13.23 },
-  { lat: 5.35, lng: -4.00 },
+  { lat: 5.35, lng: -4.0 },
   { lat: 14.69, lng: -17.44 },
   // Oceania
   { lat: -33.87, lng: 151.21 },
@@ -157,20 +218,28 @@ function latLngToLocal(lat: number, lng: number, alt: number) {
 // The gradient has four stops: solid bright core → solid inner → mid glow → transparent edge.
 // This gives a "hot core + diffuse halo" look rather than a simple linear fade.
 // THREE is passed as a parameter to avoid module-level import (SSR safety).
-function makeGlowTexture(THREE: any, hexColor: string, alpha: number, size = 128): any {
+function makeGlowTexture(
+  THREE: ThreeNamespace,
+  hexColor: string,
+  alpha: number,
+  size = 128,
+): CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = size;
   canvas.height = size;
-  const ctx = canvas.getContext("2d")!;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    throw new Error("2d canvas context unavailable");
+  }
   const c = size / 2;
   const r = parseInt(hexColor.slice(1, 3), 16);
   const g = parseInt(hexColor.slice(3, 5), 16);
   const b = parseInt(hexColor.slice(5, 7), 16);
   const grad = ctx.createRadialGradient(c, c, 0, c, c, c);
-  grad.addColorStop(0,    `rgba(${r},${g},${b},${alpha})`);
+  grad.addColorStop(0, `rgba(${r},${g},${b},${alpha})`);
   grad.addColorStop(0.25, `rgba(${r},${g},${b},${alpha * 0.85})`);
-  grad.addColorStop(0.6,  `rgba(${r},${g},${b},${alpha * 0.3})`);
-  grad.addColorStop(1,    `rgba(${r},${g},${b},0)`);
+  grad.addColorStop(0.6, `rgba(${r},${g},${b},${alpha * 0.3})`);
+  grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, size, size);
   return new THREE.CanvasTexture(canvas);
@@ -183,9 +252,9 @@ function makeGlowTexture(THREE: any, hexColor: string, alpha: number, size = 128
 function buildSprites(
   activeIdx: number,
   camZ: number,
-  THREE: any,
-  globe: any,
-): { sprite: any; tex: any }[] {
+  THREE: ThreeNamespace,
+  globe: Object3D,
+): { sprite: MarkerSprite; tex: CanvasTexture }[] {
   const scale = camZ / 320;
   return timelineEntries.map((entry, i) => {
     const isActive = i === activeIdx;
@@ -199,7 +268,7 @@ function buildSprites(
       depthTest: true,
       depthWrite: false,
     });
-    const sprite = new THREE.Sprite(mat);
+    const sprite = new THREE.Sprite(mat) as MarkerSprite;
     sprite.position.set(pos.x, pos.y, pos.z);
     const baseSize = isActive ? 8 : 4;
     sprite.scale.setScalar(baseSize * scale);
@@ -216,16 +285,16 @@ export function GlobeVisualization({
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Mutable state shared between the two effects via refs (no re-renders needed).
-  const globeRef = useRef<any>(null);
-  const cameraRef = useRef<any>(null);
-  const rendererRef = useRef<any>(null);
+  const globeRef = useRef<GlobeInstance | null>(null);
+  const cameraRef = useRef<PerspectiveCamera | null>(null);
+  const rendererRef = useRef<WebGLRenderer | null>(null);
   // Stores the THREE module so Effect 1 can call buildSprites without re-importing.
-  const threeRef = useRef<any>(null);
+  const threeRef = useRef<ThreeNamespace | null>(null);
   // Sprites and their canvas textures - rebuilt when activeIndex changes.
-  const spritesRef = useRef<any[]>([]);
-  const spriteTexturesRef = useRef<any[]>([]);
+  const spritesRef = useRef<MarkerSprite[]>([]);
+  const spriteTexturesRef = useRef<CanvasTexture[]>([]);
   // City glow sprite texture - single shared allocation, never rebuilt.
-  const cityTexRef = useRef<any>(null);
+  const cityTexRef = useRef<CanvasTexture | null>(null);
   const targetRotXRef = useRef(
     targetRotationX(timelineEntries[activeIndex].coordinates[0]),
   );
@@ -242,6 +311,10 @@ export function GlobeVisualization({
   // Tracks activeIndex for the animation loop (which runs as a closure and
   // can't read the prop directly after it changes).
   const activeIndexRef = useRef(activeIndex);
+  const showLabelRef = useRef(showLabel);
+
+  activeIndexRef.current = activeIndex;
+  showLabelRef.current = showLabel;
 
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
@@ -266,8 +339,13 @@ export function GlobeVisualization({
     targetRotYRef.current = shortestPath(globeRef.current.rotation.y, raw);
 
     // Remove old sprites and dispose their GPU textures.
-    spritesRef.current.forEach((s) => globeRef.current.remove(s));
-    spriteTexturesRef.current.forEach((t) => t.dispose());
+    const globe = globeRef.current;
+    spritesRef.current.forEach((s) => {
+      globe.remove(s);
+    });
+    spriteTexturesRef.current.forEach((t) => {
+      t.dispose();
+    });
     // Rebuild sprites for the new active index.
     const spriteData = buildSprites(
       activeIndex,
@@ -354,7 +432,9 @@ export function GlobeVisualization({
       scene.add(sun);
 
       // ── Three-Globe ───────────────────────────────────────────────────────
-      const entry = timelineEntries[activeIndex];
+      const initialActiveIndex = activeIndexRef.current;
+      const initialShowLabel = showLabelRef.current;
+      const entry = timelineEntries[initialActiveIndex];
       const initRotY = targetRotationY(entry.coordinates[1]);
 
       const globe = new ThreeGlobe({
@@ -377,7 +457,7 @@ export function GlobeVisualization({
         .arcEndLat("endLat")
         .arcEndLng("endLng")
         .arcColor(() => ["#02777C", "#02777C"])
-        .arcAltitude((d: any) => naturalArcAltitude(d))
+        .arcAltitude((d) => naturalArcAltitude(d as CareerArc))
         .arcStroke(0.4)
         .arcDashLength(0.35)
         .arcDashGap(0.15)
@@ -385,7 +465,7 @@ export function GlobeVisualization({
         .arcsTransitionDuration(400);
 
       // HTML label overlay: uses three-globe's built-in projected DOM elements.
-      if (showLabel) {
+      if (initialShowLabel) {
         globe
           .htmlElementsData([
             {
@@ -394,7 +474,7 @@ export function GlobeVisualization({
               label: entry.location,
             },
           ])
-          .htmlElement((d: any) => {
+          .htmlElement((d) => {
             const el = document.createElement("div");
             el.style.cssText = [
               "display:flex",
@@ -419,7 +499,7 @@ export function GlobeVisualization({
               "letter-spacing:0.03em",
               "box-shadow:0 2px 10px rgba(0,0,0,0.5)",
             ].join(";");
-            tag.textContent = d.label;
+            tag.textContent = (d as GlobeLabelDatum).label;
 
             el.appendChild(dot);
             el.appendChild(tag);
@@ -432,7 +512,7 @@ export function GlobeVisualization({
       // (latitude tilt). The targetRotationY/X formulas assume this sequence -
       // Y brings the city to the +Z front face, then X tilts it to visual centre.
       // Three.js default 'XYZ' reverses the order and places cities ~50 px off-centre.
-      globe.rotation.order = 'YXZ';
+      globe.rotation.order = "YXZ";
       // Set initial rotation without animation
       globe.rotation.y = initRotY;
       globe.rotation.x = targetRotXRef.current; // latitude-centred initial tilt
@@ -442,10 +522,10 @@ export function GlobeVisualization({
       // MeshPhongMaterial.emissive adds a constant colour independent of lighting,
       // making city lights visible even on the globe's "unlit" dark side.
       // Cloud mesh — declared here so the animate() closure can read it.
-      let cloudMesh: any = null;
+      let cloudMesh: Mesh | null = null;
 
       globe.onGlobeReady(() => {
-        const mat = globe.globeMaterial() as any;
+        const mat = globe.globeMaterial() as MeshPhongMaterial;
         mat.specular = new THREE.Color(0x000000);
         mat.shininess = 0;
         mat.needsUpdate = true;
@@ -511,13 +591,18 @@ export function GlobeVisualization({
         // Build the initial set of glowing sprites for timeline locations.
         // Done inside onGlobeReady so the globe's scene graph is fully set up
         // before we add children to it.
-        const spriteData = buildSprites(activeIndex, camPosRef.current.z, THREE, globe);
+        const spriteData = buildSprites(
+          initialActiveIndex,
+          camPosRef.current.z,
+          THREE,
+          globe,
+        );
         spritesRef.current = spriteData.map((d) => d.sprite);
         spriteTexturesRef.current = spriteData.map((d) => d.tex);
       });
 
       scene.add(globe);
-      globeRef.current = globe;
+      globeRef.current = globe as unknown as GlobeInstance;
 
       // ── Pointer / wheel interaction ───────────────────────────────────────
       // Pointer Events API covers both mouse and touch in one set of handlers.
@@ -614,9 +699,11 @@ export function GlobeVisualization({
         );
         // Rotate local position into world space using the globe's current rotation.
         // The globe has no translation - only rotation - so applyEuler is sufficient.
-        const worldVec = new THREE.Vector3(local.x, local.y, local.z).applyEuler(
-          globe.rotation,
-        );
+        const worldVec = new THREE.Vector3(
+          local.x,
+          local.y,
+          local.z,
+        ).applyEuler(globe.rotation);
         const camVec = new THREE.Vector3(
           userCamVec.x,
           userCamVec.y,
@@ -744,7 +831,9 @@ export function GlobeVisualization({
         () => ro.disconnect(),
         // 4. Dispose sprite canvas textures
         () => {
-          spriteTexturesRef.current.forEach((t) => t.dispose());
+          spriteTexturesRef.current.forEach((t) => {
+            t.dispose();
+          });
           spriteTexturesRef.current = [];
           spritesRef.current = [];
           cityTexRef.current?.dispose();
@@ -752,29 +841,21 @@ export function GlobeVisualization({
         },
         // 5. Traverse scene and dispose all GPU resources
         () =>
-          scene.traverse((obj: any) => {
-            if (!obj.isMesh) return;
+          scene.traverse((obj: Object3D) => {
+            if (!(obj instanceof THREE.Mesh)) return;
             obj.geometry?.dispose();
-            const mats: any[] = Array.isArray(obj.material)
+            const mats: Material[] = Array.isArray(obj.material)
               ? obj.material
               : [obj.material];
-            mats.forEach((m) => {
-              if (!m) return;
-              // Dispose every texture slot
-              (
-                [
-                  "map",
-                  "bumpMap",
-                  "normalMap",
-                  "specularMap",
-                  "emissiveMap",
-                  "alphaMap",
-                  "aoMap",
-                  "lightMap",
-                ] as const
-              ).forEach((slot) => m[slot]?.dispose());
+            for (const m of mats) {
+              if (!m) continue;
+              const textured = m as Material &
+                Partial<Record<MaterialTextureSlot, Texture>>;
+              for (const slot of MATERIAL_TEXTURE_SLOTS) {
+                textured[slot]?.dispose();
+              }
               m.dispose();
-            });
+            }
           }),
         // 6. Dispose the WebGL renderer (releases the WebGL context)
         () => renderer.dispose(),
@@ -796,9 +877,10 @@ export function GlobeVisualization({
 
     return () => {
       cancelled = true;
-      cleanupFns.forEach((fn) => fn());
+      for (const fn of cleanupFns) {
+        fn();
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div ref={containerRef} className="h-full w-full" />;
