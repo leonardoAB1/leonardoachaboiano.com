@@ -10,6 +10,7 @@ import type {
   Object3D,
   PerspectiveCamera,
   Sprite,
+  SpriteMaterial,
   Texture,
   WebGLRenderer,
 } from "three";
@@ -210,16 +211,16 @@ function buildSprites(
   camZ: number,
   THREE: ThreeNamespace,
   globe: Object3D,
-): { sprite: MarkerSprite; tex: CanvasTexture }[] {
+  activeTex: CanvasTexture,
+  inactiveTex: CanvasTexture,
+): MarkerSprite[] {
   const scale = camZ / 320;
   return timelineEntries.map((entry, i) => {
     const isActive = i === activeIdx;
     const alt = isActive ? 0.025 : 0.01;
-    const alpha = isActive ? 1.0 : 0.55;
     const pos = latLngToLocal(entry.coordinates[0], entry.coordinates[1], alt);
-    const tex = makeGlowTexture(THREE, "#02fffe", alpha);
     const mat = new THREE.SpriteMaterial({
-      map: tex,
+      map: isActive ? activeTex : inactiveTex,
       transparent: true,
       depthTest: true,
       depthWrite: false,
@@ -230,7 +231,7 @@ function buildSprites(
     sprite.scale.setScalar(baseSize * scale);
     sprite.userData = { baseSize };
     globe.add(sprite);
-    return { sprite, tex };
+    return sprite;
   });
 }
 
@@ -255,9 +256,10 @@ export function GlobeVisualization({
   const rendererRef = useRef<WebGLRenderer | null>(null);
   // Stores the THREE module so Effect 1 can call buildSprites without re-importing.
   const threeRef = useRef<ThreeNamespace | null>(null);
-  // Sprites and their canvas textures - rebuilt when activeIndex changes.
+  // Sprites rebuilt on activeIndex change; shared textures are allocated once.
   const spritesRef = useRef<MarkerSprite[]>([]);
-  const spriteTexturesRef = useRef<CanvasTexture[]>([]);
+  const activeMarkerTexRef = useRef<CanvasTexture | null>(null);
+  const inactiveMarkerTexRef = useRef<CanvasTexture | null>(null);
   const targetRotXRef = useRef(
     targetRotationX(timelineEntries[activeIndex].coordinates[0]),
   );
@@ -301,23 +303,22 @@ export function GlobeVisualization({
     // Shortest-path normalisation prevents the globe spinning the long way around.
     targetRotYRef.current = shortestPath(globeRef.current.rotation.y, raw);
 
-    // Remove old sprites and dispose their GPU textures.
+    // Remove old sprites and dispose their materials.
+    // Shared glow textures are NOT disposed here - only on full component cleanup.
     const globe = globeRef.current;
     spritesRef.current.forEach((s) => {
       globe.remove(s);
+      (s.material as SpriteMaterial).dispose();
     });
-    spriteTexturesRef.current.forEach((t) => {
-      t.dispose();
-    });
-    // Rebuild sprites for the new active index.
-    const spriteData = buildSprites(
+    // Rebuild sprites reusing the pre-built shared textures.
+    spritesRef.current = buildSprites(
       activeIndex,
       camPosRef.current.z,
       threeRef.current,
       globeRef.current,
+      activeMarkerTexRef.current!,
+      inactiveMarkerTexRef.current!,
     );
-    spritesRef.current = spriteData.map((d) => d.sprite);
-    spriteTexturesRef.current = spriteData.map((d) => d.tex);
 
     // Swap the HTML label to the new location.
     if (showLabel) {
@@ -524,14 +525,17 @@ export function GlobeVisualization({
             if (cancelled) return;
           }
 
-          const spriteData = buildSprites(
+          // Build shared glow textures once - reused on every activeIndex change.
+          activeMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 1.0);
+          inactiveMarkerTexRef.current = makeGlowTexture(THREE, "#02fffe", 0.55);
+          spritesRef.current = buildSprites(
             initialActiveIndex,
             camPosRef.current.z,
             THREE,
             globe,
+            activeMarkerTexRef.current,
+            inactiveMarkerTexRef.current,
           );
-          spritesRef.current = spriteData.map((d) => d.sprite);
-          spriteTexturesRef.current = spriteData.map((d) => d.tex);
 
           if (!cancelled) {
             revealGlobe();
@@ -691,11 +695,25 @@ export function GlobeVisualization({
       container.addEventListener("wheel", onWheel, { passive: false });
       container.style.cursor = "grab";
 
+      // ── Visibility tracking ───────────────────────────────────────────────
+      // Pause rendering when the globe is scrolled out of view or the tab is
+      // hidden. The RAF keeps ticking (cheap early-return) so the loop resumes
+      // instantly without a restart when the globe comes back into view.
+      let globeInView = true;
+      const visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          globeInView = entry.isIntersecting;
+        },
+        { threshold: 0 },
+      );
+      visibilityObserver.observe(container);
+
       // ── Animation loop ────────────────────────────────────────────────────
       let rafId = 0;
 
       function animate() {
         rafId = requestAnimationFrame(animate);
+        if (!globeInView || document.hidden) return;
 
         // lerpFactor=1.0 during drag: globe follows pointer with zero lag.
         // lerpFactor=0.05 for programmatic timeline transitions: cinematic ease.
@@ -781,14 +799,15 @@ export function GlobeVisualization({
         () => container.removeEventListener("pointerup", onPointerUp),
         () => container.removeEventListener("pointercancel", onPointerUp),
         () => container.removeEventListener("wheel", onWheel),
-        // 3. Stop watching container size
+        // 3. Stop watching container size and visibility
         () => ro.disconnect(),
-        // 4. Dispose sprite canvas textures
+        () => visibilityObserver.disconnect(),
+        // 4. Dispose shared marker textures and sprite list
         () => {
-          spriteTexturesRef.current.forEach((t) => {
-            t.dispose();
-          });
-          spriteTexturesRef.current = [];
+          activeMarkerTexRef.current?.dispose();
+          activeMarkerTexRef.current = null;
+          inactiveMarkerTexRef.current?.dispose();
+          inactiveMarkerTexRef.current = null;
           spritesRef.current = [];
         },
         // 5. Traverse scene and dispose all GPU resources
