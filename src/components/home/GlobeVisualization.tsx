@@ -258,6 +258,10 @@ function loadTexture(THREE: ThreeNamespace, url: string): Promise<Texture> {
 
 const GLOBE_FADE_EASE = [0.22, 1, 0.36, 1] as const;
 const GLOBE_FADE_CSS_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+const GLOBE_FADE_DURATION_S = 1.25;
+const GLOBE_FADE_DURATION_MS = 1250;
+const GLOBE_FADE_REDUCED_S = 0.15;
+const GLOBE_FADE_REDUCED_MS = 150;
 
 function scheduleReveal(callback: () => void): void {
   requestAnimationFrame(() => {
@@ -304,9 +308,13 @@ export function GlobeVisualization({
 }: GlobeVisualizationProps) {
   const [isReady, setIsReady] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const fadeDuration = prefersReducedMotion ? 0.15 : 0.55;
-  const fadeMsRef = useRef(550);
-  fadeMsRef.current = prefersReducedMotion ? 150 : 550;
+  const fadeDuration = prefersReducedMotion
+    ? GLOBE_FADE_REDUCED_S
+    : GLOBE_FADE_DURATION_S;
+  const fadeMsRef = useRef(GLOBE_FADE_DURATION_MS);
+  fadeMsRef.current = prefersReducedMotion
+    ? GLOBE_FADE_REDUCED_MS
+    : GLOBE_FADE_DURATION_MS;
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Mutable state shared between the two effects via refs (no re-renders needed).
