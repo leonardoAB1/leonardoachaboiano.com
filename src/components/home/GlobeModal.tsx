@@ -63,7 +63,7 @@ export function GlobeModal({ entry, activeIndex, onClose }: GlobeModalProps) {
               <p className="text-sm text-ink-2">
                 {entry.org}&nbsp;&middot;&nbsp;{entry.location}
               </p>
-              <p className="text-xs text-ink-4">{entry.date}</p>
+              <p className="text-xs text-ink-4">{entry.dateRange}</p>
               {entry.note && (
                 <p className="mt-1 text-xs text-ink-3">{entry.note}</p>
               )}
