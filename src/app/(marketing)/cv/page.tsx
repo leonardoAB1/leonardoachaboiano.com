@@ -159,7 +159,7 @@ export default function CVPage(): ReactElement {
       {/* ------------------------------------------------------------------ */}
       {/* Header                                                              */}
       {/* ------------------------------------------------------------------ */}
-      <Section as="header">
+      <Section as="header" className="py-8 sm:py-12">
         <Container>
           <AnimatedSection>
             <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -197,7 +197,7 @@ export default function CVPage(): ReactElement {
       {/* ------------------------------------------------------------------ */}
       {/* Work Experience                                                     */}
       {/* ------------------------------------------------------------------ */}
-      <Section>
+      <Section className="py-8 sm:py-12">
         <Container>
           <AnimatedSection>
             <Eyebrow className="mb-6">Work Experience</Eyebrow>
@@ -218,7 +218,7 @@ export default function CVPage(): ReactElement {
       {/* ------------------------------------------------------------------ */}
       {/* Education                                                           */}
       {/* ------------------------------------------------------------------ */}
-      <Section>
+      <Section className="py-8 sm:py-12">
         <Container>
           <AnimatedSection delay={0.05}>
             <Eyebrow className="mb-6">Education</Eyebrow>
@@ -239,7 +239,7 @@ export default function CVPage(): ReactElement {
       {/* ------------------------------------------------------------------ */}
       {/* Skills                                                              */}
       {/* ------------------------------------------------------------------ */}
-      <Section>
+      <Section className="py-8 sm:py-12">
         <Container>
           <AnimatedSection delay={0.05}>
             <Eyebrow className="mb-6">Skills</Eyebrow>
@@ -269,7 +269,7 @@ export default function CVPage(): ReactElement {
       {/* ------------------------------------------------------------------ */}
       {/* Achievements                                                        */}
       {/* ------------------------------------------------------------------ */}
-      <Section>
+      <Section className="py-8 sm:py-12">
         <Container>
           <AnimatedSection delay={0.05}>
             <Eyebrow className="mb-6">Achievements</Eyebrow>
@@ -293,7 +293,7 @@ export default function CVPage(): ReactElement {
       {/* ------------------------------------------------------------------ */}
       {/* Languages                                                           */}
       {/* ------------------------------------------------------------------ */}
-      <Section>
+      <Section className="py-8 sm:py-12">
         <Container>
           <AnimatedSection delay={0.05}>
             <Eyebrow className="mb-6">Languages</Eyebrow>

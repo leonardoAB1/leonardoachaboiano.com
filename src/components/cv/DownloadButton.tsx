@@ -5,7 +5,7 @@ export function DownloadButton(): ReactElement {
   return (
     <a
       className={buttonClasses({ variant: "primary", size: "md" })}
-      download
+      download="CV_LEONARDO_ACHA_BOIANO.pdf"
       href="/cv/leonardo-acha-boiano-cv.pdf"
     >
       Download CV (PDF)
