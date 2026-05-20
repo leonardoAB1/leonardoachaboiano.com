@@ -30,7 +30,7 @@ export default async function Image() {
         position: "relative",
         width: "100%",
         height: "100%",
-        background: "#cfead7",
+        background: "#60c098",
         display: "flex",
         fontFamily: "Space Grotesk",
       }}
