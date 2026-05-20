@@ -44,11 +44,6 @@ export default async function Image() {
         Safe text zones: x=0–285 (left) and x=915–1200 (right).
         At mid-height (y=315) the circle reaches exactly to x=285 and x=915,
         so text must stay inside those bounds to avoid overlapping the face.
-
-        portrait.jpg is a 630×630 JPEG (~69 KB, resized from 1254×1254 PNG via
-        ImageMagick at quality 82). Serving the exact slot size means Satori
-        renders 1:1 with no scaling, and JPEG quantization reduces pixel entropy
-        so the final OG PNG compresses well below WhatsApp's 600 KB limit.
       */}
       <div
         style={{
