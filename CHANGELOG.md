@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.9](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.8...v0.9.9) (2026-05-20)
+
+
+### Bug Fixes
+
+* restore portrait to q90 and output jpeg at q90 to fix mobile blur ([#148](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/148)) ([a7f25a7](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/a7f25a74f93ee39d85379c59883a869c6416ee49))
+* restore portrait to q90 and raise output jpeg to q90 to fix mobile blur ([a7f25a7](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/a7f25a74f93ee39d85379c59883a869c6416ee49))
+
 ## [0.9.8](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.7...v0.9.8) (2026-05-20)
 
 
