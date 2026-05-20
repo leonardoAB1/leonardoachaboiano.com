@@ -177,7 +177,7 @@ export default async function Image() {
     .jpeg({ quality: 85, progressive: true })
     .toBuffer();
 
-  return new Response(jpegBuffer, {
+  return new Response(new Uint8Array(jpegBuffer), {
     headers: { "Content-Type": "image/jpeg" },
   });
 }
