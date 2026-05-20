@@ -60,19 +60,19 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "0 28px",
+          padding: "0 16px",
         }}
       >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            marginBottom: 24,
+            marginBottom: 20,
           }}
         >
           <div
             style={{
-              fontSize: 20,
+              fontSize: 22,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -82,7 +82,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              fontSize: 20,
+              fontSize: 22,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -115,16 +115,16 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "0 24px",
+          padding: "0 20px",
         }}
       >
         <div
           style={{
-            fontSize: 28,
+            fontSize: 34,
             color: "#0c1a1a",
             fontWeight: 700,
             lineHeight: 1.1,
-            marginBottom: 14,
+            marginBottom: 12,
           }}
         >
           {siteConfig.name}
@@ -132,10 +132,10 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: 12,
+            fontSize: 14,
             color: "#014a50",
             fontWeight: 400,
-            letterSpacing: 1.5,
+            letterSpacing: 2,
           }}
         >
           MECHATRONICS ENGINEER
