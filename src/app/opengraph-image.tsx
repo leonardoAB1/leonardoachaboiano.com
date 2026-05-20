@@ -89,7 +89,7 @@ export default async function Image() {
         </div>
       </div>
 
-      {/* Tagline + URL — right clean zone (x=915 to x=1200) */}
+      {/* Tagline + URL — right clean zone (x=915 to x=1200), padded inward toward portrait */}
       <div
         style={{
           position: "absolute",
@@ -100,7 +100,7 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "0 12px",
+          padding: "0 24px 0 8px",
         }}
       >
         <div
