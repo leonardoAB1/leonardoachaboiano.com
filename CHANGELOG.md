@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.3...v0.9.4) (2026-05-20)
+
+
+### Bug Fixes
+
+* load portrait via public url in og image ([#132](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/132)) ([1511a7e](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1511a7e1ac4db5262228a08152d942d8631ebe68))
+
 ## [0.9.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.2...v0.9.3) (2026-05-20)
 
 
