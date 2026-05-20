@@ -35,13 +35,13 @@ export default async function Image() {
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — centered at x=600 (face at container center: 290+310=600) */}
+      {/* Portrait — right half (x=520-1200), face center at ~x=860 */}
       <div
         style={{
           position: "absolute",
-          left: 290,
+          left: 520,
           top: 0,
-          width: 620,
+          right: 0,
           height: "100%",
           overflow: "hidden",
           display: "flex",
@@ -60,13 +60,13 @@ export default async function Image() {
         />
       </div>
 
-      {/* Text — 80px padding, dark on mint background */}
+      {/* Text — left half, 80px padding, dark on teal background */}
       <div
         style={{
           position: "absolute",
           left: 0,
           top: 0,
-          width: 680,
+          width: 520,
           height: "100%",
           display: "flex",
           flexDirection: "column",
