@@ -13,7 +13,6 @@ export const siteConfig = {
   url: siteUrl,
   email: "leonardoacha@hotmail.com",
   locale: "en_US",
-  ogImage: "/icon.png",
   keywords: [
     "Leonardo Acha Boiano",
     "mechatronics engineer",
