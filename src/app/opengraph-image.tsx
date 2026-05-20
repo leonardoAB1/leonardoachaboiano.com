@@ -35,32 +35,23 @@ export default async function Image() {
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — right half (x=520-1200), face center at ~x=860 */}
-      <div
+      {/* Portrait — full bleed, contained and flush-right so teal fills the left */}
+      {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
+      <img
+        src={portraitSrc}
+        alt=""
         style={{
           position: "absolute",
-          left: 520,
+          left: 0,
           top: 0,
-          right: 0,
+          width: "100%",
           height: "100%",
-          overflow: "hidden",
-          display: "flex",
+          objectFit: "contain",
+          objectPosition: "right center",
         }}
-      >
-        {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
-        <img
-          src={portraitSrc}
-          alt=""
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center top",
-          }}
-        />
-      </div>
+      />
 
-      {/* Text — left half, 80px padding, dark on teal background */}
+      {/* Text — overlaid on the left teal area, 80px padding */}
       <div
         style={{
           position: "absolute",
