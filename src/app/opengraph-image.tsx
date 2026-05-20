@@ -30,20 +30,19 @@ export default async function Image() {
         position: "relative",
         width: "100%",
         height: "100%",
-        background: "#0c1a1a",
+        background: "#60c098",
         display: "flex",
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — centered at x=600 (face at container center: 290+310=600) */}
+      {/* Portrait — 630×630 square flush-right, matches image aspect ratio exactly */}
       <div
         style={{
           position: "absolute",
-          left: 290,
+          right: 0,
           top: 0,
-          width: 620,
-          height: "100%",
-          overflow: "hidden",
+          width: 630,
+          height: 630,
           display: "flex",
         }}
       >
@@ -51,36 +50,17 @@ export default async function Image() {
         <img
           src={portraitSrc}
           alt=""
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center top",
-          }}
+          style={{ width: "100%", height: "100%" }}
         />
       </div>
 
-      {/* Gradient: solid until ~x=585, then fades to transparent by x=900 */}
+      {/* Text — overlaid on the left teal area, 80px padding */}
       <div
         style={{
           position: "absolute",
           left: 0,
           top: 0,
-          width: 900,
-          height: "100%",
-          background:
-            "linear-gradient(90deg, #0c1a1a 65%, rgba(12,26,26,0) 100%)",
-          display: "flex",
-        }}
-      />
-
-      {/* Text — 80px padding both sides → 520px text zone, name at 44px ends ~x=524 */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: 680,
+          width: 520,
           height: "100%",
           display: "flex",
           flexDirection: "column",
@@ -91,7 +71,7 @@ export default async function Image() {
         <div
           style={{
             fontSize: 44,
-            color: "#f0f0f0",
+            color: "#0c1a1a",
             fontWeight: 700,
             lineHeight: 1.05,
             marginBottom: 18,
@@ -102,10 +82,10 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: 13,
-            color: "#02777C",
+            fontSize: 20,
+            color: "#014a50",
             fontWeight: 400,
-            letterSpacing: 5,
+            letterSpacing: 4,
             marginBottom: 44,
           }}
         >
@@ -121,20 +101,20 @@ export default async function Image() {
         >
           <div
             style={{
-              fontSize: 22,
-              color: "#7ab8bb",
+              fontSize: 28,
+              color: "#0c1a1a",
               fontWeight: 400,
-              lineHeight: 1.6,
+              lineHeight: 1.5,
             }}
           >
             I build the robots.
           </div>
           <div
             style={{
-              fontSize: 22,
-              color: "#7ab8bb",
+              fontSize: 28,
+              color: "#0c1a1a",
               fontWeight: 400,
-              lineHeight: 1.6,
+              lineHeight: 1.5,
             }}
           >
             I&apos;m not one.
@@ -143,8 +123,8 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: 13,
-            color: "#3d6e70",
+            fontSize: 18,
+            color: "#014a50",
             fontWeight: 400,
             letterSpacing: 2,
           }}
