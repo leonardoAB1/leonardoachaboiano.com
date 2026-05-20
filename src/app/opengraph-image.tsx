@@ -49,54 +49,30 @@ export default async function Image() {
         />
       </div>
 
-      {/* Text — overlaid on the left teal area, 80px padding */}
+      {/* Tagline + URL — left clean zone (x=0 to x=285), before the portrait */}
       <div
         style={{
           position: "absolute",
           left: 0,
           top: 0,
-          width: 520,
+          width: 285,
           height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "0 80px",
+          padding: "0 28px",
         }}
       >
         <div
           style={{
-            fontSize: 44,
-            color: "#0c1a1a",
-            fontWeight: 700,
-            lineHeight: 1.05,
-            marginBottom: 18,
-          }}
-        >
-          {siteConfig.name}
-        </div>
-
-        <div
-          style={{
-            fontSize: 20,
-            color: "#014a50",
-            fontWeight: 400,
-            letterSpacing: 4,
-            marginBottom: 44,
-          }}
-        >
-          MECHATRONICS ENGINEER
-        </div>
-
-        <div
-          style={{
             display: "flex",
             flexDirection: "column",
-            marginBottom: 56,
+            marginBottom: 24,
           }}
         >
           <div
             style={{
-              fontSize: 28,
+              fontSize: 20,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -106,7 +82,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              fontSize: 28,
+              fontSize: 20,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -118,13 +94,51 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: 18,
+            fontSize: 14,
             color: "#014a50",
             fontWeight: 400,
             letterSpacing: 2,
           }}
         >
           {siteConfig.url.replace("https://", "")}
+        </div>
+      </div>
+
+      {/* Name + title — right clean zone (x=915 to x=1200), after the portrait */}
+      <div
+        style={{
+          position: "absolute",
+          left: 915,
+          top: 0,
+          width: 285,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "0 24px",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 28,
+            color: "#0c1a1a",
+            fontWeight: 700,
+            lineHeight: 1.1,
+            marginBottom: 14,
+          }}
+        >
+          {siteConfig.name}
+        </div>
+
+        <div
+          style={{
+            fontSize: 12,
+            color: "#014a50",
+            fontWeight: 400,
+            letterSpacing: 1.5,
+          }}
+        >
+          MECHATRONICS ENGINEER
         </div>
       </div>
     </div>,
