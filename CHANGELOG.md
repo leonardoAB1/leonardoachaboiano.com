@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.8](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.7...v0.9.8) (2026-05-20)
+
+
+### Bug Fixes
+
+* convert og image from png to jpeg via sharp to fix 600 kb limit ([#145](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/145)) ([47060e1](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/47060e10511169966f7d4b34077af911c1250d4f))
+
 ## [0.9.7](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.6...v0.9.7) (2026-05-20)
 
 
