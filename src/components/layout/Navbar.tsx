@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactElement } from "react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { navLinks, siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-export function Navbar() {
+export function Navbar(): ReactElement {
   const pathname = usePathname();
 
   return (

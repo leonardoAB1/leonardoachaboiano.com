@@ -1,5 +1,76 @@
 # Changelog
 
+## [0.9.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.1...v0.9.2) (2026-05-19)
+
+
+### Bug Fixes
+
+* add hyperlink to name in cv pdf title ([#126](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/126)) ([cf578e3](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/cf578e3d8256f5cbeabf9050558861c6e8a94ea1))
+* add hyperlink to name in cv pdf title pointing to personal website ([cf578e3](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/cf578e3d8256f5cbeabf9050558861c6e8a94ea1))
+
+## [0.9.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.0...v0.9.1) (2026-05-19)
+
+
+### Bug Fixes
+
+* remove broken links and unbuilt page references ([#124](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/124)) ([59279c5](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/59279c59d2472a3b07254569179800bbd65763a8))
+
+## [0.9.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.8.0...v0.9.0) (2026-05-19)
+
+
+### Features
+
+* add contact page and form route handler ([#85](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/85)) ([e1e388d](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/e1e388d9ce77977a2aab2f72aff3fb375f010f9f))
+
+## [0.8.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.2...v0.8.0) (2026-05-19)
+
+
+### Features
+
+* add cv page with timeline layout ([#86](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/86)) ([9dd8257](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9dd82571e20e17138a63180d0e3e8c417ef39803))
+
+## [0.7.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.1...v0.7.2) (2026-05-19)
+
+
+### Bug Fixes
+
+* resolve biome formatting errors in GlobeVisualization ([d374e71](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/d374e71669dac106c57da697689db2baa70f1fb3))
+
+## [0.7.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.7.0...v0.7.1) (2026-05-19)
+
+
+### Performance Improvements
+
+* remove city sprite layer and reduce globe fade-in ([#117](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/117)) ([309edaf](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/309edaf3b69a8d3a7cbb9c5cffec9fd0a365f5c4))
+
+## [0.7.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.6.0...v0.7.0) (2026-05-19)
+
+
+### Features
+
+* add interactive globe timeline to hero section ([#111](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/111)) ([afdb92c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/afdb92c6a5811b43d64419272a5b5dacaabb3f68))
+
+## [0.6.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.5.0...v0.6.0) (2026-05-17)
+
+
+### Features
+
+* add home page second half sections ([#84](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/84)) ([4069e9d](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/4069e9d8f2f9f118ddf13970ae8ac841d7119820))
+
+## [0.5.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.5...v0.5.0) (2026-05-17)
+
+
+### Features
+
+* add shared interaction components ([#54](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/54)) ([1b7a346](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1b7a346659da729c3fc82078bec889a1ab59a523))
+
+## [0.4.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.4...v0.4.5) (2026-05-16)
+
+
+### Bug Fixes
+
+* platform-specific og images with portrait photo and correct dimensions ([#97](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/97)) ([fa0da27](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/fa0da272b6fbefb963b9eb86d490ec29bc8fe0d0))
+
 ## [0.4.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.4.3...v0.4.4) (2026-05-14)
 
 

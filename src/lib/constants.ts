@@ -26,15 +26,14 @@ export const siteConfig = {
 } as const;
 
 export const navLinks = [
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
   { label: "CV", href: "/cv" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
 export const socialLinks = {
   github: "https://github.com/leonardoAB1",
   linkedin: "https://www.linkedin.com/in/leonardoachaboiano",
+  instagram: "https://www.instagram.com/leonardo.ab1/",
+  facebook: "https://www.facebook.com/leonardo.achaboiano",
   email: "mailto:leonardoacha@hotmail.com",
 } as const;

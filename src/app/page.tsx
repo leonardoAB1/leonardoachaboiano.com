@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
+import { ContactCTA } from "@/components/home/ContactCTA";
 import { EngineeringPhilosophy } from "@/components/home/EngineeringPhilosophy";
+import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { Hero } from "@/components/home/Hero";
 import { TechnicalDomains } from "@/components/home/TechnicalDomains";
 import { cn } from "@/lib/utils";
@@ -16,6 +18,8 @@ export default function HomePage(): ReactElement {
       <Hero />
       <EngineeringPhilosophy />
       <TechnicalDomains />
+      <FeaturedProjects />
+      <ContactCTA />
     </div>
   );
 }

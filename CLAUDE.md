@@ -1,24 +1,23 @@
-# Leonardo Acha Boiano — Portfolio Website
-
-## Project Overview
+<project>
+# Leonardo Acha Boiano - Portfolio Website
 
 Personal engineering website for a robotics/mechatronics engineer. Functions as personal brand, engineering portfolio, modern CV, technical blog, future media hub, and recruiter/researcher landing page.
 
 - **Domain:** leonardoachaboiano.com
 - **GitHub:** https://github.com/leonardoAB1/leonardoachaboiano.com
 - **Local folder:** `leonardoachaboiano.com`
+</project>
 
-## Tech Stack
-
+<stack>
 - **Framework**: Next.js (latest stable, App Router)
 - **Language**: TypeScript
 - **Styling**: TailwindCSS
 - **Animations**: Framer Motion (subtle only)
 - **Content**: MDX for blog
-- **Deployment**: Vercel (Hobby — free tier)
+- **Deployment**: Vercel (Hobby - free tier)
+</stack>
 
-## Engineer Profile
-
+<engineer>
 Leonardo is a robotics/mechatronics engineer with experience in:
 - Robotics software
 - Embedded systems
@@ -26,13 +25,13 @@ Leonardo is a robotics/mechatronics engineer with experience in:
 - Manufacturing and design for manufacturing
 - International engineering experience
 - Future engineering/maker YouTube content
+</engineer>
 
-## Tone & Brand Identity
-
+<brand>
 The site must feel:
 - Intellectually ambitious, elegant, engineering-focused
 - Calm, minimal, highly professional
-- Authentic — "serious engineer building meaningful systems", not "startup influencer"
+- Authentic - "serious engineer building meaningful systems", not "startup influencer"
 
 **Do NOT make it look like:**
 - Generic startup landing page
@@ -42,9 +41,9 @@ The site must feel:
 - Childish dev portfolio
 
 **Visual inspiration:** Apple engineering pages, high-end research labs, modern robotics companies, calm Swiss/Japanese-inspired minimalism.
+</brand>
 
-## Design Rules
-
+<design>
 **Typography:** Modern, elegant, readable, engineering aesthetic.
 
 **Color palette:** Neutral, sophisticated, slightly technical. Avoid oversaturated colors. Dark/light mode support. Use #02777C as a primary brand color.
@@ -54,19 +53,19 @@ The site must feel:
 **Animations:** Subtle transitions only. No excessive motion, particles, or background effects.
 
 **Avoid:** Overusing gradients, glassmorphism everywhere, visual noise.
+</design>
 
-## Pages
+<pages>
+1. **Home** - Hero + featured projects + engineering philosophy + technical domains + recent writing/videos + timeline + contact CTA
+2. **Projects** - Deep project cards with title, description, technologies, images/videos, GitHub, engineering challenges, lessons learned, system diagrams
+3. **About** - Human and ambitious without arrogance. Philosophy, interdisciplinary mindset, international trajectory
+4. **CV/Resume** - Clean downloadable resume, timeline layout, education, experience, skills, certifications, languages, publications
+5. **Blog/Notes** - MDX-based, clean typography, code snippets, diagrams, equations, tags/categories, SEO
+6. **Media/YouTube** - Future-proof: embedded videos, playlists, thumbnails, technical talks
+7. **Contact** - Minimal form + LinkedIn + GitHub + email
+</pages>
 
-1. **Home** — Hero + featured projects + engineering philosophy + technical domains + recent writing/videos + timeline + contact CTA
-2. **Projects** — Deep project cards with title, description, technologies, images/videos, GitHub, engineering challenges, lessons learned, system diagrams
-3. **About** — Human and ambitious without arrogance. Philosophy, interdisciplinary mindset, international trajectory
-4. **CV/Resume** — Clean downloadable resume, timeline layout, education, experience, skills, certifications, languages, publications
-5. **Blog/Notes** — MDX-based, clean typography, code snippets, diagrams, equations, tags/categories, SEO
-6. **Media/YouTube** — Future-proof: embedded videos, playlists, thumbnails, technical talks
-7. **Contact** — Minimal form + LinkedIn + GitHub + email
-
-## Architecture Requirements
-
+<architecture>
 - Reusable components
 - Organized folders with clear naming
 - Scalable, maintainable, modular sections
@@ -75,8 +74,7 @@ The site must feel:
 - Excellent SEO (metadata, OpenGraph, sitemap, robots.txt)
 - Fast loading, accessible, analytics-ready
 
-## Features
-
+**Features:**
 - Responsive navbar
 - Smooth scrolling
 - Project filtering
@@ -85,32 +83,32 @@ The site must feel:
 - Sitemap + robots.txt
 - Analytics-ready structure
 - Optional: command palette
+</architecture>
 
-## Hosting & Cost Philosophy
-
+<hosting>
 - Prefer **free and open-source tools** at every layer of the stack
-- Willing to pay only for hosting if necessary — keep it cheap (domain ~$10–15/year is acceptable)
+- Willing to pay only for hosting if necessary - keep it cheap (domain ~$10-15/year is acceptable)
 - **Vercel Hobby plan** covers this project entirely for free (personal portfolio = allowed use)
-- Avoid Vercel-specific APIs (`@vercel/kv`, `@vercel/blob`, etc.) — keep the app **provider-agnostic** so migration is always an afternoon's work, not a rewrite
+- Avoid Vercel-specific APIs (`@vercel/kv`, `@vercel/blob`, etc.) - keep the app **provider-agnostic** so migration is always an afternoon's work, not a rewrite
 - If migration is ever needed: Cloudflare Pages (free, unlimited bandwidth) is the preferred alternative; self-hosted VPS (Hetzner/DigitalOcean) is the fallback
 - For any future backend needs (database, file storage), choose provider-agnostic options (Supabase, Cloudflare R2, etc.)
+</hosting>
 
-## Git & Commit Rules
-
+<git>
 Follow the Conventional Commits standard. Every commit message must:
 - Be a single sentence, lowercase, no period at the end
 - Use the format: `type: short description`
 - Never include AI tool signatures, co-author lines, or attribution footers
 
 **Allowed types:**
-- `feat:` — new feature or page section
-- `fix:` — bug fix
-- `chore:` — tooling, config, dependencies
-- `style:` — formatting, visual tweaks, no logic change
-- `refactor:` — restructuring without behavior change
-- `docs:` — content or documentation changes
-- `perf:` — performance improvements
-- `test:` — adding or updating tests
+- `feat:` - new feature or page section
+- `fix:` - bug fix
+- `chore:` - tooling, config, dependencies
+- `style:` - formatting, visual tweaks, no logic change
+- `refactor:` - restructuring without behavior change
+- `docs:` - content or documentation changes
+- `perf:` - performance improvements
+- `test:` - adding or updating tests
 
 **Examples:**
 ```
@@ -123,21 +121,21 @@ refactor: extract timeline into reusable component
 **Branch naming:** use issue-linked branch names. Slash-style names are allowed and preferred for new work: `type/issueNumber-short-description`.
 Examples: `feat/1-scaffold`, `feat/3-navbar`, `fix/11-contact-form`
 
-**Commits:** stage and commit sequentially in logical groups — never one large commit per branch. Each commit should represent one coherent unit of change (e.g. scaffold files, then dependencies, then config).
+**Commits:** stage and commit sequentially in logical groups - never one large commit per branch. Each commit should represent one coherent unit of change (e.g. scaffold files, then dependencies, then config).
 
 **PR workflow:** each PR references its issue (`Closes #N`). Squash merge into `main` (only allowed strategy). Branch auto-deletes after merge. No direct pushes to `main`.
+</git>
 
-## Worktree Workflow
-
-Every feature, fix, or non-trivial change must be developed in a dedicated git worktree. This keeps the working tree for each branch fully isolated — no stashing, no dirty state bleeding between tasks.
+<worktree>
+Every feature, fix, or non-trivial change must be developed in a dedicated git worktree. This keeps the working tree for each branch fully isolated - no stashing, no dirty state bleeding between tasks.
 
 **Convention:** worktrees live inside the main repo directory, mirroring the branch name as a path (replace `/` with `\`). The full path always starts with the project name as base:
 ```
 Projects\
-  leonardoachaboiano.com\                ← main repo (main branch only)
-  leonardoachaboiano.com\feat\5-blog\    ← worktree for feat/5-blog
-  leonardoachaboiano.com\feat\3-navbar\  ← worktree for feat/3-navbar
-  leonardoachaboiano.com\fix\12-nav\     ← worktree for fix/12-nav
+  leonardoachaboiano.com\                <- main repo (main branch only)
+  leonardoachaboiano.com\feat\5-blog\    <- worktree for feat/5-blog
+  leonardoachaboiano.com\feat\3-navbar\  <- worktree for feat/3-navbar
+  leonardoachaboiano.com\fix\12-nav\     <- worktree for fix/12-nav
 ```
 
 **Creating a worktree (do this before starting any feature):**
@@ -174,15 +172,13 @@ Added the Hero component with Framer Motion animations and responsive layout
 # No signatures
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
+</worktree>
 
-## Writing Style
+<writing>
+- **No em dashes.** Use a regular hyphen (-) if a separator is needed. This applies everywhere: commit messages, PR descriptions, code comments, MDX content, and any generated text.
+</writing>
 
-- **No em dashes (—).** Use a regular hyphen (-) if a separator is needed. This applies everywhere: commit messages, PR descriptions, code comments, MDX content, and any generated text.
-
----
-
-## Collaboration & Learning Style
-
+<collaboration>
 Leonardo is technically strong as an engineer (robotics/software background) but relatively new to modern frontend development. This project is both a production website and a mentorship-style learning experience.
 
 ### For EVERY implementation, explain:
@@ -191,7 +187,7 @@ Leonardo is technically strong as an engineer (robotics/software background) but
 2. **Why** this approach is considered good practice
 3. **Alternatives** that exist and their tradeoffs
 4. **How** this fits into professional frontend/software architecture
-5. **Frontend ecosystem concepts** — do not over-simplify, but do explain thoroughly
+5. **Frontend ecosystem concepts** - do not over-simplify, but do explain thoroughly
 
 ### When creating files/folders:
 - Explain the purpose of each folder
@@ -226,3 +222,4 @@ Leonardo is technically strong as an engineer (robotics/software background) but
 If multiple valid approaches exist: compare them, recommend one, explain why.
 
 **Code quality and educational clarity are equally important.**
+</collaboration>

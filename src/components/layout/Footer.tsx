@@ -1,8 +1,9 @@
-import Link from "next/link";
-import { siteConfig, socialLinks } from "@/lib/constants";
+import type { ReactElement } from "react";
+import { SocialLinks } from "@/components/shared/SocialLinks";
+import { siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-export function Footer() {
+export function Footer(): ReactElement {
   const year = new Date().getFullYear();
 
   return (
@@ -17,38 +18,7 @@ export function Footer() {
           &copy; {year} {siteConfig.name}
         </p>
 
-        <nav aria-label="Social links">
-          <ul className="flex items-center gap-5">
-            <li>
-              <Link
-                href={socialLinks.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-ink-3 transition-colors hover:text-ink-1"
-              >
-                GitHub
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={socialLinks.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-ink-3 transition-colors hover:text-ink-1"
-              >
-                LinkedIn
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={socialLinks.email}
-                className="text-sm text-ink-3 transition-colors hover:text-ink-1"
-              >
-                Email
-              </Link>
-            </li>
-          </ul>
-        </nav>
+        <SocialLinks />
       </div>
     </footer>
   );
