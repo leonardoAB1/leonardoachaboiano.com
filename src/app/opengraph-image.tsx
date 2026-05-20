@@ -60,21 +60,7 @@ export default async function Image() {
         />
       </div>
 
-      {/* Gradient: solid until ~x=585, then fades to transparent by x=900 */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: 900,
-          height: "100%",
-          background:
-            "linear-gradient(90deg, #0c1a1a 65%, rgba(12,26,26,0) 100%)",
-          display: "flex",
-        }}
-      />
-
-      {/* Text — 80px padding both sides → 520px text zone, name at 44px ends ~x=524 */}
+      {/* Text — 80px padding, dark on mint background */}
       <div
         style={{
           position: "absolute",
@@ -91,7 +77,7 @@ export default async function Image() {
         <div
           style={{
             fontSize: 44,
-            color: "#f0f0f0",
+            color: "#0c1a1a",
             fontWeight: 700,
             lineHeight: 1.05,
             marginBottom: 18,
@@ -122,7 +108,7 @@ export default async function Image() {
           <div
             style={{
               fontSize: 22,
-              color: "#7ab8bb",
+              color: "#1a5a5e",
               fontWeight: 400,
               lineHeight: 1.6,
             }}
@@ -132,7 +118,7 @@ export default async function Image() {
           <div
             style={{
               fontSize: 22,
-              color: "#7ab8bb",
+              color: "#1a5a5e",
               fontWeight: 400,
               lineHeight: 1.6,
             }}
@@ -144,7 +130,7 @@ export default async function Image() {
         <div
           style={{
             fontSize: 13,
-            color: "#3d6e70",
+            color: "#02777C",
             fontWeight: 400,
             letterSpacing: 2,
           }}
