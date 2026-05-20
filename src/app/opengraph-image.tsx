@@ -35,11 +35,11 @@ export default async function Image() {
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — starts at x=580, bleeds off right edge */}
+      {/* Portrait — centered at x=600 (face at container center: 290+310=600) */}
       <div
         style={{
           position: "absolute",
-          right: 0,
+          left: 290,
           top: 0,
           width: 620,
           height: "100%",
@@ -60,16 +60,16 @@ export default async function Image() {
         />
       </div>
 
-      {/* Gradient: solid until ~x=480, then fades to transparent by x=800 */}
+      {/* Gradient: solid until ~x=585, then fades to transparent by x=900 */}
       <div
         style={{
           position: "absolute",
           left: 0,
           top: 0,
-          width: 800,
+          width: 900,
           height: "100%",
           background:
-            "linear-gradient(90deg, #0c1a1a 60%, rgba(12,26,26,0) 100%)",
+            "linear-gradient(90deg, #0c1a1a 65%, rgba(12,26,26,0) 100%)",
           display: "flex",
         }}
       />
