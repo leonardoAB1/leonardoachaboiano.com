@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.4...v0.9.5) (2026-05-20)
+
+
+### Bug Fixes
+
+* restore og portrait rendering and redesign layout ([#135](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/135)) ([f3f7174](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/f3f71745e68fd7d65288d89dee5678dff05c29d2))
+
 ## [0.9.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.3...v0.9.4) (2026-05-20)
 
 
