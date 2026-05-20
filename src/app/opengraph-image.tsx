@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/constants";
 
@@ -6,17 +8,17 @@ export const alt = `${siteConfig.name} - ${siteConfig.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const FONT_BOLD =
-  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVnskPMU.ttf";
-const FONT_REGULAR =
-  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMU.ttf";
+// Loaded at module level: disk reads are cheap and the Node module cache keeps
+// them warm across warm serverless invocations, eliminating a per-request
+// Google Fonts fetch.
+const fontBold = readFileSync(
+  path.join(process.cwd(), "public/fonts/SpaceGrotesk-Bold.ttf"),
+);
+const fontRegular = readFileSync(
+  path.join(process.cwd(), "public/fonts/SpaceGrotesk-Regular.ttf"),
+);
 
 export default async function Image() {
-  const [fontBold, fontRegular] = await Promise.all([
-    fetch(FONT_BOLD).then((r) => r.arrayBuffer()),
-    fetch(FONT_REGULAR).then((r) => r.arrayBuffer()),
-  ]);
-
   const portraitSrc = `${siteConfig.url}/portrait.jpg`;
 
   return new ImageResponse(
@@ -30,7 +32,7 @@ export default async function Image() {
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — 630×630 square centered, sits between background and text */}
+      {/* Portrait — 630×630 centered, sits between background and text */}
       <div
         style={{
           position: "absolute",
@@ -41,7 +43,7 @@ export default async function Image() {
           display: "flex",
         }}
       >
-        {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
+        {/* biome-ignore lint/performance/noImgElement: Satori renders a limited HTML subset and does not support next/image */}
         <img
           src={portraitSrc}
           alt=""
@@ -49,7 +51,7 @@ export default async function Image() {
         />
       </div>
 
-      {/* Tagline + URL — left clean zone (x=0 to x=285), before the portrait */}
+      {/* Name + title — left clean zone (x=0 to x=285) */}
       <div
         style={{
           position: "absolute",
@@ -60,7 +62,45 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "0 16px",
+          padding: "0 18px",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 38,
+            color: "#0c1a1a",
+            fontWeight: 700,
+            lineHeight: 1.1,
+            marginBottom: 14,
+          }}
+        >
+          {siteConfig.name}
+        </div>
+
+        <div
+          style={{
+            fontSize: 14,
+            color: "#014a50",
+            fontWeight: 400,
+            letterSpacing: 2,
+          }}
+        >
+          MECHATRONICS ENGINEER
+        </div>
+      </div>
+
+      {/* Tagline + URL — right clean zone (x=915 to x=1200) */}
+      <div
+        style={{
+          position: "absolute",
+          left: 915,
+          top: 0,
+          width: 285,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "0 12px",
         }}
       >
         <div
@@ -72,7 +112,7 @@ export default async function Image() {
         >
           <div
             style={{
-              fontSize: 22,
+              fontSize: 24,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -82,7 +122,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              fontSize: 22,
+              fontSize: 24,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -101,44 +141,6 @@ export default async function Image() {
           }}
         >
           {siteConfig.url.replace("https://", "")}
-        </div>
-      </div>
-
-      {/* Name + title — right clean zone (x=915 to x=1200), after the portrait */}
-      <div
-        style={{
-          position: "absolute",
-          left: 915,
-          top: 0,
-          width: 285,
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "0 20px",
-        }}
-      >
-        <div
-          style={{
-            fontSize: 34,
-            color: "#0c1a1a",
-            fontWeight: 700,
-            lineHeight: 1.1,
-            marginBottom: 12,
-          }}
-        >
-          {siteConfig.name}
-        </div>
-
-        <div
-          style={{
-            fontSize: 14,
-            color: "#014a50",
-            fontWeight: 400,
-            letterSpacing: 2,
-          }}
-        >
-          MECHATRONICS ENGINEER
         </div>
       </div>
     </div>,
