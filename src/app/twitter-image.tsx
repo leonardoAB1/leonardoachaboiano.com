@@ -8,21 +8,15 @@ export const alt = `${siteConfig.name} - ${siteConfig.title}`;
 export const size = { width: 1200, height: 675 };
 export const contentType = "image/png";
 
-const FONT_BOLD =
-  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVnskPMU.ttf";
-const FONT_REGULAR =
-  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMU.ttf";
+const fontBold = readFileSync(
+  path.join(process.cwd(), "public/fonts/SpaceGrotesk-Bold.ttf"),
+);
+const fontRegular = readFileSync(
+  path.join(process.cwd(), "public/fonts/SpaceGrotesk-Regular.ttf"),
+);
 
 export default async function Image() {
-  const [fontBold, fontRegular] = await Promise.all([
-    fetch(FONT_BOLD).then((r) => r.arrayBuffer()),
-    fetch(FONT_REGULAR).then((r) => r.arrayBuffer()),
-  ]);
-
-  const portraitBuffer = readFileSync(
-    path.join(process.cwd(), "public/portrait.jpg"),
-  );
-  const portraitSrc = `data:image/jpeg;base64,${portraitBuffer.toString("base64")}`;
+  const portraitSrc = `${siteConfig.url}/portrait.jpg`;
 
   return new ImageResponse(
     <div

@@ -8,21 +8,18 @@ export const alt = `${siteConfig.name} - ${siteConfig.title}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const FONT_BOLD =
-  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj4PVnskPMU.ttf";
-const FONT_REGULAR =
-  "https://fonts.gstatic.com/s/spacegrotesk/v22/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7oUXskPMU.ttf";
+// Loaded at module level: disk reads are cheap and the Node module cache keeps
+// them warm across warm serverless invocations, eliminating a per-request
+// Google Fonts fetch.
+const fontBold = readFileSync(
+  path.join(process.cwd(), "public/fonts/SpaceGrotesk-Bold.ttf"),
+);
+const fontRegular = readFileSync(
+  path.join(process.cwd(), "public/fonts/SpaceGrotesk-Regular.ttf"),
+);
 
 export default async function Image() {
-  const [fontBold, fontRegular] = await Promise.all([
-    fetch(FONT_BOLD).then((r) => r.arrayBuffer()),
-    fetch(FONT_REGULAR).then((r) => r.arrayBuffer()),
-  ]);
-
-  const portraitBuffer = readFileSync(
-    path.join(process.cwd(), "public/portrait.jpg"),
-  );
-  const portraitSrc = `data:image/jpeg;base64,${portraitBuffer.toString("base64")}`;
+  const portraitSrc = `${siteConfig.url}/portrait.jpg`;
 
   return new ImageResponse(
     <div
@@ -35,18 +32,18 @@ export default async function Image() {
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — 630×630 square flush-right, matches image aspect ratio exactly */}
+      {/* Portrait — 630×630 centered, sits between background and text */}
       <div
         style={{
           position: "absolute",
-          right: 0,
+          left: 285,
           top: 0,
           width: 630,
           height: 630,
           display: "flex",
         }}
       >
-        {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
+        {/* biome-ignore lint/performance/noImgElement: Satori renders a limited HTML subset and does not support next/image */}
         <img
           src={portraitSrc}
           alt=""
@@ -54,27 +51,27 @@ export default async function Image() {
         />
       </div>
 
-      {/* Text — overlaid on the left teal area, 80px padding */}
+      {/* Name + title — left clean zone (x=0 to x=285) */}
       <div
         style={{
           position: "absolute",
           left: 0,
           top: 0,
-          width: 520,
+          width: 285,
           height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "0 80px",
+          padding: "0 18px",
         }}
       >
         <div
           style={{
-            fontSize: 44,
+            fontSize: 38,
             color: "#0c1a1a",
             fontWeight: 700,
-            lineHeight: 1.05,
-            marginBottom: 18,
+            lineHeight: 1.1,
+            marginBottom: 14,
           }}
         >
           {siteConfig.name}
@@ -82,26 +79,40 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: 20,
+            fontSize: 14,
             color: "#014a50",
             fontWeight: 400,
-            letterSpacing: 4,
-            marginBottom: 44,
+            letterSpacing: 2,
           }}
         >
           MECHATRONICS ENGINEER
         </div>
+      </div>
 
+      {/* Tagline + URL — right clean zone (x=915 to x=1200) */}
+      <div
+        style={{
+          position: "absolute",
+          left: 915,
+          top: 0,
+          width: 285,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          padding: "0 12px",
+        }}
+      >
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            marginBottom: 56,
+            marginBottom: 20,
           }}
         >
           <div
             style={{
-              fontSize: 28,
+              fontSize: 24,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -111,7 +122,7 @@ export default async function Image() {
           </div>
           <div
             style={{
-              fontSize: 28,
+              fontSize: 24,
               color: "#0c1a1a",
               fontWeight: 400,
               lineHeight: 1.5,
@@ -123,7 +134,7 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: 18,
+            fontSize: 14,
             color: "#014a50",
             fontWeight: 400,
             letterSpacing: 2,
