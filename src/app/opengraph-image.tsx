@@ -30,11 +30,11 @@ export default async function Image() {
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — 630×630 square flush-right, matches image aspect ratio exactly */}
+      {/* Portrait — 630×630 square centered, sits between background and text */}
       <div
         style={{
           position: "absolute",
-          right: 0,
+          left: 285,
           top: 0,
           width: 630,
           height: 630,
