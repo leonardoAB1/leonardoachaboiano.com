@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.7](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.6...v0.9.7) (2026-05-20)
+
+
+### Bug Fixes
+
+* compress og portrait to q70 and wire opengraph-image to all routes ([#142](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/142)) ([1296e29](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1296e29f389fa64edcd40b8ed3d898ed3736648b))
+
 ## [0.9.6](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.5...v0.9.6) (2026-05-20)
 
 
