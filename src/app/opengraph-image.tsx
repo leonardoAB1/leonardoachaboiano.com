@@ -174,7 +174,7 @@ export default async function Image() {
   );
 
   const jpegBuffer = await sharp(Buffer.from(await png.arrayBuffer()))
-    .jpeg({ quality: 85, progressive: true })
+    .jpeg({ quality: 90, progressive: true })
     .toBuffer();
 
   return new Response(new Uint8Array(jpegBuffer), {
