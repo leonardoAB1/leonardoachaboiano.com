@@ -1,12 +1,13 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import sharp from "sharp";
 import { siteConfig } from "@/lib/constants";
 
 export const runtime = "nodejs";
 export const alt = `${siteConfig.name} - ${siteConfig.title}`;
 export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const contentType = "image/jpeg";
 
 // Loaded at module level: disk reads are cheap and the Node module cache keeps
 // them warm across warm serverless invocations, eliminating a per-request
@@ -21,7 +22,9 @@ const fontRegular = readFileSync(
 export default async function Image() {
   const portraitSrc = `${siteConfig.url}/portrait.jpg`;
 
-  return new ImageResponse(
+  // Satori only outputs PNG. PNG compresses photos poorly, so we post-process
+  // the buffer through sharp to get a JPEG well under WhatsApp's 600 KB limit.
+  const png = new ImageResponse(
     <div
       style={{
         position: "relative",
@@ -169,4 +172,12 @@ export default async function Image() {
       ],
     },
   );
+
+  const jpegBuffer = await sharp(Buffer.from(await png.arrayBuffer()))
+    .jpeg({ quality: 85, progressive: true })
+    .toBuffer();
+
+  return new Response(new Uint8Array(jpegBuffer), {
+    headers: { "Content-Type": "image/jpeg" },
+  });
 }
