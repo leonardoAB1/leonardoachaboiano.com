@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.6](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.5...v0.9.6) (2026-05-20)
+
+
+### Bug Fixes
+
+* optimize portrait to 630x630 jpeg q90 to bring og png below 600 KB ([#136](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/136)) ([62432fb](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/62432fb4bbb986dfd6ee6531c0ae764a4e15c5da))
+
 ## [0.9.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.4...v0.9.5) (2026-05-20)
 
 
