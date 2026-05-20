@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/constants";
 
@@ -19,10 +17,7 @@ export default async function Image() {
     fetch(FONT_REGULAR).then((r) => r.arrayBuffer()),
   ]);
 
-  const portraitBuffer = readFileSync(
-    path.join(process.cwd(), "public/portrait.jpg"),
-  );
-  const portraitSrc = `data:image/jpeg;base64,${portraitBuffer.toString("base64")}`;
+  const portraitSrc = `${siteConfig.url}/portrait.jpg`;
 
   return new ImageResponse(
     <div
