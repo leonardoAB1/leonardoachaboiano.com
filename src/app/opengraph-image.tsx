@@ -35,21 +35,24 @@ export default async function Image() {
         fontFamily: "Space Grotesk",
       }}
     >
-      {/* Portrait — full bleed, contained and flush-right so teal fills the left */}
-      {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
-      <img
-        src={portraitSrc}
-        alt=""
+      {/* Portrait — 630×630 square flush-right, matches image aspect ratio exactly */}
+      <div
         style={{
           position: "absolute",
-          left: 0,
+          right: 0,
           top: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          objectPosition: "right center",
+          width: 630,
+          height: 630,
+          display: "flex",
         }}
-      />
+      >
+        {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
+        <img
+          src={portraitSrc}
+          alt=""
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
 
       {/* Text — overlaid on the left teal area, 80px padding */}
       <div
@@ -98,20 +101,20 @@ export default async function Image() {
         >
           <div
             style={{
-              fontSize: 22,
-              color: "#014a50",
+              fontSize: 28,
+              color: "#0c1a1a",
               fontWeight: 400,
-              lineHeight: 1.6,
+              lineHeight: 1.5,
             }}
           >
             I build the robots.
           </div>
           <div
             style={{
-              fontSize: 22,
-              color: "#014a50",
+              fontSize: 28,
+              color: "#0c1a1a",
               fontWeight: 400,
-              lineHeight: 1.6,
+              lineHeight: 1.5,
             }}
           >
             I&apos;m not one.
