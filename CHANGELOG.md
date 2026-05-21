@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.10](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.9...v0.9.10) (2026-05-21)
+
+
+### Bug Fixes
+
+* add favicon.ico and fix maskable manifest to stop tab icon flash ([#151](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/151)) ([0f4f0c4](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/0f4f0c468b73982d879b58affd7b67b8ce692ec2))
+
 ## [0.9.9](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.8...v0.9.9) (2026-05-20)
 
 
