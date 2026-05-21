@@ -135,6 +135,17 @@ function shortestPath(current: number, target: number) {
   return t;
 }
 
+// Normalize an angle to [-π, π]. rotation.y and rotation.y ± 2πk render
+// identically; keeping the value canonical ensures shortestPath always picks
+// the geometrically shortest arc regardless of accumulated drag distance.
+function normalizeAngle(rad: number): number {
+  const twoPI = 2 * Math.PI;
+  let n = rad % twoPI;
+  if (n > Math.PI) n -= twoPI;
+  if (n < -Math.PI) n += twoPI;
+  return n;
+}
+
 // Convert lat/lng/altitude to Three.js local XYZ within the globe's coordinate space.
 // Matches three-globe's internal polar2Cartesian formula exactly (verified from source):
 //   theta = (90 - lng) * π/180, NOT the standard (lng + 180) convention.
@@ -300,13 +311,23 @@ export function GlobeVisualization({
 
     const entry = timelineEntries[activeIndex];
 
+    // Normalize accumulated rotation to [-π, π] before computing shortest-path
+    // targets. globe.rotation.y can drift arbitrarily far through drag/momentum;
+    // without normalization, shortestPath picks the wrong arc near ±180°
+    // (e.g. routes through the Pacific to reach Kamloops at lng -120°W).
+    // The write-back is visually transparent: sphere rotation is symmetric under ±2π.
+    const normalizedY = normalizeAngle(globeRef.current.rotation.y);
+    globeRef.current.rotation.y = normalizedY;
+    const normalizedX = normalizeAngle(globeRef.current.rotation.x);
+    globeRef.current.rotation.x = normalizedX;
+
     // Set X rotation to bring the target's latitude to the visual centre.
     const rawX = targetRotationX(entry.coordinates[0]);
-    targetRotXRef.current = shortestPath(globeRef.current.rotation.x, rawX);
+    targetRotXRef.current = shortestPath(normalizedX, rawX);
     const raw = targetRotationY(entry.coordinates[1]);
 
     // Shortest-path normalisation prevents the globe spinning the long way around.
-    targetRotYRef.current = shortestPath(globeRef.current.rotation.y, raw);
+    targetRotYRef.current = shortestPath(normalizedY, raw);
 
     // Remove old sprites and dispose their materials.
     // Shared glow textures are NOT disposed here - only on full component cleanup.
