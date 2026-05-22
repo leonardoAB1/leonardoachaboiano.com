@@ -476,6 +476,9 @@ export function GlobeVisualization({
       );
       globe.quaternion.copy(initQuat);
       targetQuatRef.current = initQuat.clone();
+      // Non-null alias: targetQuatRef is always set for the lifetime of this effect.
+      // Using a typed alias avoids non-null assertions throughout the closures below.
+      const tq = targetQuatRef as { current: Quaternion };
 
       // Boost the night texture's apparent brightness by adding self-illumination.
       // MeshPhongMaterial.emissive adds a constant colour independent of lighting,
@@ -577,7 +580,7 @@ export function GlobeVisualization({
       const _qA = new THREE.Quaternion(); // scratch A
       const _qB = new THREE.Quaternion(); // scratch B
       const _identQuat = new THREE.Quaternion(); // permanent identity
-      let velQuat = new THREE.Quaternion(); // per-frame angular velocity; identity = no momentum
+      const velQuat = new THREE.Quaternion(); // per-frame angular velocity; identity = no momentum
       const _dragOriginQuat = new THREE.Quaternion(); // orientation at pointer-down
       let _dragOriginLatRad = 0; // latitude of drag origin (for X-clamp range)
       const _lastDragQuat = new THREE.Quaternion(); // target on the previous frame
@@ -605,14 +608,14 @@ export function GlobeVisualization({
         isDragging = true;
         dragStartX = e.clientX;
         dragStartY = e.clientY;
-        _dragOriginQuat.copy(targetQuatRef.current!);
+        _dragOriginQuat.copy(tq.current);
         // Extract latitude of drag origin directly from quaternion components.
         // Formula for YXZ convention: sin(lat) = 2*(w·x − z·y).
         const { w, x, y, z } = _dragOriginQuat;
         _dragOriginLatRad = Math.asin(
           Math.max(-1, Math.min(1, 2 * (w * x - z * y))),
         );
-        _lastDragQuat.copy(targetQuatRef.current!);
+        _lastDragQuat.copy(tq.current);
         velQuat.identity();
         container.setPointerCapture(e.pointerId);
         container.style.cursor = "grabbing";
@@ -639,10 +642,7 @@ export function GlobeVisualization({
         // but operates entirely in SO(3) — no Euler decomposition of the target.
         _qA.setFromAxisAngle(_yAxis, deltaLng);
         _qB.setFromAxisAngle(_xAxis, clampedLat);
-        targetQuatRef
-          .current!.copy(_dragOriginQuat)
-          .premultiply(_qA)
-          .multiply(_qB);
+        tq.current.copy(_dragOriginQuat).premultiply(_qA).multiply(_qB);
       };
 
       const onPointerUp = (e: PointerEvent) => {
@@ -733,22 +733,22 @@ export function GlobeVisualization({
         const lerpFactor = isDragging ? 1.0 : 0.05;
         // Quaternion slerp always picks the shortest arc on SO(3) — no shortestPath
         // arithmetic needed and no sensitivity to accumulated angle drift.
-        globe.quaternion.slerp(targetQuatRef.current!, lerpFactor);
+        globe.quaternion.slerp(tq.current, lerpFactor);
 
         // ── Momentum ─────────────────────────────────────────────────────────
         if (isDragging) {
           // Velocity = right-relative delta quaternion from last frame to this one.
           // velQuat = Q_last⁻¹ * Q_now; applied as post-multiply it correctly
           // advances both longitude and latitude in their respective directions.
-          velQuat.copy(_lastDragQuat).invert().multiply(targetQuatRef.current!);
-          _lastDragQuat.copy(targetQuatRef.current!);
+          velQuat.copy(_lastDragQuat).invert().multiply(tq.current);
+          _lastDragQuat.copy(tq.current);
         } else if (velQuat.w < 1 - 1e-10) {
           // Coasting: advance the target by the velocity quaternion, then decay.
-          targetQuatRef.current!.multiply(velQuat);
+          tq.current.multiply(velQuat);
 
           // Pole clamp: sin(lat) = 2*(w·x − z·y) for Q_y*Q_x quaternions.
           // If latitude would exceed ±90°, reconstruct and kill all momentum.
-          const { w: qw, x: qx, y: qy, z: qz } = targetQuatRef.current!;
+          const { w: qw, x: qx, y: qy, z: qz } = tq.current;
           const sinLat = 2 * (qw * qx - qz * qy);
           if (Math.abs(sinLat) > 1 - 1e-6) {
             const lng = Math.atan2(
@@ -757,7 +757,7 @@ export function GlobeVisualization({
             );
             _qA.setFromAxisAngle(_yAxis, lng);
             _qB.setFromAxisAngle(_xAxis, (Math.sign(sinLat) * Math.PI) / 2);
-            targetQuatRef.current!.copy(_qA).multiply(_qB);
+            tq.current.copy(_qA).multiply(_qB);
             velQuat.identity();
           }
 
