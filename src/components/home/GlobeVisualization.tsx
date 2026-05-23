@@ -115,8 +115,10 @@ function naturalArcAltitude(d: {
 const CAM_ELEVATION = Math.atan2(40, 320); // ≈ 0.124 rad
 
 // Build the globe-orientation quaternion for a given location.
-// Computed as Q_y(lng) × Q_x(lat − CAM_ELEVATION) via direct half-angle products,
-// matching the YXZ Euler convention used by globe.rotation.order.
+// Computed as Q_x(lat − CAM_ELEVATION) × Q_y(−lng) via direct half-angle products,
+// matching the XYZ Euler convention used by globe.rotation.order. Order matters:
+// Q_y is applied to the marker first (bringing its longitude to the prime meridian),
+// then Q_x tilts that meridian-aligned point down to the camera's visual centre.
 // Three.js Quaternion constructor takes (x, y, z, w).
 function latLngToQuat(THREE: ThreeNamespace, latDeg: number, lngDeg: number) {
   const lng = -(lngDeg * Math.PI) / 180;
@@ -125,7 +127,7 @@ function latLngToQuat(THREE: ThreeNamespace, latDeg: number, lngDeg: number) {
     sy = Math.sin(lng / 2);
   const cx = Math.cos(lat / 2),
     sx = Math.sin(lat / 2);
-  return new THREE.Quaternion(cy * sx, sy * cx, -sy * sx, cy * cx);
+  return new THREE.Quaternion(cy * sx, sy * cx, sx * sy, cy * cx);
 }
 
 // Convert lat/lng/altitude to Three.js local XYZ within the globe's coordinate space.
@@ -465,9 +467,11 @@ export function GlobeVisualization({
           .htmlAltitude(0.04);
       }
 
-      // YXZ order ensures globe.rotation decompositions elsewhere (label anchors,
-      // atmosphere) are consistent with the Q_y * Q_x quaternion convention.
-      globe.rotation.order = "YXZ";
+      // XYZ order ensures globe.rotation decompositions elsewhere (label anchors,
+      // atmosphere) are consistent with the Q_x * Q_y quaternion convention -
+      // Y (longitude) is applied to local vertices first, then X (latitude tilt),
+      // which is the only order that centres off-meridian locations correctly.
+      globe.rotation.order = "XYZ";
       // Snap to the initial orientation via quaternion - no accumulated angle state.
       const initQuat = latLngToQuat(
         THREE,
@@ -610,10 +614,10 @@ export function GlobeVisualization({
         dragStartY = e.clientY;
         _dragOriginQuat.copy(tq.current);
         // Extract latitude of drag origin directly from quaternion components.
-        // Formula for YXZ convention: sin(lat) = 2*(w·x − z·y).
+        // Formula for XYZ (Q_x * Q_y) convention: sin(lat) = 2*(w·x + y·z).
         const { w, x, y, z } = _dragOriginQuat;
         _dragOriginLatRad = Math.asin(
-          Math.max(-1, Math.min(1, 2 * (w * x - z * y))),
+          Math.max(-1, Math.min(1, 2 * (w * x + y * z))),
         );
         _lastDragQuat.copy(tq.current);
         velQuat.identity();
@@ -636,13 +640,13 @@ export function GlobeVisualization({
           Math.min(Math.PI / 2 - _dragOriginLatRad, deltaLat),
         );
 
-        // Q_new = Q_y(Δlng) * Q_origin * Q_x(Δlat)
-        // Pre-multiplying Q_y adds to the longitude; post-multiplying Q_x adds to
-        // the latitude. Algebraically equivalent to the original angle-ref approach
-        // but operates entirely in SO(3) — no Euler decomposition of the target.
+        // Q_new = Q_x(Δlat) * Q_origin * Q_y(Δlng)
+        // Pre-multiplying Q_x adds to the latitude; post-multiplying Q_y adds to
+        // the longitude. Matches the new Q_x * Q_y convention - X is the outer
+        // rotation (world-frame tilt), Y is the inner (globe-frame spin).
         _qA.setFromAxisAngle(_yAxis, deltaLng);
         _qB.setFromAxisAngle(_xAxis, clampedLat);
-        tq.current.copy(_dragOriginQuat).premultiply(_qA).multiply(_qB);
+        tq.current.copy(_dragOriginQuat).premultiply(_qB).multiply(_qA);
       };
 
       const onPointerUp = (e: PointerEvent) => {
@@ -746,18 +750,17 @@ export function GlobeVisualization({
           // Coasting: advance the target by the velocity quaternion, then decay.
           tq.current.multiply(velQuat);
 
-          // Pole clamp: sin(lat) = 2*(w·x − z·y) for Q_y*Q_x quaternions.
+          // Pole clamp: sin(lat) = 2*(w·x + y·z) for Q_x*Q_y quaternions.
           // If latitude would exceed ±90°, reconstruct and kill all momentum.
+          // At the pole, longitude is encoded by atan2(z, x) since x = s_α·c_β
+          // and z = s_α·s_β when s_α ≠ 0.
           const { w: qw, x: qx, y: qy, z: qz } = tq.current;
-          const sinLat = 2 * (qw * qx - qz * qy);
+          const sinLat = 2 * (qw * qx + qy * qz);
           if (Math.abs(sinLat) > 1 - 1e-6) {
-            const lng = Math.atan2(
-              2 * (qw * qy + qx * qz),
-              1 - 2 * (qx * qx + qy * qy),
-            );
+            const lng = Math.atan2(qz, qx);
             _qA.setFromAxisAngle(_yAxis, lng);
             _qB.setFromAxisAngle(_xAxis, (Math.sign(sinLat) * Math.PI) / 2);
-            tq.current.copy(_qA).multiply(_qB);
+            tq.current.copy(_qB).multiply(_qA);
             velQuat.identity();
           }
 
