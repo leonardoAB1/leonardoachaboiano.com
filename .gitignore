@@ -13,7 +13,7 @@
 # testing
 /coverage
 
-# playwright (local verification scratch + future automated tests)
+# playwright
 .playwright-verify/
 /playwright-report/
 /test-results/
