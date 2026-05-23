@@ -612,6 +612,11 @@ export function GlobeVisualization({
         isDragging = true;
         dragStartX = e.clientX;
         dragStartY = e.clientY;
+        // Snap the target to the globe's currently visible orientation so an
+        // in-flight slerp doesn't jump the rest of the way the instant
+        // lerpFactor flips to 1.0. The drag (or just-a-click) then starts
+        // from where the user actually sees the globe, not its prior target.
+        tq.current.copy(globe.quaternion);
         _dragOriginQuat.copy(tq.current);
         // Extract latitude of drag origin directly from quaternion components.
         // Formula for XYZ (Q_x * Q_y) convention: sin(lat) = 2*(w·x + y·z).
