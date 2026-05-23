@@ -13,6 +13,12 @@
 # testing
 /coverage
 
+# playwright (local verification scratch + future automated tests)
+.playwright-verify/
+/playwright-report/
+/test-results/
+/playwright/.cache/
+
 # next.js
 /.next/
 /out/
