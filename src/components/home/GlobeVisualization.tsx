@@ -9,6 +9,7 @@ import type {
   MeshPhongMaterial,
   Object3D,
   PerspectiveCamera,
+  Quaternion,
   Sprite,
   SpriteMaterial,
   Texture,
@@ -113,26 +114,20 @@ function naturalArcAltitude(d: {
 // That 7.1° is the latitude that appears at the visual centre when rotation.x = 0.
 const CAM_ELEVATION = Math.atan2(40, 320); // ≈ 0.124 rad
 
-// THREE.SphereGeometry UV: phi=π is the +Z front face (U=0.5 = lng 0°, Greenwich).
-// Positive rotation.y (CCW from above) brings the -X side into view, lowering visible lng.
-// Relationship: visible_lng = -(rotation.y × 180/π), so: rotation.y = -lng_rad.
-function targetRotationY(lngDeg: number) {
-  return -(lngDeg * Math.PI) / 180;
-}
-
-// The camera's visual centre sits at ~7.1°N when rotation.x = 0.
-// To bring latitude L to the visual centre: rotation.x = L_rad − CAM_ELEVATION.
-// Verified: Basel 47.6°N → +0.706 rad, Santa Cruz −17.8°S → −0.434 rad.
-function targetRotationX(latDeg: number) {
-  return (latDeg * Math.PI) / 180 - CAM_ELEVATION;
-}
-
-// Normalise target to take the shortest arc from current rotation.
-function shortestPath(current: number, target: number) {
-  let t = target;
-  while (t - current > Math.PI) t -= 2 * Math.PI;
-  while (t - current < -Math.PI) t += 2 * Math.PI;
-  return t;
+// Build the globe-orientation quaternion for a given location.
+// Computed as Q_x(lat − CAM_ELEVATION) × Q_y(−lng) via direct half-angle products,
+// matching the XYZ Euler convention used by globe.rotation.order. Order matters:
+// Q_y is applied to the marker first (bringing its longitude to the prime meridian),
+// then Q_x tilts that meridian-aligned point down to the camera's visual centre.
+// Three.js Quaternion constructor takes (x, y, z, w).
+function latLngToQuat(THREE: ThreeNamespace, latDeg: number, lngDeg: number) {
+  const lng = -(lngDeg * Math.PI) / 180;
+  const lat = (latDeg * Math.PI) / 180 - CAM_ELEVATION;
+  const cy = Math.cos(lng / 2),
+    sy = Math.sin(lng / 2);
+  const cx = Math.cos(lat / 2),
+    sx = Math.sin(lat / 2);
+  return new THREE.Quaternion(cy * sx, sy * cx, sx * sy, cy * cx);
 }
 
 // Convert lat/lng/altitude to Three.js local XYZ within the globe's coordinate space.
@@ -259,12 +254,8 @@ export function GlobeVisualization({
   const spritesRef = useRef<MarkerSprite[]>([]);
   const activeMarkerTexRef = useRef<CanvasTexture | null>(null);
   const inactiveMarkerTexRef = useRef<CanvasTexture | null>(null);
-  const targetRotXRef = useRef(
-    targetRotationX(timelineEntries[activeIndex].coordinates[0]),
-  );
-  const targetRotYRef = useRef(
-    targetRotationY(timelineEntries[activeIndex].coordinates[1]),
-  );
+  // Target orientation in SO(3). Null until the init effect loads THREE.
+  const targetQuatRef = useRef<Quaternion | null>(null);
   const camPosRef = useRef({ x: 0, y: 40, z: 320 });
   // Populated by the init effect; called by Effect 1 to clear drag momentum
   // before setting a new programmatic target so the two don't fight each other.
@@ -300,13 +291,12 @@ export function GlobeVisualization({
 
     const entry = timelineEntries[activeIndex];
 
-    // Set X rotation to bring the target's latitude to the visual centre.
-    const rawX = targetRotationX(entry.coordinates[0]);
-    targetRotXRef.current = shortestPath(globeRef.current.rotation.x, rawX);
-    const raw = targetRotationY(entry.coordinates[1]);
-
-    // Shortest-path normalisation prevents the globe spinning the long way around.
-    targetRotYRef.current = shortestPath(globeRef.current.rotation.y, raw);
+    // Quaternion slerp in the animation loop picks the shortest arc automatically.
+    targetQuatRef.current = latLngToQuat(
+      threeRef.current,
+      entry.coordinates[0],
+      entry.coordinates[1],
+    );
 
     // Remove old sprites and dispose their materials.
     // Shared glow textures are NOT disposed here - only on full component cleanup.
@@ -407,7 +397,6 @@ export function GlobeVisualization({
       const initialActiveIndex = activeIndexRef.current;
       const initialShowLabel = showLabelRef.current;
       const entry = timelineEntries[initialActiveIndex];
-      const initRotY = targetRotationY(entry.coordinates[1]);
 
       const globe = new ThreeGlobe({
         waitForGlobeReady: true,
@@ -478,15 +467,22 @@ export function GlobeVisualization({
           .htmlAltitude(0.04);
       }
 
-      // YXZ order: Y rotation (longitude spin) is applied before X rotation
-      // (latitude tilt). The targetRotationY/X formulas assume this sequence -
-      // Y brings the city to the +Z front face, then X tilts it to visual centre.
-      // Three.js default 'XYZ' reverses the order and places cities ~50 px off-centre.
-      globe.rotation.order = "YXZ";
-      // Set initial rotation without animation
-      globe.rotation.y = initRotY;
-      globe.rotation.x = targetRotXRef.current; // latitude-centred initial tilt
-      targetRotYRef.current = initRotY;
+      // XYZ order ensures globe.rotation decompositions elsewhere (label anchors,
+      // atmosphere) are consistent with the Q_x * Q_y quaternion convention -
+      // Y (longitude) is applied to local vertices first, then X (latitude tilt),
+      // which is the only order that centres off-meridian locations correctly.
+      globe.rotation.order = "XYZ";
+      // Snap to the initial orientation via quaternion - no accumulated angle state.
+      const initQuat = latLngToQuat(
+        THREE,
+        entry.coordinates[0],
+        entry.coordinates[1],
+      );
+      globe.quaternion.copy(initQuat);
+      targetQuatRef.current = initQuat.clone();
+      // Non-null alias: targetQuatRef is always set for the lifetime of this effect.
+      // Using a typed alias avoids non-null assertions throughout the closures below.
+      const tq = targetQuatRef as { current: Quaternion };
 
       // Boost the night texture's apparent brightness by adding self-illumination.
       // MeshPhongMaterial.emissive adds a constant colour independent of lighting,
@@ -578,20 +574,24 @@ export function GlobeVisualization({
       let isDragging = false;
       let dragStartX = 0;
       let dragStartY = 0;
-      let dragStartRotY = 0;
-      let dragStartRotX = 0;
       // 3D target for camera position; all three components lerp smoothly each frame.
       let userCamVec = { x: 0, y: 40, z: camPosRef.current.z };
-      // Momentum: last-frame rotation delta, decays after pointer release
-      let velX = 0;
-      let velY = 0;
-      let lastRotX = 0;
-      let lastRotY = 0;
+
+      // Quaternion rotation state - all orientation tracking lives in SO(3).
+      // Pre-allocated to avoid per-frame / per-event heap allocation.
+      const _yAxis = new THREE.Vector3(0, 1, 0);
+      const _xAxis = new THREE.Vector3(1, 0, 0);
+      const _qA = new THREE.Quaternion(); // scratch A
+      const _qB = new THREE.Quaternion(); // scratch B
+      const _identQuat = new THREE.Quaternion(); // permanent identity
+      const velQuat = new THREE.Quaternion(); // per-frame angular velocity; identity = no momentum
+      const _dragOriginQuat = new THREE.Quaternion(); // orientation at pointer-down
+      let _dragOriginLatRad = 0; // latitude of drag origin (for X-clamp range)
+      const _lastDragQuat = new THREE.Quaternion(); // target on the previous frame
 
       // Expose to Effect 1 so clicking a location clears momentum immediately
       stopMomentumRef.current = () => {
-        velX = 0;
-        velY = 0;
+        velQuat.identity();
       };
 
       // Expose to Effect 1 so selecting a new location resets the lateral camera
@@ -612,33 +612,46 @@ export function GlobeVisualization({
         isDragging = true;
         dragStartX = e.clientX;
         dragStartY = e.clientY;
-        dragStartRotY = targetRotYRef.current;
-        dragStartRotX = targetRotXRef.current;
-        // Clear any lingering momentum so the grab feels immediate
-        velX = 0;
-        velY = 0;
+        // Snap the target to the globe's currently visible orientation so an
+        // in-flight slerp doesn't jump the rest of the way the instant
+        // lerpFactor flips to 1.0. The drag (or just-a-click) then starts
+        // from where the user actually sees the globe, not its prior target.
+        tq.current.copy(globe.quaternion);
+        _dragOriginQuat.copy(tq.current);
+        // Extract latitude of drag origin directly from quaternion components.
+        // Formula for XYZ (Q_x * Q_y) convention: sin(lat) = 2*(w·x + y·z).
+        const { w, x, y, z } = _dragOriginQuat;
+        _dragOriginLatRad = Math.asin(
+          Math.max(-1, Math.min(1, 2 * (w * x + y * z))),
+        );
+        _lastDragQuat.copy(tq.current);
+        velQuat.identity();
         container.setPointerCapture(e.pointerId);
         container.style.cursor = "grabbing";
       };
 
       const onPointerMove = (e: PointerEvent) => {
         if (!isDragging) return;
-        const deltaX = e.clientX - dragStartX;
-        const deltaY = e.clientY - dragStartY;
 
         // Uniform sensitivity: one globe-radius of pointer travel = 90° rotation.
         // The sphere fills ~78% of the container, so apparent radius ≈ height × 0.39.
-        // Using the same factor for both axes eliminates the 2× asymmetry that
-        // made diagonal drags feel erratic.
-        const globeRadiusPx = container.offsetHeight * 0.39;
-        const sensitivity = Math.PI / 2 / globeRadiusPx;
+        const sensitivity = Math.PI / 2 / (container.offsetHeight * 0.39);
+        const deltaLng = (e.clientX - dragStartX) * sensitivity;
+        const deltaLat = -((e.clientY - dragStartY) * sensitivity);
 
-        targetRotYRef.current = dragStartRotY + deltaX * sensitivity;
-        const rawX = dragStartRotX - deltaY * sensitivity;
-        targetRotXRef.current = Math.max(
-          -Math.PI / 2,
-          Math.min(Math.PI / 2, rawX),
+        // Clamp latitude delta to keep the globe within ±90° (prevents polar flip).
+        const clampedLat = Math.max(
+          -Math.PI / 2 - _dragOriginLatRad,
+          Math.min(Math.PI / 2 - _dragOriginLatRad, deltaLat),
         );
+
+        // Q_new = Q_x(Δlat) * Q_origin * Q_y(Δlng)
+        // Pre-multiplying Q_x adds to the latitude; post-multiplying Q_y adds to
+        // the longitude. Matches the new Q_x * Q_y convention - X is the outer
+        // rotation (world-frame tilt), Y is the inner (globe-frame spin).
+        _qA.setFromAxisAngle(_yAxis, deltaLng);
+        _qB.setFromAxisAngle(_xAxis, clampedLat);
+        tq.current.copy(_dragOriginQuat).premultiply(_qB).multiply(_qA);
       };
 
       const onPointerUp = (e: PointerEvent) => {
@@ -727,29 +740,38 @@ export function GlobeVisualization({
         // lerpFactor=1.0 during drag: globe follows pointer with zero lag.
         // lerpFactor=0.05 for programmatic timeline transitions: cinematic ease.
         const lerpFactor = isDragging ? 1.0 : 0.05;
-        globe.rotation.y +=
-          (targetRotYRef.current - globe.rotation.y) * lerpFactor;
-        globe.rotation.x +=
-          (targetRotXRef.current - globe.rotation.x) * lerpFactor;
+        // Quaternion slerp always picks the shortest arc on SO(3) — no shortestPath
+        // arithmetic needed and no sensitivity to accumulated angle drift.
+        globe.quaternion.slerp(tq.current, lerpFactor);
 
         // ── Momentum ─────────────────────────────────────────────────────────
         if (isDragging) {
-          // Sample velocity from actual rotation change this frame
-          velX = globe.rotation.x - lastRotX;
-          velY = globe.rotation.y - lastRotY;
-        } else if (Math.abs(velX) > 0.0001 || Math.abs(velY) > 0.0001) {
-          // Coasting after release: push the targets forward by the decaying velocity
-          targetRotYRef.current += velY;
-          const coastX = targetRotXRef.current + velX;
-          targetRotXRef.current = Math.max(
-            -Math.PI / 2,
-            Math.min(Math.PI / 2, coastX),
-          );
-          velX *= 0.88; // halves every ~5 frames at 60fps
-          velY *= 0.88;
+          // Velocity = right-relative delta quaternion from last frame to this one.
+          // velQuat = Q_last⁻¹ * Q_now; applied as post-multiply it correctly
+          // advances both longitude and latitude in their respective directions.
+          velQuat.copy(_lastDragQuat).invert().multiply(tq.current);
+          _lastDragQuat.copy(tq.current);
+        } else if (velQuat.w < 1 - 1e-10) {
+          // Coasting: advance the target by the velocity quaternion, then decay.
+          tq.current.multiply(velQuat);
+
+          // Pole clamp: sin(lat) = 2*(w·x + y·z) for Q_x*Q_y quaternions.
+          // If latitude would exceed ±90°, reconstruct and kill all momentum.
+          // At the pole, longitude is encoded by atan2(z, x) since x = s_α·c_β
+          // and z = s_α·s_β when s_α ≠ 0.
+          const { w: qw, x: qx, y: qy, z: qz } = tq.current;
+          const sinLat = 2 * (qw * qx + qy * qz);
+          if (Math.abs(sinLat) > 1 - 1e-6) {
+            const lng = Math.atan2(qz, qx);
+            _qA.setFromAxisAngle(_yAxis, lng);
+            _qB.setFromAxisAngle(_xAxis, (Math.sign(sinLat) * Math.PI) / 2);
+            tq.current.copy(_qB).multiply(_qA);
+            velQuat.identity();
+          }
+
+          // Decay velocity toward identity — halves every ~5 frames at 60 fps.
+          velQuat.slerp(_identQuat, 0.12);
         }
-        lastRotX = globe.rotation.x;
-        lastRotY = globe.rotation.y;
 
         // Smooth lerp toward the 3D camera target. All three components move
         // together so zoom-toward-location and zoom-toward-Z-axis both feel smooth.
