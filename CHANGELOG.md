@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.11](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.10...v0.9.11) (2026-05-24)
+
+
+### Bug Fixes
+
+* globe camera recenter on entry change and zoom-to-center ([#157](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/157)) ([815b71c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/815b71c2eae065f315920cc83373cd1b802c258c))
+
 ## [0.9.10](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.9...v0.9.10) (2026-05-21)
 
 
