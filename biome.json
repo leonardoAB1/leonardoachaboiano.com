@@ -14,7 +14,15 @@
       "**/*.jsx",
       "**/*.json",
       "**/*.css",
-      "**/*.graphql"
+      "**/*.graphql",
+      "!feat",
+      "!fix",
+      "!chore",
+      "!style",
+      "!refactor",
+      "!docs",
+      "!perf",
+      "!test"
     ]
   },
   "formatter": {
