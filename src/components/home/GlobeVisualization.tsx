@@ -596,12 +596,22 @@ export function GlobeVisualization({
 
       // Expose to Effect 1 so selecting a new location resets the lateral camera
       // offset that accumulates when zooming toward an off-center location.
+      // Projects the current camera position back onto the canonical Z-axis at
+      // the same distance from the origin, preserving the Y:Z = 40:320 ratio so
+      // the elevation angle CAM_ELEVATION assumes stays constant at any zoom
+      // level. Without this, latLngToQuat targets the wrong latitude after a
+      // zoom-toward-location and the new entry lands off the visual centre.
       resetCamToAxisRef.current = () => {
-        userCamVec = {
-          x: 0,
-          y: 40,
-          z: Math.max(115, Math.min(520, camPosRef.current.z)),
-        };
+        const r = Math.hypot(
+          camPosRef.current.x,
+          camPosRef.current.y,
+          camPosRef.current.z,
+        );
+        // Wheel handler clamps the camera distance from origin to [115, 520];
+        // mirror that here so reset never escapes the allowed zoom band.
+        const clampedR = Math.max(115, Math.min(520, r));
+        const k = clampedR / Math.hypot(40, 320);
+        userCamVec = { x: 0, y: 40 * k, z: 320 * k };
       };
 
       // Tracks camera distance used for the last sprite scale rebuild.
@@ -702,11 +712,16 @@ export function GlobeVisualization({
           if (dist > 520) newPos.multiplyScalar(520 / dist);
           userCamVec = { x: newPos.x, y: newPos.y, z: newPos.z };
         } else {
-          // Location on the back side of the globe: plain Z-axis zoom.
-          userCamVec = {
-            ...userCamVec,
-            z: Math.max(115, Math.min(520, userCamVec.z + step)),
-          };
+          // Active location is not on the camera-facing hemisphere (not in
+          // view): zoom straight toward the centre of the screen. Scaling the
+          // camera's distance from the origin keeps it on the same view ray
+          // (the camera always looks at origin), so the current visual centre
+          // stays fixed - unlike a world-Z nudge, which drifts the view when
+          // the camera is off-axis from a prior zoom-toward-location.
+          const curDist = camVec.length();
+          const newDist = Math.max(115, Math.min(520, curDist + step));
+          camVec.multiplyScalar(newDist / curDist);
+          userCamVec = { x: camVec.x, y: camVec.y, z: camVec.z };
         }
       };
 
