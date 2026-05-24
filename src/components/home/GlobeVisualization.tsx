@@ -596,12 +596,22 @@ export function GlobeVisualization({
 
       // Expose to Effect 1 so selecting a new location resets the lateral camera
       // offset that accumulates when zooming toward an off-center location.
+      // Projects the current camera position back onto the canonical Z-axis at
+      // the same distance from the origin, preserving the Y:Z = 40:320 ratio so
+      // the elevation angle CAM_ELEVATION assumes stays constant at any zoom
+      // level. Without this, latLngToQuat targets the wrong latitude after a
+      // zoom-toward-location and the new entry lands off the visual centre.
       resetCamToAxisRef.current = () => {
-        userCamVec = {
-          x: 0,
-          y: 40,
-          z: Math.max(115, Math.min(520, camPosRef.current.z)),
-        };
+        const r = Math.hypot(
+          camPosRef.current.x,
+          camPosRef.current.y,
+          camPosRef.current.z,
+        );
+        // Wheel handler clamps the camera distance from origin to [115, 520];
+        // mirror that here so reset never escapes the allowed zoom band.
+        const clampedR = Math.max(115, Math.min(520, r));
+        const k = clampedR / Math.hypot(40, 320);
+        userCamVec = { x: 0, y: 40 * k, z: 320 * k };
       };
 
       // Tracks camera distance used for the last sprite scale rebuild.
