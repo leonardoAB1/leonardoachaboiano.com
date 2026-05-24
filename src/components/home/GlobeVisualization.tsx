@@ -712,11 +712,16 @@ export function GlobeVisualization({
           if (dist > 520) newPos.multiplyScalar(520 / dist);
           userCamVec = { x: newPos.x, y: newPos.y, z: newPos.z };
         } else {
-          // Location on the back side of the globe: plain Z-axis zoom.
-          userCamVec = {
-            ...userCamVec,
-            z: Math.max(115, Math.min(520, userCamVec.z + step)),
-          };
+          // Active location is not on the camera-facing hemisphere (not in
+          // view): zoom straight toward the centre of the screen. Scaling the
+          // camera's distance from the origin keeps it on the same view ray
+          // (the camera always looks at origin), so the current visual centre
+          // stays fixed - unlike a world-Z nudge, which drifts the view when
+          // the camera is off-axis from a prior zoom-toward-location.
+          const curDist = camVec.length();
+          const newDist = Math.max(115, Math.min(520, curDist + step));
+          camVec.multiplyScalar(newDist / curDist);
+          userCamVec = { x: camVec.x, y: camVec.y, z: camVec.z };
         }
       };
 
