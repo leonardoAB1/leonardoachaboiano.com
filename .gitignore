@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+# this is a pnpm repo - the npm lockfile is not used (pnpm-lock.yaml is the source of truth)
+/package-lock.json
 /.pnp
 .pnp.*
 .yarn/*
