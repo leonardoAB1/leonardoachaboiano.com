@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import {
   type ReactElement,
   useCallback,
@@ -15,6 +15,8 @@ import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import { timelineEntries } from "@/data/timeline";
+import { Link } from "@/i18n/navigation";
+import { resolveTimelineEntry } from "@/lib/timeline-content";
 import { cn } from "@/lib/utils";
 import { GlobeModal } from "./GlobeModal";
 import { GlobePlaceholder } from "./GlobePlaceholder";
@@ -80,6 +82,15 @@ export function Hero(): ReactElement {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
 
+  const t = useTranslations("Home.Hero");
+  const tCommon = useTranslations("Common");
+  const tTimeline = useTranslations("Timeline");
+  const locale = useLocale();
+  // Merge structural entries with the active locale's text + formatted dates.
+  const entries = timelineEntries.map((entry) =>
+    resolveTimelineEntry(entry, tTimeline, locale),
+  );
+
   useEffect(() => {
     // Start downloading the globe bundle and its heavy dependencies immediately
     // when the hero mounts. By the time GlobeVisualization renders and calls
@@ -112,18 +123,16 @@ export function Hero(): ReactElement {
               variants={container}
             >
               <motion.div variants={item}>
-                <Eyebrow>Mechatronics engineer</Eyebrow>
+                <Eyebrow>{tCommon("role")}</Eyebrow>
               </motion.div>
               <motion.div variants={item}>
                 <Heading as="h1" className="max-w-4xl" size="xl">
-                  Proud generalist
+                  {t("heading")}
                 </Heading>
               </motion.div>
               <motion.div variants={item}>
                 <Text className="max-w-2xl text-ink-2" size="lg">
-                  I work across embedded systems, robotics integration, and
-                  design for manufacturing, from prototypes to production-ready
-                  installations.
+                  {t("intro")}
                 </Text>
               </motion.div>
               <motion.div
@@ -137,7 +146,7 @@ export function Hero(): ReactElement {
                   )}
                   href="/cv"
                 >
-                  View CV
+                  {t("viewCv")}
                 </Link>
                 <Link
                   className={cn(
@@ -146,7 +155,7 @@ export function Hero(): ReactElement {
                   )}
                   href="/contact"
                 >
-                  Get in touch
+                  {t("getInTouch")}
                 </Link>
               </motion.div>
             </motion.div>
@@ -174,21 +183,21 @@ export function Hero(): ReactElement {
                 <div className="relative">
                   <div
                     aria-hidden="true"
-                    className="absolute left-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
+                    className="absolute start-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
                   />
                   <ul className="flex flex-col gap-6">
-                    {timelineEntries.map((entry, index) => {
+                    {entries.map((entry, index) => {
                       const isActive = index === selectedIndex;
                       return (
                         <motion.li
-                          key={entry.dateRange + entry.org}
+                          key={entry.id}
                           variants={timelineItem}
-                          className="relative flex gap-5 pl-8"
+                          className="relative flex gap-5 ps-8"
                         >
                           <div
                             aria-hidden="true"
                             className={cn(
-                              "absolute left-0 top-[6px] h-3 w-3 rounded-full border-2 border-brand transition-colors duration-200",
+                              "absolute start-0 top-[6px] h-3 w-3 rounded-full border-2 border-brand transition-colors duration-200",
                               isActive ? "bg-brand" : "bg-surface-0",
                             )}
                           />
@@ -196,7 +205,7 @@ export function Hero(): ReactElement {
                             type="button"
                             onClick={() => handleSelect(index)}
                             className={cn(
-                              "flex w-full flex-col gap-0.5 text-left transition-opacity duration-200",
+                              "flex w-full flex-col gap-0.5 text-start transition-opacity duration-200",
                               !isActive && "opacity-50 hover:opacity-80",
                             )}
                             aria-pressed={isActive}
@@ -230,7 +239,10 @@ export function Hero(): ReactElement {
               variants={globeItem}
             >
               <div className="hero-globe-mask aspect-square w-full max-w-[min(100%,calc(100svh-10rem))]">
-                <GlobeVisualization activeIndex={selectedIndex} />
+                <GlobeVisualization
+                  activeIndex={selectedIndex}
+                  activeLabel={entries[selectedIndex].location}
+                />
               </div>
             </motion.div>
           </motion.div>
@@ -238,7 +250,7 @@ export function Hero(): ReactElement {
       </Section>
 
       <GlobeModal
-        entry={isModalOpen ? timelineEntries[selectedIndex] : null}
+        entry={isModalOpen ? entries[selectedIndex] : null}
         activeIndex={selectedIndex}
         onClose={() => setIsModalOpen(false)}
       />

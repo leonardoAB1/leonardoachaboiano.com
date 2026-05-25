@@ -22,18 +22,18 @@ export function TimelineEntry({
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-[10rem_1fr] sm:gap-8">
       {/* Date column */}
       <div className="sm:pt-0.5">
-        <span className="text-sm font-medium text-ink-3 sm:text-right">
+        <span className="text-sm font-medium text-ink-3 sm:text-end">
           {dateRange}
         </span>
       </div>
 
       {/* Content column with vertical line indicator */}
-      <div className="relative border-l border-border-subtle pl-6 pb-10 last:pb-0">
+      <div className="relative border-s border-border-subtle ps-6 pb-10 last:pb-0">
         {/* Dot on the timeline line */}
         <span
           aria-hidden="true"
           className={cn(
-            "absolute -left-[5px] top-1.5 size-2.5 rounded-full",
+            "absolute -start-[5px] top-1.5 size-2.5 rounded-full",
             "bg-surface-0 border-2 border-brand",
           )}
         />

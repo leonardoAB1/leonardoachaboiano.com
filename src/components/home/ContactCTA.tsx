@@ -1,13 +1,16 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { buttonClasses } from "@/components/ui/Button";
 import { Heading, Text } from "@/components/ui/Typography";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 export function ContactCTA(): ReactElement {
+  const t = useTranslations("Home.ContactCTA");
+
   return (
     <Section className="bg-surface-brand">
       <Container>
@@ -15,10 +18,10 @@ export function ContactCTA(): ReactElement {
           <div className="flex flex-col items-center gap-8 text-center">
             <div className="flex flex-col gap-4">
               <Heading as="h2" size="lg" className="mx-auto">
-                Let&apos;s build something exciting.
+                {t("heading")}
               </Heading>
               <Text size="lg" className="mx-auto text-ink-2">
-                Got an idea worth building? Let&apos;s talk.
+                {t("subtitle")}
               </Text>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -29,7 +32,7 @@ export function ContactCTA(): ReactElement {
                   "text-center",
                 )}
               >
-                Get in touch
+                {t("getInTouch")}
               </Link>
               <Link
                 href="/cv"
@@ -38,7 +41,7 @@ export function ContactCTA(): ReactElement {
                   "text-center",
                 )}
               >
-                View CV
+                {t("viewCv")}
               </Link>
             </div>
           </div>

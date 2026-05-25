@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { type ReactElement, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -8,6 +9,7 @@ import { cn } from "@/lib/utils";
 export function ThemeToggle(): ReactElement {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
+  const t = useTranslations("ThemeToggle");
 
   useEffect(() => {
     setMounted(true);
@@ -35,7 +37,7 @@ export function ThemeToggle(): ReactElement {
         "focus-visible:outline-offset-2",
         "focus-visible:outline-brand",
       )}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={isDark ? t("switchToLight") : t("switchToDark")}
     >
       {isDark ? (
         <Sun className="h-4 w-4" strokeWidth={2} aria-hidden />

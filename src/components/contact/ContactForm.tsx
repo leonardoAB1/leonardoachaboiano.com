@@ -1,21 +1,20 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod/v4";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-const schema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(20, "Message must be at least 20 characters"),
-});
-
-type FormValues = z.infer<typeof schema>;
+interface FormValues {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
 const inputClasses = cn(
   "w-full rounded-md border border-border bg-surface-1 px-3 py-2",
@@ -52,9 +51,23 @@ function FieldWrapper({
 }
 
 export function ContactForm(): ReactElement {
+  const t = useTranslations("Contact.Form");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+
+  // Build the validation schema with localized messages. Recreated when the
+  // active locale changes so error text follows the UI language.
+  const schema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(2, t("validation.nameMin")),
+        email: z.string().email(t("validation.emailInvalid")),
+        subject: z.string().min(5, t("validation.subjectMin")),
+        message: z.string().min(20, t("validation.messageMin")),
+      }),
+    [t],
+  );
 
   const {
     register,
@@ -90,51 +103,59 @@ export function ContactForm(): ReactElement {
       noValidate
       className="flex flex-col gap-4"
     >
-      <FieldWrapper label="Name" htmlFor="name" error={errors.name?.message}>
+      <FieldWrapper
+        label={t("name")}
+        htmlFor="name"
+        error={errors.name?.message}
+      >
         <input
           id="name"
           type="text"
           autoComplete="name"
-          placeholder="Your name"
+          placeholder={t("namePlaceholder")}
           className={inputClasses}
           {...register("name")}
         />
       </FieldWrapper>
 
-      <FieldWrapper label="Email" htmlFor="email" error={errors.email?.message}>
+      <FieldWrapper
+        label={t("email")}
+        htmlFor="email"
+        error={errors.email?.message}
+      >
         <input
           id="email"
           type="email"
           autoComplete="email"
-          placeholder="your@email.com"
+          placeholder={t("emailPlaceholder")}
           className={inputClasses}
           {...register("email")}
         />
       </FieldWrapper>
 
       <FieldWrapper
-        label="Subject"
+        label={t("subject")}
         htmlFor="subject"
         error={errors.subject?.message}
       >
         <input
           id="subject"
           type="text"
-          placeholder="What's this about?"
+          placeholder={t("subjectPlaceholder")}
           className={inputClasses}
           {...register("subject")}
         />
       </FieldWrapper>
 
       <FieldWrapper
-        label="Message"
+        label={t("message")}
         htmlFor="message"
         error={errors.message?.message}
       >
         <textarea
           id="message"
           rows={6}
-          placeholder="Your message..."
+          placeholder={t("messagePlaceholder")}
           className={cn(inputClasses, "resize-y")}
           {...register("message")}
         />
@@ -148,19 +169,15 @@ export function ContactForm(): ReactElement {
           disabled={status === "loading"}
           className="w-full sm:w-auto"
         >
-          {status === "loading" ? "Sending..." : "Send message"}
+          {status === "loading" ? t("sending") : t("send")}
         </Button>
 
         {status === "success" && (
-          <p className="text-sm text-brand">
-            Message sent - I&apos;ll get back to you soon.
-          </p>
+          <p className="text-sm text-brand">{t("success")}</p>
         )}
 
         {status === "error" && (
-          <p className="text-sm text-red-500">
-            Something went wrong. Please try again or email me directly.
-          </p>
+          <p className="text-sm text-red-500">{t("error")}</p>
         )}
       </div>
     </form>

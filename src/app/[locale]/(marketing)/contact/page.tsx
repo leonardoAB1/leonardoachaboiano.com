@@ -1,65 +1,92 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement } from "react";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
+import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Get in touch! Available for project collaborations, embedded systems work, and engineering inquiries.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Contact" });
+  return pageMetadata({
+    locale,
+    pathname: "/contact",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  });
+}
 
-const contactLinks = [
-  {
-    label: "GitHub",
-    href: socialLinks.github,
-    description: "Open-source projects and code",
-    external: true,
-  },
-  {
-    label: "LinkedIn",
-    href: socialLinks.linkedin,
-    description: "Professional profile and experience",
-    external: true,
-  },
-  {
-    label: "Instagram",
-    href: socialLinks.instagram,
-    description: "Photos and behind-the-scenes",
-    external: true,
-  },
-  {
-    label: "Facebook",
-    href: socialLinks.facebook,
-    description: "Connect on Facebook",
-    external: true,
-  },
-  {
-    label: "Email",
-    href: socialLinks.email,
-    description: siteConfig.email,
-    external: false,
-  },
-] as const;
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<ReactElement> {
+  const { locale } = await params;
+  setRequestLocale(locale);
 
-export default function ContactPage(): ReactElement {
+  const t = await getTranslations("Contact");
+
+  // Brand names are proper nouns (not translated); descriptions are localized.
+  // Email's description is the address itself.
+  const contactLinks = [
+    {
+      id: "github",
+      label: "GitHub",
+      href: socialLinks.github,
+      description: t("links.github"),
+      external: true,
+    },
+    {
+      id: "linkedin",
+      label: "LinkedIn",
+      href: socialLinks.linkedin,
+      description: t("links.linkedin"),
+      external: true,
+    },
+    {
+      id: "instagram",
+      label: "Instagram",
+      href: socialLinks.instagram,
+      description: t("links.instagram"),
+      external: true,
+    },
+    {
+      id: "facebook",
+      label: "Facebook",
+      href: socialLinks.facebook,
+      description: t("links.facebook"),
+      external: true,
+    },
+    {
+      id: "email",
+      label: t("links.emailLabel"),
+      href: socialLinks.email,
+      description: siteConfig.email,
+      external: false,
+    },
+  ];
+
   return (
     <Section>
       <Container>
         {/* Page header */}
         <div className="mb-12 flex flex-col gap-4">
-          <Eyebrow>Get in touch</Eyebrow>
+          <Eyebrow>{t("eyebrow")}</Eyebrow>
           <Heading as="h1" size="lg">
-            Let&apos;s talk
+            {t("heading")}
           </Heading>
           <Text size="md" className="max-w-xl">
-            Whether you have a project in mind, a question, or just want to say
-            hi, I&apos;d love to hear from you.
+            {t("intro")}
           </Text>
         </div>
 
@@ -76,16 +103,14 @@ export default function ContactPage(): ReactElement {
           <aside className="flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               <p className="text-sm font-semibold text-ink-1">
-                Other ways to reach me
+                {t("otherWaysTitle")}
               </p>
-              <p className="text-sm text-ink-3">
-                Prefer a direct channel? Use any of the links below.
-              </p>
+              <p className="text-sm text-ink-3">{t("otherWaysSubtitle")}</p>
             </div>
 
             <ul className="flex flex-col gap-3">
               {contactLinks.map((link) => (
-                <li key={link.label}>
+                <li key={link.id}>
                   <Link
                     href={link.href}
                     target={link.external ? "_blank" : undefined}

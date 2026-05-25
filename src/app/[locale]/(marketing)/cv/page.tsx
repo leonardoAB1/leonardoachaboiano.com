@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement } from "react";
 import { DownloadButton } from "@/components/cv/DownloadButton";
 import { SkillBadge } from "@/components/cv/SkillBadge";
@@ -10,37 +11,27 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import { timelineEntries } from "@/data/timeline";
+import type { Locale } from "@/i18n/routing";
 import { siteConfig } from "@/lib/constants";
-
-export const metadata: Metadata = {
-  title: "CV",
-  description:
-    "Curriculum vitae of Leonardo Acha Boiano - mechatronics and robotics engineer with experience in ROS2, embedded systems, PCB design, and hardware-software integration.",
-};
+import { pageMetadata } from "@/lib/metadata";
+import { resolveTimelineEntry } from "@/lib/timeline-content";
 
 // ---------------------------------------------------------------------------
-// Data derived from the single source of truth in @/data/timeline
+// Non-translatable data. Category/achievement/language ids key into the CV and
+// Achievements message namespaces; skill tokens and flag codes are not translated.
 // ---------------------------------------------------------------------------
 
-const workExperience = timelineEntries.filter(
-  (e) => e.type === "work" && e.cvVisible !== false,
-);
-
-const education = timelineEntries.filter(
-  (e) => e.type === "education" && e.cvVisible !== false,
-);
-
-const skillGroups: { category: string; skills: string[] }[] = [
+const skillGroups: { categoryKey: string; skills: string[] }[] = [
   {
-    category: "Programming",
+    categoryKey: "programming",
     skills: ["Python", "C/C++", "MATLAB", "Verilog/VHDL", "LaTeX"],
   },
   {
-    category: "Embedded & Robotics",
+    categoryKey: "embeddedRobotics",
     skills: ["STM32", "ESP32", "ROS2", "FreeRTOS", "BLE", "CAN", "I2C", "MQTT"],
   },
   {
-    category: "Electronics & PCB",
+    categoryKey: "electronicsPcb",
     skills: [
       "KiCad",
       "Altium",
@@ -51,7 +42,7 @@ const skillGroups: { category: string; skills: string[] }[] = [
     ],
   },
   {
-    category: "Mechanical Design",
+    categoryKey: "mechanicalDesign",
     skills: [
       "SolidWorks",
       "Fusion 360",
@@ -64,7 +55,7 @@ const skillGroups: { category: string; skills: string[] }[] = [
     ],
   },
   {
-    category: "Tools",
+    categoryKey: "tools",
     skills: [
       "Git/GitHub",
       "MATLAB",
@@ -77,33 +68,66 @@ const skillGroups: { category: string; skills: string[] }[] = [
   },
 ];
 
-const achievements = [
-  { label: "Champion, ICPC Regional Contest", date: "Aug 2024" },
-  {
-    label: "Diploma of Honour, 2nd place - Mechatronic Eng term 2-2023",
-    date: "Apr 2024",
-  },
-  { label: "Certified SOLIDWORKS Associate (CSWA)", date: "Nov 2023" },
-  {
-    label: "Diploma of Honour, 2nd place - Mechatronic Eng term 1-2023",
-    date: "Sep 2023",
-  },
-  { label: "Excellence Scholarship x3", date: "2021-2022" },
-  { label: "Rotary Youth Exchange Ambassador to Canada", date: "2018-2019" },
-];
+const achievementKeys = [
+  "icpc",
+  "diplomaHonour2",
+  "cswa",
+  "diplomaHonour1",
+  "scholarship",
+  "rotary",
+] as const;
 
 const languages = [
-  { name: "Spanish", level: "Native", countries: ["bo", "ar"] },
-  { name: "English", level: "Fluent", countries: ["us"] },
-  { name: "German", level: "A2", countries: ["de", "ch"] },
-  { name: "Italian", level: "A2", countries: ["it"] },
-];
+  { nameKey: "spanish", levelKey: "native", countries: ["bo", "ar"] },
+  { nameKey: "english", levelKey: "fluent", countries: ["us"] },
+  { nameKey: "german", levelKey: "a2", countries: ["de", "ch"] },
+  { nameKey: "italian", levelKey: "a2", countries: ["it"] },
+] as const;
 
-// ---------------------------------------------------------------------------
-// Page
-// ---------------------------------------------------------------------------
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "CV" });
+  return pageMetadata({
+    locale,
+    pathname: "/cv",
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  });
+}
 
-export default function CVPage(): ReactElement {
+export default async function CVPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<ReactElement> {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations("CV");
+  const tCommon = await getTranslations("Common");
+  const tTimeline = await getTranslations("Timeline");
+  const tAchievements = await getTranslations("Achievements");
+
+  const resolve = (id: string) =>
+    resolveTimelineEntry(
+      // biome-ignore lint/style/noNonNullAssertion: ids are sourced from timelineEntries
+      timelineEntries.find((entry) => entry.id === id)!,
+      tTimeline,
+      locale,
+    );
+
+  const workExperience = timelineEntries
+    .filter((e) => e.type === "work" && e.cvVisible !== false)
+    .map((e) => resolve(e.id));
+
+  const education = timelineEntries
+    .filter((e) => e.type === "education" && e.cvVisible !== false)
+    .map((e) => resolve(e.id));
+
   return (
     <div className="bg-surface-0">
       {/* Header */}
@@ -112,15 +136,15 @@ export default function CVPage(): ReactElement {
           <AnimatedSection>
             <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <Eyebrow className="mb-3">Curriculum Vitae</Eyebrow>
+                <Eyebrow className="mb-3">{t("eyebrow")}</Eyebrow>
                 <Heading as="h1" size="xl">
                   {siteConfig.name}
                 </Heading>
                 <Text size="lg" className="mt-2 max-w-none">
-                  {siteConfig.title}
+                  {tCommon("role")}
                 </Text>
                 <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-3">
-                  <span>Basel, Switzerland</span>
+                  <span>{t("location")}</span>
                   <span aria-hidden="true" className="text-border">
                     |
                   </span>
@@ -150,11 +174,11 @@ export default function CVPage(): ReactElement {
             <div className="space-y-10">
               {/* Work Experience */}
               <AnimatedSection>
-                <Eyebrow className="mb-6">Work Experience</Eyebrow>
+                <Eyebrow className="mb-6">{t("sections.work")}</Eyebrow>
                 <div>
                   {workExperience.map((entry) => (
                     <TimelineEntry
-                      key={`${entry.org}-${entry.dateRange}`}
+                      key={entry.id}
                       dateRange={entry.dateRange}
                       role={entry.role}
                       org={entry.org}
@@ -170,11 +194,11 @@ export default function CVPage(): ReactElement {
 
               {/* Education */}
               <AnimatedSection delay={0.05}>
-                <Eyebrow className="mb-6">Education</Eyebrow>
+                <Eyebrow className="mb-6">{t("sections.education")}</Eyebrow>
                 <div>
                   {education.map((entry) => (
                     <TimelineEntry
-                      key={`${entry.org}-${entry.dateRange}`}
+                      key={entry.id}
                       dateRange={entry.dateRange}
                       role={entry.role}
                       org={entry.org}
@@ -189,15 +213,15 @@ export default function CVPage(): ReactElement {
 
               {/* Skills */}
               <AnimatedSection delay={0.05}>
-                <Eyebrow className="mb-6">Skills</Eyebrow>
+                <Eyebrow className="mb-6">{t("sections.skills")}</Eyebrow>
                 <div className="space-y-6">
-                  {skillGroups.map(({ category, skills }) => (
+                  {skillGroups.map(({ categoryKey, skills }) => (
                     <div
-                      key={category}
+                      key={categoryKey}
                       className="grid grid-cols-1 gap-3 sm:grid-cols-[10rem_1fr] sm:gap-8"
                     >
                       <p className="text-sm font-medium text-ink-2 sm:pt-1">
-                        {category}
+                        {t(`skillCategories.${categoryKey}`)}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {skills.map((skill) => (
@@ -214,11 +238,13 @@ export default function CVPage(): ReactElement {
             <div className="space-y-10">
               {/* Languages */}
               <AnimatedSection delay={0.1}>
-                <Eyebrow className="mb-6">Languages</Eyebrow>
+                <Eyebrow className="mb-6">{t("sections.languages")}</Eyebrow>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  {languages.map(({ name, level, countries }) => (
-                    <div key={name} className="flex flex-col gap-1.5">
-                      <span className="sr-only">{name}</span>
+                  {languages.map(({ nameKey, levelKey, countries }) => (
+                    <div key={nameKey} className="flex flex-col gap-1.5">
+                      <span className="sr-only">
+                        {t(`languageNames.${nameKey}`)}
+                      </span>
                       <div className="flex gap-1">
                         {countries.map((code) => (
                           <Image
@@ -231,7 +257,9 @@ export default function CVPage(): ReactElement {
                           />
                         ))}
                       </div>
-                      <span className="text-xs text-ink-4">{level}</span>
+                      <span className="text-xs text-ink-4">
+                        {t(`languageLevels.${levelKey}`)}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -241,13 +269,15 @@ export default function CVPage(): ReactElement {
 
               {/* Achievements */}
               <AnimatedSection delay={0.15}>
-                <Eyebrow className="mb-6">Achievements</Eyebrow>
+                <Eyebrow className="mb-6">{t("sections.achievements")}</Eyebrow>
                 <ul className="space-y-5">
-                  {achievements.map(({ label, date }) => (
-                    <li key={label} className="flex flex-col gap-0.5">
-                      <span className="text-xs text-ink-4">{date}</span>
+                  {achievementKeys.map((key) => (
+                    <li key={key} className="flex flex-col gap-0.5">
+                      <span className="text-xs text-ink-4">
+                        {tAchievements(`${key}.date`)}
+                      </span>
                       <span className="text-sm leading-snug text-ink-2">
-                        {label}
+                        {tAchievements(`${key}.label`)}
                       </span>
                     </li>
                   ))}
