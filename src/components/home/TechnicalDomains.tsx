@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
@@ -12,33 +13,13 @@ import {
 } from "@/components/ui/Card";
 import { Heading } from "@/components/ui/Typography";
 
-interface TechnicalDomain {
-  description: string;
-  title: string;
-}
-
-const domains: TechnicalDomain[] = [
-  {
-    title: "Electromechanical systems",
-    description:
-      "Actuators, sensors, and electronics codesigned with mechanical structure: tolerance stack-ups, mounting, routing, and assembly considered from the first sketch.",
-  },
-  {
-    title: "Embedded systems & firmware",
-    description:
-      "Firmware on STM32 and ESP32 with FreeRTOS, industrial protocols including CAN, I2C, and BLE, and control logic for real-time hardware operation.",
-  },
-  {
-    title: "Electronics & PCB design",
-    description:
-      "Schematic capture, layout, and reliability testing using KiCad and Altium: from breadboard prototype to production-ready board with measurement and validation routines.",
-  },
-  {
-    title: "Mechanical design & manufacturing",
-    description:
-      "3D models and drawings in SolidWorks and Fusion 360, with DFMA and GD&T applied from day one: CNC machining, 3D printing, and supplier-ready documentation.",
-  },
-];
+// Stable ids; title/description come from the Home.TechnicalDomains namespace.
+const domainIds = [
+  "electromechanical",
+  "embedded",
+  "electronicsPcb",
+  "mechanical",
+] as const;
 
 const headingVariant: Variants = {
   hidden: { opacity: 0, y: 12 },
@@ -66,6 +47,8 @@ const cardItem: Variants = {
 const viewport = { margin: "-80px", once: true } as const;
 
 export function TechnicalDomains(): ReactElement {
+  const t = useTranslations("Home.TechnicalDomains");
+
   return (
     <Section>
       <Container>
@@ -77,7 +60,7 @@ export function TechnicalDomains(): ReactElement {
             variants={headingVariant}
           >
             <Heading as="h2" size="md">
-              Technical domains
+              {t("heading")}
             </Heading>
           </motion.div>
           <motion.ul
@@ -87,9 +70,9 @@ export function TechnicalDomains(): ReactElement {
             viewport={viewport}
             variants={gridContainer}
           >
-            {domains.map((domain) => (
+            {domainIds.map((id) => (
               <motion.li
-                key={domain.title}
+                key={id}
                 variants={cardItem}
                 whileHover={{
                   y: -4,
@@ -98,8 +81,8 @@ export function TechnicalDomains(): ReactElement {
               >
                 <Card className="h-full shadow-none hover:border-brand/20 hover:shadow-sm dark:shadow-none">
                   <CardHeader>
-                    <CardTitle>{domain.title}</CardTitle>
-                    <CardDescription>{domain.description}</CardDescription>
+                    <CardTitle>{t(`${id}.title`)}</CardTitle>
+                    <CardDescription>{t(`${id}.description`)}</CardDescription>
                   </CardHeader>
                 </Card>
               </motion.li>

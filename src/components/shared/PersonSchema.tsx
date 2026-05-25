@@ -1,12 +1,16 @@
 import { siteConfig, socialLinks } from "@/lib/constants";
 
-export function PersonSchema() {
+interface PersonSchemaProps {
+  jobTitle: string;
+}
+
+export function PersonSchema({ jobTitle }: PersonSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: siteConfig.name,
     url: siteConfig.url,
-    jobTitle: siteConfig.title,
+    jobTitle,
     email: siteConfig.email,
     sameAs: [socialLinks.github, socialLinks.linkedin],
   };

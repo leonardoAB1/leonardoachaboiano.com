@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import Link from "next/link";
+import { useFormatter, useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
@@ -15,42 +15,32 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 import { Heading } from "@/components/ui/Typography";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
+// Non-translatable post data. id keys into the Posts namespace for title +
+// description; date (ISO), tags and href stay here.
 interface Post {
+  id: string;
   date: string;
-  title: string;
-  description: string;
   tags: string[];
   href: string;
 }
 
 const posts: Post[] = [
   {
+    id: "smdHotPlate",
     date: "2025-04-08",
-    title: "SMD Hot Plate: From System Identification to PID Control",
-    description:
-      "How I modeled the thermal dynamics of a DIY reflow hot plate in MATLAB and translated the controller to Arduino firmware",
     tags: ["Control Systems", "Arduino", "MATLAB"],
     href: "/blog",
   },
   {
+    id: "quadrupedKinematics",
     date: "2025-02-14",
-    title: "Quadruped Kinematics: From MATLAB Workspace to 3D-Printed Legs",
-    description:
-      "Walking through the inverse kinematics analysis and DFMA decisions that shaped the micro quadruped robot prototype",
     tags: ["Robotics", "SolidWorks", "MATLAB"],
     href: "/blog",
   },
 ];
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 
 const headingVariant: Variants = {
   hidden: { opacity: 0, y: 12 },
@@ -78,6 +68,10 @@ const cardItem: Variants = {
 const viewport = { margin: "-80px", once: true } as const;
 
 export function RecentWriting(): ReactElement {
+  const t = useTranslations("Home.RecentWriting");
+  const tp = useTranslations("Posts");
+  const format = useFormatter();
+
   return (
     <Section>
       <Container>
@@ -89,7 +83,7 @@ export function RecentWriting(): ReactElement {
             variants={headingVariant}
           >
             <Heading as="h2" size="md">
-              Recent writing
+              {t("heading")}
             </Heading>
           </motion.div>
           <motion.ul
@@ -101,7 +95,7 @@ export function RecentWriting(): ReactElement {
           >
             {posts.map((post) => (
               <motion.li
-                key={post.title}
+                key={post.id}
                 variants={cardItem}
                 whileHover={{
                   y: -4,
@@ -111,10 +105,16 @@ export function RecentWriting(): ReactElement {
                 <Card className="flex h-full flex-col shadow-none hover:border-brand/20 hover:shadow-sm dark:shadow-none">
                   <CardHeader>
                     <p className="text-xs text-ink-4">
-                      {formatDate(post.date)}
+                      {format.dateTime(new Date(post.date), {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
                     </p>
-                    <CardTitle>{post.title}</CardTitle>
-                    <CardDescription>{post.description}</CardDescription>
+                    <CardTitle>{tp(`${post.id}.title`)}</CardTitle>
+                    <CardDescription>
+                      {tp(`${post.id}.description`)}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="mt-auto flex flex-col gap-4 pt-4">
                     <div className="flex flex-wrap gap-2">
@@ -128,7 +128,7 @@ export function RecentWriting(): ReactElement {
                       href={post.href}
                       className="text-sm font-medium text-brand hover:text-brand-dim transition-colors duration-200"
                     >
-                      Read post &rarr;
+                      {t("readPost")} &rarr;
                     </Link>
                   </CardContent>
                 </Card>
@@ -146,7 +146,7 @@ export function RecentWriting(): ReactElement {
               href="/blog"
               className={cn(buttonClasses({ variant: "secondary" }))}
             >
-              Read all posts
+              {t("readAll")}
             </Link>
           </motion.div>
         </div>

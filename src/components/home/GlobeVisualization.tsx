@@ -63,6 +63,10 @@ type MaterialTextureSlot = (typeof MATERIAL_TEXTURE_SLOTS)[number];
 
 interface GlobeVisualizationProps {
   activeIndex: number;
+  // Localized location label for the active entry, shown as the projected HTML
+  // tag on the globe. Resolved by the parent (which has the translations) so
+  // this heavy three.js component stays free of i18n hooks.
+  activeLabel?: string;
   showLabel?: boolean;
 }
 
@@ -231,6 +235,7 @@ function buildSprites(
 
 export function GlobeVisualization({
   activeIndex,
+  activeLabel = "",
   showLabel = true,
 }: GlobeVisualizationProps) {
   const [isReady, setIsReady] = useState(false);
@@ -267,9 +272,11 @@ export function GlobeVisualization({
   // can't read the prop directly after it changes).
   const activeIndexRef = useRef(activeIndex);
   const showLabelRef = useRef(showLabel);
+  const activeLabelRef = useRef(activeLabel);
 
   activeIndexRef.current = activeIndex;
   showLabelRef.current = showLabel;
+  activeLabelRef.current = activeLabel;
 
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
@@ -321,11 +328,11 @@ export function GlobeVisualization({
         {
           lat: entry.coordinates[0],
           lng: entry.coordinates[1],
-          label: entry.location,
+          label: activeLabel,
         },
       ]);
     }
-  }, [activeIndex, showLabel]);
+  }, [activeIndex, activeLabel, showLabel]);
 
   // ── Effect 2: initialise Three.js + three-globe (runs once) ─────────────
   useEffect(() => {
@@ -430,7 +437,7 @@ export function GlobeVisualization({
             {
               lat: entry.coordinates[0],
               lng: entry.coordinates[1],
-              label: entry.location,
+              label: activeLabelRef.current,
             },
           ])
           .htmlElement((d) => {

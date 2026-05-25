@@ -1,0 +1,283 @@
+{
+  "Common": {
+    "role": "Mechatronik-Ingenieur",
+    "close": "Schließen"
+  },
+  "Nav": {
+    "ariaLabel": "Hauptnavigation",
+    "cv": "Lebenslauf",
+    "contact": "Kontakt"
+  },
+  "LanguageSwitcher": {
+    "ariaLabel": "Sprache ändern",
+    "locales": {
+      "en": "English",
+      "es": "Español",
+      "de": "Deutsch",
+      "it": "Italiano"
+    }
+  },
+  "ThemeToggle": {
+    "switchToLight": "Zum hellen Modus wechseln",
+    "switchToDark": "Zum dunklen Modus wechseln"
+  },
+  "SocialLinks": {
+    "ariaLabel": "Soziale Links",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "E-Mail"
+  },
+  "Footer": {
+    "copyright": "© {year} {name}"
+  },
+  "Home": {
+    "Hero": {
+      "heading": "Interdisziplinärer Ingenieur",
+      "intro": "Ich arbeite an eingebetteten Systemen, Robotik-Integration und fertigungsgerechter Konstruktion, vom Prototyp bis zur produktionsreifen Installation.",
+      "viewCv": "Lebenslauf ansehen",
+      "getInTouch": "Kontakt aufnehmen"
+    },
+    "Philosophy": {
+      "heading": "Ingenieurphilosophie",
+      "p1": "Es gibt mehrere <em>richtige</em> Wege, ein Ingenieurproblem zu lösen. Eine <em>richtige</em> Lösung berücksichtigt jeden relevanten Blickwinkel: im Einklang mit etablierten Standards, Verfahren und den Spezifikationen des Projekts. Die Aufgabe des Ingenieurs, anders als die des Wissenschaftlers, ist es, diese Lösung zu finden und zu liefern.",
+      "p2": "<em>Richtig</em> bedeutet technisch fundiert, aber auch fertigbar, sicher, wartbar und reproduzierbar. Standards und Verfahren sind keine Bürokratie: Sie sind angesammeltes Wissen darüber, wie Lösungen in der realen Welt scheitern. Sie einzuhalten ist die eigentliche Arbeit.",
+      "quote": "„Proper“ („richtig“) ist eines meiner Lieblingswörter im Englischen. Jedes Mal, wenn ich vor einer neuen Herausforderung stehe, stelle ich mir dieselbe Frage: Was sind die <em>richtigen</em> Wege, sie anzugehen?"
+    },
+    "TechnicalDomains": {
+      "heading": "Technische Bereiche",
+      "electromechanical": {
+        "title": "Elektromechanische Systeme",
+        "description": "Aktuatoren, Sensoren und Elektronik gemeinsam mit der mechanischen Struktur entworfen: Toleranzketten, Befestigung, Leitungsführung und Montage von der ersten Skizze an berücksichtigt."
+      },
+      "embedded": {
+        "title": "Eingebettete Systeme & Firmware",
+        "description": "Firmware auf STM32 und ESP32 mit FreeRTOS, Industrieprotokolle wie CAN, I2C und BLE sowie Steuerungslogik für den Echtzeitbetrieb von Hardware."
+      },
+      "electronicsPcb": {
+        "title": "Elektronik & PCB-Design",
+        "description": "Schaltplanerfassung, Layout und Zuverlässigkeitstests mit KiCad und Altium: vom Breadboard-Prototyp zur produktionsreifen Platine mit Mess- und Validierungsroutinen."
+      },
+      "mechanical": {
+        "title": "Maschinenbau & Fertigung",
+        "description": "3D-Modelle und Zeichnungen in SolidWorks und Fusion 360, mit DFMA und GD&T von Anfang an: CNC-Bearbeitung, 3D-Druck und lieferantenfertige Dokumentation."
+      }
+    },
+    "FeaturedProjects": {
+      "heading": "Ausgewählte Projekte"
+    },
+    "ContactCTA": {
+      "heading": "Lass uns etwas Spannendes bauen.",
+      "subtitle": "Hast du eine Idee, die es wert ist, gebaut zu werden? Sprechen wir.",
+      "getInTouch": "Kontakt aufnehmen",
+      "viewCv": "Lebenslauf ansehen"
+    },
+    "RecentWriting": {
+      "heading": "Aktuelle Beiträge",
+      "readPost": "Beitrag lesen",
+      "readAll": "Alle Beiträge lesen"
+    }
+  },
+  "CV": {
+    "metaTitle": "Lebenslauf",
+    "metaDescription": "Lebenslauf von Leonardo Acha Boiano - Mechatronik- und Robotikingenieur mit Erfahrung in ROS2, eingebetteten Systemen, PCB-Design und Hardware-Software-Integration.",
+    "eyebrow": "Curriculum Vitae",
+    "location": "Basel, Schweiz",
+    "download": "Lebenslauf herunterladen (PDF)",
+    "sections": {
+      "work": "Berufserfahrung",
+      "education": "Ausbildung",
+      "skills": "Fähigkeiten",
+      "languages": "Sprachen",
+      "achievements": "Auszeichnungen"
+    },
+    "skillCategories": {
+      "programming": "Programmierung",
+      "embeddedRobotics": "Embedded & Robotik",
+      "electronicsPcb": "Elektronik & PCB",
+      "mechanicalDesign": "Mechanische Konstruktion",
+      "tools": "Werkzeuge"
+    },
+    "languageNames": {
+      "spanish": "Spanisch",
+      "english": "Englisch",
+      "german": "Deutsch",
+      "italian": "Italienisch"
+    },
+    "languageLevels": {
+      "native": "Muttersprache",
+      "fluent": "Fließend",
+      "a2": "A2"
+    }
+  },
+  "Achievements": {
+    "icpc": { "label": "Sieger, ICPC Regional Contest", "date": "Aug 2024" },
+    "diplomaHonour2": {
+      "label": "Ehrendiplom, 2. Platz - Mechatronik Semester 2-2023",
+      "date": "Apr 2024"
+    },
+    "cswa": {
+      "label": "Certified SOLIDWORKS Associate (CSWA)",
+      "date": "Nov 2023"
+    },
+    "diplomaHonour1": {
+      "label": "Ehrendiplom, 2. Platz - Mechatronik Semester 1-2023",
+      "date": "Sep 2023"
+    },
+    "scholarship": { "label": "Exzellenz-Stipendium x3", "date": "2021-2022" },
+    "rotary": {
+      "label": "Rotary-Jugendaustausch-Botschafter in Kanada",
+      "date": "2018-2019"
+    }
+  },
+  "Contact": {
+    "metaTitle": "Kontakt",
+    "metaDescription": "Nimm Kontakt auf! Verfügbar für Projektkooperationen, Embedded-Systems-Arbeit und technische Anfragen.",
+    "eyebrow": "Kontakt aufnehmen",
+    "heading": "Sprechen wir",
+    "intro": "Ob du ein Projekt im Kopf hast, eine Frage stellen oder einfach Hallo sagen möchtest: Ich freue mich, von dir zu hören.",
+    "otherWaysTitle": "Andere Wege, mich zu erreichen",
+    "otherWaysSubtitle": "Lieber ein direkter Kanal? Nutze einen der Links unten.",
+    "links": {
+      "github": "Open-Source-Projekte und Code",
+      "linkedin": "Berufliches Profil und Erfahrung",
+      "instagram": "Fotos und Hinter den Kulissen",
+      "facebook": "Auf Facebook vernetzen",
+      "emailLabel": "E-Mail"
+    },
+    "Form": {
+      "name": "Name",
+      "namePlaceholder": "Dein Name",
+      "email": "E-Mail",
+      "emailPlaceholder": "deine@email.com",
+      "subject": "Betreff",
+      "subjectPlaceholder": "Worum geht es?",
+      "message": "Nachricht",
+      "messagePlaceholder": "Deine Nachricht...",
+      "send": "Nachricht senden",
+      "sending": "Senden...",
+      "success": "Nachricht gesendet - ich melde mich bald.",
+      "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder schreibe mir direkt.",
+      "validation": {
+        "nameMin": "Der Name muss mindestens 2 Zeichen lang sein",
+        "emailInvalid": "Bitte gib eine gültige E-Mail-Adresse ein",
+        "subjectMin": "Der Betreff muss mindestens 5 Zeichen lang sein",
+        "messageMin": "Die Nachricht muss mindestens 20 Zeichen lang sein"
+      }
+    }
+  },
+  "Projects": {
+    "differentialDriveRobot": {
+      "title": "Differentialantrieb-Roboter",
+      "description": "Mobiler Roboter mit eigener Leiterplatte, 3D-gedruckten DFMA-Teilen und geschlossener Motorregelung mit 5% Fehlertoleranz"
+    },
+    "microQuadruped": {
+      "title": "Mikro-Vierbeiner-Roboter",
+      "description": "Erschwinglicher Vierbeiner mit vollständiger Kinematikanalyse in MATLAB und SolidWorks, validiert durch Simulation und physische Tests"
+    },
+    "smokeDetectorCamera": {
+      "title": "Rauchmelder-Kamera",
+      "description": "IoT-Rauchmeldegerät mit ESP32CAM, C-Firmware auf ESP-IDF und in SolidWorks entworfenem Gehäuse für die Fernüberwachung"
+    },
+    "propellerArm": {
+      "title": "Propeller-Schwebearm",
+      "description": "Schwebevorrichtung mit zwei Propellern, IMU-Rückkopplung und in MATLAB validiertem Regelalgorithmus; komplexe Teile per 3D-Druck gefertigt"
+    },
+    "hotPlate": {
+      "title": "Heizplatte zum SMD-Löten",
+      "description": "SMD-Reflow-Heizplatte mit in MATLAB entworfenem Temperaturregler, der einer Reflow-Kurve folgen oder einen Sollwert halten kann"
+    },
+    "canCrusher": {
+      "title": "Dosenpressen-System",
+      "description": "Automatische Dosenpresse mit elektropneumatischen Steuerschaltungen, entworfen in Fluidsim, und in SolidWorks modelliertem Mechanismus"
+    },
+    "batteryTrolley": {
+      "title": "Tragbarer Batteriewagen",
+      "description": "Im Feld getesteter Wagen unter 20 kg, der 200-250 kg Batterien trägt, in SolidWorks belastungssimuliert und von Swiss Contact in Produktion gebracht"
+    },
+    "temperatureAlarm": {
+      "title": "Analoger Temperaturalarm",
+      "description": "Analoger Summer-Alarmschaltkreis, simuliert in Proteus, auf dem Breadboard validiert und auf einer CNC-gefrästen Leiterplatte gefertigt"
+    },
+    "covidApp": {
+      "title": "Coronavirus-Daten-App",
+      "description": "GUI-App zum Abfragen, Visualisieren und Vergleichen von COVID-19-Daten verschiedener Länder mithilfe öffentlicher APIs und gängiger Python-Datenbibliotheken"
+    }
+  },
+  "Posts": {
+    "smdHotPlate": {
+      "title": "SMD-Heizplatte: Von der Systemidentifikation zur PID-Regelung",
+      "description": "Wie ich die thermische Dynamik einer selbstgebauten Reflow-Heizplatte in MATLAB modelliert und den Regler in Arduino-Firmware übersetzt habe"
+    },
+    "quadrupedKinematics": {
+      "title": "Kinematik des Vierbeiners: Vom MATLAB-Workspace zu 3D-gedruckten Beinen",
+      "description": "Ein Durchgang durch die inverse Kinematikanalyse und die DFMA-Entscheidungen, die den Prototyp des Mikro-Vierbeiners geprägt haben"
+    }
+  },
+  "Timeline": {
+    "present": "Heute",
+    "entries": {
+      "cryowriteEngineer": {
+        "role": "Robotikingenieur",
+        "location": "Basel, Schweiz",
+        "bullets": [
+          "Entwicklung und Wartung von ROS2-Robotersystemen mit nebenläufigen Aktionen und Hardware-Integration",
+          "Installation vor Ort, Service und vorbeugende Wartung von ausgelieferten Kundensystemen"
+        ]
+      },
+      "cryowriteIntern": {
+        "role": "Praktikant Robotik",
+        "location": "Basel, Schweiz",
+        "bullets": [
+          "Leitete die unternehmensweite Dokumentationsstrategie in Confluence für den internen Wissensaustausch"
+        ]
+      },
+      "lumiphase": {
+        "role": "Praktikant Zuverlässigkeitsprüfung & Hardware-Design",
+        "location": "Stäfa, Schweiz",
+        "bullets": [
+          "Implementierte neue Testmethoden: Geräteauswahl, Integration und Programmierung von Messroutinen",
+          "Entwarf Leiterplatten zur Probenfixierung und elektrischen Leitungsführung",
+          "Laborbetrieb: Geräteeinrichtung, Hardware-Installation, Entwicklung von Kalibrierroutinen"
+        ]
+      },
+      "mobiEngineer": {
+        "role": "Hardware-Ingenieur",
+        "location": "Santa Cruz, Bolivien",
+        "bullets": [
+          "Integrierte MQTT- und CAN-basierte IoT-Batterien über APIs in den bestehenden Workflow",
+          "Entwarf und prototypisierte Magnetaktuatoren und eine Steuerplatine für die Batteriesicherung von Elektromotorrädern",
+          "Produktentwicklung und Logistikkoordination mit chinesischen Geschäftspartnern"
+        ]
+      },
+      "mobiIntern": {
+        "role": "Praktikant Hardware-Engineering",
+        "location": "Santa Cruz, Bolivien"
+      },
+      "realityHc": {
+        "role": "Praktikant Maschinenkonstruktion",
+        "location": "Santa Cruz, Bolivien"
+      },
+      "ucbMechatronics": {
+        "role": "B.Eng. Mechatronik",
+        "location": "Santa Cruz, Bolivien",
+        "note": "Notendurchschnitt 3,7/4 - Mit Auszeichnung abgeschlossen - Präsident der Wissenschaftsgesellschaft (2023-2024)"
+      },
+      "rotaryExchange": {
+        "role": "Austauschschüler",
+        "location": "Kamloops, BC, Kanada",
+        "note": "Botschafter des Rotary-Jugendaustauschs"
+      },
+      "laSalle": {
+        "role": "Primar- und Sekundarbildung",
+        "location": "Santa Cruz, Bolivien"
+      }
+    }
+  },
+  "Metadata": {
+    "titleDefault": "Leonardo Acha Boiano - Mechatronik-Ingenieur",
+    "description": "Mechatronik-Ingenieur mit Erfahrung in Robotik, eingebetteten Systemen und Produktdesign. Engineering-Portfolio, Projekte und vieles mehr.",
+    "ogImageAlt": "Leonardo Acha Boiano - Mechatronik-Ingenieur",
+    "ogTaglineLine1": "Ich baue Roboter.",
+    "ogTaglineLine2": "Ich bin keiner."
+  }
+}

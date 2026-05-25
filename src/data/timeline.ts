@@ -1,108 +1,102 @@
 export type TimelineEntryType = "work" | "education" | "exchange";
 
+// A point in time. month is 1-12 and omitted for year-only ranges (e.g. the
+// Rotary exchange "2018 - 2019"). Storing structured dates - rather than a
+// pre-formatted "Aug 2025 - Present" string - lets us render month names in the
+// active locale via Intl. See @/lib/format-date-range.
+export interface DateMark {
+  year: number;
+  month?: number;
+}
+
+export type TimelineDate = DateMark | "present";
+
+// Structural, locale-agnostic data for each timeline entry. Translatable text
+// (role, location, note, bullets) lives in messages under Timeline.entries.<id>
+// and is merged in at render time keyed by `id`. Proper nouns (org names) and
+// geometry (coordinates) stay here because they do not translate.
 export interface TimelineEntry {
-  dateRange: string;
-  role: string;
+  id: string;
   org: string;
-  location: string;
   coordinates: [number, number]; // [lat_deg, lng_deg]
+  start: DateMark;
+  end: TimelineDate;
   type?: TimelineEntryType;
-  note?: string;
-  bullets?: readonly string[];
   cvVisible?: boolean; // false = exclude from CV page (default: true)
 }
 
 export const timelineEntries: TimelineEntry[] = [
   {
-    dateRange: "Aug 2025 - Present",
-    role: "Robotics Engineer",
+    id: "cryowriteEngineer",
     org: "cryoWrite AG",
-    location: "Basel, Switzerland",
     coordinates: [47.5596, 7.5886],
+    start: { year: 2025, month: 8 },
+    end: "present",
     type: "work",
-    bullets: [
-      "Developing and maintaining ROS2 robotic systems with concurrent actions and hardware integration",
-      "On-site system installation, servicing, and preventive maintenance for deployed client systems",
-    ],
   },
   {
-    dateRange: "Feb - Jul 2025",
-    role: "Robotics Intern",
+    id: "cryowriteIntern",
     org: "cryoWrite AG",
-    location: "Basel, Switzerland",
     coordinates: [47.5596, 7.5886],
+    start: { year: 2025, month: 2 },
+    end: { year: 2025, month: 7 },
     type: "work",
-    bullets: [
-      "Spearheaded company-wide documentation strategy in Confluence for internal knowledge sharing",
-    ],
   },
   {
-    dateRange: "Aug 2024 - Jan 2025",
-    role: "Reliability Testing & Hardware Design Intern",
+    id: "lumiphase",
     org: "Lumiphase AG",
-    location: "Stafa, Switzerland",
     coordinates: [47.2292, 8.73],
+    start: { year: 2024, month: 8 },
+    end: { year: 2025, month: 1 },
     type: "work",
-    bullets: [
-      "Implemented new test methods: instrument selection, integration, and measurement routine coding",
-      "Designed PCBs for sample fixation and electrical routing",
-      "Lab operations: instrument setup, hardware installation, calibration routine development",
-    ],
   },
   {
-    dateRange: "Jun - Jul 2024",
-    role: "Hardware Engineer",
+    id: "mobiEngineer",
     org: "Mobi Latam",
-    location: "Santa Cruz, Bolivia",
     coordinates: [-17.7833, -63.1821],
+    start: { year: 2024, month: 6 },
+    end: { year: 2024, month: 7 },
     type: "work",
-    bullets: [
-      "Integrated MQTT and CAN-based IoT batteries into existing workflow via APIs",
-      "Designed and prototyped solenoid actuators and control PCB for electric motorcycle battery security",
-      "Product development and logistics coordination with Chinese business partners",
-    ],
   },
   {
-    dateRange: "Jan - Jun 2024",
-    role: "Hardware Engineer Intern",
+    id: "mobiIntern",
     org: "Mobi Latam",
-    location: "Santa Cruz, Bolivia",
     coordinates: [-17.7833, -63.1821],
+    start: { year: 2024, month: 1 },
+    end: { year: 2024, month: 6 },
     type: "work",
   },
   {
-    dateRange: "Mar - May 2023",
-    role: "Mechanical Design Intern",
+    id: "realityHc",
     org: "Reality HC",
-    location: "Santa Cruz, Bolivia",
     coordinates: [-17.7833, -63.1821],
+    start: { year: 2023, month: 3 },
+    end: { year: 2023, month: 5 },
     type: "work",
   },
   {
-    dateRange: "Feb 2020 - Aug 2024",
-    role: "B.S. Mechatronics Engineering",
+    id: "ucbMechatronics",
     org: "San Pablo Bolivian Catholic University",
-    location: "Santa Cruz, Bolivia",
     coordinates: [-17.7833, -63.1821],
+    start: { year: 2020, month: 2 },
+    end: { year: 2024, month: 8 },
     type: "education",
-    note: "GPA 3.7/4 - Graduated with Honours - President of the Scientific Society (2023-2024)",
   },
   {
-    dateRange: "2018 - 2019",
-    role: "Exchange Student",
+    id: "rotaryExchange",
     org: "Rotary Youth Exchange",
-    location: "Kamloops, BC, Canada",
     coordinates: [50.6745, -120.3273],
+    start: { year: 2018 },
+    end: { year: 2019 },
     type: "exchange",
-    note: "Rotary Youth Exchange Ambassador",
     cvVisible: false,
   },
   {
-    dateRange: "Feb 2006 - Dec 2019",
-    role: "Primary & Secondary Education",
+    id: "laSalle",
     org: "Colegio La Salle",
-    location: "Santa Cruz, Bolivia",
     coordinates: [-17.7833, -63.1821],
+    start: { year: 2006, month: 2 },
+    end: { year: 2019, month: 12 },
     type: "education",
     cvVisible: false,
   },

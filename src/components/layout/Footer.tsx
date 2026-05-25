@@ -1,10 +1,14 @@
+import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { SocialLinks } from "@/components/shared/SocialLinks";
 import { siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function Footer(): ReactElement {
-  const year = new Date().getFullYear();
+  const t = useTranslations("Footer");
+  // Pass the year as a string so ICU inserts it verbatim (a numeric value would
+  // pick up locale digit grouping, e.g. "2,026").
+  const year = String(new Date().getFullYear());
 
   return (
     <footer className="border-t border-border bg-surface-1">
@@ -15,7 +19,7 @@ export function Footer(): ReactElement {
         )}
       >
         <p className="text-sm text-ink-3">
-          &copy; {year} {siteConfig.name}
+          {t("copyright", { year, name: siteConfig.name })}
         </p>
 
         <SocialLinks />

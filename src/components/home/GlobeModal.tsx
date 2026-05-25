@@ -2,16 +2,18 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import type { TimelineEntry } from "@/data/timeline";
+import { useTranslations } from "next-intl";
+import type { ResolvedTimelineEntry } from "@/lib/timeline-content";
 import { GlobeVisualization } from "./GlobeVisualization";
 
 interface GlobeModalProps {
-  entry: TimelineEntry | null;
+  entry: ResolvedTimelineEntry | null;
   activeIndex: number;
   onClose: () => void;
 }
 
 export function GlobeModal({ entry, activeIndex, onClose }: GlobeModalProps) {
+  const t = useTranslations("Common");
   return (
     <AnimatePresence>
       {entry && (
@@ -46,15 +48,19 @@ export function GlobeModal({ entry, activeIndex, onClose }: GlobeModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-4 top-4 rounded-full p-1.5 text-ink-3 transition-colors hover:bg-surface-2 hover:text-ink-1"
-              aria-label="Close"
+              className="absolute end-4 top-4 rounded-full p-1.5 text-ink-3 transition-colors hover:bg-surface-2 hover:text-ink-1"
+              aria-label={t("close")}
             >
               <X size={18} />
             </button>
 
             {/* Globe */}
             <div className="relative mx-auto w-full max-w-sm flex-1 px-4 pt-2">
-              <GlobeVisualization activeIndex={activeIndex} showLabel={false} />
+              <GlobeVisualization
+                activeIndex={activeIndex}
+                activeLabel={entry.location}
+                showLabel={false}
+              />
             </div>
 
             {/* Entry details */}

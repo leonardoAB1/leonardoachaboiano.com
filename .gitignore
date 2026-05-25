@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+# this is a pnpm repo - the npm lockfile is not used (pnpm-lock.yaml is the source of truth)
+/package-lock.json
 /.pnp
 .pnp.*
 .yarn/*
@@ -22,6 +24,10 @@
 # next.js
 /.next/
 /out/
+
+# next-sitemap output (regenerated at build by the postbuild script)
+/public/sitemap.xml
+/public/sitemap-*.xml
 
 # production
 /build

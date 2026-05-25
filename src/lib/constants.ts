@@ -24,9 +24,22 @@ export const siteConfig = {
   ],
 } as const;
 
+// OpenGraph locale identifiers (language_REGION) per supported locale. Used for
+// og:locale and og:locale:alternate so social platforms label each page's
+// language correctly.
+export const ogLocales = {
+  en: "en_US",
+  es: "es_ES",
+  de: "de_DE",
+  it: "it_IT",
+} as const;
+
+// "key" indexes into the Nav message namespace; labels are resolved per locale
+// in the navbar. "href" is locale-agnostic - the locale-aware Link adds the
+// active prefix.
 export const navLinks = [
-  { label: "CV", href: "/cv" },
-  { label: "Contact", href: "/contact" },
+  { key: "cv", href: "/cv" },
+  { key: "contact", href: "/contact" },
 ] as const;
 
 export const socialLinks = {
