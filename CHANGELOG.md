@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.11...v1.0.0) (2026-05-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* add multi-language support (en/es/de/it) ([#160](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/160))
+
+### Features
+
+* add multi-language support (en/es/de/it) ([#160](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/160)) ([d09150b](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/d09150b7a144911096ddcf60c3b54a4c4b1350a2))
+
 ## [0.9.11](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.10...v0.9.11) (2026-05-24)
 
 
