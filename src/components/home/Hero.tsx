@@ -127,7 +127,15 @@ export function Hero(): ReactElement {
               </motion.div>
               <motion.div variants={item}>
                 <Heading as="h1" className="max-w-4xl" size="xl">
-                  {t("heading")}
+                  {t.rich("heading", {
+                    // Smaller, de-emphasized qualifier. Locales without a
+                    // <small> tag in their heading render as plain text.
+                    small: (chunks) => (
+                      <span className="font-normal text-ink-3 text-2xl sm:text-4xl">
+                        {chunks}
+                      </span>
+                    ),
+                  })}
                 </Heading>
               </motion.div>
               <motion.div variants={item}>

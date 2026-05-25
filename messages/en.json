@@ -32,7 +32,7 @@
   },
   "Home": {
     "Hero": {
-      "heading": "Proud generalist",
+      "heading": "Proud generalist <small>by choice</small>",
       "intro": "I work across embedded systems, robotics integration, and design for manufacturing, from prototypes to production-ready installations.",
       "viewCv": "View CV",
       "getInTouch": "Get in touch"
