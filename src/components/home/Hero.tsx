@@ -126,12 +126,21 @@ export function Hero(): ReactElement {
                 <Eyebrow>{tCommon("role")}</Eyebrow>
               </motion.div>
               <motion.div variants={item}>
-                <Heading as="h1" className="max-w-4xl" size="xl">
+                <Heading
+                  as="h1"
+                  size="xl"
+                  // Fluid size (clamp) so long localized headings scale down to
+                  // fit the column instead of overflowing into the timeline;
+                  // break-words + hyphens wrap anything still too wide. The
+                  // clamp is repeated for the sm: variant to override the
+                  // size="xl" responsive font-size.
+                  className="max-w-4xl break-words [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
+                >
                   {t.rich("heading", {
-                    // Smaller, de-emphasized qualifier. Locales without a
-                    // <small> tag in their heading render as plain text.
+                    // Smaller, de-emphasized qualifier on its own line. Locales
+                    // without a <small> tag in their heading render as plain text.
                     small: (chunks) => (
-                      <span className="font-normal text-ink-3 text-2xl sm:text-4xl">
+                      <span className="mt-1 block font-normal text-ink-3 text-2xl sm:text-3xl">
                         {chunks}
                       </span>
                     ),
