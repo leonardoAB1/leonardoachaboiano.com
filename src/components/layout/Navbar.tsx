@@ -1,14 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { Link, usePathname } from "@/i18n/navigation";
 import { navLinks, siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function Navbar(): ReactElement {
+  // usePathname from next-intl returns the path without the locale prefix
+  // (e.g. "/cv"), so it matches navLinks hrefs directly.
   const pathname = usePathname();
+  const t = useTranslations("Nav");
 
   return (
     <header
@@ -22,7 +26,7 @@ export function Navbar(): ReactElement {
           "mx-auto flex h-14 w-full max-w-5xl",
           "items-center justify-between px-6 sm:px-8",
         )}
-        aria-label="Main navigation"
+        aria-label={t("ariaLabel")}
       >
         <Link
           href="/"
@@ -46,11 +50,12 @@ export function Navbar(): ReactElement {
                     pathname !== link.href && "text-ink-3",
                   )}
                 >
-                  {link.label}
+                  {t(link.key)}
                 </Link>
               </li>
             ))}
           </ul>
+          <LanguageSwitcher />
           <ThemeToggle />
         </div>
       </nav>
