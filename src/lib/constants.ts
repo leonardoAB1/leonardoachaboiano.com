@@ -6,7 +6,7 @@ const _title = "Mechatronics Engineer";
 export const siteConfig = {
   name: _name,
   title: _title,
-  siteTitle: `${_name} - ${_title} & Portfolio`,
+  siteTitle: `${_name} - ${_title}`,
   description:
     "Mechatronics engineer with experience in robotics, embedded systems, and product design. " +
     "Engineering portfolio, projects, and technical writing.",
