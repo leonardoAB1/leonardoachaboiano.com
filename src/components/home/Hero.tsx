@@ -136,15 +136,7 @@ export function Hero(): ReactElement {
                   // size="xl" responsive font-size.
                   className="max-w-4xl break-words [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
                 >
-                  {t.rich("heading", {
-                    // Smaller, de-emphasized qualifier on its own line. Locales
-                    // without a <small> tag in their heading render as plain text.
-                    small: (chunks) => (
-                      <span className="mt-1 block font-normal text-ink-3 text-2xl sm:text-3xl">
-                        {chunks}
-                      </span>
-                    ),
-                  })}
+                  {t("heading")}
                 </Heading>
               </motion.div>
               <motion.div variants={item}>
