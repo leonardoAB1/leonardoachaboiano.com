@@ -23,6 +23,10 @@
 /.next/
 /out/
 
+# next-sitemap output (regenerated at build by the postbuild script)
+/public/sitemap.xml
+/public/sitemap-*.xml
+
 # production
 /build
 
