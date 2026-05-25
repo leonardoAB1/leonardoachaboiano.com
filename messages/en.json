@@ -1,0 +1,286 @@
+{
+  "Common": {
+    "role": "Mechatronics Engineer",
+    "close": "Close"
+  },
+  "Nav": {
+    "ariaLabel": "Main navigation",
+    "cv": "CV",
+    "contact": "Contact"
+  },
+  "LanguageSwitcher": {
+    "ariaLabel": "Change language",
+    "locales": {
+      "en": "English",
+      "es": "Español",
+      "de": "Deutsch",
+      "it": "Italiano"
+    }
+  },
+  "ThemeToggle": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "SocialLinks": {
+    "ariaLabel": "Social links",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "Email"
+  },
+  "Footer": {
+    "copyright": "© {year} {name}"
+  },
+  "Home": {
+    "Hero": {
+      "heading": "Proud generalist",
+      "intro": "I work across embedded systems, robotics integration, and design for manufacturing, from prototypes to production-ready installations.",
+      "viewCv": "View CV",
+      "getInTouch": "Get in touch"
+    },
+    "Philosophy": {
+      "heading": "Engineering philosophy",
+      "p1": "There are several <em>proper</em> ways to solve any engineering problem. A <em>proper</em> solution is one considered from every relevant point of view: in accordance with established standards, procedures, and the specifications of the project. The engineer's role, unlike the scientist's, is to identify and deliver that solution.",
+      "p2": "<em>Proper</em> means technically sound, but also manufacturable, safe, maintainable, and reproducible. Standards and procedures are not bureaucracy: they are accumulated knowledge about how solutions fail in the real world. Meeting them is the work.",
+      "quote": "“Proper” is one of my favorite words in English. Every time I face a new challenge, I find myself asking the same question: what are the <em>proper</em> ways to approach this?"
+    },
+    "TechnicalDomains": {
+      "heading": "Technical domains",
+      "electromechanical": {
+        "title": "Electromechanical systems",
+        "description": "Actuators, sensors, and electronics codesigned with mechanical structure: tolerance stack-ups, mounting, routing, and assembly considered from the first sketch."
+      },
+      "embedded": {
+        "title": "Embedded systems & firmware",
+        "description": "Firmware on STM32 and ESP32 with FreeRTOS, industrial protocols including CAN, I2C, and BLE, and control logic for real-time hardware operation."
+      },
+      "electronicsPcb": {
+        "title": "Electronics & PCB design",
+        "description": "Schematic capture, layout, and reliability testing using KiCad and Altium: from breadboard prototype to production-ready board with measurement and validation routines."
+      },
+      "mechanical": {
+        "title": "Mechanical design & manufacturing",
+        "description": "3D models and drawings in SolidWorks and Fusion 360, with DFMA and GD&T applied from day one: CNC machining, 3D printing, and supplier-ready documentation."
+      }
+    },
+    "FeaturedProjects": {
+      "heading": "Featured projects"
+    },
+    "ContactCTA": {
+      "heading": "Let's build something exciting.",
+      "subtitle": "Got an idea worth building? Let's talk.",
+      "getInTouch": "Get in touch",
+      "viewCv": "View CV"
+    },
+    "RecentWriting": {
+      "heading": "Recent writing",
+      "readPost": "Read post",
+      "readAll": "Read all posts"
+    }
+  },
+  "CV": {
+    "metaTitle": "CV",
+    "metaDescription": "Curriculum vitae of Leonardo Acha Boiano - mechatronics and robotics engineer with experience in ROS2, embedded systems, PCB design, and hardware-software integration.",
+    "eyebrow": "Curriculum Vitae",
+    "location": "Basel, Switzerland",
+    "download": "Download CV (PDF)",
+    "sections": {
+      "work": "Work Experience",
+      "education": "Education",
+      "skills": "Skills",
+      "languages": "Languages",
+      "achievements": "Achievements"
+    },
+    "skillCategories": {
+      "programming": "Programming",
+      "embeddedRobotics": "Embedded & Robotics",
+      "electronicsPcb": "Electronics & PCB",
+      "mechanicalDesign": "Mechanical Design",
+      "tools": "Tools"
+    },
+    "languageNames": {
+      "spanish": "Spanish",
+      "english": "English",
+      "german": "German",
+      "italian": "Italian"
+    },
+    "languageLevels": {
+      "native": "Native",
+      "fluent": "Fluent",
+      "a2": "A2"
+    }
+  },
+  "Achievements": {
+    "icpc": { "label": "Champion, ICPC Regional Contest", "date": "Aug 2024" },
+    "diplomaHonour2": {
+      "label": "Diploma of Honour, 2nd place - Mechatronic Eng term 2-2023",
+      "date": "Apr 2024"
+    },
+    "cswa": {
+      "label": "Certified SOLIDWORKS Associate (CSWA)",
+      "date": "Nov 2023"
+    },
+    "diplomaHonour1": {
+      "label": "Diploma of Honour, 2nd place - Mechatronic Eng term 1-2023",
+      "date": "Sep 2023"
+    },
+    "scholarship": {
+      "label": "Excellence Scholarship x3",
+      "date": "2021-2022"
+    },
+    "rotary": {
+      "label": "Rotary Youth Exchange Ambassador to Canada",
+      "date": "2018-2019"
+    }
+  },
+  "Contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Get in touch! Available for project collaborations, embedded systems work, and engineering inquiries.",
+    "eyebrow": "Get in touch",
+    "heading": "Let's talk",
+    "intro": "Whether you have a project in mind, a question, or just want to say hi, I'd love to hear from you.",
+    "otherWaysTitle": "Other ways to reach me",
+    "otherWaysSubtitle": "Prefer a direct channel? Use any of the links below.",
+    "links": {
+      "github": "Open-source projects and code",
+      "linkedin": "Professional profile and experience",
+      "instagram": "Photos and behind-the-scenes",
+      "facebook": "Connect on Facebook",
+      "emailLabel": "Email"
+    },
+    "Form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What's this about?",
+      "message": "Message",
+      "messagePlaceholder": "Your message...",
+      "send": "Send message",
+      "sending": "Sending...",
+      "success": "Message sent - I'll get back to you soon.",
+      "error": "Something went wrong. Please try again or email me directly.",
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "subjectMin": "Subject must be at least 5 characters",
+        "messageMin": "Message must be at least 20 characters"
+      }
+    }
+  },
+  "Projects": {
+    "differentialDriveRobot": {
+      "title": "Differential Drive Robot",
+      "description": "Mobile robot with custom PCB, 3D-printed DFMA parts, and closed-loop motor control achieving 5% error margin"
+    },
+    "microQuadruped": {
+      "title": "Micro Quadruped Robot",
+      "description": "Affordable quadruped with full kinematic analysis in MATLAB and SolidWorks, validated through simulation and physical testing"
+    },
+    "smokeDetectorCamera": {
+      "title": "Smoke Detector Camera",
+      "description": "IoT smoke detection device integrating ESP32CAM, C firmware on ESP-IDF, and SolidWorks-designed housing for remote monitoring"
+    },
+    "propellerArm": {
+      "title": "Propeller Levitated Arm",
+      "description": "Dual-propeller levitation rig with IMU feedback and MATLAB-validated control algorithm, complex parts manufactured via 3D printing"
+    },
+    "hotPlate": {
+      "title": "Hot Plate for SMD Soldering",
+      "description": "SMD reflow hot plate with MATLAB-designed temperature controller, capable of tracking a reflow curve or holding a setpoint"
+    },
+    "canCrusher": {
+      "title": "Can Crusher System",
+      "description": "Automatic can crusher with electropneumatic control circuits designed in Fluidsim and mechanism modeled in SolidWorks"
+    },
+    "batteryTrolley": {
+      "title": "Portable Battery Trolley",
+      "description": "Field-tested trolley under 20 kg carrying 200-250 kg of batteries, stress-simulated in SolidWorks and taken to production by Swiss Contact"
+    },
+    "temperatureAlarm": {
+      "title": "Analog Temperature Alarm",
+      "description": "Analog buzzer alarm circuit simulated in Proteus, validated on breadboard, and manufactured on a CNC-milled PCB"
+    },
+    "covidApp": {
+      "title": "Coronavirus Data App",
+      "description": "GUI app to query, visualize, and compare COVID-19 data across countries using public APIs and standard Python data libraries"
+    }
+  },
+  "Posts": {
+    "smdHotPlate": {
+      "title": "SMD Hot Plate: From System Identification to PID Control",
+      "description": "How I modeled the thermal dynamics of a DIY reflow hot plate in MATLAB and translated the controller to Arduino firmware"
+    },
+    "quadrupedKinematics": {
+      "title": "Quadruped Kinematics: From MATLAB Workspace to 3D-Printed Legs",
+      "description": "Walking through the inverse kinematics analysis and DFMA decisions that shaped the micro quadruped robot prototype"
+    }
+  },
+  "Timeline": {
+    "present": "Present",
+    "entries": {
+      "cryowriteEngineer": {
+        "role": "Robotics Engineer",
+        "location": "Basel, Switzerland",
+        "bullets": [
+          "Developing and maintaining ROS2 robotic systems with concurrent actions and hardware integration",
+          "On-site system installation, servicing, and preventive maintenance for deployed client systems"
+        ]
+      },
+      "cryowriteIntern": {
+        "role": "Robotics Intern",
+        "location": "Basel, Switzerland",
+        "bullets": [
+          "Spearheaded company-wide documentation strategy in Confluence for internal knowledge sharing"
+        ]
+      },
+      "lumiphase": {
+        "role": "Reliability Testing & Hardware Design Intern",
+        "location": "Stafa, Switzerland",
+        "bullets": [
+          "Implemented new test methods: instrument selection, integration, and measurement routine coding",
+          "Designed PCBs for sample fixation and electrical routing",
+          "Lab operations: instrument setup, hardware installation, calibration routine development"
+        ]
+      },
+      "mobiEngineer": {
+        "role": "Hardware Engineer",
+        "location": "Santa Cruz, Bolivia",
+        "bullets": [
+          "Integrated MQTT and CAN-based IoT batteries into existing workflow via APIs",
+          "Designed and prototyped solenoid actuators and control PCB for electric motorcycle battery security",
+          "Product development and logistics coordination with Chinese business partners"
+        ]
+      },
+      "mobiIntern": {
+        "role": "Hardware Engineer Intern",
+        "location": "Santa Cruz, Bolivia"
+      },
+      "realityHc": {
+        "role": "Mechanical Design Intern",
+        "location": "Santa Cruz, Bolivia"
+      },
+      "ucbMechatronics": {
+        "role": "B.S. Mechatronics Engineering",
+        "location": "Santa Cruz, Bolivia",
+        "note": "GPA 3.7/4 - Graduated with Honours - President of the Scientific Society (2023-2024)"
+      },
+      "rotaryExchange": {
+        "role": "Exchange Student",
+        "location": "Kamloops, BC, Canada",
+        "note": "Rotary Youth Exchange Ambassador"
+      },
+      "laSalle": {
+        "role": "Primary & Secondary Education",
+        "location": "Santa Cruz, Bolivia"
+      }
+    }
+  },
+  "Metadata": {
+    "titleDefault": "Leonardo Acha Boiano - Mechatronics Engineer & Portfolio",
+    "description": "Mechatronics engineer with experience in robotics, embedded systems, and product design. Engineering portfolio, projects, and technical writing.",
+    "ogImageAlt": "Leonardo Acha Boiano - Mechatronics Engineer",
+    "ogTaglineLine1": "I build the robots.",
+    "ogTaglineLine2": "I'm not one."
+  }
+}
