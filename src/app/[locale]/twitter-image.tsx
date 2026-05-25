@@ -1,12 +1,34 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/constants";
 
 export const runtime = "nodejs";
-export const alt = `${siteConfig.name} - ${siteConfig.title}`;
+// alt is a static metadata export (cannot vary per locale); the visible image
+// content below is localized. The name is the salient part of the description.
+export const alt = `${siteConfig.name} - Mechatronics Engineer`;
 export const size = { width: 1200, height: 675 };
 export const contentType = "image/png";
+
+// Read the catalog directly rather than via next-intl's request APIs, which
+// require an HTTP request that isn't present during static image generation.
+// Guards against an unresolved locale during build-time collection.
+async function loadOgStrings(locale: string): Promise<{
+  role: string;
+  taglineLine1: string;
+  taglineLine2: string;
+}> {
+  const safe = (routing.locales as readonly string[]).includes(locale)
+    ? locale
+    : routing.defaultLocale;
+  const messages = (await import(`../../../messages/${safe}.json`)).default;
+  return {
+    role: messages.Common.role,
+    taglineLine1: messages.Metadata.ogTaglineLine1,
+    taglineLine2: messages.Metadata.ogTaglineLine2,
+  };
+}
 
 const fontBold = readFileSync(
   path.join(process.cwd(), "public/fonts/SpaceGrotesk-Bold.ttf"),
@@ -15,7 +37,16 @@ const fontRegular = readFileSync(
   path.join(process.cwd(), "public/fonts/SpaceGrotesk-Regular.ttf"),
 );
 
-export default async function Image() {
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const strings = await loadOgStrings(locale);
+  const role = strings.role.toUpperCase();
+  const taglineLine1 = strings.taglineLine1;
+  const taglineLine2 = strings.taglineLine2;
   const portraitSrc = `${siteConfig.url}/portrait.jpg`;
 
   return new ImageResponse(
@@ -103,7 +134,7 @@ export default async function Image() {
             marginBottom: 48,
           }}
         >
-          MECHATRONICS ENGINEER
+          {role}
         </div>
 
         <div
@@ -121,7 +152,7 @@ export default async function Image() {
               lineHeight: 1.6,
             }}
           >
-            I build the robots.
+            {taglineLine1}
           </div>
           <div
             style={{
@@ -131,7 +162,7 @@ export default async function Image() {
               lineHeight: 1.6,
             }}
           >
-            I&apos;m not one.
+            {taglineLine2}
           </div>
         </div>
 
