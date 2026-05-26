@@ -24,7 +24,7 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   return (
-    <div className="relative isolate overflow-hidden bg-surface-0">
+    <div className="-mt-14 relative isolate overflow-hidden bg-surface-0">
       <div aria-hidden="true" className={backgroundWashClasses} />
       <Hero />
       <EngineeringPhilosophy />

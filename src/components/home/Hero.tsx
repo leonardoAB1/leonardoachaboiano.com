@@ -126,7 +126,7 @@ export function Hero(): ReactElement {
   }, [selectedIndex]);
 
   return (
-    <Section className="flex min-h-[calc(100svh-3.5rem)] flex-col justify-center pb-16 pt-8 sm:pb-20 sm:pt-10">
+    <Section className="flex min-h-svh flex-col justify-center pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)]">
       <Container className="max-w-7xl">
         <motion.div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.95fr)_minmax(0,1.25fr)] lg:gap-8 xl:gap-10">
           <motion.div
@@ -159,7 +159,7 @@ export function Hero(): ReactElement {
             </motion.div>
             <motion.div
               variants={item}
-              className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+              className="hidden flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 lg:flex"
             >
               <Link
                 className={cn(
