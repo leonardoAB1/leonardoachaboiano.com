@@ -159,7 +159,7 @@ export function Hero(): ReactElement {
             </motion.div>
             <motion.div
               variants={item}
-              className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+              className="hidden flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 lg:flex"
             >
               <Link
                 className={cn(
