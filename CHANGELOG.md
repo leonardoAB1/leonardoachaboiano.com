@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.1...v1.2.2) (2026-05-26)
+
+
+### Bug Fixes
+
+* progressive right-to-left navbar collapse on narrow viewports ([#178](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/178)) ([1312c30](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1312c30024f79f5ca98e7cf647408ff5143cdb0e))
+
 ## [1.2.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.0...v1.2.1) (2026-05-26)
 
 
