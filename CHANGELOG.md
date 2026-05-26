@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.0...v1.2.1) (2026-05-26)
+
+
+### Bug Fixes
+
+* transparent fixed navbar with responsive layout ([#175](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/175)) ([ea3540e](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/ea3540eb8d4ee6ab8b83f5a0e59fff8001b95e72))
+
 ## [1.2.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.1.0...v1.2.0) (2026-05-26)
 
 
