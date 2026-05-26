@@ -922,7 +922,9 @@ export function GlobeVisualization({
       <div
         ref={containerRef}
         className={cn(
-          "absolute inset-0 h-full w-full",
+          // touch-pan-y lets vertical swipes scroll the page (the globe can sit
+          // mid-hero on mobile); horizontal swipes still reach the drag handlers.
+          "absolute inset-0 h-full w-full touch-pan-y",
           !isReady && "pointer-events-none",
         )}
       />
