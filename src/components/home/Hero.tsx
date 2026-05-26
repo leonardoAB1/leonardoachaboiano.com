@@ -251,6 +251,7 @@ export function Hero(): ReactElement {
                 <GlobeVisualization
                   activeIndex={selectedIndex}
                   activeLabel={entries[selectedIndex].location}
+                  onSelectIndex={handleSelect}
                 />
               </div>
             </motion.div>
