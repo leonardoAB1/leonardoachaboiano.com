@@ -47,7 +47,10 @@ export function Navbar(): ReactElement {
         <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
           <ul className="flex items-center gap-3 sm:gap-5 lg:gap-6">
             {navLinks.map((link) => (
-              <li key={link.href}>
+              <li
+                key={link.href}
+                className={cn(link.key === "contact" && "hidden min-[320px]:block")}
+              >
                 <Link
                   href={link.href}
                   className={cn(
@@ -61,8 +64,12 @@ export function Navbar(): ReactElement {
               </li>
             ))}
           </ul>
-          <LanguageSwitcher />
-          <ThemeToggle />
+          <div className="hidden min-[380px]:block">
+            <LanguageSwitcher />
+          </div>
+          <div className="hidden sm:block">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
     </header>
