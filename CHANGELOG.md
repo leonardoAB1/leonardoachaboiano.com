@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.0.0...v1.1.0) (2026-05-26)
+
+
+### Features
+
+* make globe location markers clickable ([#169](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/169)) ([aa031f4](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/aa031f414185fe41c9d7039d8eb9d9df0e817566))
+
 ## [1.0.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v0.9.11...v1.0.0) (2026-05-25)
 
 

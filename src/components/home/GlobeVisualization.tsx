@@ -45,7 +45,7 @@ interface GlobeInstance extends Object3D {
 }
 
 interface MarkerSprite extends Sprite {
-  userData: { baseSize: number };
+  userData: { baseSize: number; index: number };
 }
 
 const MATERIAL_TEXTURE_SLOTS = [
@@ -68,6 +68,11 @@ interface GlobeVisualizationProps {
   // this heavy three.js component stays free of i18n hooks.
   activeLabel?: string;
   showLabel?: boolean;
+  // Called when the user clicks a location marker on the globe, with the
+  // timeline index to select. Optional: when omitted (e.g. the read-only modal
+  // globe) the markers stay non-interactive. This is the globe -> timeline
+  // direction that complements the timeline -> globe `activeIndex` prop.
+  onSelectIndex?: (index: number) => void;
 }
 
 // Career arcs: unique location transitions in chronological order
@@ -227,16 +232,51 @@ function buildSprites(
     sprite.position.set(pos.x, pos.y, pos.z);
     const baseSize = isActive ? 8 : 4;
     sprite.scale.setScalar(baseSize * scale);
-    sprite.userData = { baseSize };
+    sprite.userData = { baseSize, index: i };
     globe.add(sprite);
     return sprite;
   });
+}
+
+// Maximum pointer-to-marker screen distance (px) that still counts as a hit.
+// Markers are small billboards, so a generous radius makes them easy to click.
+const MARKER_HIT_RADIUS_PX = 22;
+// Pointer travel (px) below which a press-release counts as a click rather than
+// a drag, so rotating the globe never accidentally selects a location.
+const CLICK_MOVE_THRESHOLD_PX = 5;
+
+// Timeline entries that share identical coordinates (e.g. five Santa Cruz roles)
+// render as overlapping markers. Grouping their indices - kept in the original
+// newest-first order - lets a click on that stacked marker step through the
+// co-located entries. Computed once at module load since the timeline is static.
+const COORD_GROUPS: number[][] = (() => {
+  const byCoord = new Map<string, number[]>();
+  timelineEntries.forEach((entry, i) => {
+    const key = `${entry.coordinates[0]},${entry.coordinates[1]}`;
+    const group = byCoord.get(key);
+    if (group) group.push(i);
+    else byCoord.set(key, [i]);
+  });
+  return Array.from(byCoord.values());
+})();
+
+// Decide which entry a marker click selects. The first click on a location
+// selects its newest role (group[0]; timelineEntries is newest-first); clicking
+// again while already at that location advances to the next co-located entry
+// (wrapping), so repeated clicks step through every role there.
+function resolveSelection(clickedIndex: number, activeIndex: number): number {
+  const group = COORD_GROUPS.find((g) => g.includes(clickedIndex));
+  if (!group || group.length === 1) return clickedIndex;
+  const activePos = group.indexOf(activeIndex);
+  if (activePos === -1) return group[0];
+  return group[(activePos + 1) % group.length];
 }
 
 export function GlobeVisualization({
   activeIndex,
   activeLabel = "",
   showLabel = true,
+  onSelectIndex,
 }: GlobeVisualizationProps) {
   const [isReady, setIsReady] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -273,10 +313,14 @@ export function GlobeVisualization({
   const activeIndexRef = useRef(activeIndex);
   const showLabelRef = useRef(showLabel);
   const activeLabelRef = useRef(activeLabel);
+  // Init effect runs once and closes over this ref, so the pointer handlers
+  // always call the current onSelectIndex without re-creating the globe.
+  const onSelectIndexRef = useRef(onSelectIndex);
 
   activeIndexRef.current = activeIndex;
   showLabelRef.current = showLabel;
   activeLabelRef.current = activeLabel;
+  onSelectIndexRef.current = onSelectIndex;
 
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
@@ -595,6 +639,37 @@ export function GlobeVisualization({
       const _dragOriginQuat = new THREE.Quaternion(); // orientation at pointer-down
       let _dragOriginLatRad = 0; // latitude of drag origin (for X-clamp range)
       const _lastDragQuat = new THREE.Quaternion(); // target on the previous frame
+      const _projVec = new THREE.Vector3(); // scratch for marker screen projection
+
+      // Find the timeline index of the location marker nearest the pointer, or
+      // -1 if none is within MARKER_HIT_RADIUS_PX. Works in screen space:
+      // project each marker to 2D and compare pixel distance. This is more
+      // forgiving than raycasting the tiny billboard quads, and the marker count
+      // is small so it stays cheap to run on every move. Markers on the far
+      // hemisphere (occluded by the opaque globe) are skipped via the same
+      // dot-product visibility test the wheel handler uses.
+      const findMarkerAt = (clientX: number, clientY: number): number => {
+        const sprites = spritesRef.current;
+        if (sprites.length === 0) return -1;
+        const rect = container.getBoundingClientRect();
+        const px = clientX - rect.left;
+        const py = clientY - rect.top;
+        let bestIndex = -1;
+        let bestDist = MARKER_HIT_RADIUS_PX;
+        for (const sprite of sprites) {
+          sprite.getWorldPosition(_projVec);
+          if (_projVec.dot(camera.position) <= 0) continue; // far hemisphere
+          _projVec.project(camera); // mutates to normalized device coords
+          const sx = (_projVec.x * 0.5 + 0.5) * rect.width;
+          const sy = (-_projVec.y * 0.5 + 0.5) * rect.height;
+          const dist = Math.hypot(sx - px, sy - py);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestIndex = sprite.userData.index;
+          }
+        }
+        return bestIndex;
+      };
 
       // Expose to Effect 1 so clicking a location clears momentum immediately
       stopMomentumRef.current = () => {
@@ -648,7 +723,15 @@ export function GlobeVisualization({
       };
 
       const onPointerMove = (e: PointerEvent) => {
-        if (!isDragging) return;
+        if (!isDragging) {
+          // Not dragging: surface a pointer cursor when hovering a clickable
+          // marker so it reads as interactive. Skipped when selection is off.
+          if (onSelectIndexRef.current) {
+            container.style.cursor =
+              findMarkerAt(e.clientX, e.clientY) !== -1 ? "pointer" : "grab";
+          }
+          return;
+        }
 
         // Uniform sensitivity: one globe-radius of pointer travel = 90° rotation.
         // The sphere fills ~78% of the container, so apparent radius ≈ height × 0.39.
@@ -676,6 +759,22 @@ export function GlobeVisualization({
         isDragging = false;
         container.releasePointerCapture(e.pointerId);
         container.style.cursor = "grab";
+
+        // A press-release that barely moved is a click, not a drag: select the
+        // entry at the marker under the pointer (globe -> timeline). The first
+        // click picks the newest role there; repeated clicks cycle the rest.
+        const moved = Math.hypot(
+          e.clientX - dragStartX,
+          e.clientY - dragStartY,
+        );
+        if (moved < CLICK_MOVE_THRESHOLD_PX && onSelectIndexRef.current) {
+          const hit = findMarkerAt(e.clientX, e.clientY);
+          if (hit !== -1) {
+            onSelectIndexRef.current(
+              resolveSelection(hit, activeIndexRef.current),
+            );
+          }
+        }
       };
 
       // Zoom with scroll wheel. passive:false required to call preventDefault.
