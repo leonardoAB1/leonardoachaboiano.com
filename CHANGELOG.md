@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.1.0...v1.2.0) (2026-05-26)
+
+
+### Features
+
+* show hero globe inline on mobile ([#172](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/172)) ([c464574](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/c464574499f46bc097dff54ae9cf949794e4bdf8))
+
 ## [1.1.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.0.0...v1.1.0) (2026-05-26)
 
 
