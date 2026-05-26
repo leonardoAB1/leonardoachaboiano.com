@@ -246,9 +246,9 @@ const MARKER_HIT_RADIUS_PX = 22;
 const CLICK_MOVE_THRESHOLD_PX = 5;
 
 // Timeline entries that share identical coordinates (e.g. five Santa Cruz roles)
-// render as overlapping markers. Grouping their indices lets a click on that
-// stacked marker cycle through the co-located entries instead of being stuck on
-// one. Computed once at module load since the timeline data is static.
+// render as overlapping markers. Grouping their indices - in their original
+// newest-first order - lets a click on that stacked marker resolve to the most
+// recent role there. Computed once at module load since the timeline is static.
 const COORD_GROUPS: number[][] = (() => {
   const byCoord = new Map<string, number[]>();
   timelineEntries.forEach((entry, i) => {
@@ -260,16 +260,13 @@ const COORD_GROUPS: number[][] = (() => {
   return Array.from(byCoord.values());
 })();
 
-// Decide which entry a marker click should select. If the active entry already
-// sits at the clicked location, advance to the next co-located entry (wrapping)
-// so repeated clicks step through the stack; otherwise select the location's
-// first entry.
-function resolveSelection(clickedIndex: number, activeIndex: number): number {
+// Select the newest entry at a clicked marker's location. timelineEntries is
+// ordered newest-first, so the lowest index in a coordinate group is the most
+// recent role there. This makes stacked markers always resolve to the latest
+// position regardless of which overlapping sprite the pointer happened to hit.
+function newestAtLocation(clickedIndex: number): number {
   const group = COORD_GROUPS.find((g) => g.includes(clickedIndex));
-  if (!group || group.length === 1) return clickedIndex;
-  const activePos = group.indexOf(activeIndex);
-  if (activePos === -1) return group[0];
-  return group[(activePos + 1) % group.length];
+  return group ? group[0] : clickedIndex;
 }
 
 export function GlobeVisualization({
@@ -761,8 +758,7 @@ export function GlobeVisualization({
         container.style.cursor = "grab";
 
         // A press-release that barely moved is a click, not a drag: select the
-        // marker under the pointer (globe -> timeline). resolveSelection cycles
-        // through entries that share a location on repeated clicks.
+        // newest entry at the marker under the pointer (globe -> timeline).
         const moved = Math.hypot(
           e.clientX - dragStartX,
           e.clientY - dragStartY,
@@ -770,9 +766,7 @@ export function GlobeVisualization({
         if (moved < CLICK_MOVE_THRESHOLD_PX && onSelectIndexRef.current) {
           const hit = findMarkerAt(e.clientX, e.clientY);
           if (hit !== -1) {
-            onSelectIndexRef.current(
-              resolveSelection(hit, activeIndexRef.current),
-            );
+            onSelectIndexRef.current(newestAtLocation(hit));
           }
         }
       };

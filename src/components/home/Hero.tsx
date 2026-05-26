@@ -80,6 +80,9 @@ export function Hero(): ReactElement {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showFade, setShowFade] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
+  // One ref per timeline <li> so a selection (notably from a globe click) can
+  // scroll the chosen entry into view inside the scroll container.
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const isMobile = useIsMobile();
 
   const t = useTranslations("Home.Hero");
@@ -110,6 +113,33 @@ export function Hero(): ReactElement {
     setSelectedIndex(index);
     if (isMobile) setIsModalOpen(true);
   };
+
+  // Keep the selected entry visible in the timeline list. A globe-marker click
+  // can select an entry that's scrolled out of view, so nudge the scroll
+  // container just enough to reveal it. scrollBy on the container (rather than
+  // scrollIntoView) avoids moving the page, and reserving the bottom fade zone
+  // keeps the entry clear of the gradient mask. No-op when already visible, so
+  // direct timeline clicks (the item is already on screen) don't jump.
+  useEffect(() => {
+    const container = scrollRef.current;
+    const item = itemRefs.current[selectedIndex];
+    if (!container || !item) return;
+    const c = container.getBoundingClientRect();
+    const i = item.getBoundingClientRect();
+    const topMargin = 8;
+    const bottomMargin = container.clientHeight * 0.3; // matches the fade mask
+    if (i.top < c.top + topMargin) {
+      container.scrollBy({
+        top: i.top - c.top - topMargin,
+        behavior: "smooth",
+      });
+    } else if (i.bottom > c.bottom - bottomMargin) {
+      container.scrollBy({
+        top: i.bottom - c.bottom + bottomMargin,
+        behavior: "smooth",
+      });
+    }
+  }, [selectedIndex]);
 
   return (
     <>
@@ -200,6 +230,9 @@ export function Hero(): ReactElement {
                       return (
                         <motion.li
                           key={entry.id}
+                          ref={(el) => {
+                            itemRefs.current[index] = el;
+                          }}
                           variants={timelineItem}
                           className="relative flex gap-5 ps-8"
                         >
