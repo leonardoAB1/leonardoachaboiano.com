@@ -62,9 +62,7 @@ export function Navbar(): ReactElement {
             ))}
           </ul>
           <LanguageSwitcher />
-          <div className="hidden sm:flex">
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
         </div>
       </nav>
     </header>
