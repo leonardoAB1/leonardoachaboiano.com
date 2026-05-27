@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { animate, motion, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
@@ -132,9 +132,15 @@ export function CVContent(): ReactElement {
 
   const handleSelect = (index: number) => {
     setSelectedIndex(index);
-    itemRefs.current[index]?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
+    const el = itemRefs.current[index];
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const target =
+      window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2;
+    animate(window.scrollY, target, {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => window.scrollTo(0, v),
     });
   };
 
