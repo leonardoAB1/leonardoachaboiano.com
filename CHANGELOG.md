@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.2...v1.2.3) (2026-05-27)
+
+
+### Bug Fixes
+
+* biome formatting in TimelineEntry and Navbar ([#180](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/180)) ([79b74a6](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/79b74a65df853f62e797044de98ce9bf99adae49))
+
 ## [1.2.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.1...v1.2.2) (2026-05-26)
 
 
