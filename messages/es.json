@@ -84,6 +84,7 @@
     "location": "Basilea, Suiza",
     "download": "Descargar CV (PDF)",
     "sections": {
+      "careerHistory": "Trayectoria",
       "work": "Experiencia Laboral",
       "education": "Educación",
       "skills": "Habilidades",

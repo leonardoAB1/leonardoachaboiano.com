@@ -84,6 +84,7 @@
     "location": "Basel, Switzerland",
     "download": "Download CV (PDF)",
     "sections": {
+      "careerHistory": "Career History",
       "work": "Work Experience",
       "education": "Education",
       "skills": "Skills",
