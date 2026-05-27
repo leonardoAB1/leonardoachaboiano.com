@@ -323,8 +323,10 @@ export function CVContent(): ReactElement {
         </AnimatedSection>
       </div>
 
-      {/* Right column: sticky globe + scrollable languages/achievements panel */}
-      <div className="lg:sticky lg:top-14 lg:self-start lg:flex lg:flex-col lg:h-[calc(100svh-3.5rem)]">
+      {/* Right column: sticky globe + scrollable languages/achievements panel.
+          Hidden on mobile - the 3D globe interaction does not translate well
+          to small touch screens. Desktop-only feature. */}
+      <div className="hidden lg:sticky lg:top-14 lg:self-start lg:flex lg:flex-col lg:h-[calc(100svh-3.5rem)]">
         {/* Globe: slides in from the right on viewport entry */}
         <motion.div
           className="aspect-square w-full overflow-hidden rounded-2xl lg:flex-shrink-0"
