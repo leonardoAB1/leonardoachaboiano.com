@@ -84,6 +84,7 @@
     "location": "Basel, Switzerland",
     "download": "Download CV (PDF)",
     "sections": {
+      "careerHistory": "Career History",
       "work": "Work Experience",
       "education": "Education",
       "skills": "Skills",
@@ -268,7 +269,7 @@
       "rotaryExchange": {
         "role": "Exchange Student",
         "location": "Kamloops, BC, Canada",
-        "note": "Rotary Youth Exchange Ambassador"
+        "note": "Rotary Youth Exchange Ambassador\nCanadian Dogwood Diploma"
       },
       "laSalle": {
         "role": "Primary & Secondary Education",

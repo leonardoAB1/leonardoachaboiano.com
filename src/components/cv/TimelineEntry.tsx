@@ -8,6 +8,8 @@ interface TimelineEntryProps {
   location: string;
   bullets?: readonly string[];
   note?: string;
+  isActive?: boolean;
+  isLast?: boolean;
 }
 
 export function TimelineEntry({
@@ -17,6 +19,8 @@ export function TimelineEntry({
   location,
   bullets,
   note,
+  isActive,
+  isLast,
 }: TimelineEntryProps): ReactElement {
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-[10rem_1fr] sm:gap-8">
@@ -28,13 +32,13 @@ export function TimelineEntry({
       </div>
 
       {/* Content column with vertical line indicator */}
-      <div className="relative border-s border-border-subtle ps-6 pb-10 last:pb-0">
+      <div className={cn("relative border-s border-border-subtle ps-6", isLast ? "pb-0" : "pb-14")}>
         {/* Dot on the timeline line */}
         <span
           aria-hidden="true"
           className={cn(
-            "absolute -start-[5px] top-1.5 size-2.5 rounded-full",
-            "bg-surface-0 border-2 border-brand",
+            "absolute -start-[5px] top-1.5 size-2.5 rounded-full border-2 border-brand transition-colors duration-200",
+            isActive ? "bg-brand" : "bg-surface-0",
           )}
         />
 

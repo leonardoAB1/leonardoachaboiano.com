@@ -84,6 +84,7 @@
     "location": "Basel, Schweiz",
     "download": "Lebenslauf herunterladen (PDF)",
     "sections": {
+      "careerHistory": "Karriereverlauf",
       "work": "Berufserfahrung",
       "education": "Ausbildung",
       "skills": "Fähigkeiten",
@@ -265,7 +266,7 @@
       "rotaryExchange": {
         "role": "Austauschschüler",
         "location": "Kamloops, BC, Kanada",
-        "note": "Botschafter des Rotary-Jugendaustauschs"
+        "note": "Botschafter des Rotary-Jugendaustauschs\nCanadian Dogwood Diploma"
       },
       "laSalle": {
         "role": "Primar- und Sekundarbildung",

@@ -84,6 +84,7 @@
     "location": "Basilea, Svizzera",
     "download": "Scarica il CV (PDF)",
     "sections": {
+      "careerHistory": "Carriera",
       "work": "Esperienza Lavorativa",
       "education": "Istruzione",
       "skills": "Competenze",
@@ -271,7 +272,7 @@
       "rotaryExchange": {
         "role": "Studente in Scambio",
         "location": "Kamloops, BC, Canada",
-        "note": "Ambasciatore dello Scambio Giovanile Rotary"
+        "note": "Ambasciatore dello Scambio Giovanile Rotary\nCanadian Dogwood Diploma"
       },
       "laSalle": {
         "role": "Istruzione Primaria e Secondaria",
