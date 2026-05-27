@@ -141,8 +141,9 @@ export function CVContent(): ReactElement {
         <AnimatedSection>
           <Eyebrow className="mb-6">{t("sections.careerHistory")}</Eyebrow>
           <div>
-            {allEntries.map((entry) => {
+            {allEntries.map((entry, idx) => {
               const isActive = selectedIndex === entry.originalIndex;
+              const isLast = idx === allEntries.length - 1;
               return (
                 <button
                   key={entry.id}
@@ -162,6 +163,7 @@ export function CVContent(): ReactElement {
                     bullets={entry.bullets}
                     note={entry.note}
                     isActive={isActive}
+                    isLast={isLast}
                   />
                 </button>
               );
