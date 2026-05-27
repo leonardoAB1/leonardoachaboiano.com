@@ -128,12 +128,4 @@ body {
     );
   }
 
-  .hero-globe-mask {
-    -webkit-mask-image: radial-gradient(
-      circle at center,
-      black 52%,
-      transparent 72%
-    );
-    mask-image: radial-gradient(circle at center, black 52%, transparent 72%);
-  }
 }
