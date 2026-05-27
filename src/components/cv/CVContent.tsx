@@ -113,19 +113,13 @@ export function CVContent(): ReactElement {
   const tAchievements = useTranslations("Achievements");
   const locale = useLocale();
 
-  // All entries resolved once. Each carries its original array index so clicks
-  // map to the correct globe marker regardless of filtering.
+  // All entries resolved once - same set as the hero, no cvVisible filtering.
+  // Each carries its original array index so clicks map to the correct globe
+  // marker.
   const allEntries = timelineEntries.map((e, i) => ({
     ...resolveTimelineEntry(e, tTimeline, locale),
     originalIndex: i,
   }));
-
-  const workEntries = allEntries.filter(
-    (e) => e.type === "work" && e.cvVisible !== false,
-  );
-  const educationEntries = allEntries.filter(
-    (e) => e.type === "education" && e.cvVisible !== false,
-  );
 
   // Start downloading the globe bundle and its heavy deps immediately on mount
   // so they are in the browser cache when GlobeVisualization renders.
@@ -143,11 +137,11 @@ export function CVContent(): ReactElement {
     <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-[1fr_22rem] lg:gap-x-12">
       {/* Left column: career history + education + skills */}
       <div className="space-y-10">
-        {/* Career History - interactive entries linked to the globe */}
+        {/* Career History - all entries, interactive, linked to the globe */}
         <AnimatedSection>
           <Eyebrow className="mb-6">{t("sections.careerHistory")}</Eyebrow>
           <div>
-            {workEntries.map((entry) => {
+            {allEntries.map((entry) => {
               const isActive = selectedIndex === entry.originalIndex;
               return (
                 <button
@@ -177,27 +171,8 @@ export function CVContent(): ReactElement {
 
         <Separator />
 
-        {/* Education */}
-        <AnimatedSection delay={0.05}>
-          <Eyebrow className="mb-6">{t("sections.education")}</Eyebrow>
-          <div>
-            {educationEntries.map((entry) => (
-              <TimelineEntry
-                key={entry.id}
-                dateRange={entry.dateRange}
-                role={entry.role}
-                org={entry.org}
-                location={entry.location}
-                note={entry.note}
-              />
-            ))}
-          </div>
-        </AnimatedSection>
-
-        <Separator />
-
         {/* Skills */}
-        <AnimatedSection delay={0.1}>
+        <AnimatedSection delay={0.05}>
           <Eyebrow className="mb-6">{t("sections.skills")}</Eyebrow>
           <div className="space-y-6">
             {skillGroups.map(({ categoryKey, skills }) => (
