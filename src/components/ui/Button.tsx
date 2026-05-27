@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border-brand bg-brand text-white hover:border-brand-dim hover:bg-brand-dim",
+    "border-transparent bg-brand text-white hover:bg-brand-dim",
   secondary:
     "border-border bg-surface-0 text-ink-1 hover:border-ink-4 hover:bg-surface-1",
   ghost:
