@@ -45,7 +45,14 @@ const skillGroups: { categoryKey: string; skills: string[] }[] = [
   },
   {
     categoryKey: "electronicsPcb",
-    skills: ["KiCad", "Altium", "Proteus", "LTSpice", "Breadboarding", "Soldering"],
+    skills: [
+      "KiCad",
+      "Altium",
+      "Proteus",
+      "LTSpice",
+      "Breadboarding",
+      "Soldering",
+    ],
   },
   {
     categoryKey: "mechanicalDesign",
@@ -62,7 +69,15 @@ const skillGroups: { categoryKey: string; skills: string[] }[] = [
   },
   {
     categoryKey: "tools",
-    skills: ["Git/GitHub", "MATLAB", "PLC (Tia Portal)", "Ladder", "FBD", "P&ID", "FluidSIM"],
+    skills: [
+      "Git/GitHub",
+      "MATLAB",
+      "PLC (Tia Portal)",
+      "Ladder",
+      "FBD",
+      "P&ID",
+      "FluidSIM",
+    ],
   },
 ];
 
@@ -167,7 +182,10 @@ export function CVContent(): ReactElement {
     const topMargin = 8;
     const bottomMargin = container.clientHeight * 0.3;
     if (i.top < c.top + topMargin) {
-      container.scrollBy({ top: i.top - c.top - topMargin, behavior: "smooth" });
+      container.scrollBy({
+        top: i.top - c.top - topMargin,
+        behavior: "smooth",
+      });
     } else if (i.bottom > c.bottom - bottomMargin) {
       container.scrollBy({
         top: i.bottom - c.bottom + bottomMargin,
