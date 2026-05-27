@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.3...v1.3.0) (2026-05-27)
+
+
+### Features
+
+* move interactive globe and timeline to cv page ([#184](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/184)) ([1d70281](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1d70281d5d6af1731edc995925ae0a71b331089b))
+
 ## [1.2.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.2...v1.2.3) (2026-05-27)
 
 
