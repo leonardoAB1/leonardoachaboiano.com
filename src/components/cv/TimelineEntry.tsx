@@ -8,6 +8,7 @@ interface TimelineEntryProps {
   location: string;
   bullets?: readonly string[];
   note?: string;
+  isActive?: boolean;
 }
 
 export function TimelineEntry({
@@ -17,6 +18,7 @@ export function TimelineEntry({
   location,
   bullets,
   note,
+  isActive,
 }: TimelineEntryProps): ReactElement {
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-[10rem_1fr] sm:gap-8">
@@ -33,8 +35,8 @@ export function TimelineEntry({
         <span
           aria-hidden="true"
           className={cn(
-            "absolute -start-[5px] top-1.5 size-2.5 rounded-full",
-            "bg-surface-0 border-2 border-brand",
+            "absolute -start-[5px] top-1.5 size-2.5 rounded-full border-2 border-brand transition-colors duration-200",
+            isActive ? "bg-brand" : "bg-surface-0",
           )}
         />
 

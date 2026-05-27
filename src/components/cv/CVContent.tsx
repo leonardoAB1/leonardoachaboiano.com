@@ -4,13 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  type ReactElement,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { type ReactElement, useEffect, useState } from "react";
 import { SkillBadge } from "@/components/cv/SkillBadge";
 import { TimelineEntry } from "@/components/cv/TimelineEntry";
 import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
@@ -30,8 +24,7 @@ const GlobeVisualization = dynamic(
 );
 
 // ---------------------------------------------------------------------------
-// Static non-translatable data (category/language/achievement ids key into
-// message namespaces; skill tokens and flag codes are not translated)
+// Static non-translatable data
 // ---------------------------------------------------------------------------
 
 const skillGroups: { categoryKey: string; skills: string[] }[] = [
@@ -98,22 +91,8 @@ const languages = [
 ] as const;
 
 // ---------------------------------------------------------------------------
-// Animation variants (copied from Hero.tsx)
+// Animation variants
 // ---------------------------------------------------------------------------
-
-const timelineContainer: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
-};
-
-const timelineItem: Variants = {
-  hidden: { opacity: 0, x: 12 },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  },
-};
 
 const globeSlide: Variants = {
   hidden: { opacity: 0, x: 12 },
@@ -128,22 +107,18 @@ const globeSlide: Variants = {
 
 export function CVContent(): ReactElement {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [showFade, setShowFade] = useState(true);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  // One ref per timeline <li> so a globe-marker click can scroll the chosen
-  // entry into view inside the scroll container.
-  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   const t = useTranslations("CV");
   const tTimeline = useTranslations("Timeline");
   const tAchievements = useTranslations("Achievements");
   const locale = useLocale();
 
-  // All 9 entries resolved once - reused for both the interactive timeline
-  // list / globe and the filtered detailed sections below.
-  const allEntries = timelineEntries.map((e) =>
-    resolveTimelineEntry(e, tTimeline, locale),
-  );
+  // All entries resolved once. Each carries its original array index so clicks
+  // map to the correct globe marker regardless of filtering.
+  const allEntries = timelineEntries.map((e, i) => ({
+    ...resolveTimelineEntry(e, tTimeline, locale),
+    originalIndex: i,
+  }));
 
   const workEntries = allEntries.filter(
     (e) => e.type === "work" && e.cvVisible !== false,
@@ -160,147 +135,50 @@ export function CVContent(): ReactElement {
     void import("three-globe");
   }, []);
 
-  const handleTimelineScroll = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setShowFade(el.scrollTop + el.clientHeight < el.scrollHeight - 4);
-  }, []);
-
   const handleSelect = (index: number) => {
     setSelectedIndex(index);
   };
 
-  // Keep the selected entry visible in the timeline list. A globe-marker click
-  // can select an entry that is scrolled out of view, so nudge the container
-  // just enough to reveal it. The bottom margin matches the fade mask zone.
-  useEffect(() => {
-    const container = scrollRef.current;
-    const item = itemRefs.current[selectedIndex];
-    if (!container || !item) return;
-    const c = container.getBoundingClientRect();
-    const i = item.getBoundingClientRect();
-    const topMargin = 8;
-    const bottomMargin = container.clientHeight * 0.3;
-    if (i.top < c.top + topMargin) {
-      container.scrollBy({
-        top: i.top - c.top - topMargin,
-        behavior: "smooth",
-      });
-    } else if (i.bottom > c.bottom - bottomMargin) {
-      container.scrollBy({
-        top: i.bottom - c.bottom + bottomMargin,
-        behavior: "smooth",
-      });
-    }
-  }, [selectedIndex]);
-
   return (
     <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-[1fr_22rem] lg:gap-x-12">
-      {/* Left column: interactive timeline navigator + detailed CV sections */}
+      {/* Left column: career history + education + skills */}
       <div className="space-y-10">
-        {/* Career history: interactive timeline list that drives the globe */}
-        <div>
+        {/* Career History - interactive entries linked to the globe */}
+        <AnimatedSection>
           <Eyebrow className="mb-6">{t("sections.careerHistory")}</Eyebrow>
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={timelineContainer}
-          >
-            <div
-              ref={scrollRef}
-              onScroll={handleTimelineScroll}
-              className="max-h-[28rem] overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-              style={
-                showFade
-                  ? {
-                      WebkitMaskImage:
-                        "linear-gradient(to bottom, black 70%, transparent 100%)",
-                      maskImage:
-                        "linear-gradient(to bottom, black 70%, transparent 100%)",
-                    }
-                  : undefined
-              }
-            >
-              <div className="relative">
-                <div
-                  aria-hidden="true"
-                  className="absolute start-[7px] top-2 h-[calc(100%-1rem)] w-px bg-border"
-                />
-                <ul className="flex flex-col gap-6">
-                  {allEntries.map((entry, index) => {
-                    const isActive = index === selectedIndex;
-                    return (
-                      <motion.li
-                        key={entry.id}
-                        ref={(el) => {
-                          itemRefs.current[index] = el;
-                        }}
-                        variants={timelineItem}
-                        className="relative flex gap-5 ps-8"
-                      >
-                        <div
-                          aria-hidden="true"
-                          className={cn(
-                            "absolute start-0 top-[6px] h-3 w-3 rounded-full border-2 border-brand transition-colors duration-200",
-                            isActive ? "bg-brand" : "bg-surface-0",
-                          )}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleSelect(index)}
-                          className={cn(
-                            "flex w-full flex-col gap-0.5 text-start transition-opacity duration-200",
-                            !isActive && "opacity-50 hover:opacity-80",
-                          )}
-                          aria-pressed={isActive}
-                        >
-                          <span className="text-xs text-ink-4">
-                            {entry.dateRange}
-                          </span>
-                          <p className="text-sm font-semibold text-ink-1">
-                            {entry.role}
-                          </p>
-                          <p className="text-xs text-ink-2">
-                            {entry.org}&nbsp;&middot;&nbsp;{entry.location}
-                          </p>
-                          {entry.note && (
-                            <p className="text-xs text-ink-3">{entry.note}</p>
-                          )}
-                        </button>
-                      </motion.li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        <Separator />
-
-        {/* Work Experience */}
-        <AnimatedSection delay={0.05}>
-          <Eyebrow className="mb-6">{t("sections.work")}</Eyebrow>
           <div>
-            {workEntries.map((entry) => (
-              <TimelineEntry
-                key={entry.id}
-                dateRange={entry.dateRange}
-                role={entry.role}
-                org={entry.org}
-                location={entry.location}
-                bullets={entry.bullets}
-                note={entry.note}
-              />
-            ))}
+            {workEntries.map((entry) => {
+              const isActive = selectedIndex === entry.originalIndex;
+              return (
+                <button
+                  key={entry.id}
+                  type="button"
+                  onClick={() => handleSelect(entry.originalIndex)}
+                  className={cn(
+                    "w-full text-start transition-opacity duration-200",
+                    !isActive && "opacity-50 hover:opacity-80",
+                  )}
+                  aria-pressed={isActive}
+                >
+                  <TimelineEntry
+                    dateRange={entry.dateRange}
+                    role={entry.role}
+                    org={entry.org}
+                    location={entry.location}
+                    bullets={entry.bullets}
+                    note={entry.note}
+                    isActive={isActive}
+                  />
+                </button>
+              );
+            })}
           </div>
         </AnimatedSection>
 
         <Separator />
 
         {/* Education */}
-        <AnimatedSection delay={0.1}>
+        <AnimatedSection delay={0.05}>
           <Eyebrow className="mb-6">{t("sections.education")}</Eyebrow>
           <div>
             {educationEntries.map((entry) => (
@@ -341,9 +219,7 @@ export function CVContent(): ReactElement {
         </AnimatedSection>
       </div>
 
-      {/* Right column: globe (desktop only) + languages/achievements panel.
-          The globe is hidden on mobile; the panel always renders and stacks
-          below the left column on narrow screens. */}
+      {/* Right column: globe (desktop only) + languages/achievements panel */}
       <div className="lg:sticky lg:top-14 lg:self-start lg:flex lg:flex-col lg:h-[calc(100svh-3.5rem)]">
         {/* Globe: desktop only - hidden on mobile */}
         <motion.div
@@ -360,8 +236,7 @@ export function CVContent(): ReactElement {
           />
         </motion.div>
 
-        {/* Languages and Achievements: scrolls internally on desktop so the
-            globe always stays visible at the top of the sticky column */}
+        {/* Languages and Achievements panel - scrollable on desktop */}
         <div className="space-y-8 pt-6 lg:flex-1 lg:overflow-y-auto lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden">
           <AnimatedSection delay={0.15}>
             <Eyebrow className="mb-6">{t("sections.languages")}</Eyebrow>
