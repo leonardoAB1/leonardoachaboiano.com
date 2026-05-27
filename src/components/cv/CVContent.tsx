@@ -4,7 +4,7 @@ import { motion, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { type ReactElement, useEffect, useState } from "react";
+import { type ReactElement, useEffect, useRef, useState } from "react";
 import { SkillBadge } from "@/components/cv/SkillBadge";
 import { TimelineEntry } from "@/components/cv/TimelineEntry";
 import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
@@ -107,6 +107,7 @@ const globeSlide: Variants = {
 
 export function CVContent(): ReactElement {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const t = useTranslations("CV");
   const tTimeline = useTranslations("Timeline");
@@ -131,6 +132,10 @@ export function CVContent(): ReactElement {
 
   const handleSelect = (index: number) => {
     setSelectedIndex(index);
+    itemRefs.current[index]?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
   };
 
   return (
@@ -147,6 +152,9 @@ export function CVContent(): ReactElement {
               return (
                 <button
                   key={entry.id}
+                  ref={(el) => {
+                    itemRefs.current[entry.originalIndex] = el;
+                  }}
                   type="button"
                   onClick={() => handleSelect(entry.originalIndex)}
                   className={cn(
