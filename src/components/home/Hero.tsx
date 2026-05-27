@@ -57,16 +57,16 @@ export function Hero(): ReactElement {
         />
       </motion.div>
 
-      {/* Desktop: horizontal fade — opaque on the left where text lives, transparent on the right */}
+      {/* Desktop: horizontal fade — fully opaque on the left, light wash on the right */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-surface-0 via-surface-0/70 to-transparent lg:block"
+        className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-surface-0 via-surface-0/90 to-surface-0/20 lg:block"
       />
 
-      {/* Mobile/tablet: vertical fade — opaque at bottom, fades toward portrait at top */}
+      {/* Mobile/tablet: vertical fade — fully opaque at bottom, light wash at top */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-0 via-surface-0/80 to-transparent lg:hidden"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-0 via-surface-0/90 to-surface-0/30 lg:hidden"
       />
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
