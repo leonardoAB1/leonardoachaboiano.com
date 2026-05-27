@@ -49,7 +49,9 @@ export function Navbar(): ReactElement {
             {navLinks.map((link) => (
               <li
                 key={link.href}
-                className={cn(link.key === "contact" && "hidden min-[320px]:block")}
+                className={cn(
+                  link.key === "contact" && "hidden min-[320px]:block",
+                )}
               >
                 <Link
                   href={link.href}

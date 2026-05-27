@@ -40,7 +40,9 @@ export function TimelineEntry({
 
         <p className="text-base font-semibold text-ink-1">{role}</p>
         <p className="mt-0.5 text-sm font-medium text-brand">{org}</p>
-        <p className="mt-0.5 text-[clamp(0.75rem,3.5vw,0.875rem)] text-ink-4">{location}</p>
+        <p className="mt-0.5 text-[clamp(0.75rem,3.5vw,0.875rem)] text-ink-4">
+          {location}
+        </p>
 
         {bullets && bullets.length > 0 && (
           <ul className="mt-3 space-y-1.5">
@@ -59,7 +61,11 @@ export function TimelineEntry({
           </ul>
         )}
 
-        {note && <p className="mt-3 text-[clamp(0.75rem,3.5vw,0.875rem)] italic text-ink-3 whitespace-pre-line">{note}</p>}
+        {note && (
+          <p className="mt-3 text-[clamp(0.75rem,3.5vw,0.875rem)] italic text-ink-3 whitespace-pre-line">
+            {note}
+          </p>
+        )}
       </div>
     </div>
   );
