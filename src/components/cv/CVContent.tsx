@@ -138,7 +138,7 @@ export function CVContent(): ReactElement {
     const target =
       window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2;
     animate(window.scrollY, target, {
-      duration: 0.8,
+      duration: 1.4,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (v) => window.scrollTo(0, v),
     });
