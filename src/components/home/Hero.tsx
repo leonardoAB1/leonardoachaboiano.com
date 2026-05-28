@@ -53,9 +53,10 @@ export function Hero(): ReactElement {
           fill
           className="object-cover object-center lg:object-right-top"
           priority
+          quality={90}
           placeholder="blur"
           blurDataURL="data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoKAAcAAoBCJagCdAEPDXkosAD+6/tYvsYx6jubpP0KAfwYHfz0mzz5AAA="
-          sizes="(max-width: 1024px) 100vw, 65vw"
+          sizes="100vw"
         />
       </motion.div>
 
