@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.3.0...v1.4.0) (2026-05-28)
+
+
+### Features
+
+* refactor hero with portrait as main visual anchor ([#186](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/186)) ([0bc6896](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/0bc689690fbf8e6661c6c285313a129bb581747e))
+
 ## [1.3.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.2.3...v1.3.0) (2026-05-27)
 
 
