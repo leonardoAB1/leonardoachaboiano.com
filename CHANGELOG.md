@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.4.0...v1.4.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* reformat TimelineEntry className to pass biome check ([#188](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/188)) ([c967d16](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/c967d165faf9f3a92d585336757846ad0e66662d))
+
 ## [1.4.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.3.0...v1.4.0) (2026-05-28)
 
 
