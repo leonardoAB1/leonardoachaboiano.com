@@ -7,7 +7,11 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { type Locale, routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-export function LanguageSwitcher(): ReactElement {
+export function LanguageSwitcher({
+  className,
+}: {
+  className?: string;
+}): ReactElement {
   const locale = useLocale();
   const t = useTranslations("LanguageSwitcher");
   const router = useRouter();
@@ -55,6 +59,7 @@ export function LanguageSwitcher(): ReactElement {
           "inline-flex h-9 items-center gap-1 rounded-md px-2",
           "text-sm font-medium text-ink-3 transition-colors",
           "hover:bg-surface-1 hover:text-ink-1",
+          className,
           "focus-visible:outline focus-visible:outline-2",
           "focus-visible:outline-offset-2 focus-visible:outline-brand",
         )}

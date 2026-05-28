@@ -13,6 +13,7 @@ export function Navbar(): ReactElement {
   const pathname = usePathname();
   const t = useTranslations("Nav");
   const scrolled = useScrolled();
+  const overHero = pathname === "/" && !scrolled;
 
   return (
     <header
@@ -34,8 +35,10 @@ export function Navbar(): ReactElement {
         <Link
           href="/"
           className={cn(
-            "text-sm font-semibold tracking-tight",
-            "text-ink-1 transition-colors hover:text-brand",
+            "text-sm font-semibold tracking-tight transition-colors",
+            overHero
+              ? "text-white hover:text-white/80"
+              : "text-ink-1 hover:text-brand",
           )}
         >
           <span className="hidden sm:inline">{siteConfig.name}</span>
@@ -56,9 +59,15 @@ export function Navbar(): ReactElement {
                 <Link
                   href={link.href}
                   className={cn(
-                    "text-sm uppercase tracking-widest transition-colors hover:text-ink-1",
-                    pathname === link.href && "font-medium text-ink-1",
-                    pathname !== link.href && "text-ink-3",
+                    "text-sm uppercase tracking-widest transition-colors",
+                    overHero
+                      ? "text-white/70 hover:text-white"
+                      : cn(
+                          "hover:text-ink-1",
+                          pathname === link.href
+                            ? "font-medium text-ink-1"
+                            : "text-ink-3",
+                        ),
                   )}
                 >
                   {t(link.key)}
@@ -67,10 +76,22 @@ export function Navbar(): ReactElement {
             ))}
           </ul>
           <div className="hidden min-[380px]:block">
-            <LanguageSwitcher />
+            <LanguageSwitcher
+              className={
+                overHero
+                  ? "text-white/70 hover:bg-white/10 hover:text-white"
+                  : undefined
+              }
+            />
           </div>
           <div className="hidden sm:block">
-            <ThemeToggle />
+            <ThemeToggle
+              className={
+                overHero
+                  ? "text-white/70 hover:bg-white/10 hover:text-white"
+                  : undefined
+              }
+            />
           </div>
         </div>
       </nav>
