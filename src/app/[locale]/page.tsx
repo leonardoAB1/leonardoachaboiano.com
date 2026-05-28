@@ -1,10 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import type { ReactElement } from "react";
-import { ContactCTA } from "@/components/home/ContactCTA";
 import { EngineeringPhilosophy } from "@/components/home/EngineeringPhilosophy";
-import { FeaturedProjects } from "@/components/home/FeaturedProjects";
 import { Hero } from "@/components/home/Hero";
-import { TechnicalDomains } from "@/components/home/TechnicalDomains";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -28,9 +25,6 @@ export default async function HomePage({
       <div aria-hidden="true" className={backgroundWashClasses} />
       <Hero />
       <EngineeringPhilosophy />
-      <TechnicalDomains />
-      <FeaturedProjects />
-      <ContactCTA />
     </div>
   );
 }
