@@ -6,7 +6,11 @@ import { useTheme } from "next-themes";
 import { type ReactElement, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
-export function ThemeToggle(): ReactElement {
+export function ThemeToggle({
+  className,
+}: {
+  className?: string;
+}): ReactElement {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const t = useTranslations("ThemeToggle");
@@ -33,6 +37,7 @@ export function ThemeToggle(): ReactElement {
       className={cn(
         "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md",
         "text-ink-3 transition-colors hover:bg-surface-1 hover:text-ink-1",
+        className,
         "focus-visible:outline focus-visible:outline-2",
         "focus-visible:outline-offset-2",
         "focus-visible:outline-brand",

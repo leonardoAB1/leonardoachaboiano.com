@@ -76,10 +76,22 @@ export function Navbar(): ReactElement {
             ))}
           </ul>
           <div className="hidden min-[380px]:block">
-            <LanguageSwitcher />
+            <LanguageSwitcher
+              className={
+                overHero
+                  ? "text-white/70 hover:bg-white/10 hover:text-white"
+                  : undefined
+              }
+            />
           </div>
           <div className="hidden sm:block">
-            <ThemeToggle />
+            <ThemeToggle
+              className={
+                overHero
+                  ? "text-white/70 hover:bg-white/10 hover:text-white"
+                  : undefined
+              }
+            />
           </div>
         </div>
       </nav>
