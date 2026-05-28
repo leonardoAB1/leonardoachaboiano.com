@@ -51,25 +51,13 @@ export function Hero(): ReactElement {
           src="/images/portrait-hero.webp"
           alt=""
           fill
-          className="object-cover object-[60%_top] lg:object-right-top"
+          className="object-cover object-right-top"
           priority
           placeholder="blur"
-          blurDataURL="data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoKAAcAAoBCJYwCdADcEZKsjAD4VsSOg4Zt1QoIdZCBYmuVjYAAAA=="
+          blurDataURL="data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoKAAcAAoBCJagCdAEPDXkosAD+6/tYvsYx6jubpP0KAfwYHfz0mzz5AAA="
           sizes="(max-width: 1024px) 100vw, 65vw"
         />
       </motion.div>
-
-      {/* Desktop: horizontal fade — fully opaque on the left, light wash on the right */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-surface-0 via-surface-0/90 to-surface-0/20 lg:block"
-      />
-
-      {/* Mobile/tablet: vertical fade — fully opaque at bottom, light wash at top */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-0 via-surface-0/90 to-surface-0/30 lg:hidden"
-      />
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
       <Container className="relative max-w-7xl">
@@ -112,6 +100,7 @@ export function Hero(): ReactElement {
             <Link
               className={cn(
                 buttonClasses({ size: "lg", variant: "secondary" }),
+                "border-white/70 text-white hover:border-white hover:bg-white/10",
                 "text-center",
               )}
               href="/contact"
