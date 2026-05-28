@@ -38,8 +38,8 @@ export function Hero(): ReactElement {
   const tCommon = useTranslations("Common");
 
   return (
-    <Section className="relative flex min-h-svh flex-col justify-center overflow-hidden pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)]">
-      {/* Portrait — absolute fill behind all content, focal point right-of-center */}
+    <Section className="relative flex min-h-svh flex-col justify-end overflow-hidden pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
+      {/* Portrait — face centered on mobile, right-anchored on desktop */}
       <motion.div
         className="absolute inset-0"
         aria-hidden="true"
@@ -51,7 +51,7 @@ export function Hero(): ReactElement {
           src="/images/portrait-hero.webp"
           alt=""
           fill
-          className="object-cover object-right-top"
+          className="object-cover object-center lg:object-right-top"
           priority
           placeholder="blur"
           blurDataURL="data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoKAAcAAoBCJagCdAEPDXkosAD+6/tYvsYx6jubpP0KAfwYHfz0mzz5AAA="
@@ -68,19 +68,19 @@ export function Hero(): ReactElement {
           variants={container}
         >
           <motion.div variants={item}>
-            <Eyebrow>{tCommon("role")}</Eyebrow>
+            <Eyebrow className="text-white/70">{tCommon("role")}</Eyebrow>
           </motion.div>
           <motion.div variants={item}>
             <Heading
               as="h1"
               size="xl"
-              className="break-words [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
+              className="break-words text-white [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
             >
               {t("heading")}
             </Heading>
           </motion.div>
           <motion.div variants={item}>
-            <Text className="text-ink-2" size="lg">
+            <Text className="text-white/80" size="lg">
               {t("intro")}
             </Text>
           </motion.div>
@@ -91,6 +91,7 @@ export function Hero(): ReactElement {
             <Link
               className={cn(
                 buttonClasses({ size: "lg", variant: "primary" }),
+                "bg-white text-brand hover:bg-white/90",
                 "text-center",
               )}
               href="/cv"
