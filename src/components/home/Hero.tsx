@@ -38,8 +38,8 @@ export function Hero(): ReactElement {
   const tCommon = useTranslations("Common");
 
   return (
-    <Section className="relative flex min-h-svh flex-col overflow-hidden pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
-      {/* Portrait — face centered on mobile, right-anchored on desktop */}
+    <Section className="relative flex min-h-svh flex-col overflow-hidden bg-[#02777C] pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
+      {/* Portrait — sky-focused on mobile, right-anchored on desktop */}
       <motion.div
         className="absolute inset-0"
         aria-hidden="true"
@@ -47,15 +47,24 @@ export function Hero(): ReactElement {
         animate="show"
         variants={portraitVariants}
       >
+        {/* Mobile: object-top frames the sky above the face */}
         <Image
           src="/images/portrait-hero.webp"
           alt=""
           fill
-          className="object-cover object-center lg:object-right-top"
+          className="object-cover object-top lg:hidden"
           priority
-          quality={90}
-          placeholder="blur"
-          blurDataURL="data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoKAAcAAoBCJagCdAEPDXkosAD+6/tYvsYx6jubpP0KAfwYHfz0mzz5AAA="
+          quality={75}
+          sizes="100vw"
+        />
+        {/* Desktop: face anchored to the right */}
+        <Image
+          src="/images/portrait-hero.webp"
+          alt=""
+          fill
+          className="hidden object-cover object-right-top lg:block"
+          priority
+          quality={75}
           sizes="100vw"
         />
       </motion.div>
