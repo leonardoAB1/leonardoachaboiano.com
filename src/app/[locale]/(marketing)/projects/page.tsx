@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement } from "react";
-import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
+import { ProjectsGrid } from "@/components/projects/ProjectsGrid";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import type { Locale } from "@/i18n/routing";
