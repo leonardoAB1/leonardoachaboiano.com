@@ -25,14 +25,6 @@ const item: Variants = {
   },
 };
 
-const portraitVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 },
-  },
-};
-
 export function Hero(): ReactElement {
   const t = useTranslations("Home.Hero");
   const tCommon = useTranslations("Common");
@@ -40,13 +32,7 @@ export function Hero(): ReactElement {
   return (
     <Section className="relative flex min-h-svh flex-col overflow-hidden bg-[#02777C] pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
       {/* Portrait — sky-focused on mobile, right-anchored on desktop */}
-      <motion.div
-        className="absolute inset-0"
-        aria-hidden="true"
-        initial="hidden"
-        animate="show"
-        variants={portraitVariants}
-      >
+      <div className="absolute inset-0" aria-hidden="true">
         {/* Mobile: object-top frames the sky above the face */}
         <Image
           src="/images/portrait-hero.webp"
@@ -67,7 +53,7 @@ export function Hero(): ReactElement {
           quality={75}
           sizes="100vw"
         />
-      </motion.div>
+      </div>
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
       <Container className="relative flex flex-1 flex-col max-w-7xl lg:block">
