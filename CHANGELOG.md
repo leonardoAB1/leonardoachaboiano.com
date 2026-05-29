@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.5.1...v1.6.0) (2026-05-29)
+
+
+### Features
+
+* replace navbar responsive hiding with hamburger menu on mobile ([#199](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/199)) ([e24697c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/e24697c631bd52b786cf1a36ebc05c65261f962a))
+
 ## [1.5.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.5.0...v1.5.1) (2026-05-29)
 
 
