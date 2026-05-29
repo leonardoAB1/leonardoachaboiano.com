@@ -25,45 +25,40 @@ const item: Variants = {
   },
 };
 
-const portraitVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 },
-  },
-};
-
 export function Hero(): ReactElement {
   const t = useTranslations("Home.Hero");
   const tCommon = useTranslations("Common");
 
   return (
-    <Section className="relative flex min-h-svh flex-col justify-end overflow-hidden pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
-      {/* Portrait — face centered on mobile, right-anchored on desktop */}
-      <motion.div
-        className="absolute inset-0"
-        aria-hidden="true"
-        initial="hidden"
-        animate="show"
-        variants={portraitVariants}
-      >
+    <Section className="relative flex min-h-svh flex-col overflow-hidden bg-[#02777C] pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
+      {/* Portrait — sky-focused on mobile, right-anchored on desktop */}
+      <div className="absolute inset-0" aria-hidden="true">
+        {/* Mobile: object-top frames the sky above the face */}
         <Image
           src="/images/portrait-hero.webp"
           alt=""
           fill
-          className="object-cover object-center lg:object-right-top"
+          className="object-cover object-top lg:hidden"
           priority
-          quality={90}
-          placeholder="blur"
-          blurDataURL="data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADQAQCdASoKAAcAAoBCJagCdAEPDXkosAD+6/tYvsYx6jubpP0KAfwYHfz0mzz5AAA="
+          quality={75}
           sizes="100vw"
         />
-      </motion.div>
+        {/* Desktop: face anchored to the right */}
+        <Image
+          src="/images/portrait-hero.webp"
+          alt=""
+          fill
+          className="hidden object-cover object-right-top lg:block"
+          priority
+          quality={75}
+          sizes="100vw"
+        />
+      </div>
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
-      <Container className="relative max-w-7xl">
+      <Container className="relative flex flex-1 flex-col max-w-7xl lg:block">
         <motion.div
-          className="flex max-w-xl flex-col gap-8"
+          className="flex flex-1 flex-col gap-8 max-w-xl lg:flex-none"
           initial="hidden"
           animate="show"
           variants={container}
@@ -87,7 +82,7 @@ export function Hero(): ReactElement {
           </motion.div>
           <motion.div
             variants={item}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+            className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 mt-auto lg:mt-0"
           >
             <Link
               className={cn(
