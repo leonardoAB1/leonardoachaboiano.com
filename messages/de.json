@@ -5,6 +5,7 @@
   },
   "Nav": {
     "ariaLabel": "Hauptnavigation",
+    "projects": "Projekte",
     "cv": "Lebenslauf",
     "contact": "Kontakt"
   },
@@ -202,7 +203,12 @@
     "covidApp": {
       "title": "Coronavirus-Daten-App",
       "description": "GUI-App zum Abfragen, Visualisieren und Vergleichen von COVID-19-Daten verschiedener Länder mithilfe öffentlicher APIs und gängiger Python-Datenbibliotheken"
-    }
+    },
+    "metaTitle": "Projekte",
+    "metaDescription": "Engineering-Portfolio von Leonardo Acha Boiano - Robotik, eingebettete Systeme, Leiterplattendesign und Maschinenbau",
+    "eyebrow": "Portfolio",
+    "heading": "Projekte",
+    "description": "Eine Auswahl von Ingenieurprojekten aus den Bereichen Robotik, eingebettete Systeme, Elektronik und Maschinenbau"
   },
   "Posts": {
     "smdHotPlate": {
