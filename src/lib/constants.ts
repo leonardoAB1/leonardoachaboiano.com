@@ -38,9 +38,9 @@ export const ogLocales = {
 // in the navbar. "href" is locale-agnostic - the locale-aware Link adds the
 // active prefix.
 export const navLinks = [
-  { key: "projects", href: "/projects" },
   { key: "cv", href: "/cv" },
   { key: "contact", href: "/contact" },
+  { key: "projects", href: "/projects" },
 ] as const;
 
 export const socialLinks = {
