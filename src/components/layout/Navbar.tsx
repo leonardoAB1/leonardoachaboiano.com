@@ -47,15 +47,10 @@ export function Navbar(): ReactElement {
           </span>
         </Link>
 
-        <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
+        <div className="scrollbar-hide flex min-w-0 items-center gap-3 overflow-x-auto sm:gap-5 lg:gap-6">
           <ul className="flex items-center gap-3 sm:gap-5 lg:gap-6">
             {navLinks.map((link) => (
-              <li
-                key={link.href}
-                className={cn(
-                  link.key === "contact" && "hidden min-[320px]:block",
-                )}
-              >
+              <li key={link.href}>
                 <Link
                   href={link.href}
                   className={cn(
@@ -75,24 +70,20 @@ export function Navbar(): ReactElement {
               </li>
             ))}
           </ul>
-          <div className="hidden min-[380px]:block">
-            <LanguageSwitcher
-              className={
-                overHero
-                  ? "text-white/70 hover:bg-white/10 hover:text-white"
-                  : undefined
-              }
-            />
-          </div>
-          <div className="hidden sm:block">
-            <ThemeToggle
-              className={
-                overHero
-                  ? "text-white/70 hover:bg-white/10 hover:text-white"
-                  : undefined
-              }
-            />
-          </div>
+          <LanguageSwitcher
+            className={
+              overHero
+                ? "text-white/70 hover:bg-white/10 hover:text-white"
+                : undefined
+            }
+          />
+          <ThemeToggle
+            className={
+              overHero
+                ? "text-white/70 hover:bg-white/10 hover:text-white"
+                : undefined
+            }
+          />
         </div>
       </nav>
     </header>
