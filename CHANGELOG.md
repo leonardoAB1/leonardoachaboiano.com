@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.4.1...v1.5.0) (2026-05-29)
+
+
+### Features
+
+* add projects page and simplify home ([#192](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/192)) ([b207f12](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/b207f12f1e5fe2f69b7533173c92eab2ae3fca87))
+
 ## [1.4.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.4.0...v1.4.1) (2026-05-28)
 
 
