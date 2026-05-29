@@ -32,7 +32,12 @@ export function TimelineEntry({
       </div>
 
       {/* Content column with vertical line indicator */}
-      <div className={cn("relative border-s border-border-subtle ps-6", isLast ? "pb-0" : "pb-14")}>
+      <div
+        className={cn(
+          "relative border-s border-border-subtle ps-6",
+          isLast ? "pb-0" : "pb-14",
+        )}
+      >
         {/* Dot on the timeline line */}
         <span
           aria-hidden="true"
