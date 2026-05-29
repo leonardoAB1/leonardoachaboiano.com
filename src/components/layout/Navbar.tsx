@@ -43,7 +43,11 @@ export function Navbar(): ReactElement {
         >
           <span className="hidden sm:inline">{siteConfig.name}</span>
           <span className="sm:hidden">
-            Leonardo<span className="text-brand">.</span>AB
+            Leonardo
+            <span className={cn(overHero ? "text-white/80" : "text-brand")}>
+              .
+            </span>
+            AB
           </span>
         </Link>
 
