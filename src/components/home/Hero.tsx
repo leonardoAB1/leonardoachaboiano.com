@@ -61,9 +61,9 @@ export function Hero(): ReactElement {
       </motion.div>
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
-      <Container className="relative max-w-7xl">
+      <Container className="relative flex flex-1 flex-col max-w-7xl lg:block">
         <motion.div
-          className="flex max-w-xl flex-col gap-8"
+          className="flex flex-1 flex-col gap-8 max-w-xl lg:flex-none"
           initial="hidden"
           animate="show"
           variants={container}
@@ -87,7 +87,7 @@ export function Hero(): ReactElement {
           </motion.div>
           <motion.div
             variants={item}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4"
+            className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 mt-auto lg:mt-0"
           >
             <Link
               className={cn(
