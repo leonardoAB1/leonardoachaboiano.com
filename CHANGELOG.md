@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.5.0...v1.5.1) (2026-05-29)
+
+
+### Bug Fixes
+
+* correct linkedin profile slug to use hyphens ([#197](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/197)) ([1515a7c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1515a7cce67efc4694b469d19ef8672b8da126b5))
+
 ## [1.5.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.4.1...v1.5.0) (2026-05-29)
 
 
