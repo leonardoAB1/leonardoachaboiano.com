@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.6.0...v1.6.1) (2026-05-29)
+
+
+### Bug Fixes
+
+* position hero text in sky area on mobile ([#202](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/202)) ([a007330](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/a007330eb8070eb3eb7ebc97d649d8cd35a2dbfa))
+
 ## [1.6.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.5.1...v1.6.0) (2026-05-29)
 
 
