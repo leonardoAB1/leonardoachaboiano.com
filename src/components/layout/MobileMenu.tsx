@@ -10,11 +10,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { navLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-export function MobileMenu({
-  overHero,
-}: {
-  overHero: boolean;
-}): ReactElement {
+export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("Nav");
