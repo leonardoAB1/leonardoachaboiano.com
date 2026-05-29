@@ -34,7 +34,7 @@ export function MobileMenu({
     };
   }, [isOpen]);
 
-  function close() {
+  function closeMenu() {
     setIsOpen(false);
   }
 
@@ -67,7 +67,7 @@ export function MobileMenu({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               className="fixed inset-0 z-[55] bg-black/30 backdrop-blur-sm"
-              onClick={close}
+              onClick={closeMenu}
               aria-hidden
             />
             <motion.div
@@ -75,15 +75,19 @@ export function MobileMenu({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 z-[60] flex h-full w-72 flex-col bg-surface-0 shadow-xl"
+              className={cn(
+                "fixed right-0 top-0 z-[60] flex h-full w-72 flex-col",
+                "bg-surface-0 shadow-xl",
+              )}
             >
               <div className="flex h-14 items-center justify-end px-6">
                 <button
                   type="button"
-                  onClick={close}
+                  onClick={closeMenu}
                   className={cn(
                     "inline-flex h-9 w-9 items-center justify-center rounded-md",
-                    "text-ink-3 transition-colors hover:bg-surface-1 hover:text-ink-1",
+                    "text-ink-3 transition-colors",
+                    "hover:bg-surface-1 hover:text-ink-1",
                     "focus-visible:outline focus-visible:outline-2",
                     "focus-visible:outline-offset-2 focus-visible:outline-brand",
                   )}
@@ -98,7 +102,7 @@ export function MobileMenu({
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={close}
+                    onClick={closeMenu}
                     className={cn(
                       "rounded-md px-3 py-2.5",
                       "text-sm uppercase tracking-widest transition-colors",
