@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { MobileMenu } from "@/components/layout/MobileMenu";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { useScrolled } from "@/hooks/useScrolled";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -51,15 +52,10 @@ export function Navbar(): ReactElement {
           </span>
         </Link>
 
-        <div className="flex items-center gap-3 sm:gap-5 lg:gap-6">
-          <ul className="flex items-center gap-3 sm:gap-5 lg:gap-6">
+        <div className="hidden sm:flex items-center gap-5 lg:gap-6">
+          <ul className="flex items-center gap-5 lg:gap-6">
             {navLinks.map((link) => (
-              <li
-                key={link.href}
-                className={cn(
-                  link.key === "contact" && "hidden min-[320px]:block",
-                )}
-              >
+              <li key={link.href}>
                 <Link
                   href={link.href}
                   className={cn(
@@ -79,24 +75,23 @@ export function Navbar(): ReactElement {
               </li>
             ))}
           </ul>
-          <div className="hidden min-[380px]:block">
-            <LanguageSwitcher
-              className={
-                overHero
-                  ? "text-white/70 hover:bg-white/10 hover:text-white"
-                  : undefined
-              }
-            />
-          </div>
-          <div className="hidden sm:block">
-            <ThemeToggle
-              className={
-                overHero
-                  ? "text-white/70 hover:bg-white/10 hover:text-white"
-                  : undefined
-              }
-            />
-          </div>
+          <LanguageSwitcher
+            className={
+              overHero
+                ? "text-white/70 hover:bg-white/10 hover:text-white"
+                : undefined
+            }
+          />
+          <ThemeToggle
+            className={
+              overHero
+                ? "text-white/70 hover:bg-white/10 hover:text-white"
+                : undefined
+            }
+          />
+        </div>
+        <div className="sm:hidden">
+          <MobileMenu overHero={overHero} />
         </div>
       </nav>
     </header>

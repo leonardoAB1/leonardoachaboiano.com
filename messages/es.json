@@ -5,6 +5,8 @@
   },
   "Nav": {
     "ariaLabel": "Navegación principal",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
     "projects": "Proyectos",
     "cv": "CV",
     "contact": "Contacto"
