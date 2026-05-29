@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { MobileMenu } from "@/components/layout/MobileMenu";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { useScrolled } from "@/hooks/useScrolled";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -51,8 +52,8 @@ export function Navbar(): ReactElement {
           </span>
         </Link>
 
-        <div className="scrollbar-hide flex min-w-0 items-center gap-3 overflow-x-auto sm:gap-5 lg:gap-6">
-          <ul className="flex items-center gap-3 sm:gap-5 lg:gap-6">
+        <div className="hidden sm:flex items-center gap-5 lg:gap-6">
+          <ul className="flex items-center gap-5 lg:gap-6">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
@@ -88,6 +89,9 @@ export function Navbar(): ReactElement {
                 : undefined
             }
           />
+        </div>
+        <div className="sm:hidden">
+          <MobileMenu overHero={overHero} />
         </div>
       </nav>
     </header>
