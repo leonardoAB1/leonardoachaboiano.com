@@ -5,6 +5,9 @@
   },
   "Nav": {
     "ariaLabel": "Main navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "projects": "Projects",
     "cv": "CV",
     "contact": "Contact"
   },
@@ -33,7 +36,7 @@
   "Home": {
     "Hero": {
       "heading": "Generalist by choice",
-      "intro": "I work across embedded systems, robotics integration, and design for manufacturing, from prototypes to production-ready installations.",
+      "intro": "I work across electronics design, embedded firmware, control systems, and mechanical engineering, from circuit boards to working mechanisms.",
       "viewCv": "View CV",
       "getInTouch": "Get in touch"
     },
@@ -79,7 +82,7 @@
   },
   "CV": {
     "metaTitle": "CV",
-    "metaDescription": "Curriculum vitae of Leonardo Acha Boiano - mechatronics and robotics engineer with experience in ROS2, embedded systems, PCB design, and hardware-software integration.",
+    "metaDescription": "Curriculum vitae of Leonardo Acha Boiano, mechatronics engineer with expertise in electronics design, embedded systems, control engineering, and mechanical design for robotics and industrial applications.",
     "eyebrow": "Curriculum Vitae",
     "location": "Basel, Switzerland",
     "download": "Download CV (PDF)",
@@ -205,7 +208,12 @@
     "covidApp": {
       "title": "Coronavirus Data App",
       "description": "GUI app to query, visualize, and compare COVID-19 data across countries using public APIs and standard Python data libraries"
-    }
+    },
+    "metaTitle": "Projects",
+    "metaDescription": "Engineering portfolio of Leonardo Acha Boiano - robotics, embedded systems, PCB design, and mechanical engineering projects",
+    "eyebrow": "Portfolio",
+    "heading": "Projects",
+    "description": "A selection of engineering projects spanning robotics, embedded systems, electronics, and mechanical design"
   },
   "Posts": {
     "smdHotPlate": {
@@ -279,7 +287,7 @@
   },
   "Metadata": {
     "titleDefault": "Leonardo Acha Boiano - Mechatronics Engineer",
-    "description": "Mechatronics engineer with experience in robotics, embedded systems, and product design. Engineering portfolio, projects, and much more.",
+    "description": "Mechatronics engineer working across electronics, embedded systems, control systems, product design and much more.",
     "ogImageAlt": "Leonardo Acha Boiano - Mechatronics Engineer",
     "ogTaglineLine1": "I build robots.",
     "ogTaglineLine2": "I'm not one."

@@ -5,6 +5,9 @@
   },
   "Nav": {
     "ariaLabel": "Navigazione principale",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu",
+    "projects": "Progetti",
     "cv": "CV",
     "contact": "Contatti"
   },
@@ -33,7 +36,7 @@
   "Home": {
     "Hero": {
       "heading": "Ingegnere multidisciplinare",
-      "intro": "Lavoro tra sistemi embedded, integrazione robotica e progettazione per la produzione, dai prototipi alle installazioni pronte per la produzione.",
+      "intro": "Lavoro tra progettazione elettronica, firmware embedded, sistemi di controllo e ingegneria meccanica, dalle schede a circuiti stampati ai meccanismi funzionanti.",
       "viewCv": "Vedi CV",
       "getInTouch": "Contattami"
     },
@@ -79,7 +82,7 @@
   },
   "CV": {
     "metaTitle": "CV",
-    "metaDescription": "Curriculum di Leonardo Acha Boiano - ingegnere meccatronico e robotico con esperienza in ROS2, sistemi embedded, progettazione di PCB e integrazione hardware-software.",
+    "metaDescription": "Curriculum di Leonardo Acha Boiano, ingegnere meccatronico con competenze in progettazione elettronica, sistemi embedded, ingegneria del controllo e design meccanico per robotica e applicazioni industriali.",
     "eyebrow": "Curriculum Vitae",
     "location": "Basilea, Svizzera",
     "download": "Scarica il CV (PDF)",
@@ -208,7 +211,12 @@
     "covidApp": {
       "title": "App Dati Coronavirus",
       "description": "App con interfaccia grafica per interrogare, visualizzare e confrontare i dati COVID-19 tra paesi usando API pubbliche e librerie dati standard di Python"
-    }
+    },
+    "metaTitle": "Progetti",
+    "metaDescription": "Portfolio ingegneristico di Leonardo Acha Boiano - robotica, sistemi embedded, progettazione PCB e ingegneria meccanica",
+    "eyebrow": "Portfolio",
+    "heading": "Progetti",
+    "description": "Una selezione di progetti ingegneristici che spaziano dalla robotica ai sistemi embedded, dall'elettronica al design meccanico"
   },
   "Posts": {
     "smdHotPlate": {
@@ -282,7 +290,7 @@
   },
   "Metadata": {
     "titleDefault": "Leonardo Acha Boiano - Ingegnere Meccatronico",
-    "description": "Ingegnere meccatronico con esperienza in robotica, sistemi embedded e progettazione di prodotti. Portfolio ingegneristico, progetti e molto altro.",
+    "description": "Ingegnere meccatronico con esperienza in robotica, elettronica, sistemi embedded, sistemi di controllo, design del prodotto e molto altro.",
     "ogImageAlt": "Leonardo Acha Boiano - Ingegnere Meccatronico",
     "ogTaglineLine1": "Costruisco robot.",
     "ogTaglineLine2": "Non sono uno."

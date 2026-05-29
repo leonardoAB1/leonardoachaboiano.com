@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.6.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.5.1...v1.6.0) (2026-05-29)
+
+
+### Features
+
+* replace navbar responsive hiding with hamburger menu on mobile ([#199](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/199)) ([e24697c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/e24697c631bd52b786cf1a36ebc05c65261f962a))
+
+## [1.5.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.5.0...v1.5.1) (2026-05-29)
+
+
+### Bug Fixes
+
+* correct linkedin profile slug to use hyphens ([#197](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/197)) ([1515a7c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1515a7cce67efc4694b469d19ef8672b8da126b5))
+
+## [1.5.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.4.1...v1.5.0) (2026-05-29)
+
+
+### Features
+
+* add projects page and simplify home ([#192](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/192)) ([b207f12](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/b207f12f1e5fe2f69b7533173c92eab2ae3fca87))
+
 ## [1.4.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.4.0...v1.4.1) (2026-05-28)
 
 

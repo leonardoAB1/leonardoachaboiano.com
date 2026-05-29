@@ -5,6 +5,9 @@
   },
   "Nav": {
     "ariaLabel": "Hauptnavigation",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "projects": "Projekte",
     "cv": "Lebenslauf",
     "contact": "Kontakt"
   },
@@ -33,7 +36,7 @@
   "Home": {
     "Hero": {
       "heading": "Interdisziplinärer Ingenieur",
-      "intro": "Ich arbeite an eingebetteten Systemen, Robotik-Integration und fertigungsgerechter Konstruktion, vom Prototyp bis zur produktionsreifen Installation.",
+      "intro": "Ich arbeite an Elektronikdesign, eingebetteter Firmware, Steuerungssystemen und Maschinenbau, von Leiterplatten bis zu funktionierenden Mechanismen.",
       "viewCv": "Lebenslauf ansehen",
       "getInTouch": "Kontakt aufnehmen"
     },
@@ -79,7 +82,7 @@
   },
   "CV": {
     "metaTitle": "Lebenslauf",
-    "metaDescription": "Lebenslauf von Leonardo Acha Boiano - Mechatronik- und Robotikingenieur mit Erfahrung in ROS2, eingebetteten Systemen, PCB-Design und Hardware-Software-Integration.",
+    "metaDescription": "Lebenslauf von Leonardo Acha Boiano, Mechatronikingenieur mit Fachkenntnissen in Elektronikdesign, eingebetteten Systemen, Steuerungstechnik und Maschinenbau für Robotik und Industrieanwendungen.",
     "eyebrow": "Curriculum Vitae",
     "location": "Basel, Schweiz",
     "download": "Lebenslauf herunterladen (PDF)",
@@ -202,7 +205,12 @@
     "covidApp": {
       "title": "Coronavirus-Daten-App",
       "description": "GUI-App zum Abfragen, Visualisieren und Vergleichen von COVID-19-Daten verschiedener Länder mithilfe öffentlicher APIs und gängiger Python-Datenbibliotheken"
-    }
+    },
+    "metaTitle": "Projekte",
+    "metaDescription": "Engineering-Portfolio von Leonardo Acha Boiano - Robotik, eingebettete Systeme, Leiterplattendesign und Maschinenbau",
+    "eyebrow": "Portfolio",
+    "heading": "Projekte",
+    "description": "Eine Auswahl von Ingenieurprojekten aus den Bereichen Robotik, eingebettete Systeme, Elektronik und Maschinenbau"
   },
   "Posts": {
     "smdHotPlate": {
@@ -276,7 +284,7 @@
   },
   "Metadata": {
     "titleDefault": "Leonardo Acha Boiano - Mechatronik-Ingenieur",
-    "description": "Mechatronik-Ingenieur mit Erfahrung in Robotik, eingebetteten Systemen und Produktdesign. Engineering-Portfolio, Projekte und vieles mehr.",
+    "description": "Mechatronikingenieur mit Erfahrung in Robotik, Elektronik, eingebetteten Systemen, Steuerungssystemen, Produktdesign und vielem mehr.",
     "ogImageAlt": "Leonardo Acha Boiano - Mechatronik-Ingenieur",
     "ogTaglineLine1": "Ich baue Roboter.",
     "ogTaglineLine2": "Ich bin keiner."
