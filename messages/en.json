@@ -34,7 +34,7 @@
   "Home": {
     "Hero": {
       "heading": "Generalist by choice",
-      "intro": "I work across embedded systems, robotics integration, and design for manufacturing, from prototypes to production-ready installations.",
+      "intro": "I work across electronics design, embedded firmware, control systems, and mechanical engineering, from circuit boards to working mechanisms.",
       "viewCv": "View CV",
       "getInTouch": "Get in touch"
     },
@@ -80,7 +80,7 @@
   },
   "CV": {
     "metaTitle": "CV",
-    "metaDescription": "Curriculum vitae of Leonardo Acha Boiano - mechatronics and robotics engineer with experience in ROS2, embedded systems, PCB design, and hardware-software integration.",
+    "metaDescription": "Curriculum vitae of Leonardo Acha Boiano, mechatronics engineer with expertise in electronics design, embedded systems, control engineering, and mechanical design for robotics and industrial applications.",
     "eyebrow": "Curriculum Vitae",
     "location": "Basel, Switzerland",
     "download": "Download CV (PDF)",
@@ -285,7 +285,7 @@
   },
   "Metadata": {
     "titleDefault": "Leonardo Acha Boiano - Mechatronics Engineer",
-    "description": "Mechatronics engineer with experience in robotics, embedded systems, and product design. Engineering portfolio, projects, and much more.",
+    "description": "Mechatronics engineer working across electronics, embedded systems, control systems, product design and much more.",
     "ogImageAlt": "Leonardo Acha Boiano - Mechatronics Engineer",
     "ogTaglineLine1": "I build robots.",
     "ogTaglineLine2": "I'm not one."

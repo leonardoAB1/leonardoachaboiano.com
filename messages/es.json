@@ -34,7 +34,7 @@
   "Home": {
     "Hero": {
       "heading": "Ingeniero multidisciplinario",
-      "intro": "Trabajo en sistemas embebidos, integración robótica y diseño para manufactura, desde prototipos hasta instalaciones listas para producción.",
+      "intro": "Trabajo en diseño electrónico, firmware embebido, sistemas de control e ingeniería mecánica, desde circuitos impresos hasta mecanismos en funcionamiento.",
       "viewCv": "Ver CV",
       "getInTouch": "Contáctame"
     },
@@ -80,7 +80,7 @@
   },
   "CV": {
     "metaTitle": "CV",
-    "metaDescription": "Currículum de Leonardo Acha Boiano - ingeniero mecatrónico con experiencia en robótica, ROS2, sistemas embebidos, diseño de PCB e integración hardware-software.",
+    "metaDescription": "Currículum de Leonardo Acha Boiano, ingeniero mecatrónico con experiencia en diseño electrónico, sistemas embebidos, ingeniería de control y diseño mecánico para robótica y aplicaciones industriales.",
     "eyebrow": "Curriculum Vitae",
     "location": "Basilea, Suiza",
     "download": "Descargar CV (PDF)",
@@ -282,7 +282,7 @@
   },
   "Metadata": {
     "titleDefault": "Leonardo Acha Boiano - Ingeniero Mecatrónico",
-    "description": "Ingeniero mecatrónico con experiencia en robótica, sistemas embebidos y diseño de productos. Portafolio de ingeniería, proyectos y mucho más.",
+    "description": "Ingeniero mecatrónico con experiencia en robótica, electrónica, sistemas embebidos, sistemas de control, diseño de productos y mucho más.",
     "ogImageAlt": "Leonardo Acha Boiano - Ingeniero Mecatrónico",
     "ogTaglineLine1": "Construyo robots.",
     "ogTaglineLine2": "No soy uno."

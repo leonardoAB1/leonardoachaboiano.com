@@ -8,18 +8,24 @@ export const siteConfig = {
   title: _title,
   siteTitle: `${_name} - ${_title}`,
   description:
-    "Mechatronics engineer with experience in robotics, embedded systems, and product design. " +
-    "Engineering portfolio, projects, and technical writing.",
+    "Mechatronics engineer specializing in electronics design, embedded systems, control engineering, and mechanical design. " +
+    "Portfolio spanning PCB design, firmware development, robotics, and precision manufacturing.",
   url: siteUrl,
   email: "leonardoacha@hotmail.com",
   locale: "en_US",
   keywords: [
     "Leonardo Acha Boiano",
     "mechatronics engineer",
-    "robotics engineer",
+    "electronics engineer",
+    "PCB design",
+    "KiCad",
     "embedded systems",
-    "product design",
-    "hardware software integration",
+    "firmware development",
+    "control engineering",
+    "robotics engineer",
+    "SolidWorks",
+    "mechanical design",
+    "DFMA",
     "engineering portfolio",
   ],
 } as const;
