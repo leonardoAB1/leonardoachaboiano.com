@@ -38,7 +38,7 @@ export function Hero(): ReactElement {
   const tCommon = useTranslations("Common");
 
   return (
-    <Section className="relative flex min-h-svh flex-col justify-end overflow-hidden pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
+    <Section className="relative flex min-h-svh flex-col overflow-hidden pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
       {/* Portrait — face centered on mobile, right-anchored on desktop */}
       <motion.div
         className="absolute inset-0"
