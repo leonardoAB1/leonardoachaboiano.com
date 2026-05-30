@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.6.2...v1.7.0) (2026-05-30)
+
+
+### Features
+
+* replace social media text labels with icons ([#210](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/210)) ([044a7a9](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/044a7a98165b5e756d27bdbd3744ad30aa865f51))
+
+
+### Bug Fixes
+
+* animate hero buttons layout change on viewport resize ([#206](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/206)) ([6c1b899](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/6c1b899c941db756461cbe11680e52978e8b432a))
+
 ## [1.6.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.6.1...v1.6.2) (2026-05-30)
 
 
