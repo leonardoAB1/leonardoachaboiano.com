@@ -1,3 +1,4 @@
+import { allSkills } from "@/data/skills";
 import { siteConfig, socialLinks } from "@/lib/constants";
 
 interface PersonSchemaProps {
@@ -13,6 +14,7 @@ export function PersonSchema({ jobTitle }: PersonSchemaProps) {
     jobTitle,
     email: siteConfig.email,
     sameAs: [socialLinks.github, socialLinks.linkedin],
+    knowsAbout: allSkills,
   };
 
   return (

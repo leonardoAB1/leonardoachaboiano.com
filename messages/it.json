@@ -111,6 +111,9 @@
       "native": "Madrelingua",
       "fluent": "Fluente",
       "a2": "A2"
+    },
+    "skillLabels": {
+      "industrialInstrumentation": "Strumentazione Industriale"
     }
   },
   "Achievements": {

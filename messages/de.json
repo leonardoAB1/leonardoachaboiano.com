@@ -111,10 +111,16 @@
       "native": "Muttersprache",
       "fluent": "Fließend",
       "a2": "A2"
+    },
+    "skillLabels": {
+      "industrialInstrumentation": "Industrielle Instrumentierung"
     }
   },
   "Achievements": {
-    "icpc": { "label": "Sieger, ICPC Regional Contest", "date": "Aug 2024" },
+    "icpc": {
+      "label": "Sieger, ICPC Regional Contest",
+      "date": "Aug 2024"
+    },
     "diplomaHonour2": {
       "label": "Ehrendiplom, 2. Platz - Mechatronik Semester 2-2023",
       "date": "Apr 2024"
@@ -127,7 +133,10 @@
       "label": "Ehrendiplom, 2. Platz - Mechatronik Semester 1-2023",
       "date": "Sep 2023"
     },
-    "scholarship": { "label": "Exzellenz-Stipendium x3", "date": "2021-2022" },
+    "scholarship": {
+      "label": "Exzellenz-Stipendium x3",
+      "date": "2021-2022"
+    },
     "rotary": {
       "label": "Rotary-Jugendaustausch-Botschafter in Kanada",
       "date": "2018-2019"
