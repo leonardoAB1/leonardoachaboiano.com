@@ -43,7 +43,7 @@
     "Philosophy": {
       "heading": "Engineering philosophy",
       "p1": "There are several <em>proper</em> ways to solve any engineering problem. A <em>proper</em> solution is one considered from every relevant point of view: in accordance with established standards, procedures, and the specifications of the project. The engineer's role, unlike the scientist's, is to identify and deliver that solution.",
-      "p2": "<em>Proper</em> means technically sound, but also manufacturable, safe, maintainable, and reproducible. Standards and procedures are not bureaucracy: they are accumulated knowledge about how solutions fail in the real world. Meeting them is the work.",
+      "p2": "<em>Proper</em> means technically sound, but also manufacturable, safe, maintainable, and reproducible. Standards and procedures are not bureaucracy: they are accumulated knowledge about how solutions fail in the real world. Meeting them is my job.",
       "quote": "“Proper” is one of my favorite words in English. Every time I face a new challenge, I find myself asking the same question: what are the <em>proper</em> ways to approach this?"
     },
     "TechnicalDomains": {
