@@ -20,20 +20,12 @@ export const skillGroups: SkillGroup[] = [
       "Robot Operator",
       "BLE",
       "CAN",
-      "I2C",
       "MQTT",
     ],
   },
   {
     categoryKey: "electronicsPcb",
-    skills: [
-      "KiCad",
-      "Altium",
-      "Proteus",
-      "LTSpice",
-      "Breadboarding",
-      "Soldering",
-    ],
+    skills: ["KiCad", "Altium", "Proteus", "LTSpice", "Soldering"],
   },
   {
     categoryKey: "mechanicalDesign",
