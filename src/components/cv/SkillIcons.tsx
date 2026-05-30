@@ -4,7 +4,6 @@ import {
   GitBranch,
   Layers,
   Microchip,
-  Target,
   Workflow,
   Zap,
 } from "lucide-react";
@@ -408,6 +407,47 @@ function EndressHauserIcon({ size = 48, className }: SkillIconProps) {
   );
 }
 
+// GD&T position symbol — paths from user-provided SVG, white bg removed,
+// colors replaced with currentColor; mask id namespaced to avoid conflicts
+function GdtIcon({
+  size = 48,
+  ...props
+}: SkillIconProps & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 200 200"
+      width={size}
+      height={size}
+      fill="currentColor"
+      aria-hidden="true"
+      {...props}
+    >
+      <defs>
+        <mask id="gdt-circle-cuts">
+          <rect width="200" height="200" fill="white" />
+          <rect x="0" y="76" width="100" height="48" fill="black" />
+          <rect x="100" y="76" width="100" height="16" fill="black" />
+        </mask>
+      </defs>
+      {/* Position symbol vertical/horizontal crosshair arms */}
+      <path d="M12 92 H92 V58 H108 V142 H92 V108 H12 Z M92 12 H108 V30 H92 Z M92 170 H108 V188 H92 Z" />
+      {/* Right horizontal arm */}
+      <rect x="114" y="92" width="50" height="16" />
+      {/* Tolerance circle with gaps cut by the mask */}
+      <circle
+        cx="100"
+        cy="100"
+        r="56"
+        stroke="currentColor"
+        strokeWidth="16"
+        fill="none"
+        mask="url(#gdt-circle-cuts)"
+      />
+    </svg>
+  );
+}
+
 // Fanuc logo (CNC controller brand) - Wikimedia Commons, currentColor, 5.93:1 wide
 function FanucIcon({
   size = 48,
@@ -470,7 +510,7 @@ export const SKILL_ICONS: Partial<
   Breadboarding: Microchip,
   Soldering: Zap,
   DFMA: Layers,
-  "GD&T": Target,
+  "GD&T": GdtIcon,
   "CNC Lathe": FanucIcon,
   "Robot Operator": KukaIcon,
   "Industrial Instrumentation": EndressHauserIcon,
