@@ -139,7 +139,7 @@ body {
   /* Image-based skill icons: grayscale by default, brand-teal on parent hover.
      Defined entirely in CSS so no Tailwind variant generation is needed. */
   .skill-img {
-    filter: grayscale(1);
+    filter: grayscale(1) brightness(0.65);
     mix-blend-mode: multiply;
     transition: filter 0.2s ease;
   }
