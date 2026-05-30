@@ -1,7 +1,6 @@
 import {
   ArrowLeftRight,
   Boxes,
-  Cpu,
   Crosshair,
   Drill,
   GitBranch,
@@ -285,6 +284,36 @@ function MatlabIcon({ size = 56, className }: SkillIconProps) {
   );
 }
 
+// FreeRTOS logo - PNG from freertos.org (no SVG available), 2.63:1 wide
+function FreeRtosIcon({ size = 48, className }: SkillIconProps) {
+  return (
+    <Image
+      src="/icons/skills/freertos.png"
+      alt=""
+      aria-hidden="true"
+      width={Math.round(size * 2.63)}
+      height={size}
+      className={`grayscale dark:invert${className ? ` ${className}` : ""}`}
+      unoptimized
+    />
+  );
+}
+
+// Zephyr RTOS logo - Apache 2.0, stored locally, 1.93:1 wide
+function ZephyrIcon({ size = 48, className }: SkillIconProps) {
+  return (
+    <Image
+      src="/icons/skills/zephyr.svg"
+      alt=""
+      aria-hidden="true"
+      width={Math.round(size * 1.93)}
+      height={size}
+      className={`grayscale dark:invert${className ? ` ${className}` : ""}`}
+      unoptimized
+    />
+  );
+}
+
 // Festo logo (maker of FluidSIM) - Wikimedia Commons, currentColor, 5.33:1 wide
 function FestoIcon({
   size = 48,
@@ -353,7 +382,8 @@ export const SKILL_ICONS: Partial<
   MATLAB: MatlabIcon,
   // Lucide semantic icons
   "Verilog/VHDL": AmdXilinxIcon,
-  FreeRTOS: Cpu,
+  FreeRTOS: FreeRtosIcon,
+  Zephyr: ZephyrIcon,
   CAN: CanIcon,
   I2C: ArrowLeftRight,
   Altium: AltiumIcon,

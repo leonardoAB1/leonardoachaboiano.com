@@ -34,7 +34,17 @@ const skillGroups: { categoryKey: string; skills: string[] }[] = [
   },
   {
     categoryKey: "embeddedRobotics",
-    skills: ["STM32", "ESP32", "ROS2", "FreeRTOS", "BLE", "CAN", "I2C", "MQTT"],
+    skills: [
+      "STM32",
+      "ESP32",
+      "ROS2",
+      "FreeRTOS",
+      "Zephyr",
+      "BLE",
+      "CAN",
+      "I2C",
+      "MQTT",
+    ],
   },
   {
     categoryKey: "electronicsPcb",

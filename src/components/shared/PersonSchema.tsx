@@ -12,6 +12,7 @@ const knowsAbout = [
   "ESP32",
   "ROS2",
   "FreeRTOS",
+  "Zephyr",
   "BLE",
   "CAN",
   "I2C",
