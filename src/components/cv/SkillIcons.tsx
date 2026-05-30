@@ -6,8 +6,10 @@ import {
   CircuitBoard,
   Cog,
   Cpu,
+  FlaskConical,
   GitBranch,
   Layers,
+  Microchip,
   Printer,
   Ruler,
   Scissors,
@@ -208,7 +210,7 @@ function SiemensIcon({
 // Devicons local file (MATLAB only)
 // ---------------------------------------------------------------------------
 
-function MatlabIcon({ size = 20, className }: SkillIconProps) {
+function MatlabIcon({ size = 56, className }: SkillIconProps) {
   return (
     <Image
       src="/icons/skills/matlab.svg"
@@ -252,9 +254,9 @@ export const SKILL_ICONS: Partial<
   CAN: Waypoints,
   I2C: ArrowLeftRight,
   Altium: CircuitBoard,
-  Proteus: Workflow,
+  Proteus: FlaskConical,
   LTSpice: Activity,
-  Breadboarding: CircuitBoard,
+  Breadboarding: Microchip,
   Soldering: Zap,
   DFMA: Layers,
   "GD&T": Ruler,

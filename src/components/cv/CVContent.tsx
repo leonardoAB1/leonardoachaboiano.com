@@ -64,7 +64,6 @@ const skillGroups: { categoryKey: string; skills: string[] }[] = [
     categoryKey: "tools",
     skills: [
       "Git/GitHub",
-      "MATLAB",
       "PLC (Tia Portal)",
       "Ladder",
       "FBD",
@@ -257,17 +256,14 @@ export function CVContent(): ReactElement {
         </div>
       </div>
 
-      {/* Skills - full-bleed marquee section, below the 2-column grid */}
+      {/* Skills - full-bleed marquee rows, one per category, no visible labels */}
       <AnimatedSection delay={0.05} className="mt-10">
         <Eyebrow className="mb-8 px-6 sm:px-8">{t("sections.skills")}</Eyebrow>
-        <div className="space-y-4">
+        <div className="space-y-2">
           {skillGroups.map(({ categoryKey, skills }) => (
-            <div key={categoryKey} className="space-y-1.5">
-              <p className="px-6 text-sm font-medium text-ink-2 sm:px-8">
-                {t(`skillCategories.${categoryKey}`)}
-              </p>
-              <SkillMarquee skills={skills} />
-            </div>
+            // categoryKey groups: programming | embeddedRobotics | electronicsPcb
+            //                     mechanicalDesign | tools
+            <SkillMarquee key={categoryKey} skills={skills} />
           ))}
         </div>
       </AnimatedSection>
