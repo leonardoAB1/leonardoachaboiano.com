@@ -223,19 +223,26 @@ function LtspiceIcon({
   );
 }
 
-// Official CAN bus logo (open standard, Wikimedia Commons CC-BY)
-// The wordmark is 1.4:1 wide - render at fixed height, proportional width
-function CanIcon({ size = 48, className }: SkillIconProps) {
+// Official CAN bus logo paths (Wikimedia Commons CC-BY), fill stripped to currentColor
+// Uses a 373×267 viewBox (the logo's native aspect ratio: 1.4:1 wide)
+function CanIcon({
+  size = 48,
+  ...props
+}: SkillIconProps & SVGProps<SVGSVGElement>) {
   return (
-    <Image
-      src="/icons/skills/can.svg"
-      alt=""
-      aria-hidden="true"
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
       width={Math.round(size * 1.4)}
       height={size}
-      className={`dark:brightness-150${className ? ` ${className}` : ""}`}
-      unoptimized
-    />
+      viewBox="0 0 373.33 266.67"
+      fill="currentColor"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="m115 102v-34h-19c-29 0-57.123 20.671-57 57 0.1264 37.323 32.891 57 57 57h19v-34h-18c-12 0-19-13.056-19-23s7-23 19-23z" />
+      <path d="m126 182 0.78575-74.859c0.28452-27.106 23.335-40.531 43.214-41.141 19.104-0.58621 43.878 13.488 43.874 36.915l0.12567 79.085h-35l0.14189-34.989-11.142-0.0113v-30h11v-10c0-6-3.9861-9-8-9s-8 3-8 9v75z" />
+      <path d="m230 182h37l-0.48551-46.395 20.566 40.081c3.6502 7.1138 13.323 9.7748 20.506 8.1763 8.1383-1.8111 17.166-5.942 17.112-18.242l-0.42622-97.967-35.413 0.22648 0.21644 47.345-18.434-36.753c-4.8253-9.6208-13.714-13.89-22.296-13.093-7.6008 0.7057-17.232 7.3654-17.275 15.034z" />
+    </svg>
   );
 }
 
