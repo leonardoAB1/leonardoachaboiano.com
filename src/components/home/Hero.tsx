@@ -109,9 +109,6 @@ export function Hero(): ReactElement {
               "flex flex-col gap-8 max-w-xl",
               breakpoint !== "lg" && "flex-1",
             )}
-            layout
-            layoutDependency={breakpoint}
-            transition={{ layout: layoutTransition }}
             initial="hidden"
             animate="show"
             variants={container}
@@ -134,50 +131,53 @@ export function Hero(): ReactElement {
               </Text>
             </motion.div>
 
-            {/* layout + layoutDependency animate the group position when the
-                container switches from flex to block at lg, and the buttons
-                move from the bottom of the viewport to below the text. */}
+            {/* Layout mover: owns FLIP position animation only.
+                No variants/y so the animate system cannot fight FLIP's translateY. */}
             <motion.div
-              variants={item}
               layout
               layoutDependency={breakpoint}
               transition={{ layout: layoutTransition }}
-              className={cn(
-                "flex",
-                breakpoint === "mobile"
-                  ? "flex-col gap-3"
-                  : "flex-row items-center gap-4",
-                breakpoint !== "lg" && "mt-auto",
-              )}
+              className={cn(breakpoint !== "lg" && "mt-auto")}
             >
-              {/* Each button gets layout so Framer Motion can FLIP their
-                  individual positions when switching between flex-col and flex-row. */}
-              <MotionLink
-                layout
-                layoutDependency={breakpoint}
-                transition={{ layout: layoutTransition }}
+              {/* Entrance animator: owns the stagger opacity+y mount animation.
+                  No layout prop so it never interferes with FLIP. */}
+              <motion.div
+                variants={item}
                 className={cn(
-                  buttonClasses({ size: "lg", variant: "primary" }),
-                  "bg-white text-brand hover:bg-white/90",
-                  "text-center",
+                  "flex",
+                  breakpoint === "mobile"
+                    ? "flex-col gap-3"
+                    : "flex-row items-center gap-4",
                 )}
-                href="/cv"
               >
-                {t("viewCv")}
-              </MotionLink>
-              <MotionLink
-                layout
-                layoutDependency={breakpoint}
-                transition={{ layout: layoutTransition }}
-                className={cn(
-                  buttonClasses({ size: "lg", variant: "secondary" }),
-                  "border-white/70 text-white hover:border-white hover:bg-white/10",
-                  "text-center",
-                )}
-                href="/contact"
-              >
-                {t("getInTouch")}
-              </MotionLink>
+                {/* Each button keeps layout for the flex-col → flex-row reflow at 640px. */}
+                <MotionLink
+                  layout
+                  layoutDependency={breakpoint}
+                  transition={{ layout: layoutTransition }}
+                  className={cn(
+                    buttonClasses({ size: "lg", variant: "primary" }),
+                    "bg-white text-brand hover:bg-white/90",
+                    "text-center",
+                  )}
+                  href="/cv"
+                >
+                  {t("viewCv")}
+                </MotionLink>
+                <MotionLink
+                  layout
+                  layoutDependency={breakpoint}
+                  transition={{ layout: layoutTransition }}
+                  className={cn(
+                    buttonClasses({ size: "lg", variant: "secondary" }),
+                    "border-white/70 text-white hover:border-white hover:bg-white/10",
+                    "text-center",
+                  )}
+                  href="/contact"
+                >
+                  {t("getInTouch")}
+                </MotionLink>
+              </motion.div>
             </motion.div>
           </motion.div>
         </Container>
