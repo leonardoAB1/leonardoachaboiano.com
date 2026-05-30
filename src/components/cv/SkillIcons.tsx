@@ -278,7 +278,7 @@ function MatlabIcon({ size = 56, className }: SkillIconProps) {
       aria-hidden="true"
       width={size}
       height={size}
-      className={`grayscale dark:invert${className ? ` ${className}` : ""}`}
+      className={`grayscale mix-blend-multiply dark:invert dark:mix-blend-screen transition-[filter] duration-200 group-hover:[filter:sepia(1)_hue-rotate(140deg)_saturate(7)_brightness(0.5)]${className ? ` ${className}` : ""}`}
       unoptimized
     />
   );
@@ -293,7 +293,7 @@ function FreeRtosIcon({ size = 48, className }: SkillIconProps) {
       aria-hidden="true"
       width={Math.round(size * 2.63)}
       height={size}
-      className={`grayscale dark:invert${className ? ` ${className}` : ""}`}
+      className={`grayscale mix-blend-multiply dark:invert dark:mix-blend-screen transition-[filter] duration-200 group-hover:[filter:sepia(1)_hue-rotate(140deg)_saturate(7)_brightness(0.5)]${className ? ` ${className}` : ""}`}
       unoptimized
     />
   );
@@ -308,7 +308,7 @@ function ZephyrIcon({ size = 48, className }: SkillIconProps) {
       aria-hidden="true"
       width={Math.round(size * 1.93)}
       height={size}
-      className={`grayscale dark:invert${className ? ` ${className}` : ""}`}
+      className={`grayscale mix-blend-multiply dark:invert dark:mix-blend-screen transition-[filter] duration-200 group-hover:[filter:sepia(1)_hue-rotate(140deg)_saturate(7)_brightness(0.5)]${className ? ` ${className}` : ""}`}
       unoptimized
     />
   );

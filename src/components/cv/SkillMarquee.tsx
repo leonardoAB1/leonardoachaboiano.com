@@ -20,7 +20,7 @@ export function SkillGrid({ skills }: SkillGridProps): ReactElement {
             title={skill}
             aria-label={skill}
             role="img"
-            className="flex cursor-default items-center justify-center text-ink-3 opacity-50 transition-all duration-200 hover:scale-110 hover:text-brand hover:opacity-100"
+            className="group flex cursor-default items-center justify-center text-ink-3 opacity-50 transition-all duration-200 hover:scale-110 hover:text-brand hover:opacity-100"
           >
             {Icon ? (
               <Icon size={ICON_SIZE} />
