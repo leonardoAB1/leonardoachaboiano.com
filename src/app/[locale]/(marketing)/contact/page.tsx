@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { SVGProps } from "react";
 import type { ReactElement } from "react";
+import {
+  FacebookIcon,
+  GitHubIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  MailIcon,
+} from "@/components/ui/BrandIcons";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
@@ -36,15 +44,27 @@ export default async function ContactPage({
 
   const t = await getTranslations("Contact");
 
+  type BrandIconComponent = (
+    props: SVGProps<SVGSVGElement> & { size?: number },
+  ) => ReactElement;
+
   // Brand names are proper nouns (not translated); descriptions are localized.
   // Email's description is the address itself.
-  const contactLinks = [
+  const contactLinks: Array<{
+    id: string;
+    label: string;
+    href: string;
+    description: string;
+    external: boolean;
+    Icon: BrandIconComponent;
+  }> = [
     {
       id: "github",
       label: "GitHub",
       href: socialLinks.github,
       description: t("links.github"),
       external: true,
+      Icon: GitHubIcon,
     },
     {
       id: "linkedin",
@@ -52,6 +72,7 @@ export default async function ContactPage({
       href: socialLinks.linkedin,
       description: t("links.linkedin"),
       external: true,
+      Icon: LinkedInIcon,
     },
     {
       id: "instagram",
@@ -59,6 +80,7 @@ export default async function ContactPage({
       href: socialLinks.instagram,
       description: t("links.instagram"),
       external: true,
+      Icon: InstagramIcon,
     },
     {
       id: "facebook",
@@ -66,6 +88,7 @@ export default async function ContactPage({
       href: socialLinks.facebook,
       description: t("links.facebook"),
       external: true,
+      Icon: FacebookIcon,
     },
     {
       id: "email",
@@ -73,6 +96,7 @@ export default async function ContactPage({
       href: socialLinks.email,
       description: siteConfig.email,
       external: false,
+      Icon: MailIcon,
     },
   ];
 
@@ -117,7 +141,8 @@ export default async function ContactPage({
                     rel={link.external ? "noopener noreferrer" : undefined}
                     className="group flex flex-col gap-0.5 rounded-md border border-border bg-surface-1 px-4 py-3 transition-colors duration-150 hover:border-brand hover:bg-surface-brand"
                   >
-                    <span className="text-sm font-medium text-ink-1 group-hover:text-brand">
+                    <span className="flex items-center gap-2 text-sm font-medium text-ink-1 group-hover:text-brand">
+                      <link.Icon aria-hidden="true" size={15} />
                       {link.label}
                     </span>
                     <span className="text-xs text-ink-3">
