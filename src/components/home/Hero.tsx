@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
@@ -25,9 +25,43 @@ const item: Variants = {
   },
 };
 
+const layoutTransition = { type: "spring", bounce: 0.15, duration: 0.5 } as const;
+
+// motion() wraps any React component to accept Framer Motion props (layout,
+// animate, etc.). Next.js Link forwards its ref, so this works correctly.
+const MotionLink = motion(Link);
+
+function useBreakpoint() {
+  const [breakpoint, setBreakpoint] = useState<"mobile" | "sm" | "lg">(
+    "mobile",
+  );
+
+  useEffect(() => {
+    const smMq = window.matchMedia("(min-width: 640px)");
+    const lgMq = window.matchMedia("(min-width: 1024px)");
+
+    const update = () => {
+      if (lgMq.matches) setBreakpoint("lg");
+      else if (smMq.matches) setBreakpoint("sm");
+      else setBreakpoint("mobile");
+    };
+
+    update();
+    smMq.addEventListener("change", update);
+    lgMq.addEventListener("change", update);
+    return () => {
+      smMq.removeEventListener("change", update);
+      lgMq.removeEventListener("change", update);
+    };
+  }, []);
+
+  return breakpoint;
+}
+
 export function Hero(): ReactElement {
   const t = useTranslations("Home.Hero");
   const tCommon = useTranslations("Common");
+  const breakpoint = useBreakpoint();
 
   return (
     <Section className="relative flex min-h-svh flex-col overflow-hidden bg-[#02777C] pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
@@ -80,11 +114,23 @@ export function Hero(): ReactElement {
               {t("intro")}
             </Text>
           </motion.div>
+
+          {/* layout + layoutDependency animate the group position when the
+              container switches from flex to block at lg, and the buttons
+              move from the bottom of the viewport to below the text. */}
           <motion.div
             variants={item}
+            layout
+            layoutDependency={breakpoint}
+            transition={{ layout: layoutTransition }}
             className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 mt-auto lg:mt-0"
           >
-            <Link
+            {/* Each button gets layout so Framer Motion can FLIP their
+                individual positions when switching between flex-col and flex-row. */}
+            <MotionLink
+              layout
+              layoutDependency={breakpoint}
+              transition={{ layout: layoutTransition }}
               className={cn(
                 buttonClasses({ size: "lg", variant: "primary" }),
                 "bg-white text-brand hover:bg-white/90",
@@ -93,8 +139,11 @@ export function Hero(): ReactElement {
               href="/cv"
             >
               {t("viewCv")}
-            </Link>
-            <Link
+            </MotionLink>
+            <MotionLink
+              layout
+              layoutDependency={breakpoint}
+              transition={{ layout: layoutTransition }}
               className={cn(
                 buttonClasses({ size: "lg", variant: "secondary" }),
                 "border-white/70 text-white hover:border-white hover:bg-white/10",
@@ -103,7 +152,7 @@ export function Hero(): ReactElement {
               href="/contact"
             >
               {t("getInTouch")}
-            </Link>
+            </MotionLink>
           </motion.div>
         </motion.div>
       </Container>
