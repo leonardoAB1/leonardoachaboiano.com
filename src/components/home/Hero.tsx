@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { LayoutGroup, motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { ReactElement } from "react";
+import { type ReactElement, useEffect, useLayoutEffect, useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
@@ -25,9 +25,50 @@ const item: Variants = {
   },
 };
 
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+const layoutTransition = {
+  type: "spring",
+  bounce: 0.15,
+  duration: 0.5,
+} as const;
+
+// motion() wraps any React component to accept Framer Motion props (layout,
+// animate, etc.). Next.js Link forwards its ref, so this works correctly.
+const MotionLink = motion(Link);
+
+function useBreakpoint() {
+  const [breakpoint, setBreakpoint] = useState<"mobile" | "sm" | "lg">(
+    "mobile",
+  );
+
+  useIsomorphicLayoutEffect(() => {
+    const smMq = window.matchMedia("(min-width: 640px)");
+    const lgMq = window.matchMedia("(min-width: 1024px)");
+
+    const update = () => {
+      if (lgMq.matches) setBreakpoint("lg");
+      else if (smMq.matches) setBreakpoint("sm");
+      else setBreakpoint("mobile");
+    };
+
+    update();
+    smMq.addEventListener("change", update);
+    lgMq.addEventListener("change", update);
+    return () => {
+      smMq.removeEventListener("change", update);
+      lgMq.removeEventListener("change", update);
+    };
+  }, []);
+
+  return breakpoint;
+}
+
 export function Hero(): ReactElement {
   const t = useTranslations("Home.Hero");
   const tCommon = useTranslations("Common");
+  const breakpoint = useBreakpoint();
 
   return (
     <Section className="relative flex min-h-svh flex-col overflow-hidden bg-[#02777C] pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
@@ -56,57 +97,91 @@ export function Hero(): ReactElement {
       </div>
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
-      <Container className="relative flex flex-1 flex-col max-w-7xl lg:block">
-        <motion.div
-          className="flex flex-1 flex-col gap-8 max-w-xl lg:flex-none"
-          initial="hidden"
-          animate="show"
-          variants={container}
+      <LayoutGroup>
+        <Container
+          className={cn(
+            "relative max-w-7xl",
+            breakpoint === "lg" ? "block" : "flex flex-1 flex-col",
+          )}
         >
-          <motion.div variants={item}>
-            <Eyebrow className="text-white/70">{tCommon("role")}</Eyebrow>
-          </motion.div>
-          <motion.div variants={item}>
-            <Heading
-              as="h1"
-              size="xl"
-              className="break-words text-white [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
-            >
-              {t("heading")}
-            </Heading>
-          </motion.div>
-          <motion.div variants={item}>
-            <Text className="text-white/80" size="lg">
-              {t("intro")}
-            </Text>
-          </motion.div>
           <motion.div
-            variants={item}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 mt-auto lg:mt-0"
+            className={cn(
+              "flex flex-col gap-8 max-w-xl",
+              breakpoint !== "lg" && "flex-1",
+            )}
+            initial="hidden"
+            animate="show"
+            variants={container}
           >
-            <Link
-              className={cn(
-                buttonClasses({ size: "lg", variant: "primary" }),
-                "bg-white text-brand hover:bg-white/90",
-                "text-center",
-              )}
-              href="/cv"
+            <motion.div variants={item}>
+              <Eyebrow className="text-white/70">{tCommon("role")}</Eyebrow>
+            </motion.div>
+            <motion.div variants={item}>
+              <Heading
+                as="h1"
+                size="xl"
+                className="break-words text-white [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
+              >
+                {t("heading")}
+              </Heading>
+            </motion.div>
+            <motion.div variants={item}>
+              <Text className="text-white/80" size="lg">
+                {t("intro")}
+              </Text>
+            </motion.div>
+
+            {/* Layout mover: owns FLIP position animation only.
+                No variants/y so the animate system cannot fight FLIP's translateY. */}
+            <motion.div
+              layout
+              layoutDependency={breakpoint}
+              transition={{ layout: layoutTransition }}
+              className={cn(breakpoint !== "lg" && "mt-auto")}
             >
-              {t("viewCv")}
-            </Link>
-            <Link
-              className={cn(
-                buttonClasses({ size: "lg", variant: "secondary" }),
-                "border-white/70 text-white hover:border-white hover:bg-white/10",
-                "text-center",
-              )}
-              href="/contact"
-            >
-              {t("getInTouch")}
-            </Link>
+              {/* Entrance animator: owns the stagger opacity+y mount animation.
+                  No layout prop so it never interferes with FLIP. */}
+              <motion.div
+                variants={item}
+                className={cn(
+                  "flex",
+                  breakpoint === "mobile"
+                    ? "flex-col gap-3"
+                    : "flex-row items-center gap-4",
+                )}
+              >
+                {/* Each button keeps layout for the flex-col → flex-row reflow at 640px. */}
+                <MotionLink
+                  layout
+                  layoutDependency={breakpoint}
+                  transition={{ layout: layoutTransition }}
+                  className={cn(
+                    buttonClasses({ size: "lg", variant: "primary" }),
+                    "bg-white text-brand hover:bg-white/90",
+                    "text-center",
+                  )}
+                  href="/cv"
+                >
+                  {t("viewCv")}
+                </MotionLink>
+                <MotionLink
+                  layout
+                  layoutDependency={breakpoint}
+                  transition={{ layout: layoutTransition }}
+                  className={cn(
+                    buttonClasses({ size: "lg", variant: "secondary" }),
+                    "border-white/70 text-white hover:border-white hover:bg-white/10",
+                    "text-center",
+                  )}
+                  href="/contact"
+                >
+                  {t("getInTouch")}
+                </MotionLink>
+              </motion.div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </Container>
+        </Container>
+      </LayoutGroup>
     </Section>
   );
 }
