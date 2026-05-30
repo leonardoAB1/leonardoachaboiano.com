@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useEffect, useState, type ReactElement } from "react";
+import { useEffect, useLayoutEffect, useState, type ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
@@ -25,6 +25,9 @@ const item: Variants = {
   },
 };
 
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 const layoutTransition = { type: "spring", bounce: 0.15, duration: 0.5 } as const;
 
 // motion() wraps any React component to accept Framer Motion props (layout,
@@ -36,7 +39,7 @@ function useBreakpoint() {
     "mobile",
   );
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const smMq = window.matchMedia("(min-width: 640px)");
     const lgMq = window.matchMedia("(min-width: 1024px)");
 
@@ -123,7 +126,11 @@ export function Hero(): ReactElement {
             layout
             layoutDependency={breakpoint}
             transition={{ layout: layoutTransition }}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4 mt-auto lg:mt-0"
+            className={cn(
+              "flex",
+              breakpoint === "mobile" ? "flex-col gap-3" : "flex-row items-center gap-4",
+              breakpoint !== "lg" && "mt-auto",
+            )}
           >
             {/* Each button gets layout so Framer Motion can FLIP their
                 individual positions when switching between flex-col and flex-row. */}
