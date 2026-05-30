@@ -136,4 +136,9 @@ body {
     display: none;
   }
 
+  /* Applied via group-hover: on image-based skill icons to tint them brand teal.
+     Uses !important to reliably override Tailwind's composited --tw-grayscale filter. */
+  .filter-brand {
+    filter: sepia(1) hue-rotate(140deg) saturate(7) brightness(0.5);
+  }
 }
