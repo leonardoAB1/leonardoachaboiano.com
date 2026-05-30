@@ -303,15 +303,15 @@ function MatlabIcon({ size = 56, className }: SkillIconProps) {
   );
 }
 
-// FreeRTOS 3D icon - 1.5:1 ratio
+// FreeRTOS 3D icon - 1.5:1 ratio, scaled up to compensate for glow padding
 function FreeRtosIcon({ size = 48, className }: SkillIconProps) {
   return (
     <Image
       src="/icons/skills/freertos.png"
       alt=""
       aria-hidden="true"
-      width={Math.round(size * 1.5)}
-      height={size}
+      width={Math.round(size * 2.25)}
+      height={Math.round(size * 1.5)}
       className={`skill-img${className ? ` ${className}` : ""}`}
       unoptimized
     />
