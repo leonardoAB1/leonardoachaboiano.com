@@ -2,15 +2,14 @@ import {
   ArrowLeftRight,
   Boxes,
   CircuitBoard,
-  Cog,
   Cpu,
   Crosshair,
+  Drill,
   GitBranch,
   Layers,
   Microchip,
-  Ruler,
+  Target,
   WavesHorizontal,
-  Waypoints,
   Workflow,
   Zap,
 } from "lucide-react";
@@ -224,6 +223,18 @@ function LtspiceIcon({
   );
 }
 
+// Bosch invented CAN bus (1983) - Bosch logo represents the CAN protocol
+function BoschIcon({
+  size,
+  ...props
+}: SkillIconProps & SVGProps<SVGSVGElement>) {
+  return (
+    <SkillIcon size={size} {...props}>
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12C23.996 5.374 18.626.004 12 0zm0 22.88C5.991 22.88 1.12 18.009 1.12 12S5.991 1.12 12 1.12 22.88 5.991 22.88 12c-.006 6.006-4.874 10.874-10.88 10.88zm4.954-18.374h-.821v4.108h-8.24V4.506h-.847a8.978 8.978 0 0 0 0 14.988h.846v-4.108h8.24v4.108h.822a8.978 8.978 0 0 0 0-14.988zM6.747 17.876a7.86 7.86 0 0 1 0-11.752v11.752zm9.386-3.635h-8.24V9.734h8.24v4.507zm1.12 3.61V6.124a7.882 7.882 0 0 1 0 11.727z" />
+    </SkillIcon>
+  );
+}
+
 // AMD acquired Xilinx (2022) - AMD logo represents the FPGA/HDL ecosystem
 function AmdXilinxIcon({
   size,
@@ -292,7 +303,7 @@ export const SKILL_ICONS: Partial<
   // Lucide semantic icons
   "Verilog/VHDL": AmdXilinxIcon,
   FreeRTOS: Cpu,
-  CAN: Waypoints,
+  CAN: BoschIcon,
   I2C: ArrowLeftRight,
   Altium: CircuitBoard,
   Proteus: ProteusIcon,
@@ -300,8 +311,8 @@ export const SKILL_ICONS: Partial<
   Breadboarding: Microchip,
   Soldering: Zap,
   DFMA: Layers,
-  "GD&T": Ruler,
-  "CNC Lathe": Cog,
+  "GD&T": Target,
+  "CNC Lathe": Drill,
   "3D Printing": BambuIcon,
   "Laser Cutting": Crosshair,
   Ladder: GitBranch,
