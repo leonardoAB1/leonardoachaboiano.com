@@ -233,7 +233,7 @@ function CanIcon({ size = 48, className }: SkillIconProps) {
       aria-hidden="true"
       width={Math.round(size * 1.4)}
       height={size}
-      className={className}
+      className={`dark:brightness-150${className ? ` ${className}` : ""}`}
       unoptimized
     />
   );
