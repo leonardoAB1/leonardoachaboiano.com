@@ -1,7 +1,6 @@
 import {
   ArrowLeftRight,
   Boxes,
-  Crosshair,
   GitBranch,
   Layers,
   Microchip,
@@ -474,9 +473,8 @@ export const SKILL_ICONS: Partial<
   "GD&T": Target,
   "CNC Lathe": FanucIcon,
   "Robot Operator": KukaIcon,
-  "Instrumentación Industrial": EndressHauserIcon,
+  "Industrial Instrumentation": EndressHauserIcon,
   "3D Printing": BambuIcon,
-  "Laser Cutting": Crosshair,
   Ladder: GitBranch,
   FBD: Boxes,
   "P&ID": Workflow,

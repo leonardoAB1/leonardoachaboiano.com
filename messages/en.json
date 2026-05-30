@@ -111,10 +111,16 @@
       "native": "Native",
       "fluent": "Fluent",
       "a2": "A2"
+    },
+    "skillLabels": {
+      "industrialInstrumentation": "Industrial Instrumentation"
     }
   },
   "Achievements": {
-    "icpc": { "label": "Champion, ICPC Regional Contest", "date": "Aug 2024" },
+    "icpc": {
+      "label": "Champion, ICPC Regional Contest",
+      "date": "Aug 2024"
+    },
     "diplomaHonour2": {
       "label": "Diploma of Honour, 2nd place - Mechatronic Eng term 2-2023",
       "date": "Apr 2024"

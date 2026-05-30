@@ -111,10 +111,16 @@
       "native": "Nativo",
       "fluent": "Fluido",
       "a2": "A2"
+    },
+    "skillLabels": {
+      "industrialInstrumentation": "Instrumentación Industrial"
     }
   },
   "Achievements": {
-    "icpc": { "label": "Campeón, Concurso Regional ICPC", "date": "ago 2024" },
+    "icpc": {
+      "label": "Campeón, Concurso Regional ICPC",
+      "date": "ago 2024"
+    },
     "diplomaHonour2": {
       "label": "Diploma de Honor, 2º lugar - Ing. Mecatrónica semestre 2-2023",
       "date": "abr 2024"
@@ -127,7 +133,10 @@
       "label": "Diploma de Honor, 2º lugar - Ing. Mecatrónica semestre 1-2023",
       "date": "sep 2023"
     },
-    "scholarship": { "label": "Beca de Excelencia x3", "date": "2021-2022" },
+    "scholarship": {
+      "label": "Beca de Excelencia x3",
+      "date": "2021-2022"
+    },
     "rotary": {
       "label": "Embajador del Intercambio Juvenil Rotario en Canadá",
       "date": "2018-2019"

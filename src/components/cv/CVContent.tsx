@@ -11,6 +11,7 @@ import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow } from "@/components/ui/Typography";
+import { skillGroups } from "@/data/skills";
 import { timelineEntries } from "@/data/timeline";
 import { resolveTimelineEntry } from "@/lib/timeline-content";
 import { cn } from "@/lib/utils";
@@ -22,70 +23,6 @@ const GlobeVisualization = dynamic(
     ),
   { ssr: false, loading: () => <GlobePlaceholder /> },
 );
-
-// ---------------------------------------------------------------------------
-// Static non-translatable data
-// ---------------------------------------------------------------------------
-
-const skillGroups: { categoryKey: string; skills: string[] }[] = [
-  {
-    categoryKey: "programming",
-    skills: ["Python", "C/C++", "MATLAB", "Verilog/VHDL", "LaTeX"],
-  },
-  {
-    categoryKey: "embeddedRobotics",
-    skills: [
-      "STM32",
-      "ESP32",
-      "Arduino",
-      "ROS2",
-      "FreeRTOS",
-      "Zephyr",
-      "Robot Operator",
-      "BLE",
-      "CAN",
-      "I2C",
-      "MQTT",
-    ],
-  },
-  {
-    categoryKey: "electronicsPcb",
-    skills: [
-      "KiCad",
-      "Altium",
-      "Proteus",
-      "LTSpice",
-      "Breadboarding",
-      "Soldering",
-    ],
-  },
-  {
-    categoryKey: "mechanicalDesign",
-    skills: [
-      "SolidWorks",
-      "Fusion 360",
-      "AutoCAD",
-      "DFMA",
-      "GD&T",
-      "CNC Lathe",
-      "3D Printing",
-      "Laser Cutting",
-    ],
-  },
-  {
-    categoryKey: "tools",
-    skills: [
-      "Git",
-      "GitHub",
-      "Instrumentación Industrial",
-      "PLC (Tia Portal)",
-      "Ladder",
-      "FBD",
-      "P&ID",
-      "FluidSIM",
-    ],
-  },
-];
 
 const achievementKeys = [
   "icpc",
@@ -126,6 +63,19 @@ export function CVContent(): ReactElement {
   const tTimeline = useTranslations("Timeline");
   const tAchievements = useTranslations("Achievements");
   const locale = useLocale();
+
+  // Build the flat skill list with locale-aware labels.
+  // Most skills are proper nouns that don't need translation;
+  // only "Industrial Instrumentation" has a locale-specific name.
+  const allLabeledSkills = skillGroups.flatMap(({ skills }) =>
+    skills.map((key) => ({
+      key,
+      label:
+        key === "Industrial Instrumentation"
+          ? t("skillLabels.industrialInstrumentation")
+          : key,
+    })),
+  );
 
   // All entries resolved once - same set as the hero, no cvVisible filtering.
   // Each carries its original array index so clicks map to the correct globe
@@ -273,7 +223,7 @@ export function CVContent(): ReactElement {
       {/* Skills grid - all skills flat, no category labels, hover reveals name */}
       <AnimatedSection delay={0.05} className="mt-10">
         <Eyebrow className="mb-8 px-6 sm:px-8">{t("sections.skills")}</Eyebrow>
-        <SkillGrid skills={skillGroups.flatMap(({ skills }) => skills)} />
+        <SkillGrid skills={allLabeledSkills} />
       </AnimatedSection>
     </>
   );
