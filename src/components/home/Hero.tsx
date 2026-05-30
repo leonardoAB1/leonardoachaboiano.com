@@ -3,7 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useEffect, useLayoutEffect, useState, type ReactElement } from "react";
+import { type ReactElement, useEffect, useLayoutEffect, useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
@@ -28,7 +28,11 @@ const item: Variants = {
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-const layoutTransition = { type: "spring", bounce: 0.15, duration: 0.5 } as const;
+const layoutTransition = {
+  type: "spring",
+  bounce: 0.15,
+  duration: 0.5,
+} as const;
 
 // motion() wraps any React component to accept Framer Motion props (layout,
 // animate, etc.). Next.js Link forwards its ref, so this works correctly.
@@ -128,7 +132,9 @@ export function Hero(): ReactElement {
             transition={{ layout: layoutTransition }}
             className={cn(
               "flex",
-              breakpoint === "mobile" ? "flex-col gap-3" : "flex-row items-center gap-4",
+              breakpoint === "mobile"
+                ? "flex-col gap-3"
+                : "flex-row items-center gap-4",
               breakpoint !== "lg" && "mt-auto",
             )}
           >
