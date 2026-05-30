@@ -147,7 +147,7 @@ body {
   .dark .skill-img {
     /* contrast(0.3) brings black-derived whites and green-derived medium-grays
        much closer together before brightness lifts everything to a readable level */
-    filter: grayscale(1) invert(1) contrast(0.3) brightness(1.8);
+    filter: grayscale(1) invert(1) contrast(0.3) brightness(1.1);
     mix-blend-mode: screen;
   }
 
