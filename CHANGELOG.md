@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.7.0...v1.8.0) (2026-05-30)
+
+
+### Features
+
+* replace skill text labels with logos and add icon grid ([#212](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/212)) ([1d16a6c](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1d16a6cba05d7c78ee93e8b47a3196891d6dfedc))
+
 ## [1.7.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.6.2...v1.7.0) (2026-05-30)
 
 
