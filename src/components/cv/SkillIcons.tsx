@@ -303,14 +303,14 @@ function MatlabIcon({ size = 56, className }: SkillIconProps) {
   );
 }
 
-// FreeRTOS logo - PNG from freertos.org (no SVG available), 2.63:1 wide
+// FreeRTOS 3D icon - 1.5:1 ratio
 function FreeRtosIcon({ size = 48, className }: SkillIconProps) {
   return (
     <Image
       src="/icons/skills/freertos.png"
       alt=""
       aria-hidden="true"
-      width={Math.round(size * 2.63)}
+      width={Math.round(size * 1.5)}
       height={size}
       className={`grayscale mix-blend-multiply dark:invert dark:mix-blend-screen transition-[filter] duration-200 group-hover:filter-brand${className ? ` ${className}` : ""}`}
       unoptimized
