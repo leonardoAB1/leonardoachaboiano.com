@@ -11,7 +11,7 @@ interface SkillGridProps {
 
 export function SkillGrid({ skills }: SkillGridProps): ReactElement {
   return (
-    <div className="flex flex-wrap gap-x-8 gap-y-6 px-6 sm:px-8">
+    <div className="flex flex-wrap justify-center gap-x-8 gap-y-6 px-6 sm:px-8">
       {skills.map((skill) => {
         const Icon = SKILL_ICONS[skill];
         return (
