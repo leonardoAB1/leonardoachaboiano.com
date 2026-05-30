@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { LayoutGroup, motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { type ReactElement, useEffect, useLayoutEffect, useState } from "react";
@@ -97,86 +97,91 @@ export function Hero(): ReactElement {
       </div>
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
-      <Container
-        className={cn(
-          "relative max-w-7xl",
-          breakpoint === "lg" ? "block" : "flex flex-1 flex-col",
-        )}
-      >
-        <motion.div
+      <LayoutGroup>
+        <Container
           className={cn(
-            "flex flex-col gap-8 max-w-xl",
-            breakpoint !== "lg" && "flex-1",
+            "relative max-w-7xl",
+            breakpoint === "lg" ? "block" : "flex flex-1 flex-col",
           )}
-          initial="hidden"
-          animate="show"
-          variants={container}
         >
-          <motion.div variants={item}>
-            <Eyebrow className="text-white/70">{tCommon("role")}</Eyebrow>
-          </motion.div>
-          <motion.div variants={item}>
-            <Heading
-              as="h1"
-              size="xl"
-              className="break-words text-white [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
-            >
-              {t("heading")}
-            </Heading>
-          </motion.div>
-          <motion.div variants={item}>
-            <Text className="text-white/80" size="lg">
-              {t("intro")}
-            </Text>
-          </motion.div>
-
-          {/* layout + layoutDependency animate the group position when the
-              container switches from flex to block at lg, and the buttons
-              move from the bottom of the viewport to below the text. */}
           <motion.div
-            variants={item}
+            className={cn(
+              "flex flex-col gap-8 max-w-xl",
+              breakpoint !== "lg" && "flex-1",
+            )}
             layout
             layoutDependency={breakpoint}
             transition={{ layout: layoutTransition }}
-            className={cn(
-              "flex",
-              breakpoint === "mobile"
-                ? "flex-col gap-3"
-                : "flex-row items-center gap-4",
-              breakpoint !== "lg" && "mt-auto",
-            )}
+            initial="hidden"
+            animate="show"
+            variants={container}
           >
-            {/* Each button gets layout so Framer Motion can FLIP their
-                individual positions when switching between flex-col and flex-row. */}
-            <MotionLink
+            <motion.div variants={item}>
+              <Eyebrow className="text-white/70">{tCommon("role")}</Eyebrow>
+            </motion.div>
+            <motion.div variants={item}>
+              <Heading
+                as="h1"
+                size="xl"
+                className="break-words text-white [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
+              >
+                {t("heading")}
+              </Heading>
+            </motion.div>
+            <motion.div variants={item}>
+              <Text className="text-white/80" size="lg">
+                {t("intro")}
+              </Text>
+            </motion.div>
+
+            {/* layout + layoutDependency animate the group position when the
+                container switches from flex to block at lg, and the buttons
+                move from the bottom of the viewport to below the text. */}
+            <motion.div
+              variants={item}
               layout
               layoutDependency={breakpoint}
               transition={{ layout: layoutTransition }}
               className={cn(
-                buttonClasses({ size: "lg", variant: "primary" }),
-                "bg-white text-brand hover:bg-white/90",
-                "text-center",
+                "flex",
+                breakpoint === "mobile"
+                  ? "flex-col gap-3"
+                  : "flex-row items-center gap-4",
+                breakpoint !== "lg" && "mt-auto",
               )}
-              href="/cv"
             >
-              {t("viewCv")}
-            </MotionLink>
-            <MotionLink
-              layout
-              layoutDependency={breakpoint}
-              transition={{ layout: layoutTransition }}
-              className={cn(
-                buttonClasses({ size: "lg", variant: "secondary" }),
-                "border-white/70 text-white hover:border-white hover:bg-white/10",
-                "text-center",
-              )}
-              href="/contact"
-            >
-              {t("getInTouch")}
-            </MotionLink>
+              {/* Each button gets layout so Framer Motion can FLIP their
+                  individual positions when switching between flex-col and flex-row. */}
+              <MotionLink
+                layout
+                layoutDependency={breakpoint}
+                transition={{ layout: layoutTransition }}
+                className={cn(
+                  buttonClasses({ size: "lg", variant: "primary" }),
+                  "bg-white text-brand hover:bg-white/90",
+                  "text-center",
+                )}
+                href="/cv"
+              >
+                {t("viewCv")}
+              </MotionLink>
+              <MotionLink
+                layout
+                layoutDependency={breakpoint}
+                transition={{ layout: layoutTransition }}
+                className={cn(
+                  buttonClasses({ size: "lg", variant: "secondary" }),
+                  "border-white/70 text-white hover:border-white hover:bg-white/10",
+                  "text-center",
+                )}
+                href="/contact"
+              >
+                {t("getInTouch")}
+              </MotionLink>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </Container>
+        </Container>
+      </LayoutGroup>
     </Section>
   );
 }
