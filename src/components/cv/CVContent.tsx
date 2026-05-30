@@ -41,6 +41,7 @@ const skillGroups: { categoryKey: string; skills: string[] }[] = [
       "ROS2",
       "FreeRTOS",
       "Zephyr",
+      "Robot Operator",
       "BLE",
       "CAN",
       "I2C",
@@ -76,6 +77,7 @@ const skillGroups: { categoryKey: string; skills: string[] }[] = [
     skills: [
       "Git",
       "GitHub",
+      "Instrumentación Industrial",
       "PLC (Tia Portal)",
       "Ladder",
       "FBD",

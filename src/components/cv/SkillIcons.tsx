@@ -374,6 +374,41 @@ function AltiumIcon({
   );
 }
 
+// KUKA logo - kuka.com, currentColor (gradient stripped), 5.85:1 wide
+function KukaIcon({
+  size = 48,
+  ...props
+}: SkillIconProps & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 199 34"
+      width={size * 3}
+      height={Math.round((size * 3) / 5.85)}
+      fill="currentColor"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M10.7,33.4H0V0h10.7v16.4V33.4z M45.2,33.4l-20.6-17L45.2,0H30.1L10.7,16.4l19.4,17H45.2z M93.7,21.7V0H83v19.8c0,4.2-1.6,5.5-6,5.5H66.5c-4.4,0-6-1.3-6-5.5V0H49.9v21.7C49.9,30,54.3,34,64.1,34h15.3C89.2,34,93.7,30,93.7,21.7z M112.7,33.4H102V0h10.7v16.4V33.4z M147.2,33.4l-20.6-17L147.2,0h-15.1l-19.4,16.4l19.4,17H147.2z M177.6,0h-9.4l-20.9,33.4h12.3l3.5-5.8h19.8l3.5,5.8h12.3L177.6,0z M166.6,20.9l6.2-10.6l6.2,10.6H166.6z" />
+    </svg>
+  );
+}
+
+// Endress+Hauser logo - endress.com, local SVG with skill-img class, 8.24:1 wide
+function EndressHauserIcon({ size = 48, className }: SkillIconProps) {
+  return (
+    <Image
+      src="/icons/skills/endress-hauser.svg"
+      alt=""
+      aria-hidden="true"
+      width={size * 3}
+      height={Math.round((size * 3) / 8.24)}
+      className={`skill-img${className ? ` ${className}` : ""}`}
+      unoptimized
+    />
+  );
+}
+
 // Fanuc logo (CNC controller brand) - Wikimedia Commons, currentColor, 5.93:1 wide
 function FanucIcon({
   size = 48,
@@ -438,6 +473,8 @@ export const SKILL_ICONS: Partial<
   DFMA: Layers,
   "GD&T": Target,
   "CNC Lathe": FanucIcon,
+  "Robot Operator": KukaIcon,
+  "Instrumentación Industrial": EndressHauserIcon,
   "3D Printing": BambuIcon,
   "Laser Cutting": Crosshair,
   Ladder: GitBranch,
