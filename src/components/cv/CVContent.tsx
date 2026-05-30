@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactElement, useEffect, useRef, useState } from "react";
-import { SkillMarquee } from "@/components/cv/SkillMarquee";
+import { SkillGrid } from "@/components/cv/SkillMarquee";
 import { TimelineEntry } from "@/components/cv/TimelineEntry";
 import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
@@ -256,16 +256,10 @@ export function CVContent(): ReactElement {
         </div>
       </div>
 
-      {/* Skills - full-bleed marquee rows, one per category, no visible labels */}
+      {/* Skills grid - all skills flat, no category labels, hover reveals name */}
       <AnimatedSection delay={0.05} className="mt-10">
         <Eyebrow className="mb-8 px-6 sm:px-8">{t("sections.skills")}</Eyebrow>
-        <div className="space-y-2">
-          {skillGroups.map(({ categoryKey, skills }) => (
-            // categoryKey groups: programming | embeddedRobotics | electronicsPcb
-            //                     mechanicalDesign | tools
-            <SkillMarquee key={categoryKey} skills={skills} />
-          ))}
-        </div>
+        <SkillGrid skills={skillGroups.flatMap(({ skills }) => skills)} />
       </AnimatedSection>
     </>
   );
