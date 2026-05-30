@@ -394,18 +394,29 @@ function KukaIcon({
   );
 }
 
-// Endress+Hauser logo - endress.com, local SVG with skill-img class, 8.24:1 wide
-function EndressHauserIcon({ size = 48, className }: SkillIconProps) {
+// Endress+Hauser EH mark — inline SVG using evenodd compound path.
+// Square + E + H combined: where E/H overlap the square they become transparent holes,
+// giving white/page-color cutout letterforms on a currentColor square.
+// ViewBox crops to just the EH mark (right portion of the 280×34 wordmark space).
+function EndressHauserIcon({
+  size = 48,
+  ...props
+}: SkillIconProps & SVGProps<SVGSVGElement>) {
   return (
-    <Image
-      src="/icons/skills/endress-hauser.svg"
-      alt=""
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="218 0 62 34"
+      width={Math.round((size * 62) / 34)}
+      height={size}
+      fill="currentColor"
       aria-hidden="true"
-      width={size * 3}
-      height={Math.round((size * 3) / 8.24)}
-      className={`skill-img${className ? ` ${className}` : ""}`}
-      unoptimized
-    />
+      {...props}
+    >
+      <path
+        fillRule="evenodd"
+        d="M277.16 1a4.07 4.07 0 0 0-1-.12h-46.04a3.82 3.82 0 0 0-3.69 2.83l-6.53 24.37a3.84 3.84 0 0 0 2.71 4.69 4.14 4.14 0 0 0 1 .13h46a3.83 3.83 0 0 0 3.69-2.84l6.53-24.35A3.83 3.83 0 0 0 277.16 1z M248.74 29.84h-18.62a.77.77 0 0 1-.76-.77V4.72a.77.77 0 0 1 .76-.77h18.62l-1.88 7h-9.21v2.42H244l-1.88 7h-4.44v2.42h11.09z M270.41 29.07a.77.77 0 0 1-.76.77h-7.52V20.4h-2.55v9.44h-8.29V20.4h-7l1.88-7h5.08V4h8.29v9.44h2.55V4h7.52a.77.77 0 0 1 .76.77z"
+      />
+    </svg>
   );
 }
 
