@@ -97,9 +97,17 @@ export function Hero(): ReactElement {
       </div>
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
-      <Container className="relative flex flex-1 flex-col max-w-7xl lg:block">
+      <Container
+        className={cn(
+          "relative max-w-7xl",
+          breakpoint === "lg" ? "block" : "flex flex-1 flex-col",
+        )}
+      >
         <motion.div
-          className="flex flex-1 flex-col gap-8 max-w-xl lg:flex-none"
+          className={cn(
+            "flex flex-col gap-8 max-w-xl",
+            breakpoint !== "lg" && "flex-1",
+          )}
           initial="hidden"
           animate="show"
           variants={container}
