@@ -142,7 +142,7 @@ export default async function ContactPage({
                     className="group flex flex-col gap-0.5 rounded-md border border-border bg-surface-1 px-4 py-3 transition-colors duration-150 hover:border-brand hover:bg-surface-brand"
                   >
                     <span className="flex items-center gap-2 text-sm font-medium text-ink-1 group-hover:text-brand">
-                      <link.Icon aria-hidden="true" size={15} />
+                      <link.Icon size={15} />
                       {link.label}
                     </span>
                     <span className="text-xs text-ink-3">

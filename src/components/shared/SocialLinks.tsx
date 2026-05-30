@@ -43,7 +43,7 @@ export function SocialLinks({ className }: SocialLinksProps): ReactElement {
               }
               className="text-ink-3 transition-colors hover:text-ink-1"
             >
-              <link.Icon aria-hidden="true" size={18} />
+              <link.Icon size={18} />
             </Link>
           </li>
         ))}
