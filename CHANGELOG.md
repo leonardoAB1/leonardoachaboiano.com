@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.6.1...v1.6.2) (2026-05-30)
+
+
+### Bug Fixes
+
+* set manifest display to browser to suppress pwa install prompt ([f07c2bb](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/f07c2bbdeb46e9cc73e992c1a883d1875d10c7f2))
+* suppress pwa install prompt on mobile ([#208](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/208)) ([f07c2bb](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/f07c2bbdeb46e9cc73e992c1a883d1875d10c7f2))
+
 ## [1.6.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.6.0...v1.6.1) (2026-05-29)
 
 
