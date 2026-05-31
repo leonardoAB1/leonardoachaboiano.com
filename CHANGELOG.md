@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.3...v1.10.4) (2026-05-31)
+
+
+### Bug Fixes
+
+* remove dual variant shapes from mobile menu to fix pointer event blocking ([#241](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/241)) ([9a668b0](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9a668b007e3a2f4916326d5d7524e084f3efa85d))
+
 ## [1.10.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.2...v1.10.3) (2026-05-31)
 
 
