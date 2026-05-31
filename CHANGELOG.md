@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.9.1...v1.10.0) (2026-05-31)
+
+
+### Features
+
+* add org website links to cv timeline ([#228](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/228)) ([2da7aac](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/2da7aac5e1317fcbcd0e88b197bf91dbcd7c2731))
+
 ## [1.9.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.9.0...v1.9.1) (2026-05-31)
 
 
