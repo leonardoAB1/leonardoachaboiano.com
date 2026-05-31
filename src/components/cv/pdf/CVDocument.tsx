@@ -66,11 +66,11 @@ const RULE_COLOR = "#cccccc";
 const s = StyleSheet.create({
   page: {
     fontFamily: "Helvetica",
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
-    paddingHorizontal: 36,
-    paddingTop: 28,
-    paddingBottom: 24,
+    paddingHorizontal: 34,
+    paddingTop: 26,
+    paddingBottom: 22,
     backgroundColor: "#ffffff",
   },
 
@@ -79,22 +79,22 @@ const s = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 5,
+    marginBottom: 4,
   },
   headerLeft: {
     flex: 1,
-    paddingRight: 14,
+    paddingRight: 12,
   },
   name: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 22,
+    fontSize: 26,
     color: DARK,
-    marginBottom: 2,
+    marginBottom: 1,
   },
   titleLine: {
-    fontSize: 11,
+    fontSize: 12,
     color: TEAL,
-    marginBottom: 4,
+    marginBottom: 3,
   },
   contactRow: {
     flexDirection: "row",
@@ -103,31 +103,31 @@ const s = StyleSheet.create({
     alignItems: "center",
   },
   contactText: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: DARK,
   },
   contactBold: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 8.5,
+    fontSize: 9,
     color: TEAL,
   },
   contactSep: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
     marginHorizontal: 3,
   },
   photo: {
-    width: 72,
-    height: 72,
+    width: 80,
+    height: 80,
     borderRadius: 4,
   },
 
   // --- Summary ---
   summaryRow: {
-    marginBottom: 6,
+    marginBottom: 5,
   },
   summaryText: {
-    fontSize: 8.5,
+    fontSize: 9,
     lineHeight: 1.4,
     color: DARK,
   },
@@ -145,7 +145,7 @@ const s = StyleSheet.create({
     flex: 1,
   },
   leftCol: {
-    flex: 1.38,
+    flex: 1.42,
     paddingRight: 12,
     borderRightWidth: 0,
   },
@@ -157,7 +157,7 @@ const s = StyleSheet.create({
   // --- Section headers ---
   sectionHeader: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 10,
+    fontSize: 10.5,
     color: TEAL,
     marginTop: 6,
     marginBottom: 2,
@@ -171,12 +171,12 @@ const s = StyleSheet.create({
   // --- Work / Education entries ---
   entryRole: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9.5,
+    fontSize: 10,
     color: DARK,
     marginBottom: 1,
   },
   entryOrg: {
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     marginBottom: 1,
   },
@@ -186,11 +186,11 @@ const s = StyleSheet.create({
     flexWrap: "wrap",
   },
   entryDate: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
   },
   entryLocation: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
     marginLeft: 4,
   },
@@ -200,18 +200,18 @@ const s = StyleSheet.create({
     paddingLeft: 2,
   },
   bulletDash: {
-    fontSize: 8.5,
+    fontSize: 9,
     marginRight: 4,
     color: DARK,
   },
   bulletText: {
     flex: 1,
-    fontSize: 8.5,
+    fontSize: 9,
     lineHeight: 1.35,
     color: DARK,
   },
   entryNote: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
     lineHeight: 1.35,
     marginBottom: 2,
@@ -230,13 +230,13 @@ const s = StyleSheet.create({
     marginBottom: 1,
   },
   eduDegree: {
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     flex: 1,
   },
   eduYear: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
   },
   eduOrgRow: {
@@ -246,24 +246,20 @@ const s = StyleSheet.create({
   },
   eduOrg: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     flex: 1,
   },
 
   // --- Achievements ---
   achievementItem: {
-    marginBottom: 4,
+    marginBottom: 3,
   },
   achievementLabel: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 8.5,
+    fontSize: 9,
     color: DARK,
     lineHeight: 1.3,
-  },
-  achievementDate: {
-    fontSize: 8,
-    color: GRAY,
   },
 
   // --- Languages ---
@@ -273,7 +269,7 @@ const s = StyleSheet.create({
   },
   languageItem: {
     width: "50%",
-    fontSize: 8.5,
+    fontSize: 9,
     color: DARK,
     marginBottom: 3,
   },
@@ -501,8 +497,7 @@ export function CVDocument({
             <View style={s.sectionRule} />
             {achievements.map((a) => (
               <View key={a.label} style={s.achievementItem}>
-                <Text style={s.achievementLabel}>{a.label}</Text>
-                <Text style={s.achievementDate}>{a.date}</Text>
+                <Text style={s.achievementLabel}>{`${a.label} | ${a.date}`}</Text>
               </View>
             ))}
 
