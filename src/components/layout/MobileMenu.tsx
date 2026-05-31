@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { type ReactElement, useEffect, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { Link, usePathname } from "@/i18n/navigation";
 import { navLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("Nav");
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -33,6 +35,21 @@ export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
   function closeMenu() {
     setIsOpen(false);
   }
+
+  const backdropVariants = {
+    closed: { opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.16, ease: "linear" as const } },
+    open:   { opacity: 1, transition: { duration: prefersReducedMotion ? 0 : 0.18, ease: "linear" as const } },
+  };
+
+  const panelVariants = prefersReducedMotion
+    ? {
+        closed: { opacity: 0, transition: { duration: 0.15 } },
+        open:   { opacity: 1, transition: { duration: 0.15 } },
+      }
+    : {
+        closed: { x: "100%", transition: { type: "tween" as const, duration: 0.18, ease: [0.4, 0, 1, 1] as [number, number, number, number] } },
+        open:   { x: 0,      transition: { type: "tween" as const, duration: 0.22, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+      };
 
   return (
     <>
@@ -58,19 +75,19 @@ export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
         {isOpen && (
           <>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              variants={backdropVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
               className="fixed inset-0 z-[55] bg-black/30 backdrop-blur-sm"
               onClick={closeMenu}
               aria-hidden
             />
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              variants={panelVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
               className={cn(
                 "fixed right-0 top-0 z-[60] flex h-full w-72 flex-col",
                 "bg-surface-0 shadow-xl",
