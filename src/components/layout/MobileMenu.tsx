@@ -3,41 +3,19 @@
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { type ReactElement, useEffect, useState } from "react";
+import { type ReactElement, useEffect, useMemo, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { Link, usePathname } from "@/i18n/navigation";
 import { navLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-
-const backdropVariants = {
-  closed: { opacity: 0, transition: { duration: 0.16, ease: "linear" as const } },
-  open: { opacity: 1, transition: { duration: 0.18, ease: "linear" as const } },
-};
-
-const panelVariants = {
-  closed: {
-    x: "100%",
-    transition: {
-      type: "tween" as const,
-      duration: 0.18,
-      ease: [0.4, 0, 1, 1] as [number, number, number, number],
-    },
-  },
-  open: {
-    x: 0,
-    transition: {
-      type: "tween" as const,
-      duration: 0.22,
-      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-    },
-  },
-};
 
 export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("Nav");
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -57,6 +35,48 @@ export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
   function closeMenu() {
     setIsOpen(false);
   }
+
+  const backdropVariants = useMemo(
+    () => ({
+      closed: {
+        opacity: 0,
+        transition: {
+          duration: prefersReducedMotion ? 0 : 0.16,
+          ease: "linear" as const,
+        },
+      },
+      open: {
+        opacity: 1,
+        transition: {
+          duration: prefersReducedMotion ? 0 : 0.18,
+          ease: "linear" as const,
+        },
+      },
+    }),
+    [prefersReducedMotion],
+  );
+
+  const panelVariants = useMemo(
+    () => ({
+      closed: {
+        x: "100%",
+        transition: {
+          type: "tween" as const,
+          duration: prefersReducedMotion ? 0 : 0.18,
+          ease: [0.4, 0, 1, 1] as [number, number, number, number],
+        },
+      },
+      open: {
+        x: 0,
+        transition: {
+          type: "tween" as const,
+          duration: prefersReducedMotion ? 0 : 0.22,
+          ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+        },
+      },
+    }),
+    [prefersReducedMotion],
+  );
 
   return (
     <>
