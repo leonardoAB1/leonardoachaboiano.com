@@ -51,50 +51,50 @@ export default async function CVPage({
         />
       ))}
       <div className="bg-surface-0">
-      {/* Header - server rendered, no interaction needed */}
-      <Section as="header" className="py-8 sm:py-12">
-        <Container>
-          <AnimatedSection>
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <Eyebrow className="mb-3">{t("eyebrow")}</Eyebrow>
-                <Heading as="h1" size="xl">
-                  {siteConfig.name}
-                </Heading>
-                <Text size="lg" className="mt-2 max-w-none">
-                  {tCommon("role")}
-                </Text>
-                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-3">
-                  <span>{t("location")}</span>
-                  <span aria-hidden="true" className="text-border">
-                    |
-                  </span>
-                  <a
-                    className="transition-colors hover:text-brand"
-                    href={`mailto:${siteConfig.email}`}
-                  >
-                    {siteConfig.email}
-                  </a>
+        {/* Header - server rendered, no interaction needed */}
+        <Section as="header" className="py-8 sm:py-12">
+          <Container>
+            <AnimatedSection>
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <Eyebrow className="mb-3">{t("eyebrow")}</Eyebrow>
+                  <Heading as="h1" size="xl">
+                    {siteConfig.name}
+                  </Heading>
+                  <Text size="lg" className="mt-2 max-w-none">
+                    {tCommon("role")}
+                  </Text>
+                  <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-3">
+                    <span>{t("location")}</span>
+                    <span aria-hidden="true" className="text-border">
+                      |
+                    </span>
+                    <a
+                      className="transition-colors hover:text-brand"
+                      href={`mailto:${siteConfig.email}`}
+                    >
+                      {siteConfig.email}
+                    </a>
+                  </div>
+                </div>
+                <div className="shrink-0">
+                  <DownloadButton />
                 </div>
               </div>
-              <div className="shrink-0">
-                <DownloadButton />
-              </div>
-            </div>
-          </AnimatedSection>
-        </Container>
-      </Section>
+            </AnimatedSection>
+          </Container>
+        </Section>
 
-      <Separator />
+        <Separator />
 
-      {/* Two-column content delegated to a client component so the globe and
+        {/* Two-column content delegated to a client component so the globe and
           timeline list can share interactive state (selectedIndex) */}
-      <Section className="py-8 sm:py-12">
-        <Container>
-          <CVContent />
-        </Container>
-      </Section>
-    </div>
+        <Section className="py-8 sm:py-12">
+          <Container>
+            <CVContent />
+          </Container>
+        </Section>
+      </div>
     </>
   );
 }
