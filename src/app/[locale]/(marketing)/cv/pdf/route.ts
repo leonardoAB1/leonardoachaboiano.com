@@ -1,9 +1,9 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { createElement } from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
-import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
+import { createElement } from "react";
 import { CVDocument } from "@/components/cv/pdf/CVDocument";
 import { hardSkills, softSkills } from "@/data/cv-pdf-skills";
 import { timelineEntries } from "@/data/timeline";
