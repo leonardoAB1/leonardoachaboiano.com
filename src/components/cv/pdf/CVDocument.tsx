@@ -277,7 +277,7 @@ const s = StyleSheet.create({
   contactRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: 1,
+    marginBottom: 3,
     alignItems: "center",
   },
   contactTeal: {
