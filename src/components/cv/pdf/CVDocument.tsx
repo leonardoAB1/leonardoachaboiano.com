@@ -24,6 +24,7 @@ export interface CVEntry {
 export interface CVAchievement {
   label: string;
   date: string;
+  description?: string;
 }
 
 export interface CVLanguage {
@@ -66,11 +67,11 @@ const RULE_COLOR = "#cccccc";
 const s = StyleSheet.create({
   page: {
     fontFamily: "Helvetica",
-    fontSize: 9.5,
+    fontSize: 9,
     color: DARK,
-    paddingHorizontal: 34,
-    paddingTop: 26,
-    paddingBottom: 22,
+    paddingHorizontal: 22,
+    paddingTop: 20,
+    paddingBottom: 16,
     backgroundColor: "#ffffff",
   },
 
@@ -83,52 +84,52 @@ const s = StyleSheet.create({
   },
   headerLeft: {
     flex: 1,
-    paddingRight: 12,
+    paddingRight: 10,
   },
   name: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 26,
+    fontSize: 22,
     color: DARK,
     marginBottom: 1,
   },
   titleLine: {
-    fontSize: 12,
+    fontSize: 11,
     color: TEAL,
-    marginBottom: 3,
+    marginBottom: 2,
   },
   contactRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: 2,
+    marginBottom: 1,
     alignItems: "center",
   },
   contactText: {
-    fontSize: 9,
+    fontSize: 8.5,
     color: DARK,
   },
   contactBold: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 8.5,
     color: TEAL,
   },
   contactSep: {
-    fontSize: 9,
+    fontSize: 8.5,
     color: GRAY,
     marginHorizontal: 3,
   },
   photo: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     borderRadius: 4,
   },
 
   // --- Summary ---
   summaryRow: {
-    marginBottom: 5,
+    marginBottom: 4,
   },
   summaryText: {
-    fontSize: 9,
-    lineHeight: 1.4,
+    fontSize: 8.5,
+    lineHeight: 1.35,
     color: DARK,
   },
 
@@ -145,8 +146,8 @@ const s = StyleSheet.create({
     flex: 1,
   },
   leftCol: {
-    flex: 1.42,
-    paddingRight: 12,
+    flex: 1.3,
+    paddingRight: 10,
     borderRightWidth: 0,
   },
   rightCol: {
@@ -157,109 +158,121 @@ const s = StyleSheet.create({
   // --- Section headers ---
   sectionHeader: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 10.5,
+    fontSize: 9.5,
     color: TEAL,
-    marginTop: 6,
-    marginBottom: 2,
+    marginTop: 4,
+    marginBottom: 1,
   },
   sectionRule: {
     borderBottomWidth: 1,
     borderBottomColor: TEAL,
-    marginBottom: 5,
+    marginBottom: 4,
   },
 
   // --- Work / Education entries ---
   entryRole: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 10,
+    fontSize: 9,
     color: DARK,
-    marginBottom: 1,
+    marginBottom: 0,
   },
   entryOrg: {
-    fontSize: 9.5,
+    fontSize: 9,
     color: DARK,
-    marginBottom: 1,
+    marginBottom: 0,
   },
   entryMeta: {
     flexDirection: "row",
-    marginBottom: 3,
+    marginBottom: 2,
     flexWrap: "wrap",
   },
   entryDate: {
-    fontSize: 9,
+    fontSize: 8.5,
     color: GRAY,
   },
   entryLocation: {
-    fontSize: 9,
+    fontSize: 8.5,
     color: GRAY,
     marginLeft: 4,
   },
   bulletRow: {
     flexDirection: "row",
-    marginBottom: 2,
+    marginBottom: 1,
     paddingLeft: 2,
   },
   bulletDash: {
-    fontSize: 9,
-    marginRight: 4,
+    fontSize: 8.5,
+    marginRight: 3,
     color: DARK,
   },
   bulletText: {
     flex: 1,
-    fontSize: 9,
-    lineHeight: 1.35,
+    fontSize: 8.5,
+    lineHeight: 1.3,
     color: DARK,
   },
   entryNote: {
-    fontSize: 9,
+    fontSize: 8.5,
     color: GRAY,
-    lineHeight: 1.35,
-    marginBottom: 2,
-    marginTop: 1,
+    lineHeight: 1.3,
+    marginBottom: 1,
+    marginTop: 0,
   },
   entrySep: {
     borderBottomWidth: 0.5,
     borderBottomColor: RULE_COLOR,
-    marginVertical: 5,
+    marginVertical: 4,
   },
 
   // Education specific
   eduDegreeRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 1,
+    marginBottom: 0,
   },
   eduDegree: {
-    fontSize: 9.5,
+    fontSize: 9,
     color: DARK,
     flex: 1,
   },
   eduYear: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9.5,
+    fontSize: 9,
     color: DARK,
   },
   eduOrgRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 1,
+    marginBottom: 0,
   },
   eduOrg: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9.5,
+    fontSize: 9,
     color: DARK,
     flex: 1,
+  },
+  eduGpa: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 9,
+    color: DARK,
+    flexShrink: 0,
   },
 
   // --- Achievements ---
   achievementItem: {
-    marginBottom: 3,
+    marginBottom: 2,
   },
   achievementLabel: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 8.5,
     color: DARK,
-    lineHeight: 1.3,
+    lineHeight: 1.25,
+  },
+  achievementDesc: {
+    fontSize: 8.5,
+    color: DARK,
+    lineHeight: 1.25,
+    marginBottom: 0,
   },
 
   // --- Languages ---
@@ -269,19 +282,19 @@ const s = StyleSheet.create({
   },
   languageItem: {
     width: "50%",
-    fontSize: 9,
+    fontSize: 8.5,
     color: DARK,
-    marginBottom: 3,
+    marginBottom: 2,
   },
 
   // --- Skills ---
   skillsSection: {
-    marginTop: 4,
+    marginTop: 3,
   },
   skillLine: {
     fontSize: 8.5,
-    lineHeight: 1.4,
-    marginBottom: 2,
+    lineHeight: 1.35,
+    marginBottom: 1,
   },
 });
 
@@ -352,17 +365,28 @@ function WorkEntry({
 
 function EducationEntry({ entry }: { entry: CVEntry }) {
   const noteLines = entry.note ? entry.note.split("\n") : [];
+  // First line starting with "GPA" is shown right-aligned next to the org name,
+  // matching the layout of the original PDF.
+  const gpaLine =
+    noteLines.length > 0 && noteLines[0].startsWith("GPA")
+      ? noteLines[0]
+      : null;
+  const bodyNotes = gpaLine ? noteLines.slice(1) : noteLines;
+
   return (
     <View style={{ marginBottom: 6 }}>
       <View style={s.eduDegreeRow}>
         <Text style={s.eduDegree}>{entry.role}</Text>
         <Text style={s.eduYear}>{entry.dateRange}</Text>
       </View>
-      <Text style={s.eduOrg}>{entry.org}</Text>
+      <View style={s.eduOrgRow}>
+        <Text style={s.eduOrg}>{entry.org}</Text>
+        {gpaLine ? <Text style={s.eduGpa}>{gpaLine}</Text> : null}
+      </View>
       <Text style={{ fontSize: 8.5, color: GRAY, marginBottom: 2 }}>
         {entry.location}
       </Text>
-      {noteLines.map((line) => (
+      {bodyNotes.map((line) => (
         <Text key={line} style={s.entryNote}>
           {line}
         </Text>
@@ -497,7 +521,10 @@ export function CVDocument({
             <View style={s.sectionRule} />
             {achievements.map((a) => (
               <View key={a.label} style={s.achievementItem}>
-                <Text style={s.achievementLabel}>{`${a.label} | ${a.date}`}</Text>
+                <Text style={s.achievementLabel}>{a.label}</Text>
+                {a.description ? (
+                  <Text style={s.achievementDesc}>{a.description}</Text>
+                ) : null}
               </View>
             ))}
 

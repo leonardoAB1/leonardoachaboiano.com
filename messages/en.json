@@ -119,28 +119,49 @@
   },
   "Achievements": {
     "icpc": {
-      "label": "Champion, ICPC Regional Contest",
-      "date": "Aug 2024"
+      "label": "Champion | ICPC Regional Contest | August 2024",
+      "date": "Aug 2024",
+      "description": "Led a 3-person team to 1st place in Programming Contest"
     },
     "diplomaHonour2": {
-      "label": "Diploma of Honour, 2nd place - Mechatronic Eng term 2-2023",
-      "date": "Apr 2024"
+      "label": "Diploma of Honour | Apr 2024",
+      "date": "Apr 2024",
+      "description": "Granted 2nd place in Mechatronic Eng career term 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA)",
-      "date": "Nov 2023"
+      "label": "Certified SOLIDWORKS Associate (CSWA) | Nov 2023",
+      "date": "Nov 2023",
+      "description": "Validates proficiency in 3D CAD modelling"
     },
     "diplomaHonour1": {
-      "label": "Diploma of Honour, 2nd place - Mechatronic Eng term 1-2023",
-      "date": "Sep 2023"
+      "label": "Diploma of Honour | Sep 2023",
+      "date": "Sep 2023",
+      "description": "Granted 2nd place in Mechatronic Eng career term 1-2023"
     },
-    "scholarship": {
-      "label": "Excellence Scholarship x3",
-      "date": "2021-2022"
+    "scholarship3": {
+      "label": "Excellence Scholarship | Oct 2022",
+      "date": "Oct 2022",
+      "description": "1st place in Mechatronic Engineering career term 1-2022"
+    },
+    "scholarship2": {
+      "label": "Excellence Scholarship | Apr 2022",
+      "date": "Apr 2022",
+      "description": "1st place in Mechatronic Engineering career term 2-2021"
+    },
+    "scholarship1": {
+      "label": "Excellence Scholarship | Nov 2021",
+      "date": "Nov 2021",
+      "description": "1st place in Mechatronic Engineering career term 1-2021"
+    },
+    "diplomaHonour0": {
+      "label": "Diploma of Honour | May 2021",
+      "date": "May 2021",
+      "description": "3rd place in Mechatronic Eng career term 2-2020"
     },
     "rotary": {
-      "label": "Rotary Youth Exchange Ambassador to Canada",
-      "date": "2018-2019"
+      "label": "Certificate of Achievement | Rotary District 4690 | 2019",
+      "date": "2019",
+      "description": "Rotary Youth Exchange Ambassador to Canada 2018-2019"
     }
   },
   "Contact": {
@@ -237,40 +258,40 @@
     "entries": {
       "cryowriteEngineer": {
         "role": "Robotics Engineer",
-        "location": "Basel, Switzerland",
+        "location": "Basel-Stadt, BS, Switzerland",
         "bullets": [
-          "Developing and maintaining ROS2 robotic systems with concurrent actions and hardware integration",
-          "On-site system installation, servicing, and preventive maintenance for deployed client systems"
+          "Developing and maintaining ROS2 robotic systems, including concurrent actions and hardware integration",
+          "Performing on-site system installation, servicing, and preventive maintenance for deployed client systems"
         ]
       },
       "cryowriteIntern": {
         "role": "Robotics Intern",
         "location": "Basel, Switzerland",
         "bullets": [
-          "Spearheaded company-wide documentation strategy in Confluence for internal knowledge sharing"
+          "Spearheaded the rollout of a company-wide documentation strategy in Confluence for internal knowledge sharing"
         ]
       },
       "lumiphase": {
-        "role": "Reliability Testing & Hardware Design Intern",
-        "location": "Stafa, Switzerland",
+        "role": "Reliability Testing and Hardware Design Intern",
+        "location": "Stäfa, ZH, Switzerland",
         "bullets": [
-          "Implemented new test methods: instrument selection, integration, and measurement routine coding",
+          "Implemented new test methods, including instrument selection, integration, and coding measurement routines",
           "Designed PCBs for sample fixation and electrical routing",
-          "Lab operations: instrument setup, hardware installation, calibration routine development"
+          "Performed lab operations: instrument setup, hardware installation, and calibration routine development"
         ]
       },
       "mobiEngineer": {
         "role": "Hardware Engineer",
-        "location": "Santa Cruz, Bolivia",
-        "bullets": [
-          "Integrated MQTT and CAN-based IoT batteries into existing workflow via APIs",
-          "Designed and prototyped solenoid actuators and control PCB for electric motorcycle battery security",
-          "Product development and logistics coordination with Chinese business partners"
-        ]
+        "location": "Santa Cruz, SC, Bolivia"
       },
       "mobiIntern": {
         "role": "Hardware Engineer Intern",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, SC, Bolivia",
+        "bullets": [
+          "Assisted the tech team in integrating MQTT and CAN-based IoT batteries into the existing workflow through APIs",
+          "Designed and prototyped solenoid actuators and control PCB tailored to secure electric motorcycles' batteries",
+          "Facilitated product development and logistics coordination with Chinese business partners"
+        ]
       },
       "realityHc": {
         "role": "Mechanical Design Intern",
@@ -279,7 +300,7 @@
       "ucbMechatronics": {
         "role": "B.Eng. Mechatronics Engineering",
         "location": "Santa Cruz, Bolivia",
-        "note": "GPA 3.7/4 - Graduated with Honours\nPresident of the Scientific Society (2023-2024)"
+        "note": "GPA 3.7/4\nGraduated with Honours\nPresident of the Scientific Society, term 2023-2024"
       },
       "rotaryExchange": {
         "role": "Exchange Student",

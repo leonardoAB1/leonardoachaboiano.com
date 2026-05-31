@@ -16,7 +16,10 @@ const ACHIEVEMENT_KEYS = [
   "diplomaHonour2",
   "cswa",
   "diplomaHonour1",
-  "scholarship",
+  "scholarship3",
+  "scholarship2",
+  "scholarship1",
+  "diplomaHonour0",
   "rotary",
 ] as const;
 
@@ -43,13 +46,20 @@ export async function GET(
     .filter((e) => e.cvVisible !== false && e.type === "work")
     .map((e) => resolveTimelineEntry(e, tTimeline, locale));
 
+  // Education entries use year-only date ranges to match the original PDF format.
   const educationEntries = timelineEntries
     .filter((e) => e.cvVisible !== false && e.type === "education")
-    .map((e) => resolveTimelineEntry(e, tTimeline, locale));
+    .map((e) => {
+      const resolved = resolveTimelineEntry(e, tTimeline, locale);
+      const endYear =
+        e.end === "present" ? new Date().getFullYear() : e.end.year;
+      return { ...resolved, dateRange: `${e.start.year} - ${endYear}` };
+    });
 
   const achievements = ACHIEVEMENT_KEYS.map((key) => ({
     label: tAchievements(`${key}.label`),
     date: tAchievements(`${key}.date`),
+    description: tAchievements(`${key}.description`),
   }));
 
   const languages = LANGUAGE_KEYS.map(({ nameKey, levelKey }) => ({

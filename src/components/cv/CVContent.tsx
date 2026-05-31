@@ -29,7 +29,10 @@ const achievementKeys = [
   "diplomaHonour2",
   "cswa",
   "diplomaHonour1",
-  "scholarship",
+  "scholarship3",
+  "scholarship2",
+  "scholarship1",
+  "diplomaHonour0",
   "rotary",
 ] as const;
 
