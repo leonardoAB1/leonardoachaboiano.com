@@ -12,6 +12,7 @@ export const siteConfig = {
     "Portfolio spanning PCB design, firmware development, robotics, and precision manufacturing.",
   url: siteUrl,
   email: "leonardoacha@hotmail.com",
+  phone: "(+41)76 220 45 78",
   locale: "en_US",
   keywords: [
     "Leonardo Acha Boiano",
@@ -52,6 +53,7 @@ export const navLinks = [
 
 export const socialLinks = {
   github: "https://github.com/leonardoAB1",
+  githubAlt: "https://github.com/leonardoAB-cw",
   linkedin: "https://www.linkedin.com/in/leonardo-acha-boiano",
   instagram: "https://www.instagram.com/leonardo.ab1/",
   facebook: "https://www.facebook.com/leonardo.achaboiano",

@@ -108,32 +108,54 @@
     },
     "skillLabels": {
       "industrialInstrumentation": "Industrielle Instrumentierung"
-    }
+    },
+    "summary": "Mechatronikingenieur mit Berufserfahrung in Robotik, eingebetteten Systemen und Produktentwicklung. Spezialisiert auf die Entwicklung innovativer Lösungen für komplexe ingenieurtechnische Herausforderungen, mit einem starken Leistungsnachweis in Problemlösung, Teamarbeit und Beiträgen zu fortschrittlichen Technologieprojekten in internationalen Umgebungen."
   },
   "Achievements": {
     "icpc": {
-      "label": "Sieger, ICPC Regional Contest",
-      "date": "Aug 2024"
+      "label": "Sieger | ICPC Regional Contest | August 2024",
+      "date": "Aug 2024",
+      "description": "Führte ein 3-köpfiges Team zum 1. Platz im Programmierwettbewerb"
     },
     "diplomaHonour2": {
-      "label": "Ehrendiplom, 2. Platz - Mechatronik Semester 2-2023",
-      "date": "Apr 2024"
+      "label": "Ehrendiplom | Apr 2024",
+      "date": "Apr 2024",
+      "description": "2. Platz in Mechatronik Semester 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA)",
-      "date": "Nov 2023"
+      "label": "Certified SOLIDWORKS Associate (CSWA) | Nov 2023",
+      "date": "Nov 2023",
+      "description": "Zertifiziert im 3D-CAD-Modelling mit SolidWorks"
     },
     "diplomaHonour1": {
-      "label": "Ehrendiplom, 2. Platz - Mechatronik Semester 1-2023",
-      "date": "Sep 2023"
+      "label": "Ehrendiplom | Sep 2023",
+      "date": "Sep 2023",
+      "description": "2. Platz in Mechatronik Semester 1-2023"
     },
-    "scholarship": {
-      "label": "Exzellenz-Stipendium x3",
-      "date": "2021-2022"
+    "scholarship3": {
+      "label": "Exzellenz-Stipendium | Okt 2022",
+      "date": "Okt 2022",
+      "description": "1. Platz in Mechatronik Semester 1-2022"
+    },
+    "scholarship2": {
+      "label": "Exzellenz-Stipendium | Apr 2022",
+      "date": "Apr 2022",
+      "description": "1. Platz in Mechatronik Semester 2-2021"
+    },
+    "scholarship1": {
+      "label": "Exzellenz-Stipendium | Nov 2021",
+      "date": "Nov 2021",
+      "description": "1. Platz in Mechatronik Semester 1-2021"
+    },
+    "diplomaHonour0": {
+      "label": "Ehrendiplom | Mai 2021",
+      "date": "Mai 2021",
+      "description": "3. Platz in Mechatronik Semester 2-2020"
     },
     "rotary": {
-      "label": "Rotary-Jugendaustausch-Botschafter in Kanada",
-      "date": "2018-2019"
+      "label": "Leistungsurkunde | Rotary D.4690 | 2019",
+      "date": "2019",
+      "description": "Jugendaustausch-Botschafter in Kanada 2018-2019"
     }
   },
   "Contact": {
@@ -234,7 +256,8 @@
         "bullets": [
           "Entwicklung und Wartung von ROS2-Robotersystemen mit nebenläufigen Aktionen und Hardware-Integration",
           "Installation vor Ort, Service und vorbeugende Wartung von ausgelieferten Kundensystemen"
-        ]
+        ],
+        "note": "Work GitHub: github.com/leonardoAB-cw"
       },
       "cryowriteIntern": {
         "role": "Praktikant Robotik",
@@ -254,25 +277,31 @@
       },
       "mobiEngineer": {
         "role": "Hardware-Ingenieur",
-        "location": "Santa Cruz, Bolivien",
+        "location": "Santa Cruz, SC, Bolivien",
         "bullets": [
-          "Integrierte MQTT- und CAN-basierte IoT-Batterien über APIs in den bestehenden Workflow",
-          "Entwarf und prototypisierte Magnetaktuatoren und eine Steuerplatine für die Batteriesicherung von Elektromotorrädern",
           "Produktentwicklung und Logistikkoordination mit chinesischen Geschäftspartnern"
         ]
       },
       "mobiIntern": {
         "role": "Praktikant Hardware-Engineering",
-        "location": "Santa Cruz, Bolivien"
+        "location": "Santa Cruz, SC, Bolivien",
+        "bullets": [
+          "Integrierte **MQTT**- und **CAN**-basierte IoT-Batterien über APIs in den bestehenden Workflow",
+          "Entwarf und prototypisierte Magnetaktuatoren und eine Steuer-**PCB** für die Batteriesicherung von Elektromotorrädern"
+        ]
       },
       "realityHc": {
         "role": "Praktikant Maschinenkonstruktion",
-        "location": "Santa Cruz, Bolivien"
+        "location": "Santa Cruz, Bolivien",
+        "bullets": [
+          "Entwickelte Rapid Prototypes zur Validierung und Iteration innovativer Ingenieurkonzepte",
+          "Erstellte detaillierte Bauteilkonstruktionen mit **SolidWorks** und CAD-Software für die Fertigung"
+        ]
       },
       "ucbMechatronics": {
         "role": "B.Eng. Mechatronik",
         "location": "Santa Cruz, Bolivien",
-        "note": "Notendurchschnitt 3,7/4 - Mit Auszeichnung abgeschlossen\nPräsident der Wissenschaftsgesellschaft (2023-2024)"
+        "note": "Notendurchschnitt 3,7/4\nMit Auszeichnung abgeschlossen\nPräsident der Wissenschaftsgesellschaft (2023-2024)"
       },
       "rotaryExchange": {
         "role": "Austauschschüler",

@@ -86,7 +86,7 @@
       "education": "Educación",
       "skills": "Habilidades",
       "languages": "Idiomas",
-      "achievements": "Logros"
+      "achievements": "Reconocimientos"
     },
     "skillCategories": {
       "programming": "Programación",
@@ -108,32 +108,54 @@
     },
     "skillLabels": {
       "industrialInstrumentation": "Instrumentación Industrial"
-    }
+    },
+    "summary": "Ingeniero mecatrónico con experiencia profesional en robótica, sistemas embebidos y diseño de productos. Especializado en el desarrollo de soluciones innovadoras para desafíos de ingeniería complejos, con un sólido historial en resolución de problemas, trabajo en equipo y contribución a proyectos tecnológicos avanzados en entornos internacionales."
   },
   "Achievements": {
     "icpc": {
-      "label": "Campeón, Concurso Regional ICPC",
-      "date": "ago 2024"
+      "label": "Campeón | Concurso Regional ICPC | agosto 2024",
+      "date": "ago 2024",
+      "description": "Lideró un equipo de 3 personas al 1er lugar en el Concurso de Programación"
     },
     "diplomaHonour2": {
-      "label": "Diploma de Honor, 2º lugar - Ing. Mecatrónica semestre 2-2023",
-      "date": "abr 2024"
+      "label": "Diploma de Honor | abr 2024",
+      "date": "abr 2024",
+      "description": "2º lugar en Ing. Mecatrónica semestre 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA)",
-      "date": "nov 2023"
+      "label": "Certified SOLIDWORKS Associate (CSWA) | nov 2023",
+      "date": "nov 2023",
+      "description": "Acredita competencia en modelado 3D CAD"
     },
     "diplomaHonour1": {
-      "label": "Diploma de Honor, 2º lugar - Ing. Mecatrónica semestre 1-2023",
-      "date": "sep 2023"
+      "label": "Diploma de Honor | sep 2023",
+      "date": "sep 2023",
+      "description": "2º lugar en Ing. Mecatrónica semestre 1-2023"
     },
-    "scholarship": {
-      "label": "Beca de Excelencia x3",
-      "date": "2021-2022"
+    "scholarship3": {
+      "label": "Beca de Excelencia | oct 2022",
+      "date": "oct 2022",
+      "description": "1er lugar en Ing. Mecatrónica semestre 1-2022"
+    },
+    "scholarship2": {
+      "label": "Beca de Excelencia | abr 2022",
+      "date": "abr 2022",
+      "description": "1er lugar en Ing. Mecatrónica semestre 2-2021"
+    },
+    "scholarship1": {
+      "label": "Beca de Excelencia | nov 2021",
+      "date": "nov 2021",
+      "description": "1er lugar en Ing. Mecatrónica semestre 1-2021"
+    },
+    "diplomaHonour0": {
+      "label": "Diploma de Honor | may 2021",
+      "date": "may 2021",
+      "description": "3er lugar en Ing. Mecatrónica semestre 2-2020"
     },
     "rotary": {
-      "label": "Embajador del Intercambio Juvenil Rotario en Canadá",
-      "date": "2018-2019"
+      "label": "Certificado de Logro | Rotario D.4690 | 2019",
+      "date": "2019",
+      "description": "Embajador Intercambio Juvenil en Canadá 2018-2019"
     }
   },
   "Contact": {
@@ -234,7 +256,8 @@
         "bullets": [
           "Desarrollo y mantenimiento de sistemas robóticos ROS2 con acciones concurrentes e integración de hardware",
           "Instalación in situ, servicio y mantenimiento preventivo de sistemas desplegados en clientes"
-        ]
+        ],
+        "note": "Work GitHub: github.com/leonardoAB-cw"
       },
       "cryowriteIntern": {
         "role": "Pasante de Robótica",
@@ -254,25 +277,31 @@
       },
       "mobiEngineer": {
         "role": "Ingeniero de Hardware",
-        "location": "Santa Cruz, Bolivia",
+        "location": "Santa Cruz, SC, Bolivia",
         "bullets": [
-          "Integré baterías IoT basadas en MQTT y CAN al flujo de trabajo existente mediante APIs",
-          "Diseñé y prototipé actuadores de solenoide y la PCB de control para la seguridad de baterías de motocicletas eléctricas",
-          "Desarrollo de producto y coordinación logística con socios comerciales chinos"
+          "Coordinación de desarrollo de producto y logística con socios comerciales chinos"
         ]
       },
       "mobiIntern": {
         "role": "Pasante de Ingeniería de Hardware",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, SC, Bolivia",
+        "bullets": [
+          "Integré baterías IoT basadas en **MQTT** y **CAN** al flujo de trabajo existente mediante APIs",
+          "Diseñé y prototipé actuadores de solenoide y **PCB** de control para la seguridad de baterías de motocicletas eléctricas"
+        ]
       },
       "realityHc": {
         "role": "Pasante de Diseño Mecánico",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, Bolivia",
+        "bullets": [
+          "Desarrolló prototipos rápidos para validar e iterar sobre diseños de ingeniería innovadores",
+          "Creó diseños detallados de componentes utilizando **SolidWorks** y software CAD para fabricación"
+        ]
       },
       "ucbMechatronics": {
         "role": "Lic. en Ingeniería Mecatrónica",
         "location": "Santa Cruz, Bolivia",
-        "note": "Promedio 3.7/4 - Graduado con Honores\nPresidente de la Sociedad Científica (2023-2024)"
+        "note": "Promedio 3.7/4\nGraduado con Honores\nPresidente de la Sociedad Científica, gestión 2023-2024"
       },
       "rotaryExchange": {
         "role": "Estudiante de Intercambio",
