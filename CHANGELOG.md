@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.2...v1.10.3) (2026-05-31)
+
+
+### Bug Fixes
+
+* reset panel x transform when switching to reduced-motion variants ([#239](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/239)) ([40d0dd0](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/40d0dd0d6e28a354530a196cf6a081adc70b7703))
+
 ## [1.10.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.1...v1.10.2) (2026-05-31)
 
 
