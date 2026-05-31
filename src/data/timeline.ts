@@ -76,7 +76,7 @@ export const timelineEntries: TimelineEntry[] = [
   },
   {
     id: "realityHc",
-    org: "Reality HC",
+    org: "Reality Herramientas Creativas",
     website: "https://realityherramientascreativas.com",
     coordinates: [-17.7833, -63.1821],
     start: { year: 2023, month: 3 },
