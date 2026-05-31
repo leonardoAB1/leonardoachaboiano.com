@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.8.0...v1.8.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* sort and merge react type imports to pass biome ci check ([#223](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/223)) ([8909214](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/8909214fb22b7c1f6093eff1fda4edb99ad035eb))
+
 ## [1.8.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.7.0...v1.8.0) (2026-05-30)
 
 
