@@ -625,12 +625,15 @@ export function CVDocument({
             {/* Row 1: email | phone | location */}
             <View style={s.contactRow}>
               <EmailIcon />
-              <Link src={`mailto:${email}`}>
+              <Link style={{ textDecoration: "none" }} src={`mailto:${email}`}>
                 <Text style={s.contactTeal}>{email}</Text>
               </Link>
               <Text style={s.contactSep}>{"  "}</Text>
               <WhatsAppIcon />
-              <Link src={`https://wa.me/${phone.replace(/[^0-9]/g, "")}`}>
+              <Link
+                style={{ textDecoration: "none" }}
+                src={`https://wa.me/${phone.replace(/[^0-9]/g, "")}`}
+              >
                 <Text style={s.contactTeal}>{phone}</Text>
               </Link>
               <Text style={s.contactSep}>{"  "}</Text>
@@ -640,7 +643,7 @@ export function CVDocument({
             {/* Row 2: LinkedIn | EU Nationality */}
             <View style={s.contactRow}>
               <LinkedInIcon />
-              <Link src={linkedin}>
+              <Link style={{ textDecoration: "none" }} src={linkedin}>
                 <Text style={s.contactBold}>{linkedinDisplay}</Text>
               </Link>
               <Text style={s.contactSep}>{"    "}</Text>
@@ -651,12 +654,12 @@ export function CVDocument({
             {/* Row 3: GitHub primary | GitHub secondary */}
             <View style={s.contactRow}>
               <GitHubIcon />
-              <Link src={github}>
+              <Link style={{ textDecoration: "none" }} src={github}>
                 <Text style={s.contactBold}>{githubDisplay}</Text>
               </Link>
               <Text style={s.contactSep}>{"    "}</Text>
               <GitHubIcon />
-              <Link src={githubAlt}>
+              <Link style={{ textDecoration: "none" }} src={githubAlt}>
                 <Text style={s.contactBold}>{githubAltDisplay}</Text>
               </Link>
             </View>
@@ -664,7 +667,7 @@ export function CVDocument({
             {/* Row 4: Personal website */}
             <View style={s.contactRow}>
               <WebIcon />
-              <Link src={website}>
+              <Link style={{ textDecoration: "none" }} src={website}>
                 <Text style={s.contactBold}>
                   {website.replace("https://", "")}
                 </Text>
