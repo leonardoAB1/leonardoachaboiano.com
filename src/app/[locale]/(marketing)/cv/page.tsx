@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig } from "@/lib/constants";
+import { GLOBE_TEXTURE_PRELOAD_HREFS } from "@/lib/globe-textures";
 import { pageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -39,7 +40,17 @@ export default async function CVPage({
   const tCommon = await getTranslations("Common");
 
   return (
-    <div className="bg-surface-0">
+    <>
+      {GLOBE_TEXTURE_PRELOAD_HREFS.map((href) => (
+        <link
+          key={href}
+          rel="preload"
+          as="image"
+          href={href}
+          media="(min-width: 1024px)"
+        />
+      ))}
+      <div className="bg-surface-0">
       {/* Header - server rendered, no interaction needed */}
       <Section as="header" className="py-8 sm:py-12">
         <Container>
@@ -84,5 +95,6 @@ export default async function CVPage({
         </Container>
       </Section>
     </div>
+    </>
   );
 }
