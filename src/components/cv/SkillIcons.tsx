@@ -306,13 +306,12 @@ function MatlabIcon({ size = 56, className }: SkillIconProps) {
 function FreeRtosIcon({ size = 48, className }: SkillIconProps) {
   return (
     <Image
-      src="/icons/skills/freertos.png"
+      src="/icons/skills/freertos.webp"
       alt=""
       aria-hidden="true"
       width={Math.round(size * 2.25)}
       height={Math.round(size * 1.5)}
       className={`skill-img${className ? ` ${className}` : ""}`}
-      unoptimized
     />
   );
 }
