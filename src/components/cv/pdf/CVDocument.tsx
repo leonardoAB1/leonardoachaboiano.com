@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "@react-pdf/renderer";
+import type { ReactElement } from "react";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -197,7 +198,7 @@ const s = StyleSheet.create({
   },
   bulletRow: {
     flexDirection: "row",
-    marginBottom: 1,
+    marginBottom: 2,
     paddingLeft: 2,
   },
   bulletDash: {
@@ -208,20 +209,20 @@ const s = StyleSheet.create({
   bulletText: {
     flex: 1,
     fontSize: 8.5,
-    lineHeight: 1.3,
+    lineHeight: 1.35,
     color: DARK,
   },
   entryNote: {
     fontSize: 8.5,
     color: GRAY,
-    lineHeight: 1.3,
-    marginBottom: 1,
-    marginTop: 0,
+    lineHeight: 1.35,
+    marginBottom: 2,
+    marginTop: 1,
   },
   entrySep: {
     borderBottomWidth: 0.5,
     borderBottomColor: RULE_COLOR,
-    marginVertical: 4,
+    marginVertical: 5,
   },
 
   // Education specific
@@ -260,19 +261,19 @@ const s = StyleSheet.create({
 
   // --- Achievements ---
   achievementItem: {
-    marginBottom: 2,
+    marginBottom: 3,
   },
   achievementLabel: {
     fontFamily: "Helvetica-Bold",
     fontSize: 8.5,
     color: DARK,
-    lineHeight: 1.25,
+    lineHeight: 1.3,
   },
   achievementDesc: {
     fontSize: 8.5,
     color: DARK,
-    lineHeight: 1.25,
-    marginBottom: 0,
+    lineHeight: 1.3,
+    marginBottom: 1,
   },
 
   // --- Languages ---
@@ -323,6 +324,27 @@ function groupByOrg(entries: CVEntry[]): OrgGroup[] {
 }
 
 // ---------------------------------------------------------------------------
+// Inline bold renderer
+// ---------------------------------------------------------------------------
+
+// Parses **word** markers in i18n strings and renders them as Helvetica-Bold
+// inline segments, matching the original PDF's bold usage for key terms.
+function parseBold(text: string): ReactElement[] {
+  return text.split(/(\*\*.*?\*\*)/g).map((part) => {
+    const isBold = part.startsWith("**") && part.endsWith("**");
+    const content = isBold ? part.slice(2, -2) : part;
+    return (
+      <Text
+        key={content}
+        style={isBold ? { fontFamily: "Helvetica-Bold" } : undefined}
+      >
+        {content}
+      </Text>
+    );
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
 
@@ -342,13 +364,16 @@ function WorkEntry({
       <View style={s.entryMeta}>
         <Text style={s.entryDate}>{entry.dateRange}</Text>
         {entry.location ? (
-          <Text style={s.entryLocation}>{"  ⬥  " + entry.location}</Text>
+          <Text style={s.entryLocation}>
+            <Text style={{ color: TEAL }}>{"  •  "}</Text>
+            {entry.location}
+          </Text>
         ) : null}
       </View>
       {entry.bullets?.map((b) => (
         <View key={b} style={s.bulletRow}>
-          <Text style={s.bulletDash}>-</Text>
-          <Text style={s.bulletText}>{b}</Text>
+          <Text style={s.bulletDash}>{"-"}</Text>
+          <Text style={s.bulletText}>{parseBold(b)}</Text>
         </View>
       ))}
       {entry.note
@@ -450,7 +475,7 @@ export function CVDocument({
             {/* LinkedIn + EU Nationality */}
             <View style={s.contactRow}>
               <Text style={s.contactBold}>{"LinkedIn: "}</Text>
-              <Text style={s.contactText}>{linkedinDisplay}</Text>
+              <Text style={s.contactBold}>{linkedinDisplay}</Text>
               <Text style={s.contactSep}>{"    "}</Text>
               <Text style={s.contactBold}>{"EU Nationality (B permit)"}</Text>
             </View>
@@ -458,10 +483,10 @@ export function CVDocument({
             {/* GitHub */}
             <View style={s.contactRow}>
               <Text style={s.contactBold}>{"Github: "}</Text>
-              <Text style={s.contactText}>{githubDisplay}</Text>
+              <Text style={s.contactBold}>{githubDisplay}</Text>
             </View>
             <View style={s.contactRow}>
-              <Text style={s.contactText}>{"        " + githubAltDisplay}</Text>
+              <Text style={s.contactBold}>{`        ${githubAltDisplay}`}</Text>
             </View>
           </View>
 
@@ -535,7 +560,7 @@ export function CVDocument({
               {languages.map((lang) => (
                 <Text key={lang.name} style={s.languageItem}>
                   {lang.name}{" "}
-                  <Text style={{ color: GRAY }}>{"(" + lang.level + ")"}</Text>
+                  <Text style={{ color: GRAY }}>{`(${lang.level})`}</Text>
                 </Text>
               ))}
             </View>

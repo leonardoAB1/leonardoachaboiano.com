@@ -260,7 +260,7 @@
         "role": "Robotics Engineer",
         "location": "Basel-Stadt, BS, Switzerland",
         "bullets": [
-          "Developing and maintaining ROS2 robotic systems, including concurrent actions and hardware integration",
+          "Developing and maintaining **ROS2** robotic systems, including concurrent actions and hardware integration",
           "Performing on-site system installation, servicing, and preventive maintenance for deployed client systems"
         ]
       },
@@ -268,7 +268,7 @@
         "role": "Robotics Intern",
         "location": "Basel, Switzerland",
         "bullets": [
-          "Spearheaded the rollout of a company-wide documentation strategy in Confluence for internal knowledge sharing"
+          "Spearheaded the rollout of a company-wide documentation strategy in **Confluence** for internal knowledge sharing"
         ]
       },
       "lumiphase": {
@@ -276,21 +276,23 @@
         "location": "Stäfa, ZH, Switzerland",
         "bullets": [
           "Implemented new test methods, including instrument selection, integration, and coding measurement routines",
-          "Designed PCBs for sample fixation and electrical routing",
+          "Designed **PCBs** for sample fixation and electrical routing",
           "Performed lab operations: instrument setup, hardware installation, and calibration routine development"
         ]
       },
       "mobiEngineer": {
         "role": "Hardware Engineer",
-        "location": "Santa Cruz, SC, Bolivia"
+        "location": "Santa Cruz, SC, Bolivia",
+        "bullets": [
+          "Facilitated product development and logistics coordination with Chinese business partners"
+        ]
       },
       "mobiIntern": {
         "role": "Hardware Engineer Intern",
         "location": "Santa Cruz, SC, Bolivia",
         "bullets": [
-          "Assisted the tech team in integrating MQTT and CAN-based IoT batteries into the existing workflow through APIs",
-          "Designed and prototyped solenoid actuators and control PCB tailored to secure electric motorcycles' batteries",
-          "Facilitated product development and logistics coordination with Chinese business partners"
+          "Assisted the tech team in integrating **MQTT** and **CAN-based IoT** batteries into the existing workflow through APIs",
+          "Designed and prototyped solenoid actuators and control **PCB** tailored to secure electric motorcycles' batteries"
         ]
       },
       "realityHc": {

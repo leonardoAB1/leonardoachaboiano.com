@@ -282,16 +282,18 @@
       },
       "mobiEngineer": {
         "role": "Hardware-Ingenieur",
-        "location": "Santa Cruz, Bolivien",
+        "location": "Santa Cruz, SC, Bolivien",
         "bullets": [
-          "Integrierte MQTT- und CAN-basierte IoT-Batterien über APIs in den bestehenden Workflow",
-          "Entwarf und prototypisierte Magnetaktuatoren und eine Steuerplatine für die Batteriesicherung von Elektromotorrädern",
           "Produktentwicklung und Logistikkoordination mit chinesischen Geschäftspartnern"
         ]
       },
       "mobiIntern": {
         "role": "Praktikant Hardware-Engineering",
-        "location": "Santa Cruz, Bolivien"
+        "location": "Santa Cruz, SC, Bolivien",
+        "bullets": [
+          "Integrierte **MQTT**- und **CAN**-basierte IoT-Batterien über APIs in den bestehenden Workflow",
+          "Entwarf und prototypisierte Magnetaktuatoren und eine Steuer-**PCB** für die Batteriesicherung von Elektromotorrädern"
+        ]
       },
       "realityHc": {
         "role": "Praktikant Maschinenkonstruktion",

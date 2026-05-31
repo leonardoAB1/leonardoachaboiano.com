@@ -282,16 +282,18 @@
       },
       "mobiEngineer": {
         "role": "Ingegnere Hardware",
-        "location": "Santa Cruz, Bolivia",
+        "location": "Santa Cruz, SC, Bolivia",
         "bullets": [
-          "Ho integrato batterie IoT basate su MQTT e CAN nel flusso di lavoro esistente tramite API",
-          "Ho progettato e prototipato attuatori a solenoide e la PCB di controllo per la sicurezza delle batterie di motociclette elettriche",
           "Sviluppo prodotto e coordinamento logistico con partner commerciali cinesi"
         ]
       },
       "mobiIntern": {
         "role": "Tirocinante in Ingegneria Hardware",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, SC, Bolivia",
+        "bullets": [
+          "Ho integrato batterie IoT basate su **MQTT** e **CAN** nel flusso di lavoro esistente tramite API",
+          "Ho progettato e prototipato attuatori a solenoide e la **PCB** di controllo per la sicurezza delle batterie di motociclette elettriche"
+        ]
       },
       "realityHc": {
         "role": "Tirocinante in Progettazione Meccanica",
