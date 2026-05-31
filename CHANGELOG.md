@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.8.1...v1.9.0) (2026-05-31)
+
+
+### Features
+
+* add French language support ([#222](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/222)) ([9fa752a](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9fa752a6fd5a20465fb12eb7727b32f06dead9bc))
+
 ## [1.8.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.8.0...v1.8.1) (2026-05-31)
 
 
