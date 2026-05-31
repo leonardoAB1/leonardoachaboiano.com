@@ -60,8 +60,8 @@ export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
     () =>
       prefersReducedMotion
         ? {
-            closed: { opacity: 0, transition: { duration: 0.15 } },
-            open: { opacity: 1, transition: { duration: 0.15 } },
+            closed: { opacity: 0, x: 0, transition: { duration: 0.15 } },
+            open: { opacity: 1, x: 0, transition: { duration: 0.15 } },
           }
         : {
             closed: {
