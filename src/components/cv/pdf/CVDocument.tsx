@@ -79,10 +79,22 @@ function EmailIcon() {
       viewBox="0 0 16 16"
       style={{ marginRight: 2 }}
     >
-      <Rect width="16" height="16" rx="2" fill={TEAL} />
+      {/* Envelope body outline */}
+      <Rect
+        x="0.5"
+        y="3"
+        width="15"
+        height="10"
+        fill="none"
+        stroke={TEAL}
+        strokeWidth="1.2"
+      />
+      {/* Envelope fold (V-line) */}
       <Path
-        d="M1 4.5v8h14v-8H1zm12.4 1L8 9.6 2.6 5.5h10.8zM2 11.5V6.9l6 4.7 6-4.7v4.6H2z"
-        fill="white"
+        d="M0.5 3.5 L8 9 L15.5 3.5"
+        fill="none"
+        stroke={TEAL}
+        strokeWidth="1.2"
       />
     </Svg>
   );
