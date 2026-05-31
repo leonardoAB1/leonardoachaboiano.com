@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.0...v1.10.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* pre-render mobile menu panel to eliminate first-click delay ([#234](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/234)) ([82964e2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/82964e2a195ecedf8cd8c49411080538d5b1fffe))
+* pre-render mobile menu panel to eliminate first-click delay after navigation ([82964e2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/82964e2a195ecedf8cd8c49411080538d5b1fffe))
+
 ## [1.10.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.9.1...v1.10.0) (2026-05-31)
 
 
