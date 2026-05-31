@@ -297,7 +297,11 @@
       },
       "realityHc": {
         "role": "Mechanical Design Intern",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, Bolivia",
+        "bullets": [
+          "Developed rapid prototypes to validate and iterate on innovative engineering designs",
+          "Created detailed component designs using **SolidWorks** and CAD software for manufacturing"
+        ]
       },
       "ucbMechatronics": {
         "role": "B.Eng. Mechatronics Engineering",

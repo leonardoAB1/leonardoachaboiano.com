@@ -297,7 +297,11 @@
       },
       "realityHc": {
         "role": "Praktikant Maschinenkonstruktion",
-        "location": "Santa Cruz, Bolivien"
+        "location": "Santa Cruz, Bolivien",
+        "bullets": [
+          "Entwickelte Rapid Prototypes zur Validierung und Iteration innovativer Ingenieurkonzepte",
+          "Erstellte detaillierte Bauteilkonstruktionen mit **SolidWorks** und CAD-Software für die Fertigung"
+        ]
       },
       "ucbMechatronics": {
         "role": "B.Eng. Mechatronik",

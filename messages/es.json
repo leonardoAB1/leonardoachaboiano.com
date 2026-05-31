@@ -297,7 +297,11 @@
       },
       "realityHc": {
         "role": "Pasante de Diseño Mecánico",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, Bolivia",
+        "bullets": [
+          "Desarrolló prototipos rápidos para validar e iterar sobre diseños de ingeniería innovadores",
+          "Creó diseños detallados de componentes utilizando **SolidWorks** y software CAD para fabricación"
+        ]
       },
       "ucbMechatronics": {
         "role": "Lic. en Ingeniería Mecatrónica",

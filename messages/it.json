@@ -297,7 +297,11 @@
       },
       "realityHc": {
         "role": "Tirocinante in Progettazione Meccanica",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, Bolivia",
+        "bullets": [
+          "Sviluppò prototipi rapidi per validare e iterare su design ingegneristici innovativi",
+          "Creò design dettagliati di componenti usando **SolidWorks** e software CAD per la produzione"
+        ]
       },
       "ucbMechatronics": {
         "role": "Laurea in Ingegneria Meccatronica",

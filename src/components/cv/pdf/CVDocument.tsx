@@ -1,8 +1,13 @@
 import {
+  Circle,
   Document,
+  G,
   Image,
   Page,
+  Path,
+  Rect,
   StyleSheet,
+  Svg,
   Text,
   View,
 } from "@react-pdf/renderer";
@@ -60,6 +65,82 @@ const TEAL = "#02777C";
 const DARK = "#1a1a1a";
 const GRAY = "#555555";
 const RULE_COLOR = "#cccccc";
+const ICON_SIZE = 9;
+
+// ---------------------------------------------------------------------------
+// Brand SVG icons
+// ---------------------------------------------------------------------------
+
+function EmailIcon() {
+  return (
+    <Svg
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      viewBox="0 0 16 16"
+      style={{ marginRight: 2 }}
+    >
+      <Rect width="16" height="16" rx="2" fill={TEAL} />
+      <Path
+        d="M1 4.5v8h14v-8H1zm12.4 1L8 9.6 2.6 5.5h10.8zM2 11.5V6.9l6 4.7 6-4.7v4.6H2z"
+        fill="white"
+      />
+    </Svg>
+  );
+}
+
+function WhatsAppIcon() {
+  // Official WhatsApp icon mark — green bubble + phone handset
+  return (
+    <Svg
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      viewBox="0 0 16 16"
+      style={{ marginRight: 2 }}
+    >
+      <Path
+        d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"
+        fill="#25D366"
+      />
+    </Svg>
+  );
+}
+
+function LinkedInIcon() {
+  // Official LinkedIn mark
+  return (
+    <Svg
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      viewBox="0 0 24 24"
+      style={{ marginRight: 2 }}
+    >
+      <Path
+        d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5V5c0-2.761-2.238-5-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z"
+        fill="#0077B5"
+      />
+    </Svg>
+  );
+}
+
+function GitHubIcon() {
+  // Official GitHub mark (Invertocat)
+  return (
+    <Svg
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      viewBox="0 0 16 16"
+      style={{ marginRight: 2 }}
+    >
+      <G>
+        <Circle cx="8" cy="8" r="8" fill="#24292E" />
+        <Path
+          d="M8 1.5C4.41 1.5 1.5 4.41 1.5 8c0 2.87 1.86 5.3 4.44 6.16.32.06.44-.14.44-.31 0-.15-.01-.66-.01-1.21-1.62.3-2.05-.4-2.18-.76-.07-.19-.39-.76-.67-.92-.23-.12-.55-.42-.01-.43.51-.01.87.47 1 .66.58.98 1.52.7 1.89.53.06-.42.23-.7.41-.86-1.45-.16-2.96-.72-2.96-3.21 0-.71.25-1.29.66-1.74-.06-.16-.29-.82.06-1.72 0 0 .54-.17 1.78.66a6.18 6.18 0 0 1 1.62-.22c.55 0 1.1.07 1.62.22 1.24-.84 1.78-.66 1.78-.66.35.9.13 1.56.06 1.72.41.45.66 1.02.66 1.74 0 2.49-1.52 3.05-2.96 3.21.23.2.44.6.44 1.2 0 .87-.01 1.57-.01 1.78 0 .17.12.37.44.31A6.54 6.54 0 0 0 14.5 8c0-3.59-2.91-6.5-6.5-6.5z"
+          fill="white"
+        />
+      </G>
+    </Svg>
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Styles
@@ -104,9 +185,9 @@ const s = StyleSheet.create({
     marginBottom: 1,
     alignItems: "center",
   },
-  contactText: {
+  contactTeal: {
     fontSize: 8.5,
-    color: DARK,
+    color: TEAL,
   },
   contactBold: {
     fontFamily: "Helvetica-Bold",
@@ -119,8 +200,8 @@ const s = StyleSheet.create({
     marginHorizontal: 3,
   },
   photo: {
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 90,
     borderRadius: 4,
   },
 
@@ -186,6 +267,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 2,
     flexWrap: "wrap",
+    alignItems: "center",
   },
   entryDate: {
     fontSize: 8.5,
@@ -194,7 +276,7 @@ const s = StyleSheet.create({
   entryLocation: {
     fontSize: 8.5,
     color: GRAY,
-    marginLeft: 4,
+    marginLeft: 2,
   },
   bulletRow: {
     flexDirection: "row",
@@ -300,6 +382,27 @@ const s = StyleSheet.create({
 });
 
 // ---------------------------------------------------------------------------
+// Inline bold renderer
+// ---------------------------------------------------------------------------
+
+// Parses **word** markers in i18n strings and renders them as Helvetica-Bold
+// inline segments, matching the original PDF's bold usage for key terms.
+function parseBold(text: string): ReactElement[] {
+  return text.split(/(\*\*.*?\*\*)/g).map((part) => {
+    const isBold = part.startsWith("**") && part.endsWith("**");
+    const content = isBold ? part.slice(2, -2) : part;
+    return (
+      <Text
+        key={content}
+        style={isBold ? { fontFamily: "Helvetica-Bold" } : undefined}
+      >
+        {content}
+      </Text>
+    );
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
@@ -324,38 +427,17 @@ function groupByOrg(entries: CVEntry[]): OrgGroup[] {
 }
 
 // ---------------------------------------------------------------------------
-// Inline bold renderer
-// ---------------------------------------------------------------------------
-
-// Parses **word** markers in i18n strings and renders them as Helvetica-Bold
-// inline segments, matching the original PDF's bold usage for key terms.
-function parseBold(text: string): ReactElement[] {
-  return text.split(/(\*\*.*?\*\*)/g).map((part) => {
-    const isBold = part.startsWith("**") && part.endsWith("**");
-    const content = isBold ? part.slice(2, -2) : part;
-    return (
-      <Text
-        key={content}
-        style={isBold ? { fontFamily: "Helvetica-Bold" } : undefined}
-      >
-        {content}
-      </Text>
-    );
-  });
-}
-
-// ---------------------------------------------------------------------------
 // Sub-components
 // ---------------------------------------------------------------------------
 
 function WorkEntry({
   entry,
   showOrg,
-  isLast,
+  showSepAfter,
 }: {
   entry: CVEntry;
   showOrg: boolean;
-  isLast: boolean;
+  showSepAfter: boolean;
 }) {
   return (
     <View>
@@ -383,7 +465,7 @@ function WorkEntry({
             </Text>
           ))
         : null}
-      {!isLast && <View style={s.entrySep} />}
+      {showSepAfter && <View style={s.entrySep} />}
     </View>
   );
 }
@@ -443,7 +525,6 @@ export function CVDocument({
   photoDataUrl,
 }: CVDocumentProps) {
   const orgGroups = groupByOrg(workEntries);
-  const totalWorkGroups = orgGroups.length;
 
   // Strip "https://www." prefix for display
   const linkedinDisplay = linkedin
@@ -463,33 +544,39 @@ export function CVDocument({
             <Text style={s.name}>{name.toUpperCase()}</Text>
             <Text style={s.titleLine}>{title}</Text>
 
-            {/* Contact row: email | phone | location */}
+            {/* Contact row: email | phone | location — all teal */}
             <View style={s.contactRow}>
-              <Text style={s.contactText}>{email}</Text>
+              <EmailIcon />
+              <Text style={s.contactTeal}>{email}</Text>
               <Text style={s.contactSep}>{"  "}</Text>
-              <Text style={s.contactText}>{phone}</Text>
+              <WhatsAppIcon />
+              <Text style={s.contactTeal}>{phone}</Text>
               <Text style={s.contactSep}>{"  "}</Text>
-              <Text style={s.contactText}>{location}</Text>
+              <Text style={s.contactTeal}>{location}</Text>
             </View>
 
             {/* LinkedIn + EU Nationality */}
             <View style={s.contactRow}>
-              <Text style={s.contactBold}>{"LinkedIn: "}</Text>
+              <LinkedInIcon />
               <Text style={s.contactBold}>{linkedinDisplay}</Text>
               <Text style={s.contactSep}>{"    "}</Text>
               <Text style={s.contactBold}>{"EU Nationality (B permit)"}</Text>
             </View>
 
-            {/* GitHub */}
+            {/* GitHub primary */}
             <View style={s.contactRow}>
-              <Text style={s.contactBold}>{"Github: "}</Text>
+              <GitHubIcon />
               <Text style={s.contactBold}>{githubDisplay}</Text>
             </View>
+
+            {/* GitHub secondary */}
             <View style={s.contactRow}>
-              <Text style={s.contactBold}>{`        ${githubAltDisplay}`}</Text>
+              <GitHubIcon />
+              <Text style={s.contactBold}>{githubAltDisplay}</Text>
             </View>
           </View>
 
+          {/* Photo — height sized to border the Summary section */}
           <Image style={s.photo} src={photoDataUrl} />
         </View>
 
@@ -498,7 +585,9 @@ export function CVDocument({
         {/* ---------------------------------------------------------------- */}
         <View style={s.summaryRow}>
           <Text style={s.summaryText}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>{"Summary: "}</Text>
+            <Text style={{ fontFamily: "Helvetica-Bold", color: TEAL }}>
+              {"Summary: "}
+            </Text>
             {summary}
           </Text>
         </View>
@@ -521,13 +610,14 @@ export function CVDocument({
                     key={entry.id}
                     entry={entry}
                     showOrg={entryIdx === 0}
-                    isLast={
-                      groupIdx === totalWorkGroups - 1 &&
-                      entryIdx === group.entries.length - 1
+                    // Only draw a separator after the last role in each employer
+                    // block, and never after the very last employer.
+                    showSepAfter={
+                      entryIdx === group.entries.length - 1 &&
+                      groupIdx < orgGroups.length - 1
                     }
                   />
                 ))}
-                {groupIdx < totalWorkGroups - 1 && <View style={s.entrySep} />}
               </View>
             ))}
           </View>
