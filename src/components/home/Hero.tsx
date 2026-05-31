@@ -74,22 +74,11 @@ export function Hero(): ReactElement {
     <Section className="relative flex min-h-svh flex-col overflow-hidden bg-[#02777C] pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
       {/* Portrait — sky-focused on mobile, right-anchored on desktop */}
       <div className="absolute inset-0" aria-hidden="true">
-        {/* Mobile: object-top frames the sky above the face */}
         <Image
           src="/images/portrait-hero.webp"
           alt=""
           fill
-          className="object-cover object-top lg:hidden"
-          priority
-          quality={75}
-          sizes="100vw"
-        />
-        {/* Desktop: face anchored to the right */}
-        <Image
-          src="/images/portrait-hero.webp"
-          alt=""
-          fill
-          className="hidden object-cover object-right-top lg:block"
+          className="object-cover object-top lg:object-right-top"
           priority
           quality={75}
           sizes="100vw"
