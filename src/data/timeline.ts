@@ -18,6 +18,9 @@ export type TimelineDate = DateMark | "present";
 export interface TimelineEntry {
   id: string;
   org: string;
+  website?: string;
+  orgSubtitle?: string;
+  orgSubtitleWebsite?: string;
   coordinates: [number, number]; // [lat_deg, lng_deg]
   start: DateMark;
   end: TimelineDate;
@@ -29,6 +32,7 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "cryowriteEngineer",
     org: "cryoWrite AG",
+    website: "https://www.cryowrite.ch",
     coordinates: [47.5596, 7.5886],
     start: { year: 2025, month: 8 },
     end: "present",
@@ -37,6 +41,7 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "cryowriteIntern",
     org: "cryoWrite AG",
+    website: "https://www.cryowrite.ch",
     coordinates: [47.5596, 7.5886],
     start: { year: 2025, month: 2 },
     end: { year: 2025, month: 7 },
@@ -45,6 +50,7 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "lumiphase",
     org: "Lumiphase AG",
+    website: "https://www.lumiphase.com",
     coordinates: [47.2292, 8.73],
     start: { year: 2024, month: 8 },
     end: { year: 2025, month: 1 },
@@ -53,6 +59,7 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "mobiEngineer",
     org: "Mobi Latam",
+    website: "https://www.mobi.lat",
     coordinates: [-17.7833, -63.1821],
     start: { year: 2024, month: 6 },
     end: { year: 2024, month: 7 },
@@ -61,6 +68,7 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "mobiIntern",
     org: "Mobi Latam",
+    website: "https://www.mobi.lat",
     coordinates: [-17.7833, -63.1821],
     start: { year: 2024, month: 1 },
     end: { year: 2024, month: 6 },
@@ -68,7 +76,8 @@ export const timelineEntries: TimelineEntry[] = [
   },
   {
     id: "realityHc",
-    org: "Reality HC",
+    org: "Reality Herramientas Creativas",
+    website: "https://realityherramientascreativas.com",
     coordinates: [-17.7833, -63.1821],
     start: { year: 2023, month: 3 },
     end: { year: 2023, month: 5 },
@@ -77,6 +86,7 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "ucbMechatronics",
     org: "San Pablo Bolivian Catholic University",
+    website: "https://scz.ucb.edu.bo",
     coordinates: [-17.7833, -63.1821],
     start: { year: 2020, month: 2 },
     end: { year: 2024, month: 8 },
@@ -85,6 +95,9 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "rotaryExchange",
     org: "Rotary Youth Exchange",
+    website: "https://www.rotary.org/en/our-programs/youth-exchanges",
+    orgSubtitle: "South Kamloops Secondary School",
+    orgSubtitleWebsite: "https://www.sd73.bc.ca/skss",
     coordinates: [50.6745, -120.3273],
     start: { year: 2018, month: 8 },
     end: { year: 2019, month: 7 },
@@ -94,6 +107,8 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "laSalle",
     org: "Colegio La Salle",
+    website:
+      "https://www.facebook.com/p/Colegio-La-Salle-Santa-Cruz-Particular-100057245988246",
     coordinates: [-17.7833, -63.1821],
     start: { year: 2006, month: 2 },
     end: { year: 2019, month: 12 },

@@ -1,5 +1,69 @@
 # Changelog
 
+## [1.10.6](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.5...v1.10.6) (2026-05-31)
+
+
+### Bug Fixes
+
+* restore motion hook to fix first-click animation after navigation ([#245](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/245)) ([aaed14e](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/aaed14e6314cfc9d10173c890f73951040a40477))
+
+## [1.10.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.4...v1.10.5) (2026-05-31)
+
+
+### Bug Fixes
+
+* update colegio la salle website link to facebook page ([#243](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/243)) ([72bb3f5](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/72bb3f58003795a22805543a508824961a7c7eaf))
+
+## [1.10.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.3...v1.10.4) (2026-05-31)
+
+
+### Bug Fixes
+
+* remove dual variant shapes from mobile menu to fix pointer event blocking ([#241](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/241)) ([9a668b0](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9a668b007e3a2f4916326d5d7524e084f3efa85d))
+
+## [1.10.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.2...v1.10.3) (2026-05-31)
+
+
+### Bug Fixes
+
+* reset panel x transform when switching to reduced-motion variants ([#239](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/239)) ([40d0dd0](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/40d0dd0d6e28a354530a196cf6a081adc70b7703))
+
+## [1.10.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.1...v1.10.2) (2026-05-31)
+
+
+### Performance Improvements
+
+* mobile performance optimization ([#232](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/232)) ([697bbe5](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/697bbe58ffa600babea029b6988d3aeee7cf78d5))
+
+## [1.10.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.0...v1.10.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* pre-render mobile menu panel to eliminate first-click delay ([#234](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/234)) ([82964e2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/82964e2a195ecedf8cd8c49411080538d5b1fffe))
+* pre-render mobile menu panel to eliminate first-click delay after navigation ([82964e2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/82964e2a195ecedf8cd8c49411080538d5b1fffe))
+
+## [1.10.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.9.1...v1.10.0) (2026-05-31)
+
+
+### Features
+
+* add org website links to cv timeline ([#228](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/228)) ([2da7aac](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/2da7aac5e1317fcbcd0e88b197bf91dbcd7c2731))
+
+## [1.9.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.9.0...v1.9.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* replace spring animation on mobile menu with fast ease-out tween ([#225](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/225)) ([70a9ac8](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/70a9ac896fb8117af47b4d0a3c417bcf3b89e205))
+
+## [1.9.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.8.1...v1.9.0) (2026-05-31)
+
+
+### Features
+
+* add French language support ([#222](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/222)) ([9fa752a](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9fa752a6fd5a20465fb12eb7727b32f06dead9bc))
+
 ## [1.8.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.8.0...v1.8.1) (2026-05-31)
 
 
