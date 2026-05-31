@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.6...v1.11.0) (2026-05-31)
+
+
+### Features
+
+* generate pdf cv dynamically from data sources ([#226](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/226)) ([3834fc2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/3834fc2ff6a350acfeb706fadf98f327ff0ffd75))
+
 ## [1.10.6](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.5...v1.10.6) (2026-05-31)
 
 
