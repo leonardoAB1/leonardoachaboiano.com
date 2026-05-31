@@ -209,9 +209,6 @@ export function CVContent(): ReactElement {
               <ul className="space-y-5">
                 {achievementKeys.map((key) => (
                   <li key={key} className="flex flex-col gap-0.5">
-                    <span className="text-xs text-ink-4">
-                      {tAchievements(`${key}.date`)}
-                    </span>
                     <span className="text-sm leading-snug text-ink-2">
                       {tAchievements(`${key}.label`)}
                     </span>

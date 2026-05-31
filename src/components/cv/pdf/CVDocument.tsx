@@ -286,13 +286,13 @@ const s = StyleSheet.create({
   },
   contactBold: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 8.5,
     color: TEAL,
   },
   contactSep: {
-    fontSize: 9,
+    fontSize: 8.5,
     color: GRAY,
-    marginHorizontal: 3,
+    marginHorizontal: 2,
   },
   photo: {
     width: 80,
@@ -666,7 +666,7 @@ export function CVDocument({
               <Link style={{ textDecoration: "none" }} src={`mailto:${email}`}>
                 <Text style={s.contactTeal}>{email}</Text>
               </Link>
-              <Text style={s.contactSep}>{"    "}</Text>
+              <Text style={s.contactSep}>{"  •  "}</Text>
               <WhatsAppIcon />
               <Link
                 style={{ textDecoration: "none" }}
@@ -682,12 +682,12 @@ export function CVDocument({
               <Link style={{ textDecoration: "none" }} src={linkedin}>
                 <Text style={s.contactBold}>{linkedinDisplay}</Text>
               </Link>
-              <Text style={s.contactSep}>{"    "}</Text>
+              <Text style={s.contactSep}>{"  •  "}</Text>
               <GitHubIcon />
               <Link style={{ textDecoration: "none" }} src={github}>
                 <Text style={s.contactBold}>{githubDisplay}</Text>
               </Link>
-              <Text style={s.contactSep}>{"    "}</Text>
+              <Text style={s.contactSep}>{"  •  "}</Text>
               <WebIcon />
               <Link style={{ textDecoration: "none" }} src={website}>
                 <Text style={s.contactBold}>{websiteDisplay}</Text>

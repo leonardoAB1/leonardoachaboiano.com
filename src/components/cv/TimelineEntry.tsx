@@ -1,6 +1,22 @@
 import type { ReactElement } from "react";
 import { cn } from "@/lib/utils";
 
+// Converts **word** markers in i18n strings to inline <strong> elements so the
+// web CV matches the bold usage in the generated PDF.
+function renderBold(text: string): ReactElement[] {
+  return text.split(/(\*\*.*?\*\*)/g).map((part) => {
+    const isBold = part.startsWith("**") && part.endsWith("**");
+    const content = isBold ? part.slice(2, -2) : part;
+    return isBold ? (
+      <strong key={content} className="font-semibold text-ink-2">
+        {content}
+      </strong>
+    ) : (
+      <span key={content}>{content}</span>
+    );
+  });
+}
+
 interface TimelineEntryProps {
   dateRange: string;
   role: string;
@@ -64,7 +80,7 @@ export function TimelineEntry({
                   aria-hidden="true"
                   className="mt-2 shrink-0 size-1 rounded-full bg-ink-4"
                 />
-                {bullet}
+                {renderBold(bullet)}
               </li>
             ))}
           </ul>
