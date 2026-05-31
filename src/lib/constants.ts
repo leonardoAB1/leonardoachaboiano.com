@@ -38,6 +38,7 @@ export const ogLocales = {
   es: "es_ES",
   de: "de_DE",
   it: "it_IT",
+  fr: "fr_FR",
 } as const;
 
 // "key" indexes into the Nav message namespace; labels are resolved per locale
