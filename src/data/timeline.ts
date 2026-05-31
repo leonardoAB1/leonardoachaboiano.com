@@ -107,7 +107,7 @@ export const timelineEntries: TimelineEntry[] = [
   {
     id: "laSalle",
     org: "Colegio La Salle",
-    website: "https://www.lasalle.education",
+    website: "https://www.facebook.com/p/Colegio-La-Salle-Santa-Cruz-Particular-100057245988246",
     coordinates: [-17.7833, -63.1821],
     start: { year: 2006, month: 2 },
     end: { year: 2019, month: 12 },
