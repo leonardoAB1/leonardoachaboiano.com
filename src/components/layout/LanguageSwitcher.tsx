@@ -4,7 +4,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type ReactElement, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { type Locale, routing } from "@/i18n/routing";
+import { type Locale, localeNames, routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export function LanguageSwitcher({
@@ -92,7 +92,7 @@ export function LanguageSwitcher({
                   isActive ? "font-medium text-ink-1" : "text-ink-3",
                 )}
               >
-                {t(`locales.${option}`)}
+                {localeNames[option]}
                 {isActive && <Check className="h-3.5 w-3.5" aria-hidden />}
               </button>
             );

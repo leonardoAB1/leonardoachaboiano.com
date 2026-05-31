@@ -12,14 +12,7 @@
     "contact": "Contact"
   },
   "LanguageSwitcher": {
-    "ariaLabel": "Changer de langue",
-    "locales": {
-      "en": "English",
-      "es": "Español",
-      "de": "Deutsch",
-      "it": "Italiano",
-      "fr": "Français"
-    }
+    "ariaLabel": "Changer de langue"
   },
   "ThemeToggle": {
     "switchToLight": "Passer en mode clair",
