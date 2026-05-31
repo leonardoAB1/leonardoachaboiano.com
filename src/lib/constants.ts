@@ -48,7 +48,6 @@ export const ogLocales = {
 export const navLinks = [
   { key: "cv", href: "/cv" },
   { key: "contact", href: "/contact" },
-  { key: "projects", href: "/projects" },
 ] as const;
 
 export const socialLinks = {
