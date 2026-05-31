@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.10.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.3...v1.10.4) (2026-05-31)
+
+
+### Bug Fixes
+
+* remove dual variant shapes from mobile menu to fix pointer event blocking ([#241](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/241)) ([9a668b0](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/9a668b007e3a2f4916326d5d7524e084f3efa85d))
+
+## [1.10.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.2...v1.10.3) (2026-05-31)
+
+
+### Bug Fixes
+
+* reset panel x transform when switching to reduced-motion variants ([#239](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/239)) ([40d0dd0](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/40d0dd0d6e28a354530a196cf6a081adc70b7703))
+
+## [1.10.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.1...v1.10.2) (2026-05-31)
+
+
+### Performance Improvements
+
+* mobile performance optimization ([#232](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/232)) ([697bbe5](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/697bbe58ffa600babea029b6988d3aeee7cf78d5))
+
+## [1.10.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.0...v1.10.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* pre-render mobile menu panel to eliminate first-click delay ([#234](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/234)) ([82964e2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/82964e2a195ecedf8cd8c49411080538d5b1fffe))
+* pre-render mobile menu panel to eliminate first-click delay after navigation ([82964e2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/82964e2a195ecedf8cd8c49411080538d5b1fffe))
+
 ## [1.10.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.9.1...v1.10.0) (2026-05-31)
 
 
