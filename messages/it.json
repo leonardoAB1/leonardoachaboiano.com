@@ -108,32 +108,54 @@
     },
     "skillLabels": {
       "industrialInstrumentation": "Strumentazione Industriale"
-    }
+    },
+    "summary": "Ingegnere meccatronico con esperienza professionale in robotica, sistemi embedded e design di prodotto. Specializzato nello sviluppo di soluzioni innovative per sfide ingegneristiche complesse, con un solido track record nel problem-solving, nel lavoro di squadra e nel contributo a progetti tecnologici avanzati in ambienti internazionali."
   },
   "Achievements": {
     "icpc": {
-      "label": "Campione, Concorso Regionale ICPC",
-      "date": "ago 2024"
+      "label": "Campione | Concorso Regionale ICPC | agosto 2024",
+      "date": "ago 2024",
+      "description": "Ha guidato un team di 3 persone al 1° posto nel Concorso di Programmazione"
     },
     "diplomaHonour2": {
-      "label": "Diploma d'Onore, 2º posto - Ing. Meccatronica semestre 2-2023",
-      "date": "apr 2024"
+      "label": "Diploma d'Onore | apr 2024",
+      "date": "apr 2024",
+      "description": "2° posto in Ing. Meccatronica semestre 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA)",
-      "date": "nov 2023"
+      "label": "Certified SOLIDWORKS Associate (CSWA) | nov 2023",
+      "date": "nov 2023",
+      "description": "Certifica la competenza nella modellazione 3D CAD"
     },
     "diplomaHonour1": {
-      "label": "Diploma d'Onore, 2º posto - Ing. Meccatronica semestre 1-2023",
-      "date": "set 2023"
+      "label": "Diploma d'Onore | set 2023",
+      "date": "set 2023",
+      "description": "2° posto in Ing. Meccatronica semestre 1-2023"
     },
-    "scholarship": {
-      "label": "Borsa di Studio d'Eccellenza x3",
-      "date": "2021-2022"
+    "scholarship3": {
+      "label": "Borsa di Studio d'Eccellenza | ott 2022",
+      "date": "ott 2022",
+      "description": "1° posto in Ing. Meccatronica semestre 1-2022"
+    },
+    "scholarship2": {
+      "label": "Borsa di Studio d'Eccellenza | apr 2022",
+      "date": "apr 2022",
+      "description": "1° posto in Ing. Meccatronica semestre 2-2021"
+    },
+    "scholarship1": {
+      "label": "Borsa di Studio d'Eccellenza | nov 2021",
+      "date": "nov 2021",
+      "description": "1° posto in Ing. Meccatronica semestre 1-2021"
+    },
+    "diplomaHonour0": {
+      "label": "Diploma d'Onore | mag 2021",
+      "date": "mag 2021",
+      "description": "3° posto in Ing. Meccatronica semestre 2-2020"
     },
     "rotary": {
-      "label": "Ambasciatore dello Scambio Giovanile Rotary in Canada",
-      "date": "2018-2019"
+      "label": "Certificato di Merito | Rotary D.4690 | 2019",
+      "date": "2019",
+      "description": "Ambasciatore Scambio Giovanile in Canada 2018-2019"
     }
   },
   "Contact": {
@@ -234,7 +256,8 @@
         "bullets": [
           "Sviluppo e manutenzione di sistemi robotici ROS2 con azioni concorrenti e integrazione hardware",
           "Installazione in loco, assistenza e manutenzione preventiva dei sistemi installati presso i clienti"
-        ]
+        ],
+        "note": "Work GitHub: github.com/leonardoAB-cw"
       },
       "cryowriteIntern": {
         "role": "Tirocinante in Robotica",
@@ -254,25 +277,31 @@
       },
       "mobiEngineer": {
         "role": "Ingegnere Hardware",
-        "location": "Santa Cruz, Bolivia",
+        "location": "Santa Cruz, SC, Bolivia",
         "bullets": [
-          "Ho integrato batterie IoT basate su MQTT e CAN nel flusso di lavoro esistente tramite API",
-          "Ho progettato e prototipato attuatori a solenoide e la PCB di controllo per la sicurezza delle batterie di motociclette elettriche",
           "Sviluppo prodotto e coordinamento logistico con partner commerciali cinesi"
         ]
       },
       "mobiIntern": {
         "role": "Tirocinante in Ingegneria Hardware",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, SC, Bolivia",
+        "bullets": [
+          "Ho integrato batterie IoT basate su **MQTT** e **CAN** nel flusso di lavoro esistente tramite API",
+          "Ho progettato e prototipato attuatori a solenoide e la **PCB** di controllo per la sicurezza delle batterie di motociclette elettriche"
+        ]
       },
       "realityHc": {
         "role": "Tirocinante in Progettazione Meccanica",
-        "location": "Santa Cruz, Bolivia"
+        "location": "Santa Cruz, Bolivia",
+        "bullets": [
+          "Sviluppò prototipi rapidi per validare e iterare su design ingegneristici innovativi",
+          "Creò design dettagliati di componenti usando **SolidWorks** e software CAD per la produzione"
+        ]
       },
       "ucbMechatronics": {
         "role": "Laurea in Ingegneria Meccatronica",
         "location": "Santa Cruz, Bolivia",
-        "note": "Media 3.7/4 - Laureato con Lode\nPresidente della Società Scientifica (2023-2024)"
+        "note": "Media 3.7/4\nLaureato con Lode\nPresidente della Società Scientifica (2023-2024)"
       },
       "rotaryExchange": {
         "role": "Studente in Scambio",
