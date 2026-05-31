@@ -1,0 +1,302 @@
+{
+  "Common": {
+    "role": "Ingénieur Mécatronique",
+    "close": "Fermer"
+  },
+  "Nav": {
+    "ariaLabel": "Navigation principale",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "projects": "Projets",
+    "cv": "CV",
+    "contact": "Contact"
+  },
+  "LanguageSwitcher": {
+    "ariaLabel": "Changer de langue",
+    "locales": {
+      "en": "English",
+      "es": "Español",
+      "de": "Deutsch",
+      "it": "Italiano",
+      "fr": "Français"
+    }
+  },
+  "ThemeToggle": {
+    "switchToLight": "Passer en mode clair",
+    "switchToDark": "Passer en mode sombre"
+  },
+  "SocialLinks": {
+    "ariaLabel": "Liens sociaux",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "email": "E-mail"
+  },
+  "Footer": {
+    "copyright": "© {year} {name}"
+  },
+  "Home": {
+    "Hero": {
+      "heading": "Généraliste par choix",
+      "intro": "Je travaille en conception électronique, firmware embarqué, systèmes de contrôle et ingénierie mécanique, des circuits imprimés aux mécanismes en fonctionnement.",
+      "viewCv": "Voir le CV",
+      "getInTouch": "Me contacter"
+    },
+    "Philosophy": {
+      "heading": "Philosophie d'ingénierie",
+      "p1": "Il existe plusieurs façons <em>appropriées</em> de résoudre un problème d'ingénierie. Une solution <em>appropriée</em> est celle qui est considérée sous tous les angles pertinents : conforme aux normes, aux procédures établies et aux spécifications du projet. Le rôle de l'ingénieur, à la différence du scientifique, est d'identifier et de livrer cette solution.",
+      "p2": "<em>Appropriée</em> signifie techniquement solide, mais aussi fabricable, sûre, maintenable et reproductible. Les normes et les procédures ne sont pas de la bureaucratie : elles représentent un savoir accumulé sur la façon dont les solutions échouent dans le monde réel. Les respecter, c'est mon travail.",
+      "quote": "« Proper » (« approprié ») est l'un de mes mots préférés en anglais. Chaque fois que je fais face à un nouveau défi, je me pose la même question : quelles sont les façons <em>appropriées</em> de l'aborder ?"
+    },
+    "TechnicalDomains": {
+      "heading": "Domaines techniques",
+      "electromechanical": {
+        "title": "Systèmes électromécaniques",
+        "description": "Actionneurs, capteurs et électronique co-conçus avec la structure mécanique : accumulation de tolérances, montage, câblage et assemblage pris en compte dès la première esquisse."
+      },
+      "embedded": {
+        "title": "Systèmes embarqués et firmware",
+        "description": "Firmware sur STM32 et ESP32 avec FreeRTOS, protocoles industriels incluant CAN, I2C et BLE, et logique de contrôle pour le fonctionnement matériel en temps réel."
+      },
+      "electronicsPcb": {
+        "title": "Électronique et conception de PCB",
+        "description": "Saisie de schémas, routage et tests de fiabilité avec KiCad et Altium : du prototype sur breadboard à la carte prête pour la production avec des routines de mesure et de validation."
+      },
+      "mechanical": {
+        "title": "Conception mécanique et fabrication",
+        "description": "Modèles 3D et plans sous SolidWorks et Fusion 360, avec DFMA et GD&T appliqués dès le premier jour : usinage CNC, impression 3D et documentation prête pour les fournisseurs."
+      }
+    },
+    "FeaturedProjects": {
+      "heading": "Projets phares"
+    },
+    "ContactCTA": {
+      "heading": "Construisons quelque chose d'ambitieux.",
+      "subtitle": "Vous avez une idée qui vaut la peine d'être réalisée ? Parlons-en.",
+      "getInTouch": "Me contacter",
+      "viewCv": "Voir le CV"
+    },
+    "RecentWriting": {
+      "heading": "Écrits récents",
+      "readPost": "Lire l'article",
+      "readAll": "Voir tous les articles"
+    }
+  },
+  "CV": {
+    "metaTitle": "CV",
+    "metaDescription": "Curriculum vitae de Leonardo Acha Boiano, ingénieur mécatronique spécialisé en conception électronique, systèmes embarqués, ingénierie du contrôle et conception mécanique pour la robotique et les applications industrielles.",
+    "eyebrow": "Curriculum Vitae",
+    "location": "Bâle, Suisse",
+    "download": "Télécharger le CV (PDF)",
+    "sections": {
+      "careerHistory": "Parcours professionnel",
+      "work": "Expérience professionnelle",
+      "education": "Formation",
+      "skills": "Compétences",
+      "languages": "Langues",
+      "achievements": "Distinctions"
+    },
+    "skillCategories": {
+      "programming": "Programmation",
+      "embeddedRobotics": "Embarqué et robotique",
+      "electronicsPcb": "Électronique et PCB",
+      "mechanicalDesign": "Conception mécanique",
+      "tools": "Outils"
+    },
+    "languageNames": {
+      "spanish": "Espagnol",
+      "english": "Anglais",
+      "german": "Allemand",
+      "italian": "Italien"
+    },
+    "languageLevels": {
+      "native": "Natif",
+      "fluent": "Courant",
+      "a2": "A2"
+    },
+    "skillLabels": {
+      "industrialInstrumentation": "Instrumentation industrielle"
+    }
+  },
+  "Achievements": {
+    "icpc": {
+      "label": "Champion, Concours régional ICPC",
+      "date": "août 2024"
+    },
+    "diplomaHonour2": {
+      "label": "Diplôme d'honneur, 2e place - Ing. Mécatronique semestre 2-2023",
+      "date": "avr. 2024"
+    },
+    "cswa": {
+      "label": "Certified SOLIDWORKS Associate (CSWA)",
+      "date": "nov. 2023"
+    },
+    "diplomaHonour1": {
+      "label": "Diplôme d'honneur, 2e place - Ing. Mécatronique semestre 1-2023",
+      "date": "sept. 2023"
+    },
+    "scholarship": {
+      "label": "Bourse d'excellence x3",
+      "date": "2021-2022"
+    },
+    "rotary": {
+      "label": "Ambassadeur Rotary Youth Exchange au Canada",
+      "date": "2018-2019"
+    }
+  },
+  "Contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Prenez contact ! Disponible pour des collaborations de projet, du travail en systèmes embarqués et des consultations en ingénierie.",
+    "eyebrow": "Prendre contact",
+    "heading": "Discutons",
+    "intro": "Que vous ayez un projet en tête, une question ou simplement envie de dire bonjour, je serais ravi d'avoir de vos nouvelles.",
+    "otherWaysTitle": "Autres moyens de me joindre",
+    "otherWaysSubtitle": "Vous préférez un canal direct ? Utilisez l'un des liens ci-dessous.",
+    "links": {
+      "github": "Projets open-source et code",
+      "linkedin": "Profil professionnel et expérience",
+      "instagram": "Photos et coulisses",
+      "facebook": "Se connecter sur Facebook",
+      "emailLabel": "E-mail"
+    },
+    "Form": {
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "email": "E-mail",
+      "emailPlaceholder": "votre@email.com",
+      "subject": "Objet",
+      "subjectPlaceholder": "De quoi s'agit-il ?",
+      "message": "Message",
+      "messagePlaceholder": "Votre message...",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "success": "Message envoyé - je vous répondrai bientôt.",
+      "error": "Une erreur s'est produite. Veuillez réessayer ou m'envoyer un e-mail directement.",
+      "validation": {
+        "nameMin": "Le nom doit comporter au moins 2 caractères",
+        "emailInvalid": "Veuillez saisir une adresse e-mail valide",
+        "subjectMin": "L'objet doit comporter au moins 5 caractères",
+        "messageMin": "Le message doit comporter au moins 20 caractères"
+      }
+    }
+  },
+  "Projects": {
+    "differentialDriveRobot": {
+      "title": "Robot à traction différentielle",
+      "description": "Robot mobile avec PCB sur mesure, pièces DFMA imprimées en 3D et contrôle moteur en boucle fermée atteignant une marge d'erreur de 5 %"
+    },
+    "microQuadruped": {
+      "title": "Micro robot quadrupède",
+      "description": "Quadrupède économique avec analyse cinématique complète sous MATLAB et SolidWorks, validé par simulation et tests physiques"
+    },
+    "smokeDetectorCamera": {
+      "title": "Caméra détecteur de fumée",
+      "description": "Dispositif IoT de détection de fumée intégrant ESP32CAM, firmware C sur ESP-IDF et boîtier conçu sous SolidWorks pour la surveillance à distance"
+    },
+    "propellerArm": {
+      "title": "Bras à lévitation par hélices",
+      "description": "Plateforme de lévitation à double hélice avec retour IMU et algorithme de contrôle validé sous MATLAB ; pièces complexes fabriquées par impression 3D"
+    },
+    "hotPlate": {
+      "title": "Plaque chauffante pour soudure SMD",
+      "description": "Plaque chauffante de refusion SMD avec contrôleur de température conçu sous MATLAB, capable de suivre une courbe de refusion ou de maintenir une consigne"
+    },
+    "canCrusher": {
+      "title": "Système de broyage de canettes",
+      "description": "Broyeur automatique de canettes avec circuits de contrôle électropneumatiques conçus sous Fluidsim et mécanisme modélisé sous SolidWorks"
+    },
+    "batteryTrolley": {
+      "title": "Chariot portable pour batteries",
+      "description": "Chariot testé sur le terrain pesant moins de 20 kg, transportant 200 à 250 kg de batteries, simulé en contraintes sous SolidWorks et mis en production par Swiss Contact"
+    },
+    "temperatureAlarm": {
+      "title": "Alarme de température analogique",
+      "description": "Circuit d'alarme à buzzer analogique simulé sous Proteus, validé sur breadboard et fabriqué sur un PCB fraisé par CNC"
+    },
+    "covidApp": {
+      "title": "Application de données Coronavirus",
+      "description": "Application GUI pour interroger, visualiser et comparer les données COVID-19 entre pays à l'aide d'API publiques et de bibliothèques Python standard"
+    },
+    "metaTitle": "Projets",
+    "metaDescription": "Portfolio d'ingénierie de Leonardo Acha Boiano - robotique, systèmes embarqués, conception de PCB et ingénierie mécanique",
+    "eyebrow": "Portfolio",
+    "heading": "Projets",
+    "description": "Une sélection de projets d'ingénierie couvrant la robotique, les systèmes embarqués, l'électronique et la conception mécanique"
+  },
+  "Posts": {
+    "smdHotPlate": {
+      "title": "Plaque chauffante SMD : de l'identification du système au contrôle PID",
+      "description": "Comment j'ai modélisé la dynamique thermique d'une plaque chauffante de refusion DIY sous MATLAB et traduit le contrôleur en firmware Arduino"
+    },
+    "quadrupedKinematics": {
+      "title": "Cinématique de quadrupède : de l'espace de travail MATLAB aux pattes imprimées en 3D",
+      "description": "Présentation de l'analyse cinématique inverse et des décisions DFMA qui ont donné forme au prototype du micro robot quadrupède"
+    }
+  },
+  "Timeline": {
+    "present": "Présent",
+    "entries": {
+      "cryowriteEngineer": {
+        "role": "Ingénieur en robotique",
+        "location": "Bâle, Suisse",
+        "bullets": [
+          "Développement et maintenance de systèmes robotiques ROS2 avec actions concurrentes et intégration matérielle",
+          "Installation sur site, maintenance et entretien préventif des systèmes déployés chez les clients"
+        ]
+      },
+      "cryowriteIntern": {
+        "role": "Stagiaire en robotique",
+        "location": "Bâle, Suisse",
+        "bullets": [
+          "Pilotage de la stratégie de documentation de l'entreprise sur Confluence pour le partage des connaissances internes"
+        ]
+      },
+      "lumiphase": {
+        "role": "Stagiaire en tests de fiabilité et conception matérielle",
+        "location": "Stäfa, Suisse",
+        "bullets": [
+          "Mise en place de nouvelles méthodes de test : sélection des instruments, intégration et codage des routines de mesure",
+          "Conception de PCB pour la fixation d'échantillons et le routage électrique",
+          "Opérations de laboratoire : configuration des instruments, installation matérielle, développement des routines d'étalonnage"
+        ]
+      },
+      "mobiEngineer": {
+        "role": "Ingénieur matériel",
+        "location": "Santa Cruz, Bolivie",
+        "bullets": [
+          "Intégration de batteries IoT MQTT et CAN dans les flux de travail existants via des API",
+          "Conception et prototypage d'actionneurs solénoïdes et de PCB de contrôle pour la sécurité des batteries de motos électriques",
+          "Développement produit et coordination logistique avec des partenaires commerciaux chinois"
+        ]
+      },
+      "mobiIntern": {
+        "role": "Stagiaire ingénieur matériel",
+        "location": "Santa Cruz, Bolivie"
+      },
+      "realityHc": {
+        "role": "Stagiaire en conception mécanique",
+        "location": "Santa Cruz, Bolivie"
+      },
+      "ucbMechatronics": {
+        "role": "Licence en ingénierie mécatronique",
+        "location": "Santa Cruz, Bolivie",
+        "note": "GPA 3,7/4 - Diplômé avec mention\nPrésident de la Société scientifique (2023-2024)"
+      },
+      "rotaryExchange": {
+        "role": "Étudiant en échange",
+        "location": "Kamloops, BC, Canada",
+        "note": "Ambassadeur Rotary Youth Exchange\nCanadian Dogwood Diploma"
+      },
+      "laSalle": {
+        "role": "Enseignement primaire et secondaire",
+        "location": "Santa Cruz, Bolivie"
+      }
+    }
+  },
+  "Metadata": {
+    "titleDefault": "Leonardo Acha Boiano - Ingénieur Mécatronique",
+    "description": "Ingénieur mécatronique travaillant en électronique, systèmes embarqués, systèmes de contrôle, conception de produits et bien plus encore.",
+    "ogImageAlt": "Leonardo Acha Boiano - Ingénieur Mécatronique",
+    "ogTaglineLine1": "Je construis des robots.",
+    "ogTaglineLine2": "Je n'en suis pas un."
+  }
+}
