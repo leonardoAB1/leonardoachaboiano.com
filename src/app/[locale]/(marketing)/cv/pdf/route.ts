@@ -62,7 +62,7 @@ export async function GET(
   );
   const photoDataUrl = `data:image/jpeg;base64,${photoBuffer.toString("base64")}`;
 
-  const buffer = await renderToBuffer(
+  const pdfBuffer = await renderToBuffer(
     createElement(CVDocument, {
       name: siteConfig.name,
       title: siteConfig.title,
@@ -83,7 +83,7 @@ export async function GET(
     }),
   );
 
-  return new NextResponse(buffer, {
+  return new NextResponse(new Uint8Array(pdfBuffer), {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": 'inline; filename="CV_LEONARDO_ACHA_BOIANO.pdf"',
