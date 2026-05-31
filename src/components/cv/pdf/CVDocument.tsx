@@ -277,20 +277,20 @@ const s = StyleSheet.create({
   contactRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: 3,
+    marginBottom: 4,
     alignItems: "center",
   },
   contactTeal: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: TEAL,
   },
   contactBold: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 8.5,
+    fontSize: 9,
     color: TEAL,
   },
   contactSep: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
     marginHorizontal: 3,
   },
@@ -302,11 +302,11 @@ const s = StyleSheet.create({
 
   // --- Summary ---
   summaryRow: {
-    marginBottom: 4,
+    marginBottom: 6,
   },
   summaryText: {
-    fontSize: 8.5,
-    lineHeight: 1.35,
+    fontSize: 9,
+    lineHeight: 1.4,
     color: DARK,
   },
 
@@ -314,7 +314,7 @@ const s = StyleSheet.create({
   pageRule: {
     borderBottomWidth: 0.75,
     borderBottomColor: RULE_COLOR,
-    marginBottom: 4,
+    marginBottom: 6,
   },
 
   // --- Body (two columns) ---
@@ -334,71 +334,71 @@ const s = StyleSheet.create({
   // --- Section headers ---
   sectionHeader: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9.5,
+    fontSize: 10,
     color: TEAL,
-    marginTop: 4,
+    marginTop: 6,
     marginBottom: 1,
   },
   sectionRule: {
     borderBottomWidth: 1,
     borderBottomColor: TEAL,
-    marginBottom: 4,
+    marginBottom: 5,
   },
 
   // --- Work / Education entries ---
   entryRole: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     marginBottom: 0,
   },
   entryOrg: {
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     marginBottom: 0,
   },
   entryMeta: {
     flexDirection: "row",
-    marginBottom: 2,
+    marginBottom: 3,
     flexWrap: "wrap",
     alignItems: "center",
   },
   entryDate: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
   },
   entryLocation: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
     marginLeft: 2,
   },
   bulletRow: {
     flexDirection: "row",
-    marginBottom: 2,
+    marginBottom: 3,
     paddingLeft: 2,
   },
   bulletDash: {
-    fontSize: 8.5,
+    fontSize: 9,
     marginRight: 3,
     color: DARK,
   },
   bulletText: {
     flex: 1,
-    fontSize: 8.5,
-    lineHeight: 1.35,
+    fontSize: 9,
+    lineHeight: 1.4,
     color: DARK,
   },
   entryNote: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: GRAY,
-    lineHeight: 1.35,
-    marginBottom: 2,
+    lineHeight: 1.4,
+    marginBottom: 3,
     marginTop: 1,
   },
   entrySep: {
     height: 0.75,
     backgroundColor: RULE_COLOR,
-    marginVertical: 5,
+    marginVertical: 6,
   },
 
   // Education specific
@@ -408,13 +408,13 @@ const s = StyleSheet.create({
     marginBottom: 0,
   },
   eduDegree: {
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     flex: 1,
   },
   eduYear: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
   },
   eduOrgRow: {
@@ -424,31 +424,31 @@ const s = StyleSheet.create({
   },
   eduOrg: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     flex: 1,
   },
   eduGpa: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 9,
+    fontSize: 9.5,
     color: DARK,
     flexShrink: 0,
   },
 
   // --- Achievements ---
   achievementItem: {
-    marginBottom: 3,
+    marginBottom: 4,
   },
   achievementLabel: {
     fontFamily: "Helvetica-Bold",
-    fontSize: 8.5,
+    fontSize: 9,
     color: DARK,
-    lineHeight: 1.3,
+    lineHeight: 1.35,
   },
   achievementDesc: {
-    fontSize: 8.5,
+    fontSize: 9,
     color: DARK,
-    lineHeight: 1.3,
+    lineHeight: 1.35,
     marginBottom: 1,
   },
 
@@ -459,19 +459,19 @@ const s = StyleSheet.create({
   },
   languageItem: {
     width: "50%",
-    fontSize: 8.5,
+    fontSize: 9,
     color: DARK,
-    marginBottom: 2,
+    marginBottom: 3,
   },
 
   // --- Skills ---
   skillsSection: {
-    marginTop: 10,
+    marginTop: 12,
   },
   skillLine: {
-    fontSize: 8.5,
-    lineHeight: 1.35,
-    marginBottom: 1,
+    fontSize: 9,
+    lineHeight: 1.4,
+    marginBottom: 2,
   },
 });
 
@@ -651,7 +651,7 @@ export function CVDocument({
 
   return (
     <Document>
-      <Page size={[595, 820]} style={s.page}>
+      <Page size="A4" style={s.page}>
         {/* ---------------------------------------------------------------- */}
         {/* Header                                                           */}
         {/* ---------------------------------------------------------------- */}
