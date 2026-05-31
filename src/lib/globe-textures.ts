@@ -1,6 +1,6 @@
 export const GLOBE_TEXTURES = {
   blueMarble: "/globe/earth-blue-marble.jpg",
-  topology: "/globe/earth-topology.png",
+  topology: "/globe/earth-topology.webp",
   night: "/globe/earth-night.jpg",
   clouds: "/globe/earth-clouds.webp",
 } as const;
