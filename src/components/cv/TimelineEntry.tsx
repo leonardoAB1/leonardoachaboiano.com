@@ -5,6 +5,9 @@ interface TimelineEntryProps {
   dateRange: string;
   role: string;
   org: string;
+  website?: string;
+  orgSubtitle?: string;
+  orgSubtitleWebsite?: string;
   location: string;
   bullets?: readonly string[];
   note?: string;
@@ -16,6 +19,9 @@ export function TimelineEntry({
   dateRange,
   role,
   org,
+  website,
+  orgSubtitle,
+  orgSubtitleWebsite,
   location,
   bullets,
   note,
@@ -48,7 +54,33 @@ export function TimelineEntry({
         />
 
         <p className="text-base font-semibold text-ink-1">{role}</p>
-        <p className="mt-0.5 text-sm font-medium text-brand">{org}</p>
+        {website ? (
+          <a
+            href={website}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="mt-0.5 block text-sm font-medium text-brand hover:underline"
+          >
+            {org}
+          </a>
+        ) : (
+          <p className="mt-0.5 text-sm font-medium text-brand">{org}</p>
+        )}
+        {orgSubtitle &&
+          (orgSubtitleWebsite ? (
+            <a
+              href={orgSubtitleWebsite}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="mt-0.5 block text-xs text-ink-3 hover:underline"
+            >
+              {orgSubtitle}
+            </a>
+          ) : (
+            <p className="mt-0.5 text-xs text-ink-3">{orgSubtitle}</p>
+          ))}
         <p className="mt-0.5 text-[clamp(0.75rem,3.5vw,0.875rem)] text-ink-4">
           {location}
         </p>

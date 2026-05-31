@@ -137,6 +137,9 @@ export function CVContent(): ReactElement {
                       dateRange={entry.dateRange}
                       role={entry.role}
                       org={entry.org}
+                      website={entry.website}
+                      orgSubtitle={entry.orgSubtitle}
+                      orgSubtitleWebsite={entry.orgSubtitleWebsite}
                       location={entry.location}
                       bullets={entry.bullets}
                       note={entry.note}
