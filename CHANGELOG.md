@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.1...v1.10.2) (2026-05-31)
+
+
+### Performance Improvements
+
+* mobile performance optimization ([#232](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/232)) ([697bbe5](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/697bbe58ffa600babea029b6988d3aeee7cf78d5))
+
 ## [1.10.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.0...v1.10.1) (2026-05-31)
 
 
