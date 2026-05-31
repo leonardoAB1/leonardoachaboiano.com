@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import type { SVGProps } from "react";
-import type { ReactElement } from "react";
+import type { ReactElement, SVGProps } from "react";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { Container } from "@/components/layout/Container";
+import { Section } from "@/components/layout/Section";
 import {
   FacebookIcon,
   GitHubIcon,
@@ -10,9 +12,6 @@ import {
   LinkedInIcon,
   MailIcon,
 } from "@/components/ui/BrandIcons";
-import { ContactForm } from "@/components/contact/ContactForm";
-import { Container } from "@/components/layout/Container";
-import { Section } from "@/components/layout/Section";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import type { Locale } from "@/i18n/routing";
