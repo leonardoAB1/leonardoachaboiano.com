@@ -5,7 +5,7 @@ import { defineRouting } from "next-intl/routing";
 // hreflang, and the language switcher all read from this list, so no further
 // code changes are required to support a new language.
 export const routing = defineRouting({
-  locales: ["en", "es", "de", "it"],
+  locales: ["en", "es", "de", "it", "fr"],
   defaultLocale: "en",
   // "always" keeps every URL locale-prefixed (/en/cv, /es/cv). The bare "/"
   // is handled by the middleware, which detects the visitor's language and
