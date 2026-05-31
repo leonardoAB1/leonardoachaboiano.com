@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.9.0...v1.9.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* replace spring animation on mobile menu with fast ease-out tween ([#225](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/225)) ([70a9ac8](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/70a9ac896fb8117af47b4d0a3c417bcf3b89e205))
+
 ## [1.9.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.8.1...v1.9.0) (2026-05-31)
 
 
