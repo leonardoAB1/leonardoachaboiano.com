@@ -320,7 +320,6 @@ const s = StyleSheet.create({
   // --- Body (two columns) ---
   body: {
     flexDirection: "row",
-    flex: 1,
   },
   leftCol: {
     flex: 1.3,
@@ -467,7 +466,7 @@ const s = StyleSheet.create({
 
   // --- Skills ---
   skillsSection: {
-    marginTop: 3,
+    marginTop: 10,
   },
   skillLine: {
     fontSize: 8.5,
