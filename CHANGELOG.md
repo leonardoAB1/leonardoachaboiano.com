@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.4...v1.10.5) (2026-05-31)
+
+
+### Bug Fixes
+
+* update colegio la salle website link to facebook page ([#243](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/243)) ([72bb3f5](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/72bb3f58003795a22805543a508824961a7c7eaf))
+
 ## [1.10.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.3...v1.10.4) (2026-05-31)
 
 
