@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import type { SVGProps } from "react";
-import type { ReactElement } from "react";
+import type { ReactElement, SVGProps } from "react";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/ui/BrandIcons";
 import { socialLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -10,7 +9,9 @@ interface SocialLinksProps {
   className?: string;
 }
 
-type BrandIconComponent = (props: SVGProps<SVGSVGElement> & { size?: number }) => ReactElement;
+type BrandIconComponent = (
+  props: SVGProps<SVGSVGElement> & { size?: number },
+) => ReactElement;
 
 // "key" indexes into the SocialLinks message namespace. Brand names (GitHub,
 // LinkedIn) are the same across locales; "email" localizes.
