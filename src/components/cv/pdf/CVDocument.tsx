@@ -1,8 +1,10 @@
 import {
   Circle,
   Document,
+  Font,
   G,
   Image,
+  Link,
   Page,
   Path,
   Rect,
@@ -12,6 +14,9 @@ import {
   View,
 } from "@react-pdf/renderer";
 import type { ReactElement } from "react";
+
+// Disable automatic word hyphenation so words always wrap whole, never split.
+Font.registerHyphenationCallback((word) => [word]);
 
 // ---------------------------------------------------------------------------
 // Types
@@ -44,6 +49,7 @@ export interface CVDocumentProps {
   email: string;
   phone: string;
   location: string;
+  website: string;
   linkedin: string;
   github: string;
   githubAlt: string;
@@ -154,6 +160,65 @@ function GitHubIcon() {
   );
 }
 
+function WebIcon() {
+  return (
+    <Svg
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      viewBox="0 0 16 16"
+      style={{ marginRight: 2 }}
+    >
+      <Circle cx="8" cy="8" r="7" fill="none" stroke={TEAL} strokeWidth="1.2" />
+      {/* Vertical ellipse (meridian) */}
+      <Path
+        d="M8 1 Q5 8 8 15 Q11 8 8 1"
+        fill="none"
+        stroke={TEAL}
+        strokeWidth="1.2"
+      />
+      {/* Horizontal lines (parallels) */}
+      <Path d="M1.5 8 L14.5 8" fill="none" stroke={TEAL} strokeWidth="1.2" />
+      <Path
+        d="M2.5 5 Q8 6.5 13.5 5"
+        fill="none"
+        stroke={TEAL}
+        strokeWidth="1.0"
+      />
+      <Path
+        d="M2.5 11 Q8 9.5 13.5 11"
+        fill="none"
+        stroke={TEAL}
+        strokeWidth="1.0"
+      />
+    </Svg>
+  );
+}
+
+function EUIcon() {
+  // 12 stars arranged in a circle, matching the EU flag emblem.
+  // Teal background + white stars to stay consistent with the CV colour theme.
+  const R = 4.2; // orbit radius
+  const CX = 8;
+  const CY = 8;
+  const starPositions = Array.from({ length: 12 }, (_, i) => {
+    const angle = (i * 30 - 90) * (Math.PI / 180);
+    return [CX + R * Math.cos(angle), CY + R * Math.sin(angle)] as const;
+  });
+  return (
+    <Svg
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      viewBox="0 0 16 16"
+      style={{ marginRight: 2 }}
+    >
+      <Circle cx={CX} cy={CY} r="7.5" fill={TEAL} />
+      {starPositions.map(([cx, cy]) => (
+        <Circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.9" fill="white" />
+      ))}
+    </Svg>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Styles
 // ---------------------------------------------------------------------------
@@ -163,9 +228,9 @@ const s = StyleSheet.create({
     fontFamily: "Helvetica",
     fontSize: 9,
     color: DARK,
-    paddingHorizontal: 22,
-    paddingTop: 20,
-    paddingBottom: 16,
+    paddingHorizontal: 36,
+    paddingTop: 28,
+    paddingBottom: 22,
     backgroundColor: "#ffffff",
   },
 
@@ -183,7 +248,7 @@ const s = StyleSheet.create({
   name: {
     fontFamily: "Helvetica-Bold",
     fontSize: 22,
-    color: DARK,
+    color: TEAL,
     marginBottom: 1,
   },
   titleLine: {
@@ -212,8 +277,8 @@ const s = StyleSheet.create({
     marginHorizontal: 3,
   },
   photo: {
-    width: 72,
-    height: 72,
+    width: 80,
+    height: 80,
     objectFit: "contain",
   },
 
@@ -524,6 +589,7 @@ export function CVDocument({
   email,
   phone,
   location,
+  website,
   linkedin,
   github,
   githubAlt,
@@ -547,7 +613,7 @@ export function CVDocument({
 
   return (
     <Document>
-      <Page size={[595, 780]} style={s.page}>
+      <Page size={[595, 820]} style={s.page}>
         {/* ---------------------------------------------------------------- */}
         {/* Header                                                           */}
         {/* ---------------------------------------------------------------- */}
@@ -556,35 +622,53 @@ export function CVDocument({
             <Text style={s.name}>{name.toUpperCase()}</Text>
             <Text style={s.titleLine}>{title}</Text>
 
-            {/* Contact row: email | phone | location — all teal */}
+            {/* Row 1: email | phone | location */}
             <View style={s.contactRow}>
               <EmailIcon />
-              <Text style={s.contactTeal}>{email}</Text>
+              <Link src={`mailto:${email}`}>
+                <Text style={s.contactTeal}>{email}</Text>
+              </Link>
               <Text style={s.contactSep}>{"  "}</Text>
               <WhatsAppIcon />
-              <Text style={s.contactTeal}>{phone}</Text>
+              <Link src={`https://wa.me/${phone.replace(/[^0-9]/g, "")}`}>
+                <Text style={s.contactTeal}>{phone}</Text>
+              </Link>
               <Text style={s.contactSep}>{"  "}</Text>
               <Text style={s.contactTeal}>{location}</Text>
             </View>
 
-            {/* LinkedIn + EU Nationality */}
+            {/* Row 2: LinkedIn | EU Nationality */}
             <View style={s.contactRow}>
               <LinkedInIcon />
-              <Text style={s.contactBold}>{linkedinDisplay}</Text>
+              <Link src={linkedin}>
+                <Text style={s.contactBold}>{linkedinDisplay}</Text>
+              </Link>
               <Text style={s.contactSep}>{"    "}</Text>
+              <EUIcon />
               <Text style={s.contactBold}>{"EU Nationality (B permit)"}</Text>
             </View>
 
-            {/* GitHub primary */}
+            {/* Row 3: GitHub primary | GitHub secondary */}
             <View style={s.contactRow}>
               <GitHubIcon />
-              <Text style={s.contactBold}>{githubDisplay}</Text>
+              <Link src={github}>
+                <Text style={s.contactBold}>{githubDisplay}</Text>
+              </Link>
+              <Text style={s.contactSep}>{"    "}</Text>
+              <GitHubIcon />
+              <Link src={githubAlt}>
+                <Text style={s.contactBold}>{githubAltDisplay}</Text>
+              </Link>
             </View>
 
-            {/* GitHub secondary */}
+            {/* Row 4: Personal website */}
             <View style={s.contactRow}>
-              <GitHubIcon />
-              <Text style={s.contactBold}>{githubAltDisplay}</Text>
+              <WebIcon />
+              <Link src={website}>
+                <Text style={s.contactBold}>
+                  {website.replace("https://", "")}
+                </Text>
+              </Link>
             </View>
           </View>
 

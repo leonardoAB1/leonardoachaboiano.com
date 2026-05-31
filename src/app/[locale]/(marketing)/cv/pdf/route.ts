@@ -79,6 +79,7 @@ export async function GET(
       email: siteConfig.email,
       phone: siteConfig.phone,
       location: tCV("location"),
+      website: siteConfig.url,
       linkedin: socialLinks.linkedin,
       github: socialLinks.github,
       githubAlt: socialLinks.githubAlt,
