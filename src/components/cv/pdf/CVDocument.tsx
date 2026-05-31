@@ -336,15 +336,15 @@ function WorkEntry({
           <Text style={s.entryLocation}>{"  ⬥  " + entry.location}</Text>
         ) : null}
       </View>
-      {entry.bullets?.map((b, i) => (
-        <View key={i} style={s.bulletRow}>
+      {entry.bullets?.map((b) => (
+        <View key={b} style={s.bulletRow}>
           <Text style={s.bulletDash}>-</Text>
           <Text style={s.bulletText}>{b}</Text>
         </View>
       ))}
       {entry.note
-        ? entry.note.split("\n").map((line, i) => (
-            <Text key={i} style={s.entryNote}>
+        ? entry.note.split("\n").map((line) => (
+            <Text key={line} style={s.entryNote}>
               {line}
             </Text>
           ))
@@ -366,8 +366,8 @@ function EducationEntry({ entry }: { entry: CVEntry }) {
       <Text style={{ fontSize: 8.5, color: GRAY, marginBottom: 2 }}>
         {entry.location}
       </Text>
-      {noteLines.map((line, i) => (
-        <Text key={i} style={s.entryNote}>
+      {noteLines.map((line) => (
+        <Text key={line} style={s.entryNote}>
           {line}
         </Text>
       ))}
@@ -401,7 +401,9 @@ export function CVDocument({
   const totalWorkGroups = orgGroups.length;
 
   // Strip "https://www." prefix for display
-  const linkedinDisplay = linkedin.replace("https://www.", "").replace("https://", "");
+  const linkedinDisplay = linkedin
+    .replace("https://www.", "")
+    .replace("https://", "");
   const githubDisplay = github.replace("https://", "");
   const githubAltDisplay = githubAlt.replace("https://", "");
 
@@ -480,9 +482,7 @@ export function CVDocument({
                     }
                   />
                 ))}
-                {groupIdx < totalWorkGroups - 1 && (
-                  <View style={s.entrySep} />
-                )}
+                {groupIdx < totalWorkGroups - 1 && <View style={s.entrySep} />}
               </View>
             ))}
           </View>
@@ -499,11 +499,9 @@ export function CVDocument({
             {/* Achievements */}
             <Text style={s.sectionHeader}>{"ACHIEVEMENTS"}</Text>
             <View style={s.sectionRule} />
-            {achievements.map((a, i) => (
-              <View key={i} style={s.achievementItem}>
-                <Text style={s.achievementLabel}>
-                  {a.label}
-                </Text>
+            {achievements.map((a) => (
+              <View key={a.label} style={s.achievementItem}>
+                <Text style={s.achievementLabel}>{a.label}</Text>
                 <Text style={s.achievementDate}>{a.date}</Text>
               </View>
             ))}
