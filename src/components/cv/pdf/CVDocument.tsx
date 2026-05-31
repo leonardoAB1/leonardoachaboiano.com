@@ -160,6 +160,25 @@ function GitHubIcon() {
   );
 }
 
+function LocationIcon() {
+  return (
+    <Svg
+      width={ICON_SIZE}
+      height={ICON_SIZE}
+      viewBox="0 0 16 16"
+      style={{ marginRight: 2 }}
+    >
+      {/* Teardrop pin body */}
+      <Path
+        d="M8 1C5.24 1 3 3.24 3 6C3 9.75 8 15 8 15S13 9.75 13 6C13 3.24 10.76 1 8 1Z"
+        fill={TEAL}
+      />
+      {/* White centre dot */}
+      <Circle cx="8" cy="6" r="2" fill="white" />
+    </Svg>
+  );
+}
+
 function WebIcon() {
   return (
     <Svg
@@ -637,6 +656,7 @@ export function CVDocument({
                 <Text style={s.contactTeal}>{phone}</Text>
               </Link>
               <Text style={s.contactSep}>{"  "}</Text>
+              <LocationIcon />
               <Text style={s.contactTeal}>{location}</Text>
             </View>
 
