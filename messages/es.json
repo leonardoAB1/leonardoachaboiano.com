@@ -262,7 +262,8 @@
         "bullets": [
           "Desarrollo y mantenimiento de sistemas robóticos ROS2 con acciones concurrentes e integración de hardware",
           "Instalación in situ, servicio y mantenimiento preventivo de sistemas desplegados en clientes"
-        ]
+        ],
+        "note": "Work GitHub: github.com/leonardoAB-cw"
       },
       "cryowriteIntern": {
         "role": "Pasante de Robótica",

@@ -52,7 +52,6 @@ export interface CVDocumentProps {
   website: string;
   linkedin: string;
   github: string;
-  githubAlt: string;
   summary: string;
   workEntries: CVEntry[];
   educationEntries: CVEntry[];
@@ -258,7 +257,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 4,
+    marginBottom: 10,
   },
   headerLeft: {
     flex: 1,
@@ -555,11 +554,33 @@ function WorkEntry({
         </View>
       ))}
       {entry.note
-        ? entry.note.split("\n").map((line) => (
-            <Text key={line} style={s.entryNote}>
-              {line}
-            </Text>
-          ))
+        ? entry.note.split("\n").map((line) => {
+            // Auto-link bare URLs (e.g. "Work GitHub: github.com/...") so
+            // they remain clickable without needing a separate data field.
+            const urlPat = /(https?:\/\/\S+|[\w-]+\.[\w.-]+\/\S+)/;
+            const match = urlPat.exec(line);
+            if (match) {
+              const href = match[0].startsWith("http")
+                ? match[0]
+                : `https://${match[0]}`;
+              const before = line.slice(0, match.index);
+              const after = line.slice(match.index + match[0].length);
+              return (
+                <Text key={line} style={s.entryNote}>
+                  {before}
+                  <Link style={{ textDecoration: "none" }} src={href}>
+                    <Text style={{ color: TEAL }}>{match[0]}</Text>
+                  </Link>
+                  {after}
+                </Text>
+              );
+            }
+            return (
+              <Text key={line} style={s.entryNote}>
+                {line}
+              </Text>
+            );
+          })
         : null}
       {showSepAfter && <View style={s.entrySep} />}
     </View>
@@ -611,7 +632,6 @@ export function CVDocument({
   website,
   linkedin,
   github,
-  githubAlt,
   summary,
   workEntries,
   educationEntries,
@@ -628,7 +648,7 @@ export function CVDocument({
     .replace("https://www.", "")
     .replace("https://", "");
   const githubDisplay = github.replace("https://", "");
-  const githubAltDisplay = githubAlt.replace("https://", "");
+  const websiteDisplay = website.replace("https://", "").replace("http://", "");
 
   return (
     <Document>
@@ -641,13 +661,13 @@ export function CVDocument({
             <Text style={s.name}>{name.toUpperCase()}</Text>
             <Text style={s.titleLine}>{title}</Text>
 
-            {/* Row 1: email | phone | location */}
+            {/* Row 1: email  |  phone */}
             <View style={s.contactRow}>
               <EmailIcon />
               <Link style={{ textDecoration: "none" }} src={`mailto:${email}`}>
                 <Text style={s.contactTeal}>{email}</Text>
               </Link>
-              <Text style={s.contactSep}>{"  "}</Text>
+              <Text style={s.contactSep}>{"    "}</Text>
               <WhatsAppIcon />
               <Link
                 style={{ textDecoration: "none" }}
@@ -655,43 +675,35 @@ export function CVDocument({
               >
                 <Text style={s.contactTeal}>{phone}</Text>
               </Link>
-              <Text style={s.contactSep}>{"  "}</Text>
-              <LocationIcon />
-              <Text style={s.contactTeal}>{location}</Text>
             </View>
 
-            {/* Row 2: LinkedIn | EU Nationality */}
+            {/* Row 2: LinkedIn  |  GitHub  |  Website */}
             <View style={s.contactRow}>
               <LinkedInIcon />
               <Link style={{ textDecoration: "none" }} src={linkedin}>
                 <Text style={s.contactBold}>{linkedinDisplay}</Text>
               </Link>
               <Text style={s.contactSep}>{"    "}</Text>
-              <EUIcon />
-              <Text style={s.contactBold}>{"EU Nationality (B permit)"}</Text>
-            </View>
-
-            {/* Row 3: GitHub primary | GitHub secondary */}
-            <View style={s.contactRow}>
               <GitHubIcon />
               <Link style={{ textDecoration: "none" }} src={github}>
                 <Text style={s.contactBold}>{githubDisplay}</Text>
               </Link>
               <Text style={s.contactSep}>{"    "}</Text>
-              <GitHubIcon />
-              <Link style={{ textDecoration: "none" }} src={githubAlt}>
-                <Text style={s.contactBold}>{githubAltDisplay}</Text>
+              <WebIcon />
+              <Link style={{ textDecoration: "none" }} src={website}>
+                <Text style={s.contactBold}>{websiteDisplay}</Text>
               </Link>
             </View>
 
-            {/* Row 4: Personal website */}
+            {/* Row 3: location  •  EU Nationality */}
             <View style={s.contactRow}>
-              <WebIcon />
-              <Link style={{ textDecoration: "none" }} src={website}>
-                <Text style={s.contactBold}>
-                  {website.replace("https://", "")}
-                </Text>
-              </Link>
+              <LocationIcon />
+              <Text style={s.contactTeal}>{location}</Text>
+              <Text style={{ ...s.contactSep, marginHorizontal: 5 }}>
+                {"•"}
+              </Text>
+              <EUIcon />
+              <Text style={s.contactBold}>{"EU Nationality (B permit)"}</Text>
             </View>
           </View>
 

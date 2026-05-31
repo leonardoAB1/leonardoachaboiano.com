@@ -82,7 +82,6 @@ export async function GET(
       website: siteConfig.url,
       linkedin: socialLinks.linkedin,
       github: socialLinks.github,
-      githubAlt: socialLinks.githubAlt,
       summary: tCV("summary"),
       workEntries,
       educationEntries,

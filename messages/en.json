@@ -262,7 +262,8 @@
         "bullets": [
           "Developing and maintaining **ROS2** robotic systems, including concurrent actions and hardware integration",
           "Performing on-site system installation, servicing, and preventive maintenance for deployed client systems"
-        ]
+        ],
+        "note": "Work GitHub: github.com/leonardoAB-cw"
       },
       "cryowriteIntern": {
         "role": "Robotics Intern",

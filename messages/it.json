@@ -262,7 +262,8 @@
         "bullets": [
           "Sviluppo e manutenzione di sistemi robotici ROS2 con azioni concorrenti e integrazione hardware",
           "Installazione in loco, assistenza e manutenzione preventiva dei sistemi installati presso i clienti"
-        ]
+        ],
+        "note": "Work GitHub: github.com/leonardoAB-cw"
       },
       "cryowriteIntern": {
         "role": "Tirocinante in Robotica",

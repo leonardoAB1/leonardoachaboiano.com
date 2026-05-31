@@ -262,7 +262,8 @@
         "bullets": [
           "Entwicklung und Wartung von ROS2-Robotersystemen mit nebenläufigen Aktionen und Hardware-Integration",
           "Installation vor Ort, Service und vorbeugende Wartung von ausgelieferten Kundensystemen"
-        ]
+        ],
+        "note": "Work GitHub: github.com/leonardoAB-cw"
       },
       "cryowriteIntern": {
         "role": "Praktikant Robotik",
