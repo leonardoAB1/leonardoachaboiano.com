@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.6](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.5...v1.10.6) (2026-05-31)
+
+
+### Bug Fixes
+
+* restore motion hook to fix first-click animation after navigation ([#245](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/245)) ([aaed14e](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/aaed14e6314cfc9d10173c890f73951040a40477))
+
 ## [1.10.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.4...v1.10.5) (2026-05-31)
 
 
