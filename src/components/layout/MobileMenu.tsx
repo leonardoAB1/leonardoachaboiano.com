@@ -36,22 +36,53 @@ export function MobileMenu({ overHero }: { overHero: boolean }): ReactElement {
     setIsOpen(false);
   }
 
-  const backdropVariants = useMemo(() => ({
-    closed: { opacity: 0, transition: { duration: prefersReducedMotion ? 0 : 0.16, ease: "linear" as const } },
-    open:   { opacity: 1, transition: { duration: prefersReducedMotion ? 0 : 0.18, ease: "linear" as const } },
-  }), [prefersReducedMotion]);
+  const backdropVariants = useMemo(
+    () => ({
+      closed: {
+        opacity: 0,
+        transition: {
+          duration: prefersReducedMotion ? 0 : 0.16,
+          ease: "linear" as const,
+        },
+      },
+      open: {
+        opacity: 1,
+        transition: {
+          duration: prefersReducedMotion ? 0 : 0.18,
+          ease: "linear" as const,
+        },
+      },
+    }),
+    [prefersReducedMotion],
+  );
 
-  const panelVariants = useMemo(() => (
-    prefersReducedMotion
-      ? {
-          closed: { opacity: 0, transition: { duration: 0.15 } },
-          open:   { opacity: 1, transition: { duration: 0.15 } },
-        }
-      : {
-          closed: { x: "100%", transition: { type: "tween" as const, duration: 0.18, ease: [0.4, 0, 1, 1] as [number, number, number, number] } },
-          open:   { x: 0,      transition: { type: "tween" as const, duration: 0.22, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
-        }
-  ), [prefersReducedMotion]);
+  const panelVariants = useMemo(
+    () =>
+      prefersReducedMotion
+        ? {
+            closed: { opacity: 0, transition: { duration: 0.15 } },
+            open: { opacity: 1, transition: { duration: 0.15 } },
+          }
+        : {
+            closed: {
+              x: "100%",
+              transition: {
+                type: "tween" as const,
+                duration: 0.18,
+                ease: [0.4, 0, 1, 1] as [number, number, number, number],
+              },
+            },
+            open: {
+              x: 0,
+              transition: {
+                type: "tween" as const,
+                duration: 0.22,
+                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+              },
+            },
+          },
+    [prefersReducedMotion],
+  );
 
   return (
     <>
