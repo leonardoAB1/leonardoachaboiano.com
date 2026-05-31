@@ -80,7 +80,7 @@ export function TimelineEntry({
                   aria-hidden="true"
                   className="mt-2 shrink-0 size-1 rounded-full bg-ink-4"
                 />
-                {renderBold(bullet)}
+                <span>{renderBold(bullet)}</span>
               </li>
             ))}
           </ul>
