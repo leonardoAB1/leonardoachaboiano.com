@@ -200,10 +200,9 @@ const s = StyleSheet.create({
     marginHorizontal: 3,
   },
   photo: {
-    width: 65,
-    height: 90,
-    borderRadius: 4,
-    objectFit: "cover",
+    width: 72,
+    height: 72,
+    objectFit: "contain",
   },
 
   // --- Summary ---
@@ -303,8 +302,8 @@ const s = StyleSheet.create({
     marginTop: 1,
   },
   entrySep: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: RULE_COLOR,
+    height: 0.75,
+    backgroundColor: RULE_COLOR,
     marginVertical: 5,
   },
 
