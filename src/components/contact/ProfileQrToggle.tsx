@@ -57,11 +57,13 @@ export function ProfileQrToggle({
           )}
         />
 
-        {/* QR layer - white fill keeps it scannable in any theme */}
+        {/* QR layer - dark-teal squircle so the page-colored (mint) modules read
+            as a cutout. The squircle frames the QR; the baked quiet zone keeps
+            the corners from clipping. */}
         <span
           aria-hidden={!showQr}
           className={cn(
-            "absolute inset-0 flex items-center justify-center bg-white p-5 transition-opacity duration-300",
+            "absolute inset-0 flex items-center justify-center bg-brand-dim p-2.5 transition-opacity duration-300",
             showQr ? "opacity-100" : "pointer-events-none opacity-0",
           )}
         >

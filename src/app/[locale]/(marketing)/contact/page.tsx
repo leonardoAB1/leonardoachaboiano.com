@@ -89,10 +89,11 @@ export default async function ContactPage({
   ];
 
   return (
-    <Section>
+    <Section className="-mt-14 min-h-svh bg-surface-brand pt-28 sm:pt-32">
       <Container>
-        {/* Mobile shows only the card (a tap-to-reveal link-in-bio). Desktop adds
-            the contact form as the main column with the card as a sticky aside. */}
+        {/* The whole screen takes the brand-tinted surface so contact reads as a
+            distinct space. Mobile shows only the card (tap-to-reveal link-in-bio);
+            desktop adds the contact form as the main column. */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_20rem] lg:gap-x-16">
           {/* Contact form - desktop only */}
           <div className="hidden lg:block">
@@ -106,9 +107,10 @@ export default async function ContactPage({
             <ContactForm />
           </div>
 
-          {/* Card: squircle photo that flips to the QR, plus name and socials */}
+          {/* Card: squircle photo that flips to the QR, plus name and socials.
+              No panel - it sits directly on the brand-tinted page. */}
           <div className="lg:sticky lg:top-24">
-            <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6 rounded-2xl bg-surface-brand p-8 text-center">
+            <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6 text-center">
               <ProfileQrToggle
                 photoSrc="/images/headshot.webp"
                 photoAlt={siteConfig.name}
