@@ -128,13 +128,13 @@ export default async function ContactPage({
           <div className="order-first lg:order-none">
             <div className="lg:sticky lg:top-24">
               <div className="flex flex-col items-center gap-6 rounded-2xl border border-border bg-surface-brand p-6 text-center">
-                {/* Brand logo mark */}
+                {/* Brand logo mark - same size as the QR below */}
                 <Image
                   src="/images/logo.png"
                   alt={siteConfig.name}
-                  width={80}
-                  height={80}
-                  className="size-16 rounded-full sm:size-20"
+                  width={144}
+                  height={144}
+                  className="size-36 rounded-full"
                   priority
                 />
 
@@ -162,19 +162,17 @@ export default async function ContactPage({
 
                 {/* Space reserved for future buttons (CV, Projects, etc.) */}
 
-                {/* QR - white inner card keeps contrast; modules are brand teal.
-                    Encodes the canonical /contact URL. */}
+                {/* QR - transparent background (brand-teal modules) so it sits
+                    flush on the card with no white box. Encodes /contact. */}
                 <figure className="flex flex-col items-center gap-2">
-                  <div className="rounded-xl bg-white p-3">
-                    <div className="relative size-36">
-                      <Image
-                        src="/images/contact-qr.png"
-                        alt={t("qrAlt")}
-                        fill
-                        className="object-contain"
-                        sizes="9rem"
-                      />
-                    </div>
+                  <div className="relative size-36">
+                    <Image
+                      src="/images/contact-qr.png"
+                      alt={t("qrAlt")}
+                      fill
+                      className="object-contain"
+                      sizes="9rem"
+                    />
                   </div>
                   <figcaption className="max-w-[9rem] text-center text-xs text-ink-3">
                     {t("qrCaption")}
