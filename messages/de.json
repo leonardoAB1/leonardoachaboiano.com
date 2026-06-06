@@ -187,10 +187,8 @@
         "messageMin": "Die Nachricht muss mindestens 20 Zeichen lang sein"
       }
     },
-    "bio": {
-      "viewCv": "Lebenslauf ansehen",
-      "projects": "Projekte ansehen"
-    }
+    "qrCaption": "Scannen, um meine Links zu öffnen",
+    "qrAlt": "QR-Code, der auf diese Seite verweist"
   },
   "Projects": {
     "differentialDriveRobot": {

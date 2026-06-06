@@ -187,10 +187,8 @@
         "messageMin": "Le message doit comporter au moins 20 caractères"
       }
     },
-    "bio": {
-      "viewCv": "Voir le CV",
-      "projects": "Voir les projets"
-    }
+    "qrCaption": "Scannez pour ouvrir mes liens",
+    "qrAlt": "Code QR menant à cette page"
   },
   "Projects": {
     "differentialDriveRobot": {
