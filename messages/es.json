@@ -188,7 +188,10 @@
       }
     },
     "qrCaption": "Escanea para abrir mis enlaces",
-    "qrAlt": "Código QR que enlaza a esta página"
+    "qrAlt": "Código QR que enlaza a esta página",
+    "tapHint": "Toca para ver el QR",
+    "showQr": "Mostrar código QR",
+    "showPhoto": "Mostrar foto"
   },
   "Projects": {
     "differentialDriveRobot": {
