@@ -132,8 +132,9 @@ export default async function ContactPage({
               </ul>
             </div>
 
-            {/* Logo + QR in one row, same size, beside the name */}
-            <div className="flex items-start gap-3">
+            {/* Logo + QR, same size: stacked on mobile (logo, QR under),
+                one row beside the name on desktop */}
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-start">
               <Image
                 src="/images/logo.png"
                 alt={siteConfig.name}
