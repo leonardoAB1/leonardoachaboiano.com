@@ -12,10 +12,8 @@ import {
   LinkedInIcon,
   MailIcon,
 } from "@/components/ui/BrandIcons";
-import { buttonClasses } from "@/components/ui/Button";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
-import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
@@ -91,34 +89,17 @@ export default async function ContactPage({
     },
   ];
 
-  // Primary destination buttons (link-in-bio "stacked links"). Internal routes,
-  // so they use the locale-aware Link to keep the active prefix.
-  const bioLinks: Array<{ id: string; href: string; label: string }> = [
-    { id: "cv", href: "/cv", label: t("bio.viewCv") },
-    { id: "projects", href: "/projects", label: t("bio.projects") },
-  ];
-
   return (
     <Section>
       <Container>
-        {/* Desktop mirrors the CV globe layout: content left, portrait pinned
-            right. On mobile it collapses to one centered link-in-bio column. */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_22rem] lg:gap-x-16">
-          {/* Left column: profile, stacked links, then the form */}
-          <div className="flex flex-col items-center gap-10 text-center lg:items-start lg:text-start">
+        {/* Desktop mirrors the CV globe layout: text + form on the left, the
+            visual (headshot + QR) pinned right. On mobile it collapses to one
+            centered column with the visual on top so the QR is easy to show. */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_18rem] lg:gap-x-16">
+          {/* Text + form column (renders below the visual on mobile) */}
+          <div className="order-last flex flex-col items-center gap-8 text-center lg:order-none lg:items-start lg:text-start">
             {/* Profile header */}
             <div className="flex flex-col items-center gap-4 lg:items-start">
-              {/* Mobile-only avatar - desktop shows the larger portrait at right */}
-              <div className="relative size-28 overflow-hidden rounded-full ring-2 ring-brand/20 lg:hidden">
-                <Image
-                  src="/images/profile.jpg"
-                  alt={siteConfig.name}
-                  fill
-                  className="object-cover"
-                  sizes="112px"
-                />
-              </div>
-
               <div className="flex flex-col gap-2">
                 <Eyebrow>{t("eyebrow")}</Eyebrow>
                 <Heading as="h1" size="lg">
@@ -151,23 +132,6 @@ export default async function ContactPage({
               </ul>
             </div>
 
-            {/* Stacked link buttons */}
-            <div className="flex w-full max-w-md flex-col gap-3 lg:max-w-sm">
-              {bioLinks.map((link) => (
-                <Link
-                  key={link.id}
-                  href={link.href}
-                  className={buttonClasses({
-                    size: "lg",
-                    variant: "secondary",
-                    className: "w-full",
-                  })}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
             <Separator className="w-full max-w-md lg:max-w-none" />
 
             {/* Contact form - left-aligned for readability on every viewport */}
@@ -182,19 +146,40 @@ export default async function ContactPage({
             </div>
           </div>
 
-          {/* Right column: portrait - desktop only, sticky like the CV globe */}
-          <div className="hidden lg:block">
-            <div className="lg:sticky lg:top-24">
-              <div className="relative aspect-square w-full overflow-hidden rounded-2xl ring-1 ring-border">
+          {/* Visual column: circular headshot + scannable QR. Side by side on
+              mobile (so both are visible when showing the QR from a phone),
+              stacked and sticky on desktop like the CV globe. */}
+          <div className="order-first lg:order-none">
+            <div className="flex flex-row items-center justify-center gap-6 lg:sticky lg:top-24 lg:flex-col lg:gap-8">
+              {/* Circular headshot */}
+              <div className="relative size-32 shrink-0 overflow-hidden rounded-full ring-2 ring-brand/20 sm:size-40 lg:size-44">
                 <Image
-                  src="/images/profile.jpg"
+                  src="/images/headshot.webp"
                   alt={siteConfig.name}
                   fill
                   className="object-cover"
-                  sizes="22rem"
+                  sizes="(min-width: 1024px) 11rem, 10rem"
                   priority
                 />
               </div>
+
+              {/* QR code - white card so it scans reliably in both themes */}
+              <figure className="flex flex-col items-center gap-2">
+                <div className="rounded-xl border border-border bg-white p-3">
+                  <div className="relative size-28 sm:size-32 lg:size-36">
+                    <Image
+                      src="/images/contact-qr.png"
+                      alt={t("qrAlt")}
+                      fill
+                      className="object-contain"
+                      sizes="9rem"
+                    />
+                  </div>
+                </div>
+                <figcaption className="max-w-[9rem] text-center text-xs text-ink-3">
+                  {t("qrCaption")}
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 // Smoke check + visual capture of the link-in-bio contact page across
-// viewports. Verifies the three blocks - profile header, stacked destination
-// links, and the contact form - then writes a PNG to the per-test output dir
-// (test-results/, gitignored) so the centered-mobile vs portrait-right-desktop
+// viewports. Verifies the blocks - profile header, headshot + QR visual, and
+// the contact form - then writes a PNG to the per-test output dir
+// (test-results/, gitignored) so the centered-mobile vs visual-right-desktop
 // layouts can be eyeballed.
 test("contact link-in-bio renders and is captured", async ({
   page,
@@ -16,9 +16,15 @@ test("contact link-in-bio renders and is captured", async ({
   // h1 is the name (link-in-bio profile header).
   await expect(main.getByRole("heading", { level: 1 })).toBeVisible();
 
-  // Stacked destination buttons resolve to real routes.
-  await expect(main.getByRole("link", { name: "View CV" })).toBeVisible();
-  await expect(main.getByRole("link", { name: "See projects" })).toBeVisible();
+  // Circular headshot uses the name as its accessible label.
+  await expect(
+    main.getByRole("img", { name: "Leonardo Acha Boiano" }),
+  ).toBeVisible();
+
+  // QR code that points back to this links page.
+  await expect(
+    main.getByRole("img", { name: "QR code linking to this page" }),
+  ).toBeVisible();
 
   // Social icon row exposes accessible names on the icon-only links.
   await expect(main.getByRole("link", { name: "GitHub" })).toBeVisible();
