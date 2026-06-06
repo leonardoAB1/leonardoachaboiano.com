@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement, SVGProps } from "react";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { ProfileQrToggle } from "@/components/contact/ProfileQrToggle";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import {
@@ -12,7 +12,6 @@ import {
   LinkedInIcon,
   MailIcon,
 } from "@/components/ui/BrandIcons";
-import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
@@ -92,93 +91,64 @@ export default async function ContactPage({
   return (
     <Section>
       <Container>
-        {/* Contact page on desktop: form is the main column, the branded card
-            (logo + socials + QR) sits in a sticky sidebar. On mobile the columns
-            reflow to one stack with the card first so the QR is easy to show. */}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_18rem] lg:gap-x-16">
-          {/* Main column: the contact page proper. Below the card on mobile
-              (order-last), left of it on desktop. */}
-          <div className="order-last flex flex-col items-center gap-8 text-center lg:order-none lg:items-start lg:text-start">
-            <div className="flex flex-col gap-2">
+        {/* Mobile shows only the card (a tap-to-reveal link-in-bio). Desktop adds
+            the contact form as the main column with the card as a sticky aside. */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_20rem] lg:gap-x-16">
+          {/* Contact form - desktop only */}
+          <div className="hidden lg:block">
+            <div className="mb-6 flex flex-col gap-2">
               <Eyebrow>{t("eyebrow")}</Eyebrow>
-              <Heading as="h1" size="lg">
-                {siteConfig.name}
+              <Heading as="h2" size="md">
+                {t("heading")}
               </Heading>
-              <Text size="md" className="text-ink-2">
-                {tCommon("role")}
-              </Text>
+              <Text size="md">{t("intro")}</Text>
             </div>
-
-            <Separator className="w-full max-w-md lg:max-w-none" />
-
-            {/* Contact form - left-aligned for readability on every viewport */}
-            <div className="w-full max-w-md text-start lg:max-w-none">
-              <div className="mb-6 flex flex-col gap-2">
-                <Heading as="h2" size="md">
-                  {t("heading")}
-                </Heading>
-                <Text size="md">{t("intro")}</Text>
-              </div>
-              <ContactForm />
-            </div>
+            <ContactForm />
           </div>
 
-          {/* Branded card: logo + social icons + (space for buttons) + QR.
-              Sticky beside the form on desktop; first on mobile. */}
-          <div className="order-first lg:order-none">
-            <div className="lg:sticky lg:top-24">
-              <div className="flex flex-col items-center gap-6 rounded-2xl border border-border bg-surface-brand p-6 text-center">
-                {/* Brand logo mark - same size as the QR below */}
-                <Image
-                  src="/images/logo.png"
-                  alt={siteConfig.name}
-                  width={144}
-                  height={144}
-                  className="size-36 rounded-full"
-                  priority
-                />
+          {/* Card: squircle photo that flips to the QR, plus name and socials */}
+          <div className="lg:sticky lg:top-24">
+            <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6 rounded-2xl bg-surface-brand p-8 text-center">
+              <ProfileQrToggle
+                photoSrc="/images/headshot.webp"
+                photoAlt={siteConfig.name}
+                qrSrc="/images/contact-qr.png"
+                qrAlt={t("qrAlt")}
+                tapHint={t("tapHint")}
+                qrCaption={t("qrCaption")}
+                showQrLabel={t("showQr")}
+                showPhotoLabel={t("showPhoto")}
+              />
 
-                {/* Social icons - chips on surface-0 so they read against the
-                    branded panel */}
-                <ul className="flex items-center gap-2">
-                  {socialIcons.map((social) => (
-                    <li key={social.id}>
-                      <a
-                        href={social.href}
-                        aria-label={social.label}
-                        target={social.id === "email" ? undefined : "_blank"}
-                        rel={
-                          social.id === "email"
-                            ? undefined
-                            : "noopener noreferrer"
-                        }
-                        className="flex size-10 items-center justify-center rounded-full border border-border bg-surface-0 text-ink-2 transition-colors duration-150 hover:border-brand hover:text-brand"
-                      >
-                        <social.Icon size={18} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Space reserved for future buttons (CV, Projects, etc.) */}
-
-                {/* QR - transparent background (brand-teal modules) so it sits
-                    flush on the card with no white box. Encodes /contact. */}
-                <figure className="flex flex-col items-center gap-2">
-                  <div className="relative size-36">
-                    <Image
-                      src="/images/contact-qr.png"
-                      alt={t("qrAlt")}
-                      fill
-                      className="object-contain"
-                      sizes="9rem"
-                    />
-                  </div>
-                  <figcaption className="max-w-[9rem] text-center text-xs text-ink-3">
-                    {t("qrCaption")}
-                  </figcaption>
-                </figure>
+              <div className="flex flex-col gap-1">
+                <Heading as="h1" size="lg">
+                  {siteConfig.name}
+                </Heading>
+                <Text size="md" className="text-ink-2">
+                  {tCommon("role")}
+                </Text>
               </div>
+
+              {/* Social icons - chips on surface-0 so they read on the panel */}
+              <ul className="flex items-center gap-2">
+                {socialIcons.map((social) => (
+                  <li key={social.id}>
+                    <a
+                      href={social.href}
+                      aria-label={social.label}
+                      target={social.id === "email" ? undefined : "_blank"}
+                      rel={
+                        social.id === "email"
+                          ? undefined
+                          : "noopener noreferrer"
+                      }
+                      className="flex size-10 items-center justify-center rounded-full bg-surface-0 text-ink-2 transition-colors duration-150 hover:text-brand"
+                    >
+                      <social.Icon size={18} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
