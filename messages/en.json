@@ -164,13 +164,7 @@
     "eyebrow": "Get in touch",
     "heading": "Let's talk",
     "intro": "Whether you have a project in mind, a question, or just want to say hi, I'd love to hear from you.",
-    "otherWaysTitle": "Other ways to reach me",
-    "otherWaysSubtitle": "Prefer a direct channel? Use any of the links below.",
     "links": {
-      "github": "Open-source projects and code",
-      "linkedin": "Professional profile and experience",
-      "instagram": "Photos and behind-the-scenes",
-      "facebook": "Connect on Facebook",
       "emailLabel": "Email"
     },
     "Form": {
@@ -192,6 +186,10 @@
         "subjectMin": "Subject must be at least 5 characters",
         "messageMin": "Message must be at least 20 characters"
       }
+    },
+    "bio": {
+      "viewCv": "View CV",
+      "projects": "See projects"
     }
   },
   "Projects": {

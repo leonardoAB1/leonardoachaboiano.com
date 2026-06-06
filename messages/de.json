@@ -164,13 +164,7 @@
     "eyebrow": "Kontakt aufnehmen",
     "heading": "Sprechen wir",
     "intro": "Ob du ein Projekt im Kopf hast, eine Frage stellen oder einfach Hallo sagen möchtest: Ich freue mich, von dir zu hören.",
-    "otherWaysTitle": "Andere Wege, mich zu erreichen",
-    "otherWaysSubtitle": "Lieber ein direkter Kanal? Nutze einen der Links unten.",
     "links": {
-      "github": "Open-Source-Projekte und Code",
-      "linkedin": "Berufliches Profil und Erfahrung",
-      "instagram": "Fotos und Hinter den Kulissen",
-      "facebook": "Auf Facebook vernetzen",
       "emailLabel": "E-Mail"
     },
     "Form": {
@@ -192,6 +186,10 @@
         "subjectMin": "Der Betreff muss mindestens 5 Zeichen lang sein",
         "messageMin": "Die Nachricht muss mindestens 20 Zeichen lang sein"
       }
+    },
+    "bio": {
+      "viewCv": "Lebenslauf ansehen",
+      "projects": "Projekte ansehen"
     }
   },
   "Projects": {

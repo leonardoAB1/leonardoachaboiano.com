@@ -164,13 +164,7 @@
     "eyebrow": "Mettiti in contatto",
     "heading": "Parliamone",
     "intro": "Che tu abbia un progetto in mente, una domanda o voglia solo salutare, mi farebbe piacere sentirti.",
-    "otherWaysTitle": "Altri modi per raggiungermi",
-    "otherWaysSubtitle": "Preferisci un canale diretto? Usa uno dei link qui sotto.",
     "links": {
-      "github": "Progetti open source e codice",
-      "linkedin": "Profilo professionale ed esperienza",
-      "instagram": "Foto e dietro le quinte",
-      "facebook": "Connettiti su Facebook",
       "emailLabel": "Email"
     },
     "Form": {
@@ -192,6 +186,10 @@
         "subjectMin": "L'oggetto deve contenere almeno 5 caratteri",
         "messageMin": "Il messaggio deve contenere almeno 20 caratteri"
       }
+    },
+    "bio": {
+      "viewCv": "Vedi il CV",
+      "projects": "Vedi i progetti"
     }
   },
   "Projects": {

@@ -164,13 +164,7 @@
     "eyebrow": "Ponte en contacto",
     "heading": "Hablemos",
     "intro": "Ya sea que tengas un proyecto en mente, una pregunta o solo quieras saludar, me encantaría saber de ti.",
-    "otherWaysTitle": "Otras formas de contactarme",
-    "otherWaysSubtitle": "¿Prefieres un canal directo? Usa cualquiera de los enlaces de abajo.",
     "links": {
-      "github": "Proyectos de código abierto y código",
-      "linkedin": "Perfil profesional y experiencia",
-      "instagram": "Fotos y detrás de cámaras",
-      "facebook": "Conecta en Facebook",
       "emailLabel": "Correo"
     },
     "Form": {
@@ -192,6 +186,10 @@
         "subjectMin": "El asunto debe tener al menos 5 caracteres",
         "messageMin": "El mensaje debe tener al menos 20 caracteres"
       }
+    },
+    "bio": {
+      "viewCv": "Ver CV",
+      "projects": "Ver proyectos"
     }
   },
   "Projects": {
