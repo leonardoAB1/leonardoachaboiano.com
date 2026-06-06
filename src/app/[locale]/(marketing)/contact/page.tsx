@@ -92,96 +92,89 @@ export default async function ContactPage({
   return (
     <Section>
       <Container>
-        {/* Contact page on desktop: form is the main column, the branded card
-            (logo + socials + QR) sits in a sticky sidebar. On mobile the columns
-            reflow to one stack with the card first so the QR is easy to show. */}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_18rem] lg:gap-x-16">
-          {/* Main column: the contact page proper. Below the card on mobile
-              (order-last), left of it on desktop. */}
-          <div className="order-last flex flex-col items-center gap-8 text-center lg:order-none lg:items-start lg:text-start">
-            <div className="flex flex-col gap-2">
-              <Eyebrow>{t("eyebrow")}</Eyebrow>
-              <Heading as="h1" size="lg">
-                {siteConfig.name}
-              </Heading>
-              <Text size="md" className="text-ink-2">
-                {tCommon("role")}
-              </Text>
+        {/* Single, borderless column. Header pairs the name block with a compact
+            logo + QR; everything flows into the form below - no isolated panels. */}
+        <div className="mx-auto flex max-w-2xl flex-col gap-10">
+          {/* Header: name + role + socials on the left, logo + QR on the right
+              (desktop). Stacks on mobile. */}
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+            {/* Name block */}
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <Eyebrow>{t("eyebrow")}</Eyebrow>
+                <Heading as="h1" size="lg">
+                  {siteConfig.name}
+                </Heading>
+                <Text size="md" className="text-ink-2">
+                  {tCommon("role")}
+                </Text>
+              </div>
+
+              {/* Social icons under the name - borderless, footer-style */}
+              <ul className="flex items-center gap-4">
+                {socialIcons.map((social) => (
+                  <li key={social.id}>
+                    <a
+                      href={social.href}
+                      aria-label={social.label}
+                      target={social.id === "email" ? undefined : "_blank"}
+                      rel={
+                        social.id === "email"
+                          ? undefined
+                          : "noopener noreferrer"
+                      }
+                      className="text-ink-3 transition-colors duration-150 hover:text-brand"
+                    >
+                      <social.Icon size={20} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <Separator className="w-full max-w-md lg:max-w-none" />
+            {/* Compact logo + QR - to the right of the name on desktop */}
+            <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-3">
+              <Image
+                src="/images/logo.png"
+                alt={siteConfig.name}
+                width={56}
+                height={56}
+                className="size-12 rounded-full"
+                priority
+              />
 
-            {/* Contact form - left-aligned for readability on every viewport */}
-            <div className="w-full max-w-md text-start lg:max-w-none">
-              <div className="mb-6 flex flex-col gap-2">
-                <Heading as="h2" size="md">
-                  {t("heading")}
-                </Heading>
-                <Text size="md">{t("intro")}</Text>
-              </div>
-              <ContactForm />
+              {/* QR - white backing keeps it scannable in dark mode; teal modules.
+                  Encodes the canonical /contact URL. */}
+              <figure className="flex flex-col items-center gap-1.5 sm:items-end">
+                <div className="rounded-lg bg-white p-2">
+                  <div className="relative size-28">
+                    <Image
+                      src="/images/contact-qr.png"
+                      alt={t("qrAlt")}
+                      fill
+                      className="object-contain"
+                      sizes="7rem"
+                    />
+                  </div>
+                </div>
+                <figcaption className="text-xs text-ink-4">
+                  {t("qrCaption")}
+                </figcaption>
+              </figure>
             </div>
           </div>
 
-          {/* Branded card: logo + social icons + (space for buttons) + QR.
-              Sticky beside the form on desktop; first on mobile. */}
-          <div className="order-first lg:order-none">
-            <div className="lg:sticky lg:top-24">
-              <div className="flex flex-col items-center gap-6 rounded-2xl border border-border bg-surface-brand p-6 text-center">
-                {/* Brand logo mark */}
-                <Image
-                  src="/images/logo.png"
-                  alt={siteConfig.name}
-                  width={80}
-                  height={80}
-                  className="size-16 rounded-full sm:size-20"
-                  priority
-                />
+          <Separator />
 
-                {/* Social icons - chips on surface-0 so they read against the
-                    branded panel */}
-                <ul className="flex items-center gap-2">
-                  {socialIcons.map((social) => (
-                    <li key={social.id}>
-                      <a
-                        href={social.href}
-                        aria-label={social.label}
-                        target={social.id === "email" ? undefined : "_blank"}
-                        rel={
-                          social.id === "email"
-                            ? undefined
-                            : "noopener noreferrer"
-                        }
-                        className="flex size-10 items-center justify-center rounded-full border border-border bg-surface-0 text-ink-2 transition-colors duration-150 hover:border-brand hover:text-brand"
-                      >
-                        <social.Icon size={18} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Space reserved for future buttons (CV, Projects, etc.) */}
-
-                {/* QR - white inner card keeps contrast; modules are brand teal.
-                    Encodes the canonical /contact URL. */}
-                <figure className="flex flex-col items-center gap-2">
-                  <div className="rounded-xl bg-white p-3">
-                    <div className="relative size-36">
-                      <Image
-                        src="/images/contact-qr.png"
-                        alt={t("qrAlt")}
-                        fill
-                        className="object-contain"
-                        sizes="9rem"
-                      />
-                    </div>
-                  </div>
-                  <figcaption className="max-w-[9rem] text-center text-xs text-ink-3">
-                    {t("qrCaption")}
-                  </figcaption>
-                </figure>
-              </div>
+          {/* Contact form */}
+          <div>
+            <div className="mb-6 flex flex-col gap-2">
+              <Heading as="h2" size="md">
+                {t("heading")}
+              </Heading>
+              <Text size="md">{t("intro")}</Text>
             </div>
+            <ContactForm />
           </div>
         </div>
       </Container>
