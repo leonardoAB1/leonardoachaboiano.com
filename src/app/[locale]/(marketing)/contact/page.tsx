@@ -132,22 +132,22 @@ export default async function ContactPage({
               </ul>
             </div>
 
-            {/* Compact logo + QR - to the right of the name on desktop */}
-            <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-3">
+            {/* Logo + QR in one row, same size, beside the name */}
+            <div className="flex items-start gap-3">
               <Image
                 src="/images/logo.png"
                 alt={siteConfig.name}
-                width={56}
-                height={56}
-                className="size-12 rounded-full"
+                width={112}
+                height={112}
+                className="size-28 rounded-full"
                 priority
               />
 
               {/* QR - white backing keeps it scannable in dark mode; teal modules.
-                  Encodes the canonical /contact URL. */}
-              <figure className="flex flex-col items-center gap-1.5 sm:items-end">
-                <div className="rounded-lg bg-white p-2">
-                  <div className="relative size-28">
+                  Encodes the canonical /contact URL. Outer box matches the logo. */}
+              <figure className="flex flex-col items-center gap-1.5">
+                <div className="size-28 rounded-lg bg-white p-1.5">
+                  <div className="relative size-full">
                     <Image
                       src="/images/contact-qr.png"
                       alt={t("qrAlt")}
@@ -157,7 +157,7 @@ export default async function ContactPage({
                     />
                   </div>
                 </div>
-                <figcaption className="text-xs text-ink-4">
+                <figcaption className="text-center text-xs text-ink-4">
                   {t("qrCaption")}
                 </figcaption>
               </figure>
