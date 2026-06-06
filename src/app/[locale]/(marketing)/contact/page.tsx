@@ -92,44 +92,21 @@ export default async function ContactPage({
   return (
     <Section>
       <Container>
-        {/* Desktop mirrors the CV globe layout: text + form on the left, the
-            visual (headshot + QR) pinned right. On mobile it collapses to one
-            centered column with the visual on top so the QR is easy to show. */}
+        {/* Contact page on desktop: form is the main column, the branded card
+            (logo + socials + QR) sits in a sticky sidebar. On mobile the columns
+            reflow to one stack with the card first so the QR is easy to show. */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_18rem] lg:gap-x-16">
-          {/* Text + form column (renders below the visual on mobile) */}
+          {/* Main column: the contact page proper. Below the card on mobile
+              (order-last), left of it on desktop. */}
           <div className="order-last flex flex-col items-center gap-8 text-center lg:order-none lg:items-start lg:text-start">
-            {/* Profile header */}
-            <div className="flex flex-col items-center gap-4 lg:items-start">
-              <div className="flex flex-col gap-2">
-                <Eyebrow>{t("eyebrow")}</Eyebrow>
-                <Heading as="h1" size="lg">
-                  {siteConfig.name}
-                </Heading>
-                <Text size="md" className="text-ink-2">
-                  {tCommon("role")}
-                </Text>
-              </div>
-
-              {/* Social icon row */}
-              <ul className="flex items-center gap-2">
-                {socialIcons.map((social) => (
-                  <li key={social.id}>
-                    <a
-                      href={social.href}
-                      aria-label={social.label}
-                      target={social.id === "email" ? undefined : "_blank"}
-                      rel={
-                        social.id === "email"
-                          ? undefined
-                          : "noopener noreferrer"
-                      }
-                      className="flex size-10 items-center justify-center rounded-full border border-border text-ink-2 transition-colors duration-150 hover:border-brand hover:bg-surface-brand hover:text-brand"
-                    >
-                      <social.Icon size={18} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+            <div className="flex flex-col gap-2">
+              <Eyebrow>{t("eyebrow")}</Eyebrow>
+              <Heading as="h1" size="lg">
+                {siteConfig.name}
+              </Heading>
+              <Text size="md" className="text-ink-2">
+                {tCommon("role")}
+              </Text>
             </div>
 
             <Separator className="w-full max-w-md lg:max-w-none" />
@@ -146,40 +123,64 @@ export default async function ContactPage({
             </div>
           </div>
 
-          {/* Visual column: circular headshot + scannable QR. Side by side on
-              mobile (so both are visible when showing the QR from a phone),
-              stacked and sticky on desktop like the CV globe. */}
+          {/* Branded card: logo + social icons + (space for buttons) + QR.
+              Sticky beside the form on desktop; first on mobile. */}
           <div className="order-first lg:order-none">
-            <div className="flex flex-row items-center justify-center gap-6 lg:sticky lg:top-24 lg:flex-col lg:gap-8">
-              {/* Circular headshot */}
-              <div className="relative size-32 shrink-0 overflow-hidden rounded-full ring-2 ring-brand/20 sm:size-40 lg:size-44">
+            <div className="lg:sticky lg:top-24">
+              <div className="flex flex-col items-center gap-6 rounded-2xl border border-border bg-surface-brand p-6 text-center">
+                {/* Brand logo mark */}
                 <Image
-                  src="/images/headshot.webp"
+                  src="/images/logo.png"
                   alt={siteConfig.name}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 1024px) 11rem, 10rem"
+                  width={80}
+                  height={80}
+                  className="size-16 rounded-full sm:size-20"
                   priority
                 />
-              </div>
 
-              {/* QR code - white card so it scans reliably in both themes */}
-              <figure className="flex flex-col items-center gap-2">
-                <div className="rounded-xl border border-border bg-white p-3">
-                  <div className="relative size-28 sm:size-32 lg:size-36">
-                    <Image
-                      src="/images/contact-qr.png"
-                      alt={t("qrAlt")}
-                      fill
-                      className="object-contain"
-                      sizes="9rem"
-                    />
+                {/* Social icons - chips on surface-0 so they read against the
+                    branded panel */}
+                <ul className="flex items-center gap-2">
+                  {socialIcons.map((social) => (
+                    <li key={social.id}>
+                      <a
+                        href={social.href}
+                        aria-label={social.label}
+                        target={social.id === "email" ? undefined : "_blank"}
+                        rel={
+                          social.id === "email"
+                            ? undefined
+                            : "noopener noreferrer"
+                        }
+                        className="flex size-10 items-center justify-center rounded-full border border-border bg-surface-0 text-ink-2 transition-colors duration-150 hover:border-brand hover:text-brand"
+                      >
+                        <social.Icon size={18} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Space reserved for future buttons (CV, Projects, etc.) */}
+
+                {/* QR - white inner card keeps contrast; modules are brand teal.
+                    Encodes the canonical /contact URL. */}
+                <figure className="flex flex-col items-center gap-2">
+                  <div className="rounded-xl bg-white p-3">
+                    <div className="relative size-36">
+                      <Image
+                        src="/images/contact-qr.png"
+                        alt={t("qrAlt")}
+                        fill
+                        className="object-contain"
+                        sizes="9rem"
+                      />
+                    </div>
                   </div>
-                </div>
-                <figcaption className="max-w-[9rem] text-center text-xs text-ink-3">
-                  {t("qrCaption")}
-                </figcaption>
-              </figure>
+                  <figcaption className="max-w-[9rem] text-center text-xs text-ink-3">
+                    {t("qrCaption")}
+                  </figcaption>
+                </figure>
+              </div>
             </div>
           </div>
         </div>

@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
 
 // Smoke check + visual capture of the link-in-bio contact page across
-// viewports. Verifies the blocks - profile header, headshot + QR visual, and
-// the contact form - then writes a PNG to the per-test output dir
-// (test-results/, gitignored) so the centered-mobile vs visual-right-desktop
-// layouts can be eyeballed.
+// viewports. Verifies the blocks - main header + form, and the branded card
+// (logo + QR) - then writes a PNG to the per-test output dir (test-results/,
+// gitignored) so the contact-page-desktop vs reordered-mobile layouts can be
+// eyeballed.
 test("contact link-in-bio renders and is captured", async ({
   page,
 }, testInfo) => {
@@ -16,7 +16,7 @@ test("contact link-in-bio renders and is captured", async ({
   // h1 is the name (link-in-bio profile header).
   await expect(main.getByRole("heading", { level: 1 })).toBeVisible();
 
-  // Circular headshot uses the name as its accessible label.
+  // Brand logo mark uses the name as its accessible label.
   await expect(
     main.getByRole("img", { name: "Leonardo Acha Boiano" }),
   ).toBeVisible();
