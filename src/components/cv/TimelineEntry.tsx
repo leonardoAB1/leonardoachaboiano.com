@@ -1,6 +1,53 @@
 import type { ReactElement } from "react";
 import { cn } from "@/lib/utils";
 
+// Scans note text for bare URLs (e.g. "github.com/...") and wraps them in
+// clickable <a> tags while preserving surrounding text and newlines.
+function renderNoteText(text: string): (string | ReactElement)[] {
+  const urlPat = /(https?:\/\/\S+|(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\/[^\s]*)/g;
+  const parts: (string | ReactElement)[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  // biome-ignore lint/suspicious/noAssignInExpressions: idiomatic regex loop
+  while ((match = urlPat.exec(text)) !== null) {
+    if (match.index > lastIndex) parts.push(text.slice(lastIndex, match.index));
+    const raw = match[0];
+    const href = raw.startsWith("http") ? raw : `https://${raw}`;
+    parts.push(
+      <a
+        key={raw}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-brand hover:underline not-italic"
+      >
+        {raw}
+      </a>,
+    );
+    lastIndex = match.index + raw.length;
+  }
+
+  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+  return parts;
+}
+
+// Converts **word** markers in i18n strings to inline <strong> elements so the
+// web CV matches the bold usage in the generated PDF.
+function renderBold(text: string): ReactElement[] {
+  return text.split(/(\*\*.*?\*\*)/g).map((part) => {
+    const isBold = part.startsWith("**") && part.endsWith("**");
+    const content = isBold ? part.slice(2, -2) : part;
+    return isBold ? (
+      <strong key={content} className="font-semibold text-ink-2">
+        {content}
+      </strong>
+    ) : (
+      <span key={content}>{content}</span>
+    );
+  });
+}
+
 interface TimelineEntryProps {
   dateRange: string;
   role: string;
@@ -96,7 +143,7 @@ export function TimelineEntry({
                   aria-hidden="true"
                   className="mt-2 shrink-0 size-1 rounded-full bg-ink-4"
                 />
-                {bullet}
+                <span>{renderBold(bullet)}</span>
               </li>
             ))}
           </ul>
@@ -104,7 +151,7 @@ export function TimelineEntry({
 
         {note && (
           <p className="mt-3 text-[clamp(0.75rem,3.5vw,0.875rem)] italic text-ink-3 whitespace-pre-line">
-            {note}
+            {renderNoteText(note)}
           </p>
         )}
       </div>

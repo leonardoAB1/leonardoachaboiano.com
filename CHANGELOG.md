@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.11.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.11.0...v1.11.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* hide projects nav link until page is ready ([#248](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/248)) ([ee2d277](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/ee2d27796f6d55beabfb727dbce0d77d86b786c4))
+
+## [1.11.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.6...v1.11.0) (2026-05-31)
+
+
+### Features
+
+* generate pdf cv dynamically from data sources ([#226](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/226)) ([3834fc2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/3834fc2ff6a350acfeb706fadf98f327ff0ffd75))
+
 ## [1.10.6](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.10.5...v1.10.6) (2026-05-31)
 
 
