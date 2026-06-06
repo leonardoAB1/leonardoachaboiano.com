@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.11.1...v1.11.2) (2026-06-06)
+
+
+### Bug Fixes
+
+* rebuild mobile menu on radix dialog to fix sporadic stuck-open menu ([#262](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/262)) ([2dc5513](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/2dc5513a796e05051a6e199f6d2cb3ce6005ebfa))
+
 ## [1.11.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.11.0...v1.11.1) (2026-05-31)
 
 
