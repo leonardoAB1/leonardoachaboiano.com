@@ -129,25 +129,29 @@ Examples: `feat/1-scaffold`, `feat/3-navbar`, `fix/11-contact-form`
 <worktree>
 Every feature, fix, or non-trivial change must be developed in a dedicated git worktree. This keeps the working tree for each branch fully isolated - no stashing, no dirty state bleeding between tasks.
 
-**Convention:** worktrees live inside the main repo directory, mirroring the branch name as a path (replace `/` with `\`). The full path always starts with the project name as base:
+**Convention:** worktrees live inside a dedicated `worktrees\` directory at the root of the main repo. Under it, one folder per branch **category** (`feat`, `fix`, `chore`, `perf`, `style`, `refactor`, `docs`, `test`), and inside each category the worktree folder is named only by the branch's leaf - the part after `type/`, which starts with the issue number (e.g. `5-blog`). The category lives in the folder path, never repeated in the leaf name, so location and branch name are never confused. The `worktrees\` directory is gitignored so checkouts never pollute the tracked tree.
 ```
 Projects\
-  leonardoachaboiano.com\                <- main repo (main branch only)
-  leonardoachaboiano.com\feat\5-blog\    <- worktree for feat/5-blog
-  leonardoachaboiano.com\feat\3-navbar\  <- worktree for feat/3-navbar
-  leonardoachaboiano.com\fix\12-nav\     <- worktree for fix/12-nav
+  leonardoachaboiano.com\                            <- main repo (main branch only)
+  leonardoachaboiano.com\worktrees\                  <- all worktrees live here (gitignored)
+    feat\
+      5-blog\                                        <- worktree for branch feat/5-blog
+      3-navbar\                                      <- worktree for branch feat/3-navbar
+    fix\
+      12-nav\                                        <- worktree for branch fix/12-nav
 ```
+The branch is still `feat/5-blog`; only its checkout sits at `worktrees\feat\5-blog`. Replacing `/` with `\` in the branch name and prefixing `worktrees\` always yields the right path.
 
 **Creating a worktree (do this before starting any feature):**
 ```powershell
-git worktree add "feat\5-blog" feat/5-blog
-cd "feat\5-blog"
+git worktree add "worktrees\feat\5-blog" feat/5-blog
+cd "worktrees\feat\5-blog"
 claude
 ```
 
 **Removing a worktree after the PR is merged:**
 ```powershell
-git worktree remove "feat\5-blog"
+git worktree remove "worktrees\feat\5-blog"
 git branch -d feat/5-blog
 ```
 
