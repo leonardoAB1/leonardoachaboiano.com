@@ -114,12 +114,13 @@ export default async function ContactPage({
               <ProfileQrToggle
                 photoSrc="/images/headshot.webp"
                 photoAlt={siteConfig.name}
-                qrSrc="/images/contact-qr.png"
                 qrAlt={t("qrAlt")}
                 tapHint={t("tapHint")}
                 qrCaption={t("qrCaption")}
                 showQrLabel={t("showQr")}
                 showPhotoLabel={t("showPhoto")}
+                qrBgClassName="bg-[#06312f]"
+                qrColorClassName="text-[#cfead9]"
               />
 
               {/* Name leads the card (page h1) */}
@@ -132,7 +133,8 @@ export default async function ContactPage({
                 </Text>
               </div>
 
-              {/* Social icons - chips on surface-0 so they read on the panel */}
+              {/* Social icons - deep-teal chips with light icons, matching the
+                  QR squircle */}
               <ul className="flex items-center gap-2">
                 {socialIcons.map((social) => (
                   <li key={social.id}>
@@ -145,7 +147,7 @@ export default async function ContactPage({
                           ? undefined
                           : "noopener noreferrer"
                       }
-                      className="flex size-10 items-center justify-center rounded-full bg-surface-0 text-ink-2 transition-colors duration-150 hover:text-brand"
+                      className="flex size-10 items-center justify-center rounded-full bg-[#06312f] text-[#cfead9] transition-opacity duration-150 hover:opacity-80"
                     >
                       <social.Icon size={18} />
                     </a>
