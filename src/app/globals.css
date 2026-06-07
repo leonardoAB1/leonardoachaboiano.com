@@ -18,6 +18,10 @@
   --surface-2: #efefef;
   --surface-brand: #cfead9;
 
+  /* Accent — single emphasis color. Defaults to the primary ink so the token
+     is always valid; only the contact screen re-themes it (see below). */
+  --accent: var(--ink-1);
+
   /* Border */
   --border: #e5e5e5;
   --border-subtle: #f0f0f0;
@@ -33,6 +37,8 @@
   --surface-1: #141414;
   --surface-2: #1f1f1f;
   --surface-brand: #0d2318;
+
+  --accent: var(--ink-1);
 
   --border: #2a2a2a;
   --border-subtle: #1c1c1c;
@@ -63,6 +69,9 @@
   --color-surface-2: var(--surface-2);
   --color-surface-brand: var(--surface-brand);
 
+  /* Accent */
+  --color-accent: var(--accent);
+
   /* Border */
   --color-border: var(--border);
   --color-border-subtle: var(--border-subtle);
@@ -78,6 +87,22 @@ body {
   color: var(--ink-1);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Contact screen — a deliberately near-monochrome surface with a single accent,
+ * set apart from the teal-branded rest of the site. Re-theming --surface-brand
+ * and --accent here cascades to every descendant; because these are declared on
+ * the element itself, its own bg-surface-brand utility also picks up the override.
+ */
+.contact-screen {
+  --surface-brand: #f2f4f5;
+  --accent: #111827;
+}
+
+.dark .contact-screen {
+  --surface-brand: #111827;
+  --accent: #e5e7eb;
 }
 
 @layer utilities {

@@ -89,7 +89,7 @@ export default async function ContactPage({
   ];
 
   return (
-    <Section className="-mt-14 min-h-svh bg-surface-brand pt-28 sm:pt-32">
+    <Section className="contact-screen -mt-14 min-h-svh bg-surface-brand pt-28 sm:pt-32">
       <Container>
         {/* The whole screen takes the brand-tinted surface so contact reads as a
             distinct space. Mobile shows only the card (tap-to-reveal link-in-bio);
@@ -98,7 +98,7 @@ export default async function ContactPage({
           {/* Contact form - desktop only */}
           <div className="hidden lg:block">
             <div className="mb-6 flex flex-col gap-2">
-              <Eyebrow>{t("eyebrow")}</Eyebrow>
+              <Eyebrow className="text-accent">{t("eyebrow")}</Eyebrow>
               <Heading as="h2" size="md">
                 {t("heading")}
               </Heading>
@@ -119,8 +119,8 @@ export default async function ContactPage({
                 qrCaption={t("qrCaption")}
                 showQrLabel={t("showQr")}
                 showPhotoLabel={t("showPhoto")}
-                qrBgClassName="bg-[#06312f]"
-                qrColorClassName="text-[#cfead9]"
+                qrBgClassName="bg-accent"
+                qrColorClassName="text-surface-brand"
               />
 
               {/* Name leads the card (page h1) */}
@@ -133,7 +133,7 @@ export default async function ContactPage({
                 </Text>
               </div>
 
-              {/* Social icons - deep-teal chips with light icons, matching the
+              {/* Social icons - accent chips with inverse icons, matching the
                   QR squircle */}
               <ul className="flex items-center gap-2">
                 {socialIcons.map((social) => (
@@ -147,7 +147,7 @@ export default async function ContactPage({
                           ? undefined
                           : "noopener noreferrer"
                       }
-                      className="flex size-10 items-center justify-center rounded-full bg-[#06312f] text-[#cfead9] transition-opacity duration-150 hover:opacity-80"
+                      className="flex size-10 items-center justify-center rounded-full bg-accent text-surface-brand transition-opacity duration-150 hover:opacity-80"
                     >
                       <social.Icon size={18} />
                     </a>
