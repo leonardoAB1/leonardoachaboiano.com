@@ -168,8 +168,6 @@
       "emailLabel": "Correo"
     },
     "Form": {
-      "name": "Nombre",
-      "namePlaceholder": "Tu nombre",
       "email": "Correo",
       "emailPlaceholder": "tu@correo.com",
       "subject": "Asunto",
@@ -181,7 +179,6 @@
       "success": "Mensaje enviado - te responderé pronto.",
       "error": "Algo salió mal. Inténtalo de nuevo o escríbeme directamente.",
       "validation": {
-        "nameMin": "El nombre debe tener al menos 2 caracteres",
         "emailInvalid": "Introduce una dirección de correo válida",
         "subjectMin": "El asunto debe tener al menos 5 caracteres",
         "messageMin": "El mensaje debe tener al menos 20 caracteres"

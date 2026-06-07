@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 interface FormValues {
-  name: string;
   email: string;
   subject: string;
   message: string;
@@ -61,7 +60,6 @@ export function ContactForm(): ReactElement {
   const schema = useMemo(
     () =>
       z.object({
-        name: z.string().min(2, t("validation.nameMin")),
         email: z.string().email(t("validation.emailInvalid")),
         subject: z.string().min(5, t("validation.subjectMin")),
         message: z.string().min(20, t("validation.messageMin")),
@@ -103,21 +101,6 @@ export function ContactForm(): ReactElement {
       noValidate
       className="flex flex-col gap-4"
     >
-      <FieldWrapper
-        label={t("name")}
-        htmlFor="name"
-        error={errors.name?.message}
-      >
-        <input
-          id="name"
-          type="text"
-          autoComplete="name"
-          placeholder={t("namePlaceholder")}
-          className={inputClasses}
-          {...register("name")}
-        />
-      </FieldWrapper>
-
       <FieldWrapper
         label={t("email")}
         htmlFor="email"

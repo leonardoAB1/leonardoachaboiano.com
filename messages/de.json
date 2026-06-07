@@ -168,8 +168,6 @@
       "emailLabel": "E-Mail"
     },
     "Form": {
-      "name": "Name",
-      "namePlaceholder": "Dein Name",
       "email": "E-Mail",
       "emailPlaceholder": "deine@email.com",
       "subject": "Betreff",
@@ -181,7 +179,6 @@
       "success": "Nachricht gesendet - ich melde mich bald.",
       "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut oder schreibe mir direkt.",
       "validation": {
-        "nameMin": "Der Name muss mindestens 2 Zeichen lang sein",
         "emailInvalid": "Bitte gib eine gültige E-Mail-Adresse ein",
         "subjectMin": "Der Betreff muss mindestens 5 Zeichen lang sein",
         "messageMin": "Die Nachricht muss mindestens 20 Zeichen lang sein"

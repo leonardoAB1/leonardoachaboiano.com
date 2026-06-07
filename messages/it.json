@@ -168,8 +168,6 @@
       "emailLabel": "Email"
     },
     "Form": {
-      "name": "Nome",
-      "namePlaceholder": "Il tuo nome",
       "email": "Email",
       "emailPlaceholder": "tua@email.com",
       "subject": "Oggetto",
@@ -181,7 +179,6 @@
       "success": "Messaggio inviato - ti risponderò presto.",
       "error": "Qualcosa è andato storto. Riprova o scrivimi direttamente.",
       "validation": {
-        "nameMin": "Il nome deve contenere almeno 2 caratteri",
         "emailInvalid": "Inserisci un indirizzo email valido",
         "subjectMin": "L'oggetto deve contenere almeno 5 caratteri",
         "messageMin": "Il messaggio deve contenere almeno 20 caratteri"

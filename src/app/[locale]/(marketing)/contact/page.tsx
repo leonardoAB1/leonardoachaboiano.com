@@ -122,6 +122,7 @@ export default async function ContactPage({
                 showPhotoLabel={t("showPhoto")}
               />
 
+              {/* Name leads the card (page h1) */}
               <div className="flex flex-col gap-1">
                 <Heading as="h1" size="lg">
                   {siteConfig.name}
