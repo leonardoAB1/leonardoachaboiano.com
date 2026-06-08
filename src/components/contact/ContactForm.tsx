@@ -18,7 +18,7 @@ interface FormValues {
 const inputClasses = cn(
   "w-full rounded-md border border-border bg-surface-1 px-3 py-2",
   "text-sm text-ink-1 placeholder:text-ink-4",
-  "focus:outline-2 focus:outline-accent focus:outline-offset-0",
+  "focus:outline-2 focus:outline-brand focus:outline-offset-0",
   "transition-colors duration-150",
 );
 
@@ -150,13 +150,13 @@ export function ContactForm(): ReactElement {
           variant="primary"
           size="md"
           disabled={status === "loading"}
-          className="w-full bg-accent text-surface-brand hover:bg-accent hover:opacity-90 focus-visible:outline-accent sm:w-auto"
+          className="w-full sm:w-auto"
         >
           {status === "loading" ? t("sending") : t("send")}
         </Button>
 
         {status === "success" && (
-          <p className="text-sm text-accent">{t("success")}</p>
+          <p className="text-sm text-brand">{t("success")}</p>
         )}
 
         {status === "error" && (
