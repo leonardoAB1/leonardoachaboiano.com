@@ -16,7 +16,9 @@
   --surface-0: #ffffff;
   --surface-1: #f7f7f7;
   --surface-2: #efefef;
-  --surface-brand: #f4f8f5;
+  /* A light, cool tint of the teal brand (#02777c) - branded but quiet, and cooler
+     than the old warm mint so it sits with the teal accents instead of competing. */
+  --surface-brand: #e6f3f4;
 
   /* Border */
   --border: #e5e5e5;
