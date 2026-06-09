@@ -16,7 +16,7 @@ interface FormValues {
 }
 
 const inputClasses = cn(
-  "w-full rounded-md border border-border bg-surface-1 px-3 py-2",
+  "w-full rounded-md border border-border bg-surface-0 px-3 py-2",
   "text-sm text-ink-1 placeholder:text-ink-4",
   "focus:outline-2 focus:outline-brand focus:outline-offset-0",
   "transition-colors duration-150",

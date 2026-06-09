@@ -133,8 +133,8 @@ export default async function ContactPage({
                 </Text>
               </div>
 
-              {/* Social icons - brand-teal chips with white icons, matching the
-                  QR squircle */}
+              {/* Social icons - outlined teal chips so they read as secondary to
+                  the name; they fill on hover for clear affordance */}
               <ul className="flex items-center gap-2">
                 {socialIcons.map((social) => (
                   <li key={social.id}>
@@ -147,7 +147,7 @@ export default async function ContactPage({
                           ? undefined
                           : "noopener noreferrer"
                       }
-                      className="flex size-10 items-center justify-center rounded-full bg-brand text-white transition-opacity duration-150 hover:opacity-80"
+                      className="flex size-10 items-center justify-center rounded-full border border-brand/40 text-brand transition-colors duration-150 hover:border-brand hover:bg-brand hover:text-white"
                     >
                       <social.Icon size={18} />
                     </a>
