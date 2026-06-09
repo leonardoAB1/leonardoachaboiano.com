@@ -16,10 +16,11 @@ interface FormValues {
 }
 
 const inputClasses = cn(
-  // Light: crisp white field against the off-white page. Dark: a lifted tint of
-  // the page's brand surface (not neutral surface-0) so the field reads as the
-  // same material as the contact page, just slightly raised.
-  "w-full rounded-md border border-border bg-surface-0 px-3 py-2",
+  // Inputs are a tint of the page's brand surface so they read as the same
+  // material as the contact page, just offset into a subtle well. Light mode
+  // recesses (mix toward black) to keep the hue; dark mode lifts (toward white).
+  "w-full rounded-md border border-border px-3 py-2",
+  "bg-[color-mix(in_srgb,var(--surface-brand),black_4%)]",
   "dark:bg-[color-mix(in_srgb,var(--surface-brand),white_7%)]",
   "text-sm text-ink-1 placeholder:text-ink-4",
   "focus:outline-2 focus:outline-brand focus:outline-offset-0",
