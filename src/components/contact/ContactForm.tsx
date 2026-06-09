@@ -16,7 +16,11 @@ interface FormValues {
 }
 
 const inputClasses = cn(
+  // Light: crisp white field against the off-white page. Dark: a lifted tint of
+  // the page's brand surface (not neutral surface-0) so the field reads as the
+  // same material as the contact page, just slightly raised.
   "w-full rounded-md border border-border bg-surface-0 px-3 py-2",
+  "dark:bg-[color-mix(in_srgb,var(--surface-brand),white_7%)]",
   "text-sm text-ink-1 placeholder:text-ink-4",
   "focus:outline-2 focus:outline-brand focus:outline-offset-0",
   "transition-colors duration-150",
@@ -150,7 +154,10 @@ export function ContactForm(): ReactElement {
           variant="primary"
           size="md"
           disabled={status === "loading"}
-          className="w-full sm:w-auto"
+          // Full-width on mobile for an easy tap target; on desktop it hugs its
+          // content (self-start defeats the flex-column stretch) so it reads as a
+          // CTA rather than a heavy full-width teal bar.
+          className="w-full sm:w-auto sm:self-start"
         >
           {status === "loading" ? t("sending") : t("send")}
         </Button>
