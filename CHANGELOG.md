@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.0...v1.12.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* align react-dom with react at 19.2.7 ([#272](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/272)) ([fc69546](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/fc69546f7d002471ec57f4a10ef3c23400e40d06))
+* align react-dom with react at 19.2.7 to satisfy version-match check ([fc69546](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/fc69546f7d002471ec57f4a10ef3c23400e40d06))
+
 ## [1.12.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.11.2...v1.12.0) (2026-06-09)
 
 
