@@ -16,12 +16,11 @@ interface FormValues {
 }
 
 const inputClasses = cn(
-  // Inputs are offset from the page's brand surface so they read as the same
-  // material, just a step apart. Light mode: a deeper teal (mix toward the brand)
-  // so the field is the tinted element and the page reads lighter. Dark mode:
-  // lift toward white so the field sits above the dark surface.
+  // Inputs lift toward white off the brand-tinted page in both modes, so the
+  // field is the lighter element and the page is the deeper teal. Light mode
+  // needs a larger lift since the page is already light; dark mode only a touch.
   "w-full rounded-md border border-border px-3 py-2",
-  "bg-[color-mix(in_srgb,var(--surface-brand),var(--color-brand)_8%)]",
+  "bg-[color-mix(in_srgb,var(--surface-brand),white_55%)]",
   "dark:bg-[color-mix(in_srgb,var(--surface-brand),white_7%)]",
   "text-sm text-ink-1 placeholder:text-ink-4",
   "focus:outline-2 focus:outline-brand focus:outline-offset-0",
