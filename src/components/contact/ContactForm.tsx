@@ -16,15 +16,16 @@ interface FormValues {
 }
 
 const inputClasses = cn(
-  // Light mode: the page is a quiet teal tint and the field is a clearly deeper teal
-  // (mixed further toward the brand), so the field reads as the tinted element on a
-  // lighter page. The border is teal-harmonized rather than neutral gray so it frames
-  // the field instead of competing with the tint.
+  // Light mode: the page is a light, airy teal tint and the field sits just slightly
+  // deeper than it (a small mix toward the brand), so the field reads as a subtly
+  // darker element - the calm difference we want, not a heavy one. The teal-harmonized
+  // border frames the field so even this gentle fill stays legible instead of competing
+  // with a neutral gray line.
   // Dark mode: the page is already dark, so the field lifts toward white instead, with
   // a subtler teal-tinted border.
   "w-full rounded-md border px-3 py-2",
-  "bg-[color-mix(in_srgb,var(--surface-brand),var(--color-brand)_16%)]",
-  "border-[color-mix(in_srgb,var(--border),var(--color-brand)_40%)]",
+  "bg-[color-mix(in_srgb,var(--surface-brand),var(--color-brand)_8%)]",
+  "border-[color-mix(in_srgb,var(--border),var(--color-brand)_28%)]",
   "dark:bg-[color-mix(in_srgb,var(--surface-brand),white_7%)]",
   "dark:border-[color-mix(in_srgb,var(--border),var(--color-brand)_30%)]",
   "text-sm text-ink-1 placeholder:text-ink-4",

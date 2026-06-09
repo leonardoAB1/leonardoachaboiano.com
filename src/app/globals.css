@@ -16,10 +16,12 @@
   --surface-0: #ffffff;
   --surface-1: #f7f7f7;
   --surface-2: #efefef;
-  /* A clear but quiet cool tint of the teal brand (#02777c) - branded and calm, yet
-     a real tint rather than near-white so it leaves tonal room for fields to sit
-     deeper on top of it instead of dissolving into the page. */
-  --surface-brand: #e6f3f4;
+  /* A light, near-white tint of the teal brand (#02777c) - a middle ground: bright
+     enough that the contact page reads close to white and open, yet tinted enough
+     that branded surfaces (home "Engineering Philosophy" section, badges) keep a
+     quiet but visible brand presence. Contact fields sit just slightly deeper than
+     this for a subtle, calm hierarchy rather than a heavy one. */
+  --surface-brand: #f4fafa;
 
   /* Border */
   --border: #e5e5e5;
