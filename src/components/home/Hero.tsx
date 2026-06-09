@@ -71,7 +71,7 @@ export function Hero(): ReactElement {
   const breakpoint = useBreakpoint();
 
   return (
-    <Section className="relative flex min-h-svh flex-col overflow-hidden bg-[#02777C] pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
+    <Section className="relative flex min-h-svh flex-col overflow-hidden bg-brand pb-16 pt-[calc(3.5rem+2rem)] sm:pb-20 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
       {/* Portrait — sky-focused on mobile, right-anchored on desktop */}
       <div className="absolute inset-0" aria-hidden="true">
         <Image

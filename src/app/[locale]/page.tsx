@@ -3,12 +3,6 @@ import type { ReactElement } from "react";
 import { EngineeringPhilosophy } from "@/components/home/EngineeringPhilosophy";
 import { Hero } from "@/components/home/Hero";
 import type { Locale } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
-
-const backgroundWashClasses = cn(
-  "pointer-events-none absolute inset-0 -z-10",
-  "home-background-wash",
-);
 
 export default async function HomePage({
   params,
@@ -21,8 +15,7 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   return (
-    <div className="-mt-14 relative isolate overflow-hidden bg-surface-0">
-      <div aria-hidden="true" className={backgroundWashClasses} />
+    <div className="-mt-14 relative overflow-hidden bg-surface-0">
       <Hero />
       <EngineeringPhilosophy />
     </div>

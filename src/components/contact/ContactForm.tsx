@@ -10,14 +10,24 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 interface FormValues {
-  name: string;
   email: string;
   subject: string;
   message: string;
 }
 
 const inputClasses = cn(
-  "w-full rounded-md border border-border bg-surface-1 px-3 py-2",
+  // Light mode: the page is a light, airy teal tint and the field sits just slightly
+  // deeper than it (a small mix toward the brand), so the field reads as a subtly
+  // darker element - the calm difference we want, not a heavy one. The teal-harmonized
+  // border frames the field so even this gentle fill stays legible instead of competing
+  // with a neutral gray line.
+  // Dark mode: the page is already dark, so the field lifts toward white instead, with
+  // a subtler teal-tinted border.
+  "w-full rounded-md border px-3 py-2",
+  "bg-[color-mix(in_srgb,var(--surface-brand),var(--color-brand)_8%)]",
+  "border-[color-mix(in_srgb,var(--border),var(--color-brand)_28%)]",
+  "dark:bg-[color-mix(in_srgb,var(--surface-brand),white_7%)]",
+  "dark:border-[color-mix(in_srgb,var(--border),var(--color-brand)_30%)]",
   "text-sm text-ink-1 placeholder:text-ink-4",
   "focus:outline-2 focus:outline-brand focus:outline-offset-0",
   "transition-colors duration-150",
@@ -61,7 +71,6 @@ export function ContactForm(): ReactElement {
   const schema = useMemo(
     () =>
       z.object({
-        name: z.string().min(2, t("validation.nameMin")),
         email: z.string().email(t("validation.emailInvalid")),
         subject: z.string().min(5, t("validation.subjectMin")),
         message: z.string().min(20, t("validation.messageMin")),
@@ -103,21 +112,6 @@ export function ContactForm(): ReactElement {
       noValidate
       className="flex flex-col gap-4"
     >
-      <FieldWrapper
-        label={t("name")}
-        htmlFor="name"
-        error={errors.name?.message}
-      >
-        <input
-          id="name"
-          type="text"
-          autoComplete="name"
-          placeholder={t("namePlaceholder")}
-          className={inputClasses}
-          {...register("name")}
-        />
-      </FieldWrapper>
-
       <FieldWrapper
         label={t("email")}
         htmlFor="email"
@@ -167,7 +161,10 @@ export function ContactForm(): ReactElement {
           variant="primary"
           size="md"
           disabled={status === "loading"}
-          className="w-full sm:w-auto"
+          // Full-width on mobile for an easy tap target; on desktop it hugs its
+          // content (self-start defeats the flex-column stretch) so it reads as a
+          // CTA rather than a heavy full-width teal bar.
+          className="w-full sm:w-auto sm:self-start"
         >
           {status === "loading" ? t("sending") : t("send")}
         </Button>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement, SVGProps } from "react";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { ProfileQrToggle } from "@/components/contact/ProfileQrToggle";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import {
@@ -12,7 +12,6 @@ import {
   LinkedInIcon,
   MailIcon,
 } from "@/components/ui/BrandIcons";
-import { Separator } from "@/components/ui/Separator";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
@@ -42,116 +41,121 @@ export default async function ContactPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("Contact");
+  const tCommon = await getTranslations("Common");
 
   type BrandIconComponent = (
     props: SVGProps<SVGSVGElement> & { size?: number },
   ) => ReactElement;
 
-  // Brand names are proper nouns (not translated); descriptions are localized.
-  // Email's description is the address itself.
-  const contactLinks: Array<{
+  // Compact social row. Brand names are proper nouns (not translated); they
+  // double as the icon-only links' accessible labels. Email is the only
+  // non-external (mailto) entry, so it skips target/rel.
+  const socialIcons: Array<{
     id: string;
-    label: string;
     href: string;
-    description: string;
-    external: boolean;
+    label: string;
     Icon: BrandIconComponent;
   }> = [
     {
       id: "github",
-      label: "GitHub",
       href: socialLinks.github,
-      description: t("links.github"),
-      external: true,
+      label: "GitHub",
       Icon: GitHubIcon,
     },
     {
       id: "linkedin",
-      label: "LinkedIn",
       href: socialLinks.linkedin,
-      description: t("links.linkedin"),
-      external: true,
+      label: "LinkedIn",
       Icon: LinkedInIcon,
     },
     {
       id: "instagram",
-      label: "Instagram",
       href: socialLinks.instagram,
-      description: t("links.instagram"),
-      external: true,
+      label: "Instagram",
       Icon: InstagramIcon,
     },
     {
       id: "facebook",
-      label: "Facebook",
       href: socialLinks.facebook,
-      description: t("links.facebook"),
-      external: true,
+      label: "Facebook",
       Icon: FacebookIcon,
     },
     {
       id: "email",
-      label: t("links.emailLabel"),
       href: socialLinks.email,
-      description: siteConfig.email,
-      external: false,
+      label: t("links.emailLabel"),
       Icon: MailIcon,
     },
   ];
 
   return (
-    <Section>
+    <Section className="-mt-14 min-h-svh bg-surface-brand pt-28 sm:pt-32">
       <Container>
-        {/* Page header */}
-        <div className="mb-12 flex flex-col gap-4">
-          <Eyebrow>{t("eyebrow")}</Eyebrow>
-          <Heading as="h1" size="lg">
-            {t("heading")}
-          </Heading>
-          <Text size="md" className="max-w-xl">
-            {t("intro")}
-          </Text>
-        </div>
-
-        <Separator className="mb-12" />
-
-        {/* Two-column layout: form + contact links */}
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1fr_auto] md:gap-16 lg:grid-cols-[1fr_280px]">
-          {/* Left: contact form */}
-          <div>
+        {/* The whole screen takes the brand-tinted surface so contact reads as a
+            distinct space. Mobile shows only the card (tap-to-reveal link-in-bio);
+            desktop adds the contact form as the main column. */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_20rem] lg:gap-x-16">
+          {/* Contact form - desktop only */}
+          <div className="hidden lg:block">
+            <div className="mb-6 flex flex-col gap-2">
+              <Eyebrow>{t("eyebrow")}</Eyebrow>
+              <Heading as="h2" size="md">
+                {t("heading")}
+              </Heading>
+              <Text size="md">{t("intro")}</Text>
+            </div>
             <ContactForm />
           </div>
 
-          {/* Right: other contact methods */}
-          <aside className="flex flex-col gap-6">
-            <div className="flex flex-col gap-1">
-              <p className="text-sm font-semibold text-ink-1">
-                {t("otherWaysTitle")}
-              </p>
-              <p className="text-sm text-ink-3">{t("otherWaysSubtitle")}</p>
-            </div>
+          {/* Card: squircle photo that flips to the QR, plus name and socials.
+              No panel - it sits directly on the brand-tinted page. */}
+          <div className="lg:sticky lg:top-24">
+            <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6 text-center">
+              <ProfileQrToggle
+                photoSrc="/images/headshot.webp"
+                photoAlt={siteConfig.name}
+                qrAlt={t("qrAlt")}
+                tapHint={t("tapHint")}
+                qrCaption={t("qrCaption")}
+                showQrLabel={t("showQr")}
+                showPhotoLabel={t("showPhoto")}
+                qrBgClassName="bg-brand"
+                qrColorClassName="text-white"
+              />
 
-            <ul className="flex flex-col gap-3">
-              {contactLinks.map((link) => (
-                <li key={link.id}>
-                  <Link
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className="group flex flex-col gap-0.5 rounded-md border border-border bg-surface-1 px-4 py-3 transition-colors duration-150 hover:border-brand hover:bg-surface-brand"
-                  >
-                    <span className="flex items-center gap-2 text-sm font-medium text-ink-1 group-hover:text-brand">
-                      <link.Icon size={15} />
-                      {link.label}
-                    </span>
-                    <span className="text-xs text-ink-3">
-                      {link.description}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </aside>
+              {/* Name leads the card (page h1) */}
+              <div className="flex flex-col gap-1">
+                <Heading as="h1" size="lg">
+                  {siteConfig.name}
+                </Heading>
+                <Text size="md" className="text-ink-2">
+                  {tCommon("role")}
+                </Text>
+              </div>
+
+              {/* Social icons - outlined teal chips so they read as secondary to
+                  the name; they fill on hover for clear affordance */}
+              <ul className="flex items-center gap-2">
+                {socialIcons.map((social) => (
+                  <li key={social.id}>
+                    <a
+                      href={social.href}
+                      aria-label={social.label}
+                      target={social.id === "email" ? undefined : "_blank"}
+                      rel={
+                        social.id === "email"
+                          ? undefined
+                          : "noopener noreferrer"
+                      }
+                      className="flex size-10 items-center justify-center rounded-full border border-brand/40 text-brand transition-colors duration-150 hover:border-brand hover:bg-brand hover:text-white"
+                    >
+                      <social.Icon size={18} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </Container>
     </Section>

@@ -164,18 +164,10 @@
     "eyebrow": "Prendre contact",
     "heading": "Discutons",
     "intro": "Que vous ayez un projet en tête, une question ou simplement envie de dire bonjour, je serais ravi d'avoir de vos nouvelles.",
-    "otherWaysTitle": "Autres moyens de me joindre",
-    "otherWaysSubtitle": "Vous préférez un canal direct ? Utilisez l'un des liens ci-dessous.",
     "links": {
-      "github": "Projets open-source et code",
-      "linkedin": "Profil professionnel et expérience",
-      "instagram": "Photos et coulisses",
-      "facebook": "Se connecter sur Facebook",
       "emailLabel": "E-mail"
     },
     "Form": {
-      "name": "Nom",
-      "namePlaceholder": "Votre nom",
       "email": "E-mail",
       "emailPlaceholder": "votre@email.com",
       "subject": "Objet",
@@ -187,12 +179,16 @@
       "success": "Message envoyé - je vous répondrai bientôt.",
       "error": "Une erreur s'est produite. Veuillez réessayer ou m'envoyer un e-mail directement.",
       "validation": {
-        "nameMin": "Le nom doit comporter au moins 2 caractères",
         "emailInvalid": "Veuillez saisir une adresse e-mail valide",
         "subjectMin": "L'objet doit comporter au moins 5 caractères",
         "messageMin": "Le message doit comporter au moins 20 caractères"
       }
-    }
+    },
+    "qrCaption": "Scannez pour ouvrir mes liens",
+    "qrAlt": "Code QR menant à cette page",
+    "tapHint": "Touchez pour le code QR",
+    "showQr": "Afficher le code QR",
+    "showPhoto": "Afficher la photo"
   },
   "Projects": {
     "differentialDriveRobot": {
