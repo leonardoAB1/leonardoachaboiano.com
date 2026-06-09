@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.11.2...v1.12.0) (2026-06-09)
+
+
+### Features
+
+* rework contact page into a link-in-bio ([#265](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/265)) ([1ac94f3](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/1ac94f3e50e1634a2e95bbb05fce75c2c41ad4dd))
+
 ## [1.11.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.11.1...v1.11.2) (2026-06-06)
 
 
