@@ -34,7 +34,9 @@
   --surface-0: #0a0a0a;
   --surface-1: #141414;
   --surface-2: #1f1f1f;
-  --surface-brand: #0f1714;
+  /* Dark tint of the teal brand (#02777c) - shares the buttons' hue so the surface
+     and the teal CTAs/icons read as the same family, not a clashing dark green. */
+  --surface-brand: #0c1e20;
 
   --border: #2a2a2a;
   --border-subtle: #1c1c1c;
