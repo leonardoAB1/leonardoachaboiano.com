@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.2...v1.12.3) (2026-06-10)
+
+
+### Performance Improvements
+
+* serve twitter share image as progressive jpeg ([#278](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/278)) ([7017f12](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/7017f122bfc770b0eadb35d6852bfd3bb4c21c7a))
+
 ## [1.12.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.1...v1.12.2) (2026-06-10)
 
 
