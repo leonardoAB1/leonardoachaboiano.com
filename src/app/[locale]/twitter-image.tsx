@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import sharp from "sharp";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/constants";
 
@@ -9,7 +10,7 @@ export const runtime = "nodejs";
 // content below is localized. The name is the salient part of the description.
 export const alt = `${siteConfig.name} - Mechatronics Engineer`;
 export const size = { width: 1200, height: 675 };
-export const contentType = "image/png";
+export const contentType = "image/jpeg";
 
 // Read the catalog directly rather than via next-intl's request APIs, which
 // require an HTTP request that isn't present during static image generation.
@@ -49,7 +50,7 @@ export default async function Image({
   const taglineLine2 = strings.taglineLine2;
   const portraitSrc = `${siteConfig.url}/portrait.jpg`;
 
-  return new ImageResponse(
+  const png = new ImageResponse(
     <div
       style={{
         position: "relative",
@@ -191,4 +192,12 @@ export default async function Image({
       ],
     },
   );
+
+  const jpegBuffer = await sharp(Buffer.from(await png.arrayBuffer()))
+    .jpeg({ quality: 90, progressive: true })
+    .toBuffer();
+
+  return new Response(new Uint8Array(jpegBuffer), {
+    headers: { "Content-Type": "image/jpeg" },
+  });
 }
