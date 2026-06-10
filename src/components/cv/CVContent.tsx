@@ -1,6 +1,6 @@
 "use client";
 
-import { animate, motion, type Variants } from "framer-motion";
+import { animate, m, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
@@ -169,7 +169,7 @@ export function CVContent(): ReactElement {
         {/* Right column: globe (desktop only) + languages/achievements panel */}
         <div className="lg:sticky lg:top-14 lg:self-start lg:flex lg:flex-col lg:h-[calc(100svh-3.5rem)]">
           {/* Globe: desktop only - hidden on mobile */}
-          <motion.div
+          <m.div
             className="hidden overflow-hidden rounded-2xl lg:block lg:aspect-square lg:w-full lg:flex-shrink-0"
             initial="hidden"
             whileInView="show"
@@ -187,7 +187,7 @@ export function CVContent(): ReactElement {
               // the single frame before the media query effect flips isDesktop.
               <GlobePlaceholder />
             )}
-          </motion.div>
+          </m.div>
 
           {/* Languages and Achievements panel - scrollable on desktop */}
           <div className="space-y-8 pt-6 lg:flex-1 lg:overflow-y-auto lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden">

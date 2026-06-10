@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import type { ReactElement, ReactNode } from "react";
 
 interface AnimatedSectionProps {
@@ -20,7 +20,7 @@ export function AnimatedSection({
   delay = 0,
 }: AnimatedSectionProps): ReactElement {
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay }}
@@ -29,6 +29,6 @@ export function AnimatedSection({
       whileInView="show"
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

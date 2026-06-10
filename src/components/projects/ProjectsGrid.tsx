@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
@@ -87,7 +87,7 @@ export function ProjectsGrid(): ReactElement {
   const t = useTranslations("Projects");
 
   return (
-    <motion.ul
+    <m.ul
       className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
       initial="hidden"
       whileInView="show"
@@ -97,7 +97,7 @@ export function ProjectsGrid(): ReactElement {
       {projects.map((project) => {
         const title = t(`${project.id}.title`);
         return (
-          <motion.li
+          <m.li
             key={project.id}
             className="group"
             variants={cardItem}
@@ -132,9 +132,9 @@ export function ProjectsGrid(): ReactElement {
                 </div>
               </CardContent>
             </Card>
-          </motion.li>
+          </m.li>
         );
       })}
-    </motion.ul>
+    </m.ul>
   );
 }
