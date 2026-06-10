@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutGroup, motion, type Variants } from "framer-motion";
+import { LayoutGroup, m, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { type ReactElement, useEffect, useLayoutEffect, useState } from "react";
@@ -34,9 +34,9 @@ const layoutTransition = {
   duration: 0.5,
 } as const;
 
-// motion() wraps any React component to accept Framer Motion props (layout,
+// m.create() wraps any React component to accept Framer Motion props (layout,
 // animate, etc.). Next.js Link forwards its ref, so this works correctly.
-const MotionLink = motion(Link);
+const MotionLink = m.create(Link);
 
 function useBreakpoint() {
   const [breakpoint, setBreakpoint] = useState<"mobile" | "sm" | "lg">(
@@ -93,7 +93,7 @@ export function Hero(): ReactElement {
             breakpoint === "lg" ? "block" : "flex flex-1 flex-col",
           )}
         >
-          <motion.div
+          <m.div
             className={cn(
               "flex flex-col gap-8 max-w-xl",
               breakpoint !== "lg" && "flex-1",
@@ -102,10 +102,10 @@ export function Hero(): ReactElement {
             animate="show"
             variants={container}
           >
-            <motion.div variants={item}>
+            <m.div variants={item}>
               <Eyebrow className="text-white/70">{tCommon("role")}</Eyebrow>
-            </motion.div>
-            <motion.div variants={item}>
+            </m.div>
+            <m.div variants={item}>
               <Heading
                 as="h1"
                 size="xl"
@@ -113,16 +113,16 @@ export function Hero(): ReactElement {
               >
                 {t("heading")}
               </Heading>
-            </motion.div>
-            <motion.div variants={item}>
+            </m.div>
+            <m.div variants={item}>
               <Text className="text-white/80" size="lg">
                 {t("intro")}
               </Text>
-            </motion.div>
+            </m.div>
 
             {/* Layout mover: owns FLIP position animation only.
                 No variants/y so the animate system cannot fight FLIP's translateY. */}
-            <motion.div
+            <m.div
               layout
               layoutDependency={breakpoint}
               transition={{ layout: layoutTransition }}
@@ -130,7 +130,7 @@ export function Hero(): ReactElement {
             >
               {/* Entrance animator: owns the stagger opacity+y mount animation.
                   No layout prop so it never interferes with FLIP. */}
-              <motion.div
+              <m.div
                 variants={item}
                 className={cn(
                   "flex",
@@ -166,9 +166,9 @@ export function Hero(): ReactElement {
                 >
                   {t("getInTouch")}
                 </MotionLink>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </m.div>
+            </m.div>
+          </m.div>
         </Container>
       </LayoutGroup>
     </Section>

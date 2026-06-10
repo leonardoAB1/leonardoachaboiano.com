@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type {
   CanvasTexture,
@@ -1009,7 +1009,7 @@ export function GlobeVisualization({
 
   return (
     <div className="relative h-full w-full">
-      <motion.div
+      <m.div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         initial={{ opacity: 1 }}
@@ -1017,7 +1017,7 @@ export function GlobeVisualization({
         transition={{ duration: fadeDuration, ease: GLOBE_FADE_EASE }}
       >
         <GlobePlaceholder />
-      </motion.div>
+      </m.div>
       <div
         ref={containerRef}
         className={cn(

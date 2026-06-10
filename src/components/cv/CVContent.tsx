@@ -1,6 +1,6 @@
 "use client";
 
-import { animate, motion, type Variants } from "framer-motion";
+import { animate, m, type Variants } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/Separator";
 import { Eyebrow } from "@/components/ui/Typography";
 import { skillGroups } from "@/data/skills";
 import { timelineEntries } from "@/data/timeline";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { resolveTimelineEntry } from "@/lib/timeline-content";
 import { cn } from "@/lib/utils";
 
@@ -67,6 +68,11 @@ export function CVContent(): ReactElement {
   const tAchievements = useTranslations("Achievements");
   const locale = useLocale();
 
+  // The globe is desktop-only (lg breakpoint, 1024px - same threshold as the
+  // texture preload media query). Gating the React tree, not just the CSS,
+  // means mobile never downloads or executes the three.js bundle at all.
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   // Build the flat skill list with locale-aware labels.
   // Most skills are proper nouns that don't need translation;
   // only "Industrial Instrumentation" has a locale-specific name.
@@ -88,13 +94,15 @@ export function CVContent(): ReactElement {
     originalIndex: i,
   }));
 
-  // Start downloading the globe bundle and its heavy deps immediately on mount
-  // so they are in the browser cache when GlobeVisualization renders.
+  // Start downloading the globe bundle and its heavy deps as soon as we know
+  // the viewport is desktop, so they are in the browser cache when
+  // GlobeVisualization renders. Mobile skips the download entirely.
   useEffect(() => {
+    if (!isDesktop) return;
     void import("@/components/home/GlobeVisualization");
     void import("three");
     void import("three-globe");
-  }, []);
+  }, [isDesktop]);
 
   const handleSelect = (index: number) => {
     setSelectedIndex(index);
@@ -161,19 +169,25 @@ export function CVContent(): ReactElement {
         {/* Right column: globe (desktop only) + languages/achievements panel */}
         <div className="lg:sticky lg:top-14 lg:self-start lg:flex lg:flex-col lg:h-[calc(100svh-3.5rem)]">
           {/* Globe: desktop only - hidden on mobile */}
-          <motion.div
+          <m.div
             className="hidden overflow-hidden rounded-2xl lg:block lg:aspect-square lg:w-full lg:flex-shrink-0"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-80px" }}
             variants={globeSlide}
           >
-            <GlobeVisualization
-              activeIndex={selectedIndex}
-              activeLabel={allEntries[selectedIndex].location}
-              onSelectIndex={handleSelect}
-            />
-          </motion.div>
+            {isDesktop ? (
+              <GlobeVisualization
+                activeIndex={selectedIndex}
+                activeLabel={allEntries[selectedIndex].location}
+                onSelectIndex={handleSelect}
+              />
+            ) : (
+              // Cheap stand-in: CSS-hidden on mobile, and on desktop it covers
+              // the single frame before the media query effect flips isDesktop.
+              <GlobePlaceholder />
+            )}
+          </m.div>
 
           {/* Languages and Achievements panel - scrollable on desktop */}
           <div className="space-y-8 pt-6 lg:flex-1 lg:overflow-y-auto lg:[scrollbar-width:none] lg:[&::-webkit-scrollbar]:hidden">

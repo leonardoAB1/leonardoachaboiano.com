@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import { useFormatter, useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
@@ -76,7 +76,7 @@ export function RecentWriting(): ReactElement {
     <Section>
       <Container>
         <div className="flex flex-col gap-10">
-          <motion.div
+          <m.div
             initial="hidden"
             whileInView="show"
             viewport={viewport}
@@ -85,8 +85,8 @@ export function RecentWriting(): ReactElement {
             <Heading as="h2" size="md">
               {t("heading")}
             </Heading>
-          </motion.div>
-          <motion.ul
+          </m.div>
+          <m.ul
             className="grid gap-4 sm:grid-cols-2"
             initial="hidden"
             whileInView="show"
@@ -94,7 +94,7 @@ export function RecentWriting(): ReactElement {
             variants={gridContainer}
           >
             {posts.map((post) => (
-              <motion.li
+              <m.li
                 key={post.id}
                 variants={cardItem}
                 whileHover={{
@@ -132,10 +132,10 @@ export function RecentWriting(): ReactElement {
                     </Link>
                   </CardContent>
                 </Card>
-              </motion.li>
+              </m.li>
             ))}
-          </motion.ul>
-          <motion.div
+          </m.ul>
+          <m.div
             className="flex justify-center"
             initial="hidden"
             whileInView="show"
@@ -148,7 +148,7 @@ export function RecentWriting(): ReactElement {
             >
               {t("readAll")}
             </Link>
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </Section>
