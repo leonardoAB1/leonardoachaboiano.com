@@ -4,6 +4,10 @@ import { expect, test } from "@playwright/test";
 // bundle loads and renders a WebGL <canvas>; below that the component tree is
 // gated by a media query so the bundle is never even downloaded (issue #275).
 test("cv globe renders on desktop only", async ({ page }, testInfo) => {
+  // Dev-mode compile plus three.js init can eat the default 30s budget on
+  // desktop before the screenshot runs - triple the timeout for this test.
+  testInfo.slow();
+
   await page.goto("/cv");
 
   // The page heading confirms the route rendered regardless of viewport.
