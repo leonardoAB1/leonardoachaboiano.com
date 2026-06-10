@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.1...v1.12.2) (2026-06-10)
+
+
+### Performance Improvements
+
+* close the mobile vs desktop javascript gap ([#276](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/276)) ([fc26927](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/fc26927d1210a12485f50a2b31c021ab5dd70591))
+
 ## [1.12.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.0...v1.12.1) (2026-06-09)
 
 
