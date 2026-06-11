@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.3...v1.13.0) (2026-06-11)
+
+
+### Features
+
+* add language-aware qr code to generated cv pdf ([#281](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/281)) ([87f38ca](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/87f38ca4f9c68c1d37848eb13377d5d44998a851))
+
 ## [1.12.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.2...v1.12.3) (2026-06-10)
 
 
