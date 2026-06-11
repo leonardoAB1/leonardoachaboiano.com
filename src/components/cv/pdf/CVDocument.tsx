@@ -309,16 +309,19 @@ const s = StyleSheet.create({
     color: GRAY,
     marginHorizontal: 2,
   },
+  // Photo shrunk from 80 so it can share the original 80pt-wide header slot with
+  // the QR (48 + 4 gap + 28 = 80), keeping the contact rows at their full width.
   photo: {
-    width: 80,
-    height: 80,
+    width: 48,
+    height: 48,
     objectFit: "contain",
   },
   qr: {
-    width: 56,
-    height: 56,
-    marginRight: 10,
-    marginTop: 2,
+    width: 28,
+    height: 28,
+    marginRight: 4,
+    // Center the smaller QR against the taller photo.
+    marginTop: 10,
   },
 
   // --- Summary ---
@@ -728,10 +731,10 @@ export function CVDocument({
             </View>
           </View>
 
-          {/* QR to the digital CV (locale-matched), sized to sit beside the photo */}
+          {/* QR to the digital CV (locale-matched) + photo share the original
+              photo footprint, so the contact rows keep their width and nothing
+              below the header shifts. */}
           <CVQr path={qr.path} viewBox={qr.viewBox} />
-
-          {/* Photo — height sized to border the Summary section */}
           <Image style={s.photo} src={photoDataUrl} />
         </View>
 
