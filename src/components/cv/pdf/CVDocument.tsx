@@ -60,6 +60,8 @@ export interface CVDocumentProps {
   hardSkills: string[];
   softSkills: string[];
   photoDataUrl: string;
+  /** Rounded-module QR geometry (path + viewBox) from `qrRoundedPath`. */
+  qr: { path: string; viewBox: string };
 }
 
 // ---------------------------------------------------------------------------
@@ -237,6 +239,19 @@ function EUIcon() {
   );
 }
 
+// Rounded-module QR rendered with react-pdf primitives. Geometry comes from the
+// shared `qrRoundedPath` util (1 unit = 1 module); we draw a white card behind
+// the teal modules so it scans cleanly regardless of the page background.
+function CVQr({ path, viewBox }: { path: string; viewBox: string }) {
+  const [mx, my, w, h] = viewBox.split(" ").map(Number);
+  return (
+    <Svg style={s.qr} viewBox={viewBox}>
+      <Rect x={mx} y={my} width={w} height={h} fill="#ffffff" />
+      <Path d={path} fill={TEAL} />
+    </Svg>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Styles
 // ---------------------------------------------------------------------------
@@ -298,6 +313,12 @@ const s = StyleSheet.create({
     width: 80,
     height: 80,
     objectFit: "contain",
+  },
+  qr: {
+    width: 56,
+    height: 56,
+    marginRight: 10,
+    marginTop: 2,
   },
 
   // --- Summary ---
@@ -639,6 +660,7 @@ export function CVDocument({
   hardSkills,
   softSkills,
   photoDataUrl,
+  qr,
 }: CVDocumentProps) {
   const orgGroups = groupByOrg(workEntries);
 
@@ -705,6 +727,9 @@ export function CVDocument({
               <Text style={s.contactBold}>{"EU Nationality (B permit)"}</Text>
             </View>
           </View>
+
+          {/* QR to the digital CV (locale-matched), sized to sit beside the photo */}
+          <CVQr path={qr.path} viewBox={qr.viewBox} />
 
           {/* Photo — height sized to border the Summary section */}
           <Image style={s.photo} src={photoDataUrl} />
