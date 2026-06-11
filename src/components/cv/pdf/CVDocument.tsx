@@ -272,7 +272,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 10,
+    marginBottom: 7,
   },
   headerLeft: {
     flex: 1,
@@ -330,11 +330,11 @@ const s = StyleSheet.create({
 
   // --- Summary ---
   summaryRow: {
-    marginBottom: 6,
+    marginBottom: 4,
   },
   summaryText: {
     fontSize: 9,
-    lineHeight: 1.4,
+    lineHeight: 1.3,
     color: DARK,
   },
 
@@ -364,7 +364,7 @@ const s = StyleSheet.create({
     fontFamily: "Helvetica-Bold",
     fontSize: 10,
     color: TEAL,
-    marginTop: 6,
+    marginTop: 4,
     marginBottom: 1,
   },
   sectionRule: {
@@ -402,7 +402,7 @@ const s = StyleSheet.create({
   },
   bulletRow: {
     flexDirection: "row",
-    marginBottom: 3,
+    marginBottom: 2,
     paddingLeft: 2,
   },
   bulletDash: {
@@ -413,20 +413,20 @@ const s = StyleSheet.create({
   bulletText: {
     flex: 1,
     fontSize: 9,
-    lineHeight: 1.4,
+    lineHeight: 1.3,
     color: DARK,
   },
   entryNote: {
     fontSize: 9,
     color: GRAY,
-    lineHeight: 1.4,
-    marginBottom: 3,
+    lineHeight: 1.3,
+    marginBottom: 2,
     marginTop: 1,
   },
   entrySep: {
     height: 0.75,
     backgroundColor: RULE_COLOR,
-    marginVertical: 6,
+    marginVertical: 4,
   },
 
   // Education specific
@@ -465,7 +465,7 @@ const s = StyleSheet.create({
 
   // --- Achievements ---
   achievementItem: {
-    marginBottom: 4,
+    marginBottom: 3,
   },
   achievementLabel: {
     fontFamily: "Helvetica-Bold",
@@ -489,16 +489,16 @@ const s = StyleSheet.create({
     width: "50%",
     fontSize: 9,
     color: DARK,
-    marginBottom: 3,
+    marginBottom: 2,
   },
 
   // --- Skills ---
   skillsSection: {
-    marginTop: 12,
+    marginTop: 8,
   },
   skillLine: {
     fontSize: 9,
-    lineHeight: 1.4,
+    lineHeight: 1.3,
     marginBottom: 2,
   },
 });
