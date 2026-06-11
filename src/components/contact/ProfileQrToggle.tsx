@@ -9,6 +9,9 @@ interface ProfileQrToggleProps {
   photoSrc: string;
   photoAlt: string;
   qrAlt: string;
+  /** QR geometry from `qrRoundedPath` (generated server-side). */
+  qrPath: string;
+  qrViewBox: string;
   /** Hint shown under the photo (e.g. "Tap for QR code"). */
   tapHint: string;
   /** Caption shown under the QR (e.g. "Scan to open my links"). */
@@ -30,6 +33,8 @@ export function ProfileQrToggle({
   photoSrc,
   photoAlt,
   qrAlt,
+  qrPath,
+  qrViewBox,
   tapHint,
   qrCaption,
   showQrLabel,
@@ -72,6 +77,8 @@ export function ProfileQrToggle({
           )}
         >
           <ContactQr
+            path={qrPath}
+            viewBox={qrViewBox}
             title={qrAlt}
             className={cn("size-full", qrColorClassName)}
           />

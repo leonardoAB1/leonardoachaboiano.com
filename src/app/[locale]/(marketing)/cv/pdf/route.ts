@@ -9,6 +9,7 @@ import { hardSkills, softSkills } from "@/data/cv-pdf-skills";
 import { timelineEntries } from "@/data/timeline";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
+import { qrRoundedPath } from "@/lib/qr";
 import { resolveTimelineEntry } from "@/lib/timeline-content";
 
 const ACHIEVEMENT_KEYS = [
@@ -72,6 +73,10 @@ export async function GET(
   );
   const photoDataUrl = `data:image/jpeg;base64,${photoBuffer.toString("base64")}`;
 
+  // Language-aware QR: scanning the printed CV opens the digital PDF in the same
+  // language someone printed (e.g. the German print links to /de/cv/pdf).
+  const qr = qrRoundedPath(`${siteConfig.url}/${locale}/cv/pdf`);
+
   const pdfBuffer = await renderToBuffer(
     createElement(CVDocument, {
       name: siteConfig.name,
@@ -90,6 +95,7 @@ export async function GET(
       hardSkills,
       softSkills,
       photoDataUrl,
+      qr,
     }),
   );
 
