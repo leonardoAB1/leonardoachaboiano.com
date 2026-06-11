@@ -16,6 +16,7 @@ import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
+import { qrRoundedPath } from "@/lib/qr";
 
 export async function generateMetadata({
   params,
@@ -42,6 +43,10 @@ export default async function ContactPage({
 
   const t = await getTranslations("Contact");
   const tCommon = await getTranslations("Common");
+
+  // QR generated server-side so the `qrcode` lib never reaches the client bundle;
+  // only the finished path string crosses into the client toggle component.
+  const qr = qrRoundedPath(`${siteConfig.url}/contact`);
 
   type BrandIconComponent = (
     props: SVGProps<SVGSVGElement> & { size?: number },
@@ -115,6 +120,8 @@ export default async function ContactPage({
                 photoSrc="/images/headshot.webp"
                 photoAlt={siteConfig.name}
                 qrAlt={t("qrAlt")}
+                qrPath={qr.path}
+                qrViewBox={qr.viewBox}
                 tapHint={t("tapHint")}
                 qrCaption={t("qrCaption")}
                 showQrLabel={t("showQr")}
