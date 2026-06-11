@@ -276,7 +276,7 @@ const s = StyleSheet.create({
   },
   headerLeft: {
     flex: 1,
-    paddingRight: 10,
+    paddingRight: 4,
   },
   name: {
     fontFamily: "Helvetica-Bold",
@@ -307,22 +307,22 @@ const s = StyleSheet.create({
   contactSep: {
     fontSize: 8.5,
     color: GRAY,
-    marginHorizontal: 2,
+    marginHorizontal: 1,
   },
   photo: {
     width: 80,
     height: 80,
     objectFit: "contain",
   },
-  // QR placed in the right column under Languages (in the whitespace above the
-  // SKILLS band), so the full-size photo and contact rows stay untouched.
-  qrBlock: {
-    alignItems: "center",
-    marginTop: 8,
-  },
+  // Small QR sits to the left of the full-size photo. It fits in the ~22pt gap
+  // the contact rows leave before the photo (helped by the tighter separators
+  // above), so the rows never wrap and nothing below the header shifts.
   qr: {
-    width: 56,
-    height: 56,
+    width: 26,
+    height: 26,
+    marginRight: 2,
+    // Center the small QR against the full-size photo.
+    marginTop: 27,
   },
 
   // --- Summary ---
@@ -692,7 +692,7 @@ export function CVDocument({
               <Link style={{ textDecoration: "none" }} src={`mailto:${email}`}>
                 <Text style={s.contactTeal}>{email}</Text>
               </Link>
-              <Text style={s.contactSep}>{"  •  "}</Text>
+              <Text style={s.contactSep}>{" • "}</Text>
               <WhatsAppIcon />
               <Link
                 style={{ textDecoration: "none" }}
@@ -708,12 +708,12 @@ export function CVDocument({
               <Link style={{ textDecoration: "none" }} src={linkedin}>
                 <Text style={s.contactBold}>{linkedinDisplay}</Text>
               </Link>
-              <Text style={s.contactSep}>{"  •  "}</Text>
+              <Text style={s.contactSep}>{" • "}</Text>
               <GitHubIcon />
               <Link style={{ textDecoration: "none" }} src={github}>
                 <Text style={s.contactBold}>{githubDisplay}</Text>
               </Link>
-              <Text style={s.contactSep}>{"  •  "}</Text>
+              <Text style={s.contactSep}>{" • "}</Text>
               <WebIcon />
               <Link style={{ textDecoration: "none" }} src={website}>
                 <Text style={s.contactBold}>{websiteDisplay}</Text>
@@ -732,6 +732,9 @@ export function CVDocument({
             </View>
           </View>
 
+          {/* QR to the digital CV (locale-matched), small enough to sit left of
+              the full-size photo without narrowing the contact rows. */}
+          <CVQr path={qr.path} viewBox={qr.viewBox} />
           {/* Photo — height sized to border the Summary section */}
           <Image style={s.photo} src={photoDataUrl} />
         </View>
@@ -809,13 +812,6 @@ export function CVDocument({
                   <Text style={{ color: GRAY }}>{`(${lang.level})`}</Text>
                 </Text>
               ))}
-            </View>
-
-            {/* QR to the digital CV (locale-matched). It sits in the whitespace
-                under the (shorter) right column, so the header and photo stay
-                full-size and nothing else moves. */}
-            <View style={s.qrBlock}>
-              <CVQr path={qr.path} viewBox={qr.viewBox} />
             </View>
           </View>
         </View>
