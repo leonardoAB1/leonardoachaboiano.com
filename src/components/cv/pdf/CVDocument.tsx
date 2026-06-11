@@ -314,15 +314,18 @@ const s = StyleSheet.create({
     height: 80,
     objectFit: "contain",
   },
-  // Small QR sits to the left of the full-size photo. It fits in the ~22pt gap
-  // the contact rows leave before the photo (helped by the tighter separators
-  // above), so the rows never wrap and nothing below the header shifts.
+  // The QR floats over the header's top-right corner, left of the photo, and
+  // is absolutely positioned so it takes no width from the flex row - the
+  // contact rows keep their full width and the longer ones flow under its
+  // bottom edge. It must stay shorter than name + title + contact row 1
+  // (~57pt) so it never overlaps contact row 2.
   qr: {
-    width: 26,
-    height: 26,
-    marginRight: 2,
-    // Center the small QR against the full-size photo.
-    marginTop: 27,
+    position: "absolute",
+    top: 0,
+    // Photo width (80) + 6pt gap.
+    right: 86,
+    width: 48,
+    height: 48,
   },
 
   // --- Summary ---
@@ -732,8 +735,9 @@ export function CVDocument({
             </View>
           </View>
 
-          {/* QR to the digital CV (locale-matched), small enough to sit left of
-              the full-size photo without narrowing the contact rows. */}
+          {/* QR to the digital CV (locale-matched). Absolutely positioned in
+              the header's top-right corner, left of the photo, so it never
+              narrows the contact rows. */}
           <CVQr path={qr.path} viewBox={qr.viewBox} />
           {/* Photo — height sized to border the Summary section */}
           <Image style={s.photo} src={photoDataUrl} />
