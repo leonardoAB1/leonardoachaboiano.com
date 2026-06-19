@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "flagcdn.com" },
     ],
   },
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 export default withNextIntl(withMDX(nextConfig));

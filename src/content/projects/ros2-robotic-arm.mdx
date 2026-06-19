@@ -1,0 +1,36 @@
+---
+title: ROS2 Robotic Arm Control
+description: Real-time control system for a 6-DOF robotic arm with concurrent action servers and hardware integration
+status: in-progress
+technologies:
+  - ROS2
+  - Python
+  - C++
+  - STM32
+  - FreeRTOS
+tags:
+  - robotics
+  - embedded
+  - ros2
+githubUrl: https://github.com/leonardoAB1
+featured: true
+publishedAt: "2025-08-01"
+---
+
+## Overview
+
+This project develops a real-time control system for a 6-DOF robotic arm using ROS2 as the middleware layer. The architecture relies on concurrent action servers to manage multi-joint trajectories while maintaining responsiveness to emergency stops.
+
+## Architecture
+
+The system separates concerns across three layers: a ROS2 action server layer handling high-level trajectory commands, a firmware layer running FreeRTOS on STM32 for real-time joint control, and a hardware abstraction layer bridging the two via serial communication.
+
+## Challenges
+
+- Synchronizing concurrent action goals without joint conflicts
+- Achieving sub-10ms latency between ROS2 command and actuator response
+- Managing state machines across distributed nodes
+
+## Lessons Learned
+
+ROS2 lifecycle nodes provide clean startup and shutdown sequencing, which is essential for hardware systems that need predictable initialization order.

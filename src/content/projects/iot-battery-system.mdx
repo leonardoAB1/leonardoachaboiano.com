@@ -1,0 +1,36 @@
+---
+title: IoT Battery Management System
+description: MQTT and CAN-based IoT integration for electric motorcycle battery security and monitoring
+status: completed
+technologies:
+  - ESP32
+  - MQTT
+  - CAN Bus
+  - Python
+  - KiCad
+tags:
+  - iot
+  - embedded
+  - pcb
+githubUrl: https://github.com/leonardoAB1
+featured: true
+publishedAt: "2024-07-01"
+---
+
+## Overview
+
+Designed and prototyped an IoT battery management system for electric motorcycles, integrating MQTT and CAN protocols to enable real-time monitoring and remote battery security controls.
+
+## Architecture
+
+The system uses an ESP32 as the central node, communicating upstream via MQTT to a cloud broker and downstream via CAN bus to the battery management controller. A custom PCB was designed in KiCad to house the ESP32, CAN transceiver, and solenoid actuator driver.
+
+## Challenges
+
+- CAN bus timing configuration for reliable multi-node communication
+- PCB layout constraints for EMI suppression near the motor drive circuitry
+- Coordinating logistics and component sourcing with Chinese partners
+
+## Lessons Learned
+
+DFMA principles applied to PCB design significantly reduce assembly time and rework - designing for the assembly process from the start saves iterations.
