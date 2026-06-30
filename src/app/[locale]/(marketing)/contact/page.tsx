@@ -100,68 +100,70 @@ export default async function ContactPage({
             distinct space. Mobile shows only the card (tap-to-reveal link-in-bio);
             desktop adds the contact form as the main column. */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_20rem] lg:gap-x-12">
-          {/* Contact form - desktop only. "Let's talk" is the page h1 - the editorial
-              anchor - while the identity card on the right is the subordinate element. */}
+          {/* Form panel - desktop only. Thin-bordered box lifts the form off the
+              brand surface, consistent with the editorial box treatment. */}
           <div className="hidden lg:block">
-            <div className="mb-8 flex flex-col gap-3">
-              <Eyebrow>{t("eyebrow")}</Eyebrow>
-              <Heading as="h1" size="xl">
-                {t("heading")}
-              </Heading>
-              <Text size="md">{t("intro")}</Text>
+            <div className="rounded-lg border border-border bg-surface-0 p-8">
+              <div className="mb-8 flex flex-col gap-3">
+                <Eyebrow>{t("eyebrow")}</Eyebrow>
+                <Heading as="h1" size="xl">
+                  {t("heading")}
+                </Heading>
+                <Text size="md">{t("intro")}</Text>
+              </div>
+              <ContactForm />
             </div>
-            <ContactForm />
           </div>
 
-          {/* Card: squircle photo that flips to the QR, plus name and socials.
-              No panel - it sits directly on the brand-tinted page. */}
+          {/* Identity panel - thin-bordered box matching the form panel. */}
           <div className="lg:sticky lg:top-24">
-            <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6 text-center">
-              <ProfileQrToggle
-                photoSrc="/images/headshot.webp"
-                photoAlt={siteConfig.name}
-                qrAlt={t("qrAlt")}
-                qrPath={qr.path}
-                qrViewBox={qr.viewBox}
-                tapHint={t("tapHint")}
-                qrCaption={t("qrCaption")}
-                showQrLabel={t("showQr")}
-                showPhotoLabel={t("showPhoto")}
-                qrBgClassName="bg-brand"
-                qrColorClassName="text-white"
-              />
+            <div className="rounded-lg border border-border bg-surface-0 p-6">
+              <div className="flex flex-col items-center gap-6 text-center">
+                <ProfileQrToggle
+                  photoSrc="/images/headshot.webp"
+                  photoAlt={siteConfig.name}
+                  qrAlt={t("qrAlt")}
+                  qrPath={qr.path}
+                  qrViewBox={qr.viewBox}
+                  tapHint={t("tapHint")}
+                  qrCaption={t("qrCaption")}
+                  showQrLabel={t("showQr")}
+                  showPhotoLabel={t("showPhoto")}
+                  qrBgClassName="bg-brand"
+                  qrColorClassName="text-white"
+                />
 
-              {/* Name is subordinate to the editorial heading on desktop */}
-              <div className="flex flex-col gap-1">
-                <Heading as="h2" size="md">
-                  {siteConfig.name}
-                </Heading>
-                <Text size="md" className="text-ink-2">
-                  {tCommon("role")}
-                </Text>
+                {/* Name is subordinate to the editorial heading on desktop */}
+                <div className="flex flex-col gap-1">
+                  <Heading as="h2" size="md">
+                    {siteConfig.name}
+                  </Heading>
+                  <Text size="md" className="text-ink-2">
+                    {tCommon("role")}
+                  </Text>
+                </div>
+
+                {/* Social icons - square boxes matching the editorial grid feel */}
+                <ul className="flex items-center gap-2">
+                  {socialIcons.map((social) => (
+                    <li key={social.id}>
+                      <a
+                        href={social.href}
+                        aria-label={social.label}
+                        target={social.id === "email" ? undefined : "_blank"}
+                        rel={
+                          social.id === "email"
+                            ? undefined
+                            : "noopener noreferrer"
+                        }
+                        className="flex size-10 items-center justify-center rounded-md border border-brand/40 text-brand transition-colors duration-150 hover:border-brand hover:bg-brand hover:text-white"
+                      >
+                        <social.Icon size={18} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              {/* Social icons - outlined teal chips so they read as secondary to
-                  the name; they fill on hover for clear affordance */}
-              <ul className="flex items-center gap-2">
-                {socialIcons.map((social) => (
-                  <li key={social.id}>
-                    <a
-                      href={social.href}
-                      aria-label={social.label}
-                      target={social.id === "email" ? undefined : "_blank"}
-                      rel={
-                        social.id === "email"
-                          ? undefined
-                          : "noopener noreferrer"
-                      }
-                      className="flex size-10 items-center justify-center rounded-full border border-brand/40 text-brand transition-colors duration-150 hover:border-brand hover:bg-brand hover:text-white"
-                    >
-                      <social.Icon size={18} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>
