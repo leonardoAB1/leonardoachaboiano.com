@@ -15,7 +15,7 @@ export function EngineeringPhilosophy(): ReactElement {
   );
 
   return (
-    <Section className="bg-surface-brand">
+    <Section className="border-t border-border bg-surface-brand">
       <Container>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-16 lg:gap-24">
           {/* Left column: heading + lead paragraph */}

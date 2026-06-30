@@ -83,8 +83,9 @@ export function ProjectsGrid(): ReactElement {
 
   return (
     <div>
-      {/* Opacity-driven filter row - active tag at full opacity, others dimmed */}
-      <div className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2">
+      {/* Opacity-driven filter row - active tag at full opacity, others dimmed.
+          Thin bottom rule anchors the row as a header element. */}
+      <div className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border pb-5">
         {["All", ...allTags].map((tag) => (
           <button
             key={tag}

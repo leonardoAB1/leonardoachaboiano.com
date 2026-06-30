@@ -87,7 +87,7 @@ export function TimelineEntry({
       {/* Content column with vertical line indicator */}
       <div
         className={cn(
-          "relative border-s border-border-subtle ps-6",
+          "relative border-s border-border ps-6",
           isLast ? "pb-0" : "pb-20",
         )}
       >
