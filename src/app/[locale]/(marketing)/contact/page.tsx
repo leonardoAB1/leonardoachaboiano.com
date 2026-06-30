@@ -96,29 +96,21 @@ export default async function ContactPage({
   return (
     <Section className="-mt-14 min-h-svh bg-surface-brand pt-28 sm:pt-32">
       <Container>
-        {/* The whole screen takes the brand-tinted surface so contact reads as a
-            distinct space. Mobile shows only the card (tap-to-reveal link-in-bio);
-            desktop adds the contact form as the main column. */}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_20rem] lg:gap-x-12">
-          {/* Form panel - desktop only. Thin-bordered box lifts the form off the
-              brand surface, consistent with the editorial box treatment. */}
-          <div className="hidden lg:block">
-            <div className="rounded-lg border border-border bg-surface-0 p-8">
-              <div className="mb-8 flex flex-col gap-3">
+        {/* Single connected box: one outer teal border, one internal teal divider.
+            Left column = heading + identity (always visible).
+            Right column = form (desktop only). */}
+        <div className="rounded-lg border border-brand/40 bg-surface-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x lg:divide-brand/40">
+            {/* Left: heading block + identity stack */}
+            <div className="flex flex-col gap-10 p-8">
+              <div className="flex flex-col gap-3">
                 <Eyebrow>{t("eyebrow")}</Eyebrow>
                 <Heading as="h1" size="xl">
                   {t("heading")}
                 </Heading>
                 <Text size="md">{t("intro")}</Text>
               </div>
-              <ContactForm />
-            </div>
-          </div>
-
-          {/* Identity panel - thin-bordered box matching the form panel. */}
-          <div className="lg:sticky lg:top-24">
-            <div className="rounded-lg border border-border bg-surface-0 p-6">
-              <div className="flex flex-col items-center gap-6 text-center">
+              <div className="flex flex-col items-center gap-4 text-center">
                 <ProfileQrToggle
                   photoSrc="/images/headshot.webp"
                   photoAlt={siteConfig.name}
@@ -132,8 +124,6 @@ export default async function ContactPage({
                   qrBgClassName="bg-brand"
                   qrColorClassName="text-white"
                 />
-
-                {/* Name is subordinate to the editorial heading on desktop */}
                 <div className="flex flex-col gap-1">
                   <Heading as="h2" size="md">
                     {siteConfig.name}
@@ -142,8 +132,6 @@ export default async function ContactPage({
                     {tCommon("role")}
                   </Text>
                 </div>
-
-                {/* Social icons - square boxes matching the editorial grid feel */}
                 <ul className="flex items-center gap-2">
                   {socialIcons.map((social) => (
                     <li key={social.id}>
@@ -156,7 +144,7 @@ export default async function ContactPage({
                             ? undefined
                             : "noopener noreferrer"
                         }
-                        className="flex size-10 items-center justify-center rounded-md border border-brand/40 text-brand transition-colors duration-150 hover:border-brand hover:bg-brand hover:text-white"
+                        className="flex size-10 items-center justify-center border border-brand/40 text-brand transition-colors duration-150 hover:border-brand hover:bg-brand hover:text-white"
                       >
                         <social.Icon size={18} />
                       </a>
@@ -164,6 +152,11 @@ export default async function ContactPage({
                   ))}
                 </ul>
               </div>
+            </div>
+
+            {/* Right: form - desktop only */}
+            <div className="hidden lg:block p-8">
+              <ContactForm />
             </div>
           </div>
         </div>
