@@ -1,6 +1,6 @@
 "use client";
 
-import { m, type Variants } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { ReactElement } from "react";
@@ -12,6 +12,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/Card";
+import {
+  fadeSlideUpCard,
+  staggerContainer,
+  viewport,
+} from "@/lib/motion-variants";
 
 interface Project {
   id: string;
@@ -67,22 +72,6 @@ const projects: Project[] = [
   },
 ];
 
-const gridContainer: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const cardItem: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const viewport = { margin: "-80px", once: true } as const;
-
 export function ProjectsGrid(): ReactElement {
   const t = useTranslations("Projects");
 
@@ -92,7 +81,7 @@ export function ProjectsGrid(): ReactElement {
       initial="hidden"
       whileInView="show"
       viewport={viewport}
-      variants={gridContainer}
+      variants={staggerContainer}
     >
       {projects.map((project) => {
         const title = t(`${project.id}.title`);
@@ -100,7 +89,7 @@ export function ProjectsGrid(): ReactElement {
           <m.li
             key={project.id}
             className="group"
-            variants={cardItem}
+            variants={fadeSlideUpCard}
             whileHover={{
               y: -4,
               transition: { duration: 0.2, ease: "easeOut" },

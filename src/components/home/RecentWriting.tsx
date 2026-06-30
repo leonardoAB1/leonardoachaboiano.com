@@ -1,6 +1,6 @@
 "use client";
 
-import { m, type Variants } from "framer-motion";
+import { m } from "framer-motion";
 import { useFormatter, useTranslations } from "next-intl";
 import type { ReactElement } from "react";
 import { Container } from "@/components/layout/Container";
@@ -16,6 +16,12 @@ import {
 } from "@/components/ui/Card";
 import { Heading } from "@/components/ui/Typography";
 import { Link } from "@/i18n/navigation";
+import {
+  fadeSlideUp,
+  fadeSlideUpCard,
+  staggerContainer,
+  viewport,
+} from "@/lib/motion-variants";
 import { cn } from "@/lib/utils";
 
 // Non-translatable post data. id keys into the Posts namespace for title +
@@ -42,31 +48,6 @@ const posts: Post[] = [
   },
 ];
 
-const headingVariant: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const gridContainer: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const cardItem: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const viewport = { margin: "-80px", once: true } as const;
-
 export function RecentWriting(): ReactElement {
   const t = useTranslations("Home.RecentWriting");
   const tp = useTranslations("Posts");
@@ -80,7 +61,7 @@ export function RecentWriting(): ReactElement {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            variants={headingVariant}
+            variants={fadeSlideUp}
           >
             <Heading as="h2" size="md">
               {t("heading")}
@@ -91,12 +72,12 @@ export function RecentWriting(): ReactElement {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            variants={gridContainer}
+            variants={staggerContainer}
           >
             {posts.map((post) => (
               <m.li
                 key={post.id}
-                variants={cardItem}
+                variants={fadeSlideUpCard}
                 whileHover={{
                   y: -4,
                   transition: { duration: 0.2, ease: "easeOut" },
@@ -140,7 +121,7 @@ export function RecentWriting(): ReactElement {
             initial="hidden"
             whileInView="show"
             viewport={viewport}
-            variants={headingVariant}
+            variants={fadeSlideUp}
           >
             <Link
               href="/blog"
