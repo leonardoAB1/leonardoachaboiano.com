@@ -107,7 +107,7 @@ export function ProjectsGrid(): ReactElement {
             }}
           >
             <Card className="flex h-full flex-col shadow-none hover:border-brand/20 hover:shadow-sm dark:shadow-none overflow-hidden">
-              <div className="relative aspect-video w-full overflow-hidden bg-muted">
+              <div className="relative aspect-video w-full overflow-hidden bg-surface-1">
                 <Image
                   src={project.image}
                   alt={title}
