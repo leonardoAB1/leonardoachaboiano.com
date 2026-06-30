@@ -46,7 +46,7 @@ The site must feel:
 <design>
 **Typography:** Modern, elegant, readable, engineering aesthetic.
 
-**Color palette:** Warm paper/cream base (light: `#EDE6D6`, dark: `#13110D`) with a faint static grain. Neutral, sophisticated, slightly technical. Brand color `#02777C` teal unchanged. Dark/light mode via next-themes + CSS custom properties. Avoid oversaturated colors.
+**Color palette:** Neutral, sophisticated, slightly technical. Avoid oversaturated colors. Dark/light mode support. Use #02777C as a primary brand color.
 
 **Spacing:** Generous whitespace, premium feel.
 
