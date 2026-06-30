@@ -94,17 +94,33 @@ export default async function ContactPage({
   ];
 
   return (
-    <Section className="-mt-14 min-h-svh bg-surface-brand pt-28 sm:pt-32">
-      <Container>
-        {/* Single connected box: one outer teal border, one internal teal divider.
-            Left column = heading + identity (always visible).
-            Right column = form (desktop only). */}
-        <div className="rounded-lg border border-brand/40 bg-surface-0">
+    <Section className="-mt-14 min-h-svh bg-surface-brand grain pt-28 sm:pt-32">
+      {/* Tighter horizontal padding brings the outer border closer to the edge,
+          matching the narrow-margin grid feel of the reference. */}
+      <Container className="px-4 sm:px-6">
+        {/* Single connected box: straight corners so the teal border reads as
+            a ruled grid line rather than a card. grain class layers the SVG
+            noise texture on top of the solid white background. */}
+        <div className="border border-brand/40 bg-surface-0 grain">
+          {/* Decorative top strip - hatched cell on left, eyebrow label on right */}
+          <div className="flex h-10 border-b border-brand/40">
+            <div
+              aria-hidden="true"
+              className="w-24 shrink-0 border-r border-brand/40"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(-45deg, rgb(2 119 124 / 0.2) 0px, rgb(2 119 124 / 0.2) 2px, transparent 2px, transparent 10px)",
+              }}
+            />
+            <div className="flex items-center px-6">
+              <Eyebrow>{t("eyebrow")}</Eyebrow>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x lg:divide-brand/40">
-            {/* Left: heading block + identity stack */}
+            {/* Left: heading + identity */}
             <div className="flex flex-col gap-10 p-8">
               <div className="flex flex-col gap-3">
-                <Eyebrow>{t("eyebrow")}</Eyebrow>
                 <Heading as="h1" size="xl">
                   {t("heading")}
                 </Heading>
@@ -132,7 +148,7 @@ export default async function ContactPage({
                     {tCommon("role")}
                   </Text>
                 </div>
-                <ul className="flex items-center gap-2">
+                <ul className="flex items-center gap-3">
                   {socialIcons.map((social) => (
                     <li key={social.id}>
                       <a
@@ -144,9 +160,9 @@ export default async function ContactPage({
                             ? undefined
                             : "noopener noreferrer"
                         }
-                        className="flex size-10 items-center justify-center border border-brand/40 text-brand transition-colors duration-150 hover:border-brand hover:bg-brand hover:text-white"
+                        className="text-ink-3 transition-colors duration-150 hover:text-brand"
                       >
-                        <social.Icon size={18} />
+                        <social.Icon size={20} />
                       </a>
                     </li>
                   ))}
