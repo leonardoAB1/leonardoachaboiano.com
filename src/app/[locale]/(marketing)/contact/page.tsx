@@ -99,12 +99,13 @@ export default async function ContactPage({
         {/* The whole screen takes the brand-tinted surface so contact reads as a
             distinct space. Mobile shows only the card (tap-to-reveal link-in-bio);
             desktop adds the contact form as the main column. */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_20rem] lg:gap-x-16">
-          {/* Contact form - desktop only */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_20rem] lg:gap-x-12">
+          {/* Contact form - desktop only. "Let's talk" is the page h1 - the editorial
+              anchor - while the identity card on the right is the subordinate element. */}
           <div className="hidden lg:block">
-            <div className="mb-6 flex flex-col gap-2">
+            <div className="mb-8 flex flex-col gap-3">
               <Eyebrow>{t("eyebrow")}</Eyebrow>
-              <Heading as="h2" size="md">
+              <Heading as="h1" size="xl">
                 {t("heading")}
               </Heading>
               <Text size="md">{t("intro")}</Text>
@@ -130,9 +131,9 @@ export default async function ContactPage({
                 qrColorClassName="text-white"
               />
 
-              {/* Name leads the card (page h1) */}
+              {/* Name is subordinate to the editorial heading on desktop */}
               <div className="flex flex-col gap-1">
-                <Heading as="h1" size="lg">
+                <Heading as="h2" size="md">
                   {siteConfig.name}
                 </Heading>
                 <Text size="md" className="text-ink-2">
