@@ -208,8 +208,9 @@ export default async function ContactPage({
               </div>
             </div>
 
-            {/* Right: form - desktop only */}
-            <div className="hidden p-8 lg:block">
+            {/* Right: form. On mobile it stacks under the identity block with a
+                teal top rule; from lg the grid divider takes over. */}
+            <div className="border-t border-brand/40 p-8 lg:border-t-0">
               <ContactForm />
             </div>
           </div>
