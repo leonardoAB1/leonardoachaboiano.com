@@ -50,7 +50,7 @@ The site must feel:
 
 **Spacing:** Generous whitespace, premium feel.
 
-**Animations:** Subtle transitions only. No excessive motion, particles, or background effects.
+**Animations:** Choreographed entrance motion (stagger, fade+slide) using shared variants in `src/lib/motion-variants.ts`. All motion respects `prefers-reduced-motion` via `MotionConfig reducedMotion="user"`. No particles or background effects.
 
 **Avoid:** Overusing gradients, glassmorphism everywhere, visual noise.
 </design>

@@ -15,24 +15,28 @@ export function EngineeringPhilosophy(): ReactElement {
   );
 
   return (
-    <Section className="bg-surface-brand">
+    <Section className="border-t border-border bg-surface-brand">
       <Container>
-        <AnimatedSection className="flex flex-col gap-8">
-          <Heading as="h2" size="md">
-            {t("heading")}
-          </Heading>
-          <div className="flex max-w-2xl flex-col gap-6">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-16 lg:gap-24">
+          {/* Left column: heading + lead paragraph */}
+          <AnimatedSection className="flex flex-col gap-6">
+            <Heading as="h2" size="lg">
+              {t("heading")}
+            </Heading>
             <Text className="text-ink-2" size="md">
               {t.rich("p1", { em: emphasis })}
             </Text>
+          </AnimatedSection>
+          {/* Right column: supporting paragraph + closing quote */}
+          <AnimatedSection delay={0.1} className="flex flex-col gap-6 sm:pt-1">
             <Text className="text-ink-2" size="md">
               {t.rich("p2", { em: emphasis })}
             </Text>
-          </div>
-          <p className="max-w-2xl text-sm italic text-ink-3">
-            {t.rich("quote", { em: emphasis })}
-          </p>
-        </AnimatedSection>
+            <p className="text-sm italic text-ink-3">
+              {t.rich("quote", { em: emphasis })}
+            </p>
+          </AnimatedSection>
+        </div>
       </Container>
     </Section>
   );

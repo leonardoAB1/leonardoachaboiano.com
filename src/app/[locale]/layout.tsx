@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import {
@@ -11,6 +11,7 @@ import {
 } from "next-intl/server";
 import type { ReactElement, ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
+import { HideOnRoutes } from "@/components/layout/HideOnRoutes";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
 import { PersonSchema } from "@/components/shared/PersonSchema";
@@ -27,6 +28,17 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Serif display face for editorial accents (contact page lettering). Fraunces
+// is the closest open font to the reference serif (Quincy CF): the opsz axis
+// gives warm, soft display letterforms at heading sizes, and SOFT keeps the
+// terminals rounded rather than sharp. WONK is intentionally not loaded so the
+// quirky alternate glyphs stay off.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["SOFT", "opsz"],
 });
 
 // Pre-renders one static page per locale at build time instead of rendering on
@@ -106,7 +118,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable}`}
     >
       <body className="flex min-h-screen flex-col bg-surface-0 text-ink-1 antialiased">
         <PersonSchema jobTitle={tCommon("role")} />
@@ -114,7 +126,11 @@ export default async function LocaleLayout({
           <Providers>
             <Navbar />
             <main className="flex-1 pt-14">{children}</main>
-            <Footer />
+            {/* Contact is a viewport-fit page (no scroll); its box carries the
+                copyright and socials, so the global footer stays off there. */}
+            <HideOnRoutes routes={["/contact"]}>
+              <Footer />
+            </HideOnRoutes>
           </Providers>
         </NextIntlClientProvider>
         <Analytics />

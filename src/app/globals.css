@@ -23,6 +23,13 @@
      this for a subtle, calm hierarchy rather than a heavy one. */
   --surface-brand: #f4fafa;
 
+  /* Cream paper surface for the reference-style contact page: warm and
+     low-chroma so teal accents read muted against it instead of bright.
+     paper = the content box (the page surround stays white via surface-0),
+     paper-deep = a slightly deeper cream for hover states inside the box. */
+  --surface-paper: #f2ecdf;
+  --surface-paper-deep: #e7dfcf;
+
   /* Border */
   --border: #e5e5e5;
   --border-subtle: #f0f0f0;
@@ -40,6 +47,11 @@
   /* Dark tint of the teal brand (#02777c) - shares the buttons' hue so the surface
      and the teal CTAs/icons read as the same family, not a clashing dark green. */
   --surface-brand: #0c1e20;
+
+  /* At night the paper box keeps a faint teal-dark tint against the neutral
+     near-black surround, mirroring the light arrangement. */
+  --surface-paper: #0c1e20;
+  --surface-paper-deep: #12282a;
 
   --border: #2a2a2a;
   --border-subtle: #1c1c1c;
@@ -69,6 +81,8 @@
   --color-surface-1: var(--surface-1);
   --color-surface-2: var(--surface-2);
   --color-surface-brand: var(--surface-brand);
+  --color-surface-paper: var(--surface-paper);
+  --color-surface-paper-deep: var(--surface-paper-deep);
 
   /* Border */
   --color-border: var(--border);
@@ -77,17 +91,121 @@
   /* Typography — points to CSS vars injected by next/font in layout.tsx */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Code", monospace;
+  --font-serif: var(--font-fraunces), Georgia, serif;
 }
 
 /* Base resets */
 body {
   background-color: var(--surface-0);
+  /* Static SVG noise adds tactile grain without JS or blend-mode side effects.
+     Slightly lower opacity on white than it would be on a tinted base. */
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.025'/></svg>");
   color: var(--ink-1);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
+.dark body {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.015'/></svg>");
+}
+
+/* Film-grain flicker: discrete background-position jumps (steps collapses each
+   segment into a hard cut, like projector noise). Offsets taken from the
+   reference site's noiseTextureAnim. */
+@keyframes grain-jitter {
+  0% {
+    background-position: 0 0;
+  }
+  10% {
+    background-position: 10px 10px;
+  }
+  20% {
+    background-position: 150px 20px;
+  }
+  30% {
+    background-position: 125px 125px;
+  }
+  40% {
+    background-position: 40px 170px;
+  }
+  50% {
+    background-position: 125px 125px;
+  }
+  60% {
+    background-position: 90px 10px;
+  }
+  70% {
+    background-position: 60px 100px;
+  }
+  80% {
+    background-position: 20px 70px;
+  }
+  90% {
+    background-position: 120px 80px;
+  }
+  100% {
+    background-position: 0 250px;
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* The track holds two copies of the same content, so -50% lands exactly
+       on the start of the second copy and the loop is seamless. */
+    transform: translateX(-50%);
+  }
+}
+
 @layer utilities {
+  /* Reusable grain overlay: stacks on top of any background-color via
+     background-image (separate CSS property, no conflict with bg-* utilities).
+     Apply to any element where the body grain would otherwise be hidden by a
+     solid background (e.g. surface-brand sections, white content boxes). */
+  /* feColorMatrix saturate=0 turns the turbulence's RGB noise into neutral
+     gray fleck, so the texture reads as paper fiber rather than color static. */
+  .grain {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.12'/></svg>");
+  }
+  .dark .grain {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.04'/></svg>");
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .grain {
+      /* A fixed tile size makes the texture repeat, which is what lets the
+         background-position jumps read as flicker (a full-bleed image would
+         shift invisibly). Seams are imperceptible at this opacity. */
+      background-size: 250px 250px;
+      animation: grain-jitter 0.55s steps(1) infinite;
+    }
+  }
+
+  /* Infinite horizontal scroller. Markup contract: an overflow-hidden parent
+     containing a .marquee-track with its content duplicated twice. */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll 22s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+
+  /* Hollow display lettering (reference style): stroke only, no fill. Meant
+     for large decorative serif text; too thin strokes vanish at small sizes. */
+  .text-outline {
+    -webkit-text-stroke: 1.5px rgb(2 119 124 / 0.4);
+    color: transparent;
+  }
+  .dark .text-outline {
+    -webkit-text-stroke: 1.5px rgb(2 119 124 / 0.55);
+  }
+
   .section-blend {
     -webkit-mask-image: linear-gradient(
       to bottom,

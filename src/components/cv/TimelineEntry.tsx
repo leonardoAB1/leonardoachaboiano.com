@@ -87,15 +87,15 @@ export function TimelineEntry({
       {/* Content column with vertical line indicator */}
       <div
         className={cn(
-          "relative border-s border-border-subtle ps-6",
-          isLast ? "pb-0" : "pb-14",
+          "relative border-s border-border ps-6",
+          isLast ? "pb-0" : "pb-20",
         )}
       >
         {/* Dot on the timeline line */}
         <span
           aria-hidden="true"
           className={cn(
-            "absolute -start-[5px] top-1.5 size-2.5 rounded-full border-2 border-brand transition-colors duration-200",
+            "absolute -start-[5px] top-1.5 size-2.5 rounded-full border-[1.5px] border-brand transition-colors duration-200",
             isActive ? "bg-brand" : "bg-surface-0",
           )}
         />
