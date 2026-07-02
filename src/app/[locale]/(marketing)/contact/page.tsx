@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement, SVGProps } from "react";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ProfileQrToggle } from "@/components/contact/ProfileQrToggle";
-import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import {
   FacebookIcon,
@@ -95,9 +94,9 @@ export default async function ContactPage({
 
   return (
     <Section className="-mt-14 min-h-svh bg-surface-brand grain pt-28 sm:pt-32">
-      {/* Tighter horizontal padding brings the outer border closer to the edge,
-          matching the narrow-margin grid feel of the reference. */}
-      <Container className="px-4 sm:px-6">
+      {/* Plain wrapper with minimal padding - no max-width cap so the teal border
+          sits just 12-16px from the viewport edge, matching the reference layout. */}
+      <div className="px-3 sm:px-4">
         {/* Single connected box: straight corners so the teal border reads as
             a ruled grid line rather than a card. grain class layers the SVG
             noise texture on top of the solid white background. */}
@@ -176,7 +175,7 @@ export default async function ContactPage({
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </Section>
   );
 }
