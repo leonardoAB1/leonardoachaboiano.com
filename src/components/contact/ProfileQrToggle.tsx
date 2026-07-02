@@ -55,7 +55,9 @@ export function ProfileQrToggle({
         aria-label={showQr ? showPhotoLabel : showQrLabel}
         aria-pressed={showQr}
         className={cn(
-          "relative overflow-hidden outline-offset-4 ring-1 ring-brand/50 transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-brand",
+          // Sticker tilt: rests slightly rotated and straightens on hover,
+          // like hand-placed photos on the reference site.
+          "-rotate-2 relative overflow-hidden outline-offset-4 ring-1 ring-brand/50 transition-transform duration-200 hover:rotate-0 hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-brand",
           sizeClassName,
         )}
       >
