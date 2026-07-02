@@ -1,3 +1,4 @@
+import { ArrowDownRight } from "lucide-react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement, SVGProps } from "react";
@@ -12,6 +13,7 @@ import {
   MailIcon,
 } from "@/components/ui/BrandIcons";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
+import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
@@ -101,26 +103,55 @@ export default async function ContactPage({
             a ruled grid line rather than a card. grain class layers the SVG
             noise texture on top of the solid white background. */}
         <div className="border border-brand/40 bg-surface-0 grain">
-          {/* Decorative top strip - hatched cell on left, eyebrow label on right */}
+          {/* Decorative top strip, four ruled cells as in the mockups:
+              hatch | label + teal mark | flexible spacer | works link */}
           <div className="flex h-10 border-b border-brand/40">
+            {/* Hatch narrows on phones so the label and works cells fit on one line */}
             <div
               aria-hidden="true"
-              className="w-24 shrink-0 border-r border-brand/40"
+              className="w-14 shrink-0 border-r border-brand/40 sm:w-36"
               style={{
                 backgroundImage:
                   "repeating-linear-gradient(-45deg, rgb(2 119 124 / 0.2) 0px, rgb(2 119 124 / 0.2) 2px, transparent 2px, transparent 10px)",
               }}
             />
-            <div className="flex items-center px-6">
-              <Eyebrow>{t("eyebrow")}</Eyebrow>
+            <div className="flex items-center gap-3 border-r border-brand/40 px-4 sm:px-6">
+              <Eyebrow as="span" className="whitespace-nowrap">
+                {t("eyebrow")}
+              </Eyebrow>
+              <span
+                aria-hidden="true"
+                className="size-5 shrink-0 rounded-full bg-brand"
+              />
             </div>
+            <div className="flex-1" />
+            <Link
+              href="/projects"
+              className="hidden items-center gap-3 border-l border-brand/40 px-6 transition-colors duration-150 hover:bg-surface-brand sm:flex"
+            >
+              <Eyebrow as="span">{t("worksLabel")}</Eyebrow>
+              <span aria-hidden="true" className="grid grid-cols-3 gap-0.5">
+                {Array.from({ length: 9 }, (_, i) => (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: static decorative dots
+                  <span key={i} className="size-0.5 rounded-full bg-brand/60" />
+                ))}
+              </span>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x lg:divide-brand/40">
             {/* Left: heading + identity */}
             <div className="flex flex-col gap-10 p-8">
               <div className="flex flex-col gap-3">
-                <Heading as="h1" size="xl">
+                <Eyebrow>{t("eyebrow")}</Eyebrow>
+                {/* Serif display lettering per the reference: warm serif, brand
+                    teal, moderate scale rather than hero scale. tracking-normal
+                    undoes the sans-oriented tracking-tight base. */}
+                <Heading
+                  as="h1"
+                  size="lg"
+                  className="font-serif tracking-normal text-brand"
+                >
                   {t("heading")}
                 </Heading>
                 <Text size="md">{t("intro")}</Text>
@@ -143,7 +174,11 @@ export default async function ContactPage({
                 />
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-col gap-0.5">
-                    <Heading as="h2" size="md" className="text-brand sm:text-2xl">
+                    <Heading
+                      as="h2"
+                      size="md"
+                      className="font-serif tracking-normal text-brand sm:text-2xl"
+                    >
                       {siteConfig.name}
                     </Heading>
                     <Text size="sm" className="text-ink-3">
@@ -162,7 +197,7 @@ export default async function ContactPage({
                               ? undefined
                               : "noopener noreferrer"
                           }
-                          className="text-ink-3 transition-colors duration-150 hover:text-brand"
+                          className="text-brand/70 transition-colors duration-150 hover:text-brand"
                         >
                           <social.Icon size={18} />
                         </a>
@@ -174,8 +209,20 @@ export default async function ContactPage({
             </div>
 
             {/* Right: form - desktop only */}
-            <div className="hidden lg:block p-8">
+            <div className="hidden p-8 lg:block">
               <ContactForm />
+            </div>
+          </div>
+
+          {/* Bottom strip - flexible spacer plus the corner arrow cell */}
+          <div className="flex border-t border-brand/40">
+            <div className="flex-1" />
+            <div className="flex size-10 items-center justify-center border-l border-brand/40">
+              <ArrowDownRight
+                size={16}
+                className="text-brand"
+                aria-hidden="true"
+              />
             </div>
           </div>
         </div>
