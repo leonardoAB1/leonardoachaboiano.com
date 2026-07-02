@@ -96,7 +96,7 @@ export default async function ContactPage({
     <Section className="-mt-14 min-h-svh bg-surface-brand grain pt-28 sm:pt-32">
       {/* Plain wrapper with minimal padding - no max-width cap so the teal border
           sits just 12-16px from the viewport edge, matching the reference layout. */}
-      <div className="px-3 sm:px-4">
+      <div className="px-4 sm:px-6">
         {/* Single connected box: straight corners so the teal border reads as
             a ruled grid line rather than a card. grain class layers the SVG
             noise texture on top of the solid white background. */}
