@@ -11,6 +11,7 @@ import {
 } from "next-intl/server";
 import type { ReactElement, ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
+import { HideOnRoutes } from "@/components/layout/HideOnRoutes";
 import { Navbar } from "@/components/layout/Navbar";
 import { Providers } from "@/components/layout/Providers";
 import { PersonSchema } from "@/components/shared/PersonSchema";
@@ -125,7 +126,11 @@ export default async function LocaleLayout({
           <Providers>
             <Navbar />
             <main className="flex-1 pt-14">{children}</main>
-            <Footer />
+            {/* Contact is a viewport-fit page (no scroll); its box carries the
+                copyright and socials, so the global footer stays off there. */}
+            <HideOnRoutes routes={["/contact"]}>
+              <Footer />
+            </HideOnRoutes>
           </Providers>
         </NextIntlClientProvider>
         <Analytics />
