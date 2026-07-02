@@ -24,6 +24,8 @@ interface ProfileQrToggleProps {
   qrBgClassName: string;
   /** Module color for the QR (text-* drives the SVG's currentColor). */
   qrColorClassName: string;
+  /** Tailwind size class for the button square. Defaults to "size-48". */
+  sizeClassName?: string;
 }
 
 // Squircle avatar that flips to a scannable QR on click. The photo is the
@@ -41,6 +43,7 @@ export function ProfileQrToggle({
   showPhotoLabel,
   qrBgClassName,
   qrColorClassName,
+  sizeClassName = "size-48",
 }: ProfileQrToggleProps): ReactElement {
   const [showQr, setShowQr] = useState(false);
 
@@ -51,7 +54,7 @@ export function ProfileQrToggle({
         onClick={() => setShowQr((v) => !v)}
         aria-label={showQr ? showPhotoLabel : showQrLabel}
         aria-pressed={showQr}
-        className="relative size-48 overflow-hidden outline-offset-4 ring-1 ring-brand/50 transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-brand"
+        className={cn("relative overflow-hidden outline-offset-4 ring-1 ring-brand/50 transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-brand", sizeClassName)}
       >
         {/* Photo layer */}
         <Image

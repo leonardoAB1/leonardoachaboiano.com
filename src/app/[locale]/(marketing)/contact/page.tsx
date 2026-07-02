@@ -125,7 +125,8 @@ export default async function ContactPage({
                 </Heading>
                 <Text size="md">{t("intro")}</Text>
               </div>
-              <div className="flex flex-col items-center gap-4 text-center">
+              {/* Identity: photo LEFT, name+role+socials RIGHT - matches mockup composition */}
+              <div className="flex items-start gap-5">
                 <ProfileQrToggle
                   photoSrc="/images/headshot.webp"
                   photoAlt={siteConfig.name}
@@ -138,34 +139,37 @@ export default async function ContactPage({
                   showPhotoLabel={t("showPhoto")}
                   qrBgClassName="bg-brand"
                   qrColorClassName="text-white"
+                  sizeClassName="size-24"
                 />
-                <div className="flex flex-col gap-1">
-                  <Heading as="h2" size="md">
-                    {siteConfig.name}
-                  </Heading>
-                  <Text size="md" className="text-ink-2">
-                    {tCommon("role")}
-                  </Text>
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-0.5">
+                    <Heading as="h2" size="md" className="text-brand sm:text-2xl">
+                      {siteConfig.name}
+                    </Heading>
+                    <Text size="sm" className="text-ink-3">
+                      {tCommon("role")}
+                    </Text>
+                  </div>
+                  <ul className="flex items-center gap-3">
+                    {socialIcons.map((social) => (
+                      <li key={social.id}>
+                        <a
+                          href={social.href}
+                          aria-label={social.label}
+                          target={social.id === "email" ? undefined : "_blank"}
+                          rel={
+                            social.id === "email"
+                              ? undefined
+                              : "noopener noreferrer"
+                          }
+                          className="text-ink-3 transition-colors duration-150 hover:text-brand"
+                        >
+                          <social.Icon size={18} />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="flex items-center gap-3">
-                  {socialIcons.map((social) => (
-                    <li key={social.id}>
-                      <a
-                        href={social.href}
-                        aria-label={social.label}
-                        target={social.id === "email" ? undefined : "_blank"}
-                        rel={
-                          social.id === "email"
-                            ? undefined
-                            : "noopener noreferrer"
-                        }
-                        className="text-ink-3 transition-colors duration-150 hover:text-brand"
-                      >
-                        <social.Icon size={20} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
 
