@@ -23,11 +23,12 @@
      this for a subtle, calm hierarchy rather than a heavy one. */
   --surface-brand: #f4fafa;
 
-  /* Cream paper surfaces for the reference-style contact page: warm and
-     low-chroma so teal accents read muted against them instead of bright.
-     paper = content box, paper-deep = the page surround behind it. */
-  --surface-paper: #f6f1e7;
-  --surface-paper-deep: #ebe4d6;
+  /* Cream paper surface for the reference-style contact page: warm and
+     low-chroma so teal accents read muted against it instead of bright.
+     paper = the content box (the page surround stays white via surface-0),
+     paper-deep = a slightly deeper cream for hover states inside the box. */
+  --surface-paper: #f2ecdf;
+  --surface-paper-deep: #e7dfcf;
 
   /* Border */
   --border: #e5e5e5;
@@ -47,9 +48,10 @@
      and the teal CTAs/icons read as the same family, not a clashing dark green. */
   --surface-brand: #0c1e20;
 
-  /* Paper flattens to the standard dark surfaces at night. */
-  --surface-paper: #0a0a0a;
-  --surface-paper-deep: #0c1e20;
+  /* At night the paper box keeps a faint teal-dark tint against the neutral
+     near-black surround, mirroring the light arrangement. */
+  --surface-paper: #0c1e20;
+  --surface-paper-deep: #12282a;
 
   --border: #2a2a2a;
   --border-subtle: #1c1c1c;
