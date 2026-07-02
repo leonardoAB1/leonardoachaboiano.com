@@ -123,11 +123,11 @@ export default async function ContactPage({
     // navbar and lg:h-svh pins the whole page to exactly one screen (the
     // global footer is hidden on this route). Below lg the stacked layout
     // scrolls naturally.
-    <section className="-mt-14 flex min-h-svh flex-col bg-surface-brand grain px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
+    <section className="-mt-14 flex min-h-svh flex-col bg-surface-paper-deep grain px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
       {/* Single connected box: straight corners so the teal border reads as
           a ruled grid line rather than a card. overflow-hidden clips the
           decorative outline lettering at the border, like the reference. */}
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden border border-brand/40 bg-surface-0 grain">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden border border-brand/40 bg-surface-paper grain">
         {/* Decorative top strip, four ruled cells as in the mockups:
               hatch | label + teal mark | flexible spacer | works link */}
         <div className="flex h-10 shrink-0 border-b border-brand/40">
@@ -152,7 +152,7 @@ export default async function ContactPage({
           <div className="flex-1" />
           <Link
             href="/projects"
-            className="hidden items-center gap-3 border-l border-brand/40 px-6 transition-colors duration-150 hover:bg-surface-brand sm:flex"
+            className="hidden items-center gap-3 border-l border-brand/40 px-6 transition-colors duration-150 hover:bg-surface-paper-deep sm:flex"
           >
             <Eyebrow as="span">{t("worksLabel")}</Eyebrow>
             <span aria-hidden="true" className="grid grid-cols-3 gap-0.5">
