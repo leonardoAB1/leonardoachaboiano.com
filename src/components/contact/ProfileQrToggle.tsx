@@ -54,7 +54,10 @@ export function ProfileQrToggle({
         onClick={() => setShowQr((v) => !v)}
         aria-label={showQr ? showPhotoLabel : showQrLabel}
         aria-pressed={showQr}
-        className={cn("relative overflow-hidden outline-offset-4 ring-1 ring-brand/50 transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-brand", sizeClassName)}
+        className={cn(
+          "relative overflow-hidden outline-offset-4 ring-1 ring-brand/50 transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-2 focus-visible:outline-brand",
+          sizeClassName,
+        )}
       >
         {/* Photo layer */}
         <Image

@@ -162,7 +162,6 @@ export function CVContent(): ReactElement {
               })}
             </div>
           </AnimatedSection>
-
         </div>
 
         {/* Right column: globe (desktop only) + languages/achievements panel */}
