@@ -13,12 +13,10 @@ import {
   MailIcon,
 } from "@/components/ui/BrandIcons";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
-import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 import { qrRoundedPath } from "@/lib/qr";
-import { cn } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -102,28 +100,12 @@ export default async function ContactPage({
     () => `${t("heading")} · ${t("eyebrow")}`,
   ).join(" · ")} ·`;
 
-  // Bottom-strip wordmark, reference style: a few glyphs sit slightly rotated,
-  // like hand-placed type. Fixed indices keep the server output deterministic.
-  const year = String(new Date().getFullYear());
-  const wordmarkTilts: Record<number, string> = {
-    1: "-rotate-12",
-    9: "rotate-12",
-    16: "-rotate-6",
-  };
-  const wordmarkGlyphs = siteConfig.name.split("").map((char, index) => ({
-    key: `${index}${char}`,
-    // Regular spaces collapse to zero width inside inline-block glyph spans,
-    // so words are separated with non-breaking spaces instead.
-    char: char === " " ? "\u00A0" : char,
-    tilt: wordmarkTilts[index],
-  }));
-
   return (
     // Viewport-fit page: -mt-14 pulls the tinted surface under the fixed
     // navbar and lg:h-svh pins the whole page to exactly one screen (the
     // global footer is hidden on this route). Below lg the stacked layout
     // scrolls naturally.
-    <section className="-mt-14 flex min-h-svh flex-col bg-surface-paper grain px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
+    <section className="-mt-14 flex min-h-svh flex-col px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
       {/* Single connected box: straight corners so the teal border reads as
           a ruled grid line rather than a card. overflow-hidden clips the
           decorative outline lettering at the border, like the reference.
@@ -153,18 +135,6 @@ export default async function ContactPage({
             />
           </div>
           <div className="flex-1" />
-          <Link
-            href="/projects"
-            className="hidden items-center gap-3 border-l border-brand/40 px-6 transition-colors duration-150 hover:bg-surface-paper-deep sm:flex"
-          >
-            <Eyebrow as="span">{t("worksLabel")}</Eyebrow>
-            <span aria-hidden="true" className="grid grid-cols-3 gap-0.5">
-              {Array.from({ length: 9 }, (_, i) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: static decorative dots
-                <span key={i} className="size-0.5 rounded-full bg-brand/60" />
-              ))}
-            </span>
-          </Link>
         </div>
 
         <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-2 lg:divide-x lg:divide-brand/40">
@@ -257,23 +227,8 @@ export default async function ContactPage({
           </AnimatedSection>
         </div>
 
-        {/* Bottom strip - wordmark, marquee, corner arrow. Replaces the
-              global footer on this route. */}
+        {/* Bottom strip - marquee plus corner arrow */}
         <div className="flex h-10 shrink-0 border-t border-brand/40">
-          <div className="hidden shrink-0 items-center border-r border-brand/40 px-4 font-serif text-sm text-brand sm:flex">
-            <span className="sr-only">{`© ${year} ${siteConfig.name}`}</span>
-            <span aria-hidden="true" className="flex items-center">
-              <span className="mr-2">{`© ${year}`}</span>
-              {wordmarkGlyphs.map((glyph) => (
-                <span
-                  key={glyph.key}
-                  className={cn("inline-block", glyph.tilt)}
-                >
-                  {glyph.char}
-                </span>
-              ))}
-            </span>
-          </div>
           <div className="min-w-0 flex-1 overflow-hidden">
             <div
               aria-hidden="true"
