@@ -122,7 +122,7 @@ export default async function ContactPage({
         />
         <span
           aria-hidden="true"
-          className="rule-x draw-x absolute inset-x-0 bottom-0 [animation-delay:150ms]"
+          className="rule-x draw-x absolute inset-x-0 bottom-0 [animation-delay:100ms]"
         />
         <span
           aria-hidden="true"
@@ -130,14 +130,14 @@ export default async function ContactPage({
         />
         <span
           aria-hidden="true"
-          className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:150ms]"
+          className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:100ms]"
         />
         {/* Decorative top strip, ruled cells as in the mockups:
               hatch | label + teal mark | flexible spacer */}
         <div className="relative flex h-10 shrink-0">
           <span
             aria-hidden="true"
-            className="rule-x draw-x absolute inset-x-0 bottom-0 [animation-delay:200ms]"
+            className="rule-x draw-x absolute inset-x-0 bottom-0 [animation-delay:120ms]"
           />
           {/* Hatch narrows on phones so the label cell fits on one line */}
           <div
@@ -148,12 +148,12 @@ export default async function ContactPage({
                 "repeating-linear-gradient(-45deg, rgb(2 119 124 / 0.2) 0px, rgb(2 119 124 / 0.2) 2px, transparent 2px, transparent 10px)",
             }}
           >
-            <span className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:350ms]" />
+            <span className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:200ms]" />
           </div>
           <div className="sweep-rule relative flex items-center gap-3 px-4 sm:px-6">
             <span
               aria-hidden="true"
-              className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:350ms]"
+              className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:200ms]"
             />
             <Eyebrow as="span" className="whitespace-nowrap">
               {t("eyebrow")}
@@ -170,13 +170,13 @@ export default async function ContactPage({
           {/* Column divider as a drawable rule (lg only) */}
           <span
             aria-hidden="true"
-            className="rule-y draw-y absolute inset-y-0 left-1/2 hidden lg:block [animation-delay:400ms]"
+            className="rule-y draw-y absolute inset-y-0 left-1/2 hidden lg:block [animation-delay:250ms]"
           />
           {/* Left: heading + identity + decorative outline lettering */}
-          {/* Content delays sit after the ~0.4s line draws so the grid
-              sketches itself first, then the content fades in. */}
+          {/* Content delays sit just after the line draws start, so the grid
+              sketches first without making navigation feel slow. */}
           <AnimatedSection
-            delay={0.35}
+            delay={0.2}
             className="sweep-rule relative flex min-h-0 flex-col gap-8 p-8 lg:p-10"
           >
             <div className="flex flex-col gap-3">
@@ -260,12 +260,12 @@ export default async function ContactPage({
                 divider takes over); the column scrolls internally if the
                 viewport is unusually short. */}
           <AnimatedSection
-            delay={0.5}
+            delay={0.3}
             className="sweep-rule relative min-h-0 p-8 lg:overflow-y-auto lg:p-10"
           >
             <span
               aria-hidden="true"
-              className="rule-x draw-x absolute inset-x-0 top-0 lg:hidden [animation-delay:400ms]"
+              className="rule-x draw-x absolute inset-x-0 top-0 lg:hidden [animation-delay:250ms]"
             />
             <ContactForm />
           </AnimatedSection>
@@ -275,7 +275,7 @@ export default async function ContactPage({
         <div className="relative flex h-10 shrink-0">
           <span
             aria-hidden="true"
-            className="rule-x draw-x absolute inset-x-0 top-0 [animation-delay:250ms]"
+            className="rule-x draw-x absolute inset-x-0 top-0 [animation-delay:150ms]"
           />
           <div className="min-w-0 flex-1 overflow-hidden">
             <div
@@ -293,7 +293,7 @@ export default async function ContactPage({
           <div className="group sweep-rule relative flex size-10 shrink-0 items-center justify-center">
             <span
               aria-hidden="true"
-              className="rule-y draw-y absolute inset-y-0 left-0 [animation-delay:350ms]"
+              className="rule-y draw-y absolute inset-y-0 left-0 [animation-delay:200ms]"
             />
             <ArrowDownRight
               size={16}

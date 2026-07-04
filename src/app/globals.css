@@ -265,12 +265,12 @@ html {
   .draw-x {
     transform: scaleX(0);
     transform-origin: left;
-    animation: draw-x 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: draw-x 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
   .draw-y {
     transform: scaleY(0);
     transform-origin: top;
-    animation: draw-y 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: draw-y 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
   @media (prefers-reduced-motion: reduce) {
     .draw-x,
