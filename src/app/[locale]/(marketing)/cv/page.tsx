@@ -50,7 +50,7 @@ export default async function CVPage({
           media="(min-width: 1024px)"
         />
       ))}
-      <div className="bg-surface-0">
+      <div>
         {/* Header - server rendered, no interaction needed */}
         <Section as="header" className="py-8 sm:py-12">
           <Container>
