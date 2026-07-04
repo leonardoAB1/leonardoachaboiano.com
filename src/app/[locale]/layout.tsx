@@ -120,7 +120,9 @@ export default async function LocaleLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable}`}
     >
-      <body className="flex min-h-screen flex-col bg-surface-0 text-ink-1 antialiased">
+      {/* Background (paper texture + fallback color) is owned by the body
+          rule in globals.css, so no bg-* utility here. */}
+      <body className="flex min-h-screen flex-col text-ink-1 antialiased">
         <PersonSchema jobTitle={tCommon("role")} />
         <NextIntlClientProvider messages={messages}>
           <Providers>
