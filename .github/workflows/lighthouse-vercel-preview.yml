@@ -18,7 +18,7 @@ jobs:
     if: ${{ github.event.deployment_status.state == 'success' && github.event.deployment_status.environment_url != '' && github.event.deployment.environment != 'Production' && github.event.deployment.environment != 'production' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.deployment.sha }}
 
