@@ -112,20 +112,49 @@ export default async function ContactPage({
           Transparent on purpose - the section's paper texture runs through
           continuously (a second .grain here would tile from a different
           origin and seam at the border). */}
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden border border-brand/40">
-        {/* Decorative top strip, four ruled cells as in the mockups:
-              hatch | label + teal mark | flexible spacer | works link */}
-        <div className="flex h-10 shrink-0 border-b border-brand/40">
-          {/* Hatch narrows on phones so the label and works cells fit on one line */}
+      <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
+        {/* Box edges as drawable rules (reference style): borders cannot be
+            scale-animated, so each structural line is its own 1px element
+            that draws in, staggered so the grid appears to sketch itself. */}
+        <span
+          aria-hidden="true"
+          className="rule-x draw-x absolute inset-x-0 top-0"
+        />
+        <span
+          aria-hidden="true"
+          className="rule-x draw-x absolute inset-x-0 bottom-0 [animation-delay:150ms]"
+        />
+        <span
+          aria-hidden="true"
+          className="rule-y draw-y absolute inset-y-0 left-0"
+        />
+        <span
+          aria-hidden="true"
+          className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:150ms]"
+        />
+        {/* Decorative top strip, ruled cells as in the mockups:
+              hatch | label + teal mark | flexible spacer */}
+        <div className="relative flex h-10 shrink-0">
+          <span
+            aria-hidden="true"
+            className="rule-x draw-x absolute inset-x-0 bottom-0 [animation-delay:200ms]"
+          />
+          {/* Hatch narrows on phones so the label cell fits on one line */}
           <div
             aria-hidden="true"
-            className="w-14 shrink-0 border-r border-brand/40 sm:w-36"
+            className="relative w-14 shrink-0 sm:w-36"
             style={{
               backgroundImage:
                 "repeating-linear-gradient(-45deg, rgb(2 119 124 / 0.2) 0px, rgb(2 119 124 / 0.2) 2px, transparent 2px, transparent 10px)",
             }}
-          />
-          <div className="flex items-center gap-3 border-r border-brand/40 px-4 sm:px-6">
+          >
+            <span className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:350ms]" />
+          </div>
+          <div className="sweep-rule relative flex items-center gap-3 px-4 sm:px-6">
+            <span
+              aria-hidden="true"
+              className="rule-y draw-y absolute inset-y-0 right-0 [animation-delay:350ms]"
+            />
             <Eyebrow as="span" className="whitespace-nowrap">
               {t("eyebrow")}
             </Eyebrow>
@@ -137,9 +166,19 @@ export default async function ContactPage({
           <div className="flex-1" />
         </div>
 
-        <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-2 lg:divide-x lg:divide-brand/40">
+        <div className="relative grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-2">
+          {/* Column divider as a drawable rule (lg only) */}
+          <span
+            aria-hidden="true"
+            className="rule-y draw-y absolute inset-y-0 left-1/2 hidden lg:block [animation-delay:400ms]"
+          />
           {/* Left: heading + identity + decorative outline lettering */}
-          <AnimatedSection className="flex min-h-0 flex-col gap-8 p-8 lg:p-10">
+          {/* Content delays sit after the ~0.4s line draws so the grid
+              sketches itself first, then the content fades in. */}
+          <AnimatedSection
+            delay={0.35}
+            className="sweep-rule relative flex min-h-0 flex-col gap-8 p-8 lg:p-10"
+          >
             <div className="flex flex-col gap-3">
               <Eyebrow>{t("eyebrow")}</Eyebrow>
               {/* Display lettering at reference scale: the site's biggest
@@ -217,18 +256,27 @@ export default async function ContactPage({
           </AnimatedSection>
 
           {/* Right: form. On mobile it stacks under the identity block with a
-                teal top rule; from lg the grid divider takes over and the
-                column scrolls internally if the viewport is unusually short. */}
+                teal top rule (a drawable line, lg hides it since the grid
+                divider takes over); the column scrolls internally if the
+                viewport is unusually short. */}
           <AnimatedSection
-            delay={0.15}
-            className="min-h-0 border-t border-brand/40 p-8 lg:overflow-y-auto lg:border-t-0 lg:p-10"
+            delay={0.5}
+            className="sweep-rule relative min-h-0 p-8 lg:overflow-y-auto lg:p-10"
           >
+            <span
+              aria-hidden="true"
+              className="rule-x draw-x absolute inset-x-0 top-0 lg:hidden [animation-delay:400ms]"
+            />
             <ContactForm />
           </AnimatedSection>
         </div>
 
         {/* Bottom strip - marquee plus corner arrow */}
-        <div className="flex h-10 shrink-0 border-t border-brand/40">
+        <div className="relative flex h-10 shrink-0">
+          <span
+            aria-hidden="true"
+            className="rule-x draw-x absolute inset-x-0 top-0 [animation-delay:250ms]"
+          />
           <div className="min-w-0 flex-1 overflow-hidden">
             <div
               aria-hidden="true"
@@ -242,7 +290,11 @@ export default async function ContactPage({
               </span>
             </div>
           </div>
-          <div className="group flex size-10 shrink-0 items-center justify-center border-l border-brand/40">
+          <div className="group sweep-rule relative flex size-10 shrink-0 items-center justify-center">
+            <span
+              aria-hidden="true"
+              className="rule-y draw-y absolute inset-y-0 left-0 [animation-delay:350ms]"
+            />
             <ArrowDownRight
               size={16}
               className="text-brand transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
