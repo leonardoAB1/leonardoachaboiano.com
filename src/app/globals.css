@@ -211,6 +211,21 @@ html {
   }
 }
 
+/* Grid rules drawing themselves in, reference style: dedicated 1px line
+   elements scaled from 0 to 1. Transform-only, so the draw runs entirely on
+   the compositor. */
+@keyframes draw-x {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes draw-y {
+  to {
+    transform: scaleY(1);
+  }
+}
+
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);
@@ -233,6 +248,57 @@ html {
   @media (prefers-reduced-motion: reduce) {
     .marquee-track {
       animation: none;
+    }
+  }
+
+  /* 1px teal grid rules. rule-x/rule-y set the geometry; draw-x/draw-y make
+     them draw in on mount (staggered per element via animation-delay).
+     Reduced motion shows every line instantly instead. */
+  .rule-x {
+    height: 1px;
+    background: rgb(2 119 124 / 0.4);
+  }
+  .rule-y {
+    width: 1px;
+    background: rgb(2 119 124 / 0.4);
+  }
+  .draw-x {
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: draw-x 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .draw-y {
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: draw-y 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .draw-x,
+    .draw-y {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  /* Hover sweep: a solid teal line enters along the element's top edge from
+     the left and, on unhover, exits to the right (the origin flip does the
+     direction change). Scoped to hover-capable fine pointers so touch
+     devices never pay for it. Host element must be positioned. */
+  @media (hover: hover) and (pointer: fine) {
+    .sweep-rule::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      z-index: 1;
+      height: 1px;
+      background: var(--color-brand);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .sweep-rule:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
     }
   }
 
