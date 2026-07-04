@@ -42,7 +42,7 @@ export function SocialLinks({ className }: SocialLinksProps): ReactElement {
                   ? undefined
                   : "noopener noreferrer"
               }
-              className="text-ink-3 transition-colors hover:text-ink-1"
+              className="text-ink-3 transition-colors hover:text-brand"
             >
               <link.Icon size={18} />
             </Link>
