@@ -1,6 +1,12 @@
 "use client";
 
-import { LayoutGroup, m, type Variants } from "framer-motion";
+import {
+  LayoutGroup,
+  m,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -14,6 +20,7 @@ import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -39,6 +46,19 @@ const layoutTransition = {
   bounce: 0.15,
   duration: 0.5,
 } as const;
+
+// Parallax tuning - the background plate drifts less than the foreground
+// cutout, which reads as depth (the closer plane moves faster as the page
+// scrolls past the hero). Distances are deliberately small: brand guidance
+// is subtle motion only, not a dramatic effect. The _REDUCED pair scales the
+// same effect down under prefers-reduced-motion rather than disabling it,
+// following the precedent set in GlobeVisualization.
+const PARALLAX_BG_PX = 18;
+const PARALLAX_PERSON_PX = 42;
+const PARALLAX_BG_PX_REDUCED = 8;
+const PARALLAX_PERSON_PX_REDUCED = 18;
+const PARALLAX_BG_SCALE = 1.06;
+const PARALLAX_PERSON_SCALE = 1.12;
 
 // m.create() wraps any React component to accept Framer Motion props (layout,
 // animate, etc.). Next.js Link forwards its ref, so this works correctly.
@@ -76,6 +96,21 @@ export function Hero(): ReactElement {
   const tCommon = useTranslations("Common");
   const breakpoint = useBreakpoint();
   const heroRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // scrollYProgress goes 0 -> 1 as the hero scrolls from "just entered the
+  // top of the viewport" to "fully scrolled past" - i.e. exactly the range
+  // during which a top-of-page hero is visible and scrolling away.
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const bgMax = prefersReducedMotion ? PARALLAX_BG_PX_REDUCED : PARALLAX_BG_PX;
+  const personMax = prefersReducedMotion
+    ? PARALLAX_PERSON_PX_REDUCED
+    : PARALLAX_PERSON_PX;
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, bgMax]);
+  const personY = useTransform(scrollYProgress, [0, 1], [0, personMax]);
 
   // While the hero dominates the viewport, tint the page scrollbar in hero
   // colors (see .over-hero in globals.css) so the gutter doesn't cut a cream
@@ -104,17 +139,46 @@ export function Hero(): ReactElement {
 
   return (
     <Section className="relative flex min-h-svh flex-col overflow-hidden bg-brand pb-12 pt-[calc(3.5rem+2rem)] sm:pb-16 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
-      {/* Portrait — sky-focused on mobile, right-anchored on desktop */}
-      <div ref={heroRef} className="absolute inset-0" aria-hidden="true">
-        <Image
-          src="/images/portrait-hero.webp"
-          alt=""
-          fill
-          className="object-cover object-top lg:object-right-top"
-          priority
-          quality={75}
-          sizes="100vw"
-        />
+      {/* Portrait — sky-focused on mobile, right-anchored on desktop. Two
+          layers parallax at different rates for a depth cue: the background
+          plate drifts less, the person cutout drifts more, both driven by
+          the same heroRef scroll progress. Each inner layer is scaled up
+          slightly beyond its absolute-inset-0 box so the translate never
+          exposes an edge gap - scale (not a taller box) keeps object-cover's
+          crop framing identical to a static image at rest. */}
+      <div
+        ref={heroRef}
+        className="absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+      >
+        <m.div
+          style={{ y: bgY, scale: PARALLAX_BG_SCALE }}
+          className="absolute inset-0"
+        >
+          <Image
+            src="/images/portrait-hero-background.webp"
+            alt=""
+            fill
+            className="object-cover object-top lg:object-right-top"
+            priority
+            quality={75}
+            sizes="100vw"
+          />
+        </m.div>
+        <m.div
+          style={{ y: personY, scale: PARALLAX_PERSON_SCALE }}
+          className="absolute inset-0"
+        >
+          <Image
+            src="/images/portrait-hero-person.webp"
+            alt=""
+            fill
+            className="object-cover object-top lg:object-right-top"
+            priority
+            quality={75}
+            sizes="100vw"
+          />
+        </m.div>
       </div>
 
       {/* Text content — in normal flow, stacks above absolute layers via DOM order */}
