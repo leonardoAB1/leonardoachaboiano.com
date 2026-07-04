@@ -122,6 +122,46 @@ body::after {
   background-image: url("/img/fleck-dark.png");
 }
 
+/* Scrollbars join the paper sheet. WebKit exposes the track as a paintable
+   box, so it carries the same paper tile as the body; the thumb is a muted
+   teal bar (transparent border + padding-box clip insets it so the texture
+   peeks around it). Firefox only supports flat colors via scrollbar-color,
+   so it falls back to teal-on-paper solids. */
+html {
+  scrollbar-color: rgb(2 119 124 / 0.55) var(--surface-0);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background-color: var(--surface-0);
+  background-image: url("/img/paper.webp");
+  background-size: 500px 500px;
+}
+
+/* The document scrollbar belongs to <html>, which is where the theme class
+   lives - so match both the .dark element itself and its descendants. */
+.dark::-webkit-scrollbar-track,
+.dark ::-webkit-scrollbar-track,
+.dark::-webkit-scrollbar-corner,
+.dark ::-webkit-scrollbar-corner {
+  background-image: url("/img/paper-dark.webp");
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(2 119 124 / 0.45);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(2 119 124 / 0.7);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   body::after {
     animation: grain-jitter 0.55s steps(1) infinite;
