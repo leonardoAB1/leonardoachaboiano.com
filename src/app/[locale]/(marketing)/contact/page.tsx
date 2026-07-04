@@ -126,8 +126,11 @@ export default async function ContactPage({
     <section className="-mt-14 flex min-h-svh flex-col bg-surface-paper grain px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
       {/* Single connected box: straight corners so the teal border reads as
           a ruled grid line rather than a card. overflow-hidden clips the
-          decorative outline lettering at the border, like the reference. */}
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden border border-brand/40 bg-surface-paper grain">
+          decorative outline lettering at the border, like the reference.
+          Transparent on purpose - the section's paper texture runs through
+          continuously (a second .grain here would tile from a different
+          origin and seam at the border). */}
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden border border-brand/40">
         {/* Decorative top strip, four ruled cells as in the mockups:
               hatch | label + teal mark | flexible spacer | works link */}
         <div className="flex h-10 shrink-0 border-b border-brand/40">
