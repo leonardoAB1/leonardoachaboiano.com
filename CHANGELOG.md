@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.13.0...v1.14.0) (2026-07-04)
+
+
+### Features
+
+* editorial layout pass - shared motion, two-column sections, teal-grid contact box ([#301](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/301)) ([396ae5d](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/396ae5de32903c38569999469d33de20e35b236f))
+
 ## [1.13.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.12.3...v1.13.0) (2026-06-11)
 
 
