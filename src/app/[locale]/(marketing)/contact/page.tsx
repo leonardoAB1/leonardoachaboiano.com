@@ -123,7 +123,7 @@ export default async function ContactPage({
     // navbar and lg:h-svh pins the whole page to exactly one screen (the
     // global footer is hidden on this route). Below lg the stacked layout
     // scrolls naturally.
-    <section className="-mt-14 flex min-h-svh flex-col bg-surface-0 grain px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
+    <section className="-mt-14 flex min-h-svh flex-col bg-surface-paper grain px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
       {/* Single connected box: straight corners so the teal border reads as
           a ruled grid line rather than a card. overflow-hidden clips the
           decorative outline lettering at the border, like the reference. */}
