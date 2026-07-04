@@ -3,7 +3,13 @@
 import { LayoutGroup, m, type Variants } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { type ReactElement, useEffect, useLayoutEffect, useState } from "react";
+import {
+  type ReactElement,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
@@ -69,11 +75,37 @@ export function Hero(): ReactElement {
   const t = useTranslations("Home.Hero");
   const tCommon = useTranslations("Common");
   const breakpoint = useBreakpoint();
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // While the hero dominates the viewport, tint the page scrollbar in hero
+  // colors (see .over-hero in globals.css) so the gutter doesn't cut a cream
+  // strip into the teal panel - the scrollbar counterpart of the navbar's
+  // overHero color switch. IntersectionObserver keeps this passive; the class
+  // lives on <html> because that element owns the root scrollbar.
+  useEffect(() => {
+    const node = heroRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        document.documentElement.classList.toggle(
+          "over-hero",
+          entry.intersectionRatio >= 0.55,
+        );
+      },
+      { threshold: [0.55] },
+    );
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      // Route changes unmount the hero without a final observer callback.
+      document.documentElement.classList.remove("over-hero");
+    };
+  }, []);
 
   return (
     <Section className="relative flex min-h-svh flex-col overflow-hidden bg-brand pb-12 pt-[calc(3.5rem+2rem)] sm:pb-16 sm:pt-[calc(3.5rem+2.5rem)] lg:justify-center">
       {/* Portrait — sky-focused on mobile, right-anchored on desktop */}
-      <div className="absolute inset-0" aria-hidden="true">
+      <div ref={heroRef} className="absolute inset-0" aria-hidden="true">
         <Image
           src="/images/portrait-hero.webp"
           alt=""

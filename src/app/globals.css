@@ -162,6 +162,28 @@ html {
   background-color: rgb(2 119 124 / 0.7);
 }
 
+/* While the home hero fills the viewport, the scrollbar dresses in hero
+   colors so the gutter does not cut a cream strip into the teal panel.
+   The .over-hero class is toggled on <html> by the Hero's observer; brand
+   teal is theme-static, so one set of rules covers light and dark. */
+.over-hero {
+  scrollbar-color: rgb(255 255 255 / 0.45) var(--color-brand);
+}
+
+.over-hero::-webkit-scrollbar-track,
+.over-hero::-webkit-scrollbar-corner {
+  background-color: var(--color-brand);
+  background-image: none;
+}
+
+.over-hero::-webkit-scrollbar-thumb {
+  background-color: rgb(255 255 255 / 0.4);
+}
+
+.over-hero::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(255 255 255 / 0.6);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   body::after {
     animation: grain-jitter 0.55s steps(1) infinite;
