@@ -1,18 +1,14 @@
 "use client";
 
-import { m, type Variants } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactElement, ReactNode } from "react";
+import { fadeSlideUp, viewport } from "@/lib/motion-variants";
 
 interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
   delay?: number;
 }
-
-const variants: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0 },
-};
 
 export function AnimatedSection({
   children,
@@ -24,8 +20,8 @@ export function AnimatedSection({
       className={className}
       initial="hidden"
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay }}
-      variants={variants}
-      viewport={{ margin: "-80px", once: true }}
+      variants={fadeSlideUp}
+      viewport={viewport}
       whileInView="show"
     >
       {children}

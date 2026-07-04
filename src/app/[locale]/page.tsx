@@ -15,7 +15,7 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   return (
-    <div className="-mt-14 relative overflow-hidden bg-surface-0">
+    <div className="-mt-14 relative overflow-hidden">
       <Hero />
       <EngineeringPhilosophy />
     </div>
