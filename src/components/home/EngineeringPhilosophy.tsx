@@ -14,8 +14,11 @@ export function EngineeringPhilosophy(): ReactElement {
     <span className="font-medium text-brand">{chunks}</span>
   );
 
+  // Transparent section on purpose: the body's paper texture runs through,
+  // so this reads as the same sheet as the rest of the site (a solid bg here
+  // left a flat, differently-tinted band under the hero photo).
   return (
-    <Section className="border-t border-border bg-surface-brand">
+    <Section className="border-t border-border">
       <Container>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-16 lg:gap-24">
           {/* Left column: heading + lead paragraph */}

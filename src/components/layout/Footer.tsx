@@ -10,8 +10,10 @@ export function Footer(): ReactElement {
   // pick up locale digit grouping, e.g. "2,026").
   const year = String(new Date().getFullYear());
 
+  // Transparent footer: the body's paper texture shows through; the top rule
+  // alone separates it, matching the ruled-sheet style.
   return (
-    <footer className="border-t border-border bg-surface-1">
+    <footer className="border-t border-border">
       <div
         className={cn(
           "mx-auto flex w-full max-w-5xl flex-col items-center",
