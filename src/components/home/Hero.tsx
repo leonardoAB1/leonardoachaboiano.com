@@ -111,6 +111,15 @@ export function Hero(): ReactElement {
     : PARALLAX_PERSON_PX;
   const bgY = useTransform(scrollYProgress, [0, 1], [0, bgMax]);
   const personY = useTransform(scrollYProgress, [0, 1], [0, personMax]);
+  // Scale must grow from 1 (true native size, matching the pre-parallax
+  // photo exactly) rather than being a constant - a fixed scale would zoom
+  // the image at rest, before any scrolling happens.
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, PARALLAX_BG_SCALE]);
+  const personScale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [1, PARALLAX_PERSON_SCALE],
+  );
 
   // While the hero dominates the viewport, tint the page scrollbar in hero
   // colors (see .over-hero in globals.css) so the gutter doesn't cut a cream
@@ -151,10 +160,7 @@ export function Hero(): ReactElement {
         className="absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
-        <m.div
-          style={{ y: bgY, scale: PARALLAX_BG_SCALE }}
-          className="absolute inset-0"
-        >
+        <m.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0">
           <Image
             src="/images/portrait-hero-background.webp"
             alt=""
@@ -166,7 +172,7 @@ export function Hero(): ReactElement {
           />
         </m.div>
         <m.div
-          style={{ y: personY, scale: PARALLAX_PERSON_SCALE }}
+          style={{ y: personY, scale: personScale }}
           className="absolute inset-0"
         >
           <Image
