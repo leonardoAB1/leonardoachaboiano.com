@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.14.0...v1.15.0) (2026-07-05)
+
+
+### Features
+
+* implement depth parallax scrolling in hero ([#305](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/305)) ([c6a01ca](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/c6a01ca1d1b92ae9cd667a22626ccf1f2696c8d8))
+
 ## [1.14.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.13.0...v1.14.0) (2026-07-04)
 
 
