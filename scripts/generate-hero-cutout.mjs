@@ -1,6 +1,6 @@
 import sharp from "sharp";
 
-const SOURCE_WITH_PERSON = "public/images/portrait-hero.webp";
+const SOURCE_WITH_PERSON = "C:/Users/ZEPHYRUS/Downloads/portrait-hero-original.webp";
 const SOURCE_CLEAN_PLATE = "C:/Users/ZEPHYRUS/Downloads/portrait-hero-background.png";
 const OUT_BACKGROUND = "public/images/portrait-hero-background.webp";
 const OUT_PERSON = "public/images/portrait-hero-person.webp";
@@ -25,8 +25,30 @@ const FEATHER_SIGMA = 1.2;
 // - OPEN_RADIUS: erode-then-dilate trims thin light protrusions that
 //   survive outside the silhouette (the same wall-edge line trailing off
 //   past the person toward the frame edges).
+// Both are essential for the torso/jacket, but they're also exactly what
+// destroys hair: strands are 1-3px wide, well inside both radii, so they get
+// smoothed into a blobby outline. The hair region is computed as a second,
+// much lighter matte (HAIR_*) and blended in near the top of the frame.
 const CLOSE_RADIUS = 12;
 const OPEN_RADIUS = 7;
+
+// Hair matte: no denoise, no morphology, tighter feather - preserves
+// individual strands instead of smoothing them into a silhouette blob. Even
+// a 3x3 median erases single-pixel-wide strand tips (their neighborhood is
+// dominated by background, so the median "votes" them away), so this uses
+// the raw diff directly.
+const HAIR_FEATHER_SIGMA = 0.4;
+// Guards the hair matte against picking up unrelated high-contrast noise far
+// from the person (e.g. cloud/skyline edges) - only trust it within this
+// many px of the coarse body silhouette. Generous, since flyaway strands can
+// extend well past the coarse (morphologically closed) blob's edge.
+const HAIR_VALIDITY_DILATE = 40;
+// How far below the top of the head the hair matte applies, and the width of
+// the linear blend zone down into the coarse (torso) matte beneath it. Sized
+// generously to clear the ears/sideburns (not just the crown) while staying
+// well above the jacket collar / wall-artifact zone lower in the frame.
+const HAIR_REGION_HEIGHT = 350;
+const HAIR_BLEND_MARGIN = 80;
 
 // Square-kernel local max/min filter over a single-channel buffer. Plain
 // nested loops are fine here - this is a one-off build script, not runtime
@@ -59,6 +81,10 @@ function close(buf, width, height, radius) {
 
 function open(buf, width, height, radius) {
   return boxFilter(boxFilter(buf, width, height, radius, "min"), width, height, radius, "max");
+}
+
+function dilate(buf, width, height, radius) {
+  return boxFilter(buf, width, height, radius, "max");
 }
 
 // Keeps only the largest 4-connected blob of "on" pixels (buf[p] > 127),
@@ -190,6 +216,50 @@ function fillEnclosedHoles(mask, width, height) {
   return filled;
 }
 
+// Soft threshold (smoothstep) for an anti-aliased alpha ramp.
+function smoothstepThreshold(buf) {
+  const out = Buffer.alloc(buf.length);
+  for (let p = 0; p < buf.length; p++) {
+    const v = buf[p];
+    if (v <= DIFF_LOW) out[p] = 0;
+    else if (v >= DIFF_HIGH) out[p] = 255;
+    else {
+      const t = (v - DIFF_LOW) / (DIFF_HIGH - DIFF_LOW);
+      out[p] = Math.round(t * t * (3 - 2 * t) * 255);
+    }
+  }
+  return out;
+}
+
+// sharp's median()/blur() silently upconvert a single-channel raw buffer to
+// 3 channels internally; extractChannel(0) forces it back to 1 channel so
+// the buffer size matches the {channels: 1} we declare when reading it back.
+async function median(buf, width, height, size) {
+  return sharp(buf, { raw: { width, height, channels: 1 } })
+    .median(size)
+    .extractChannel(0)
+    .raw()
+    .toBuffer();
+}
+
+async function blur(buf, width, height, sigma) {
+  return sharp(buf, { raw: { width, height, channels: 1 } })
+    .blur(sigma)
+    .extractChannel(0)
+    .raw()
+    .toBuffer();
+}
+
+function findTopmostOnRow(buf, width, height) {
+  for (let y = 0; y < height; y++) {
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      if (buf[rowOffset + x] > 127) return y;
+    }
+  }
+  return 0;
+}
+
 async function main() {
   const [withPerson, cleanPlate] = await Promise.all([
     sharp(SOURCE_WITH_PERSON).ensureAlpha().raw().toBuffer({ resolveWithObject: true }),
@@ -216,31 +286,10 @@ async function main() {
     diff[p] = Math.min(255, Math.sqrt(dr * dr + dg * dg + db * db));
   }
 
-  // Denoise: removes webp/PNG compression speckle. sharp's median() silently
-  // upconverts a single-channel raw buffer to 3 channels internally;
-  // extractChannel(0) forces it back to 1 channel so the buffer size matches
-  // the {channels: 1} we declare when reading it back.
-  const denoised = await sharp(diff, { raw: { width, height, channels: 1 } })
-    .median(MEDIAN_SIZE)
-    .extractChannel(0)
-    .raw()
-    .toBuffer();
+  // --- Coarse matte: robust body/torso silhouette ---
+  const denoised = await median(diff, width, height, MEDIAN_SIZE);
+  const softAlpha = smoothstepThreshold(denoised);
 
-  // Soft threshold (smoothstep) for an anti-aliased alpha ramp. Kept as the
-  // source of truth for edge softness at the true silhouette boundary.
-  const softAlpha = Buffer.alloc(denoised.length);
-  for (let p = 0; p < denoised.length; p++) {
-    const v = denoised[p];
-    if (v <= DIFF_LOW) softAlpha[p] = 0;
-    else if (v >= DIFF_HIGH) softAlpha[p] = 255;
-    else {
-      const t = (v - DIFF_LOW) / (DIFF_HIGH - DIFF_LOW);
-      softAlpha[p] = Math.round(t * t * (3 - 2 * t) * 255);
-    }
-  }
-
-  // Morphological cleanup on a binarized copy - see the constants' doc
-  // comment above for why close-then-open (in that order) is needed.
   let binary = Buffer.alloc(softAlpha.length);
   for (let p = 0; p < softAlpha.length; p++) binary[p] = softAlpha[p] > 127 ? 255 : 0;
   binary = close(binary, width, height, CLOSE_RADIUS);
@@ -249,33 +298,63 @@ async function main() {
   const keepMask = keepLargestComponent(binary, width, height);
   const filledMask = fillEnclosedHoles(keepMask, width, height);
 
-  // Compose final alpha from the cleaned binary decision alone (0 or 255),
-  // not from the original per-pixel softAlpha value: softAlpha still carries
-  // the wall-edge/compression noise that close+open+keep+fill just removed,
-  // and reusing it here would let that noise straight back into the result.
-  // The feather blur below is what re-introduces anti-aliasing at the edge.
-  const alpha = Buffer.alloc(filledMask.length);
-  for (let p = 0; p < alpha.length; p++) {
-    alpha[p] = filledMask[p] ? 255 : 0;
+  const coarseAlpha = Buffer.alloc(filledMask.length);
+  for (let p = 0; p < coarseAlpha.length; p++) coarseAlpha[p] = filledMask[p] ? 255 : 0;
+  const coarseFeathered = await blur(coarseAlpha, width, height, FEATHER_SIGMA);
+
+  // --- Fine matte: crisp hair detail, no denoise, no morphology ---
+  const hairSoft = smoothstepThreshold(diff);
+  const validityZone = dilate(keepMask.map((v) => v * 255), width, height, HAIR_VALIDITY_DILATE);
+  const fineAlpha = Buffer.alloc(hairSoft.length);
+  for (let p = 0; p < fineAlpha.length; p++) {
+    fineAlpha[p] = validityZone[p] > 127 ? hairSoft[p] : 0;
+  }
+  const fineFeathered = await blur(fineAlpha, width, height, HAIR_FEATHER_SIGMA);
+
+  // --- Blend: fine matte near the top of the head, coarse everywhere else ---
+  const headTopY = findTopmostOnRow(keepMask, width, height);
+  const hairRegionEnd = headTopY + HAIR_REGION_HEIGHT;
+  const blended = Buffer.alloc(width * height);
+  for (let y = 0; y < height; y++) {
+    const fullFineBelow = hairRegionEnd - HAIR_BLEND_MARGIN;
+    let weight;
+    if (y <= fullFineBelow) weight = 1;
+    else if (y >= hairRegionEnd) weight = 0;
+    else weight = (hairRegionEnd - y) / HAIR_BLEND_MARGIN;
+    const rowOffset = y * width;
+    for (let x = 0; x < width; x++) {
+      const p = rowOffset + x;
+      blended[p] = Math.round(weight * fineFeathered[p] + (1 - weight) * coarseFeathered[p]);
+    }
   }
 
-  // Final feather for edge anti-aliasing. blur() has the same channel
-  // upconversion quirk as median(), see note above.
-  const feathered = await sharp(alpha, { raw: { width, height, channels: 1 } })
-    .blur(FEATHER_SIGMA)
-    .extractChannel(0)
-    .raw()
-    .toBuffer();
+  await sharp(blended, { raw: { width, height, channels: 1 } }).png().toFile(DEBUG_MATTE);
 
-  await sharp(feathered, { raw: { width, height, channels: 1 } }).png().toFile(DEBUG_MATTE);
-
-  // Composite: RGB from the with-person source, alpha from the computed matte.
+  // Composite: RGB from the with-person source, alpha from the blended matte.
+  // Semi-transparent edge pixels (hair wisps especially) are a blend of the
+  // true foreground color and the background showing through, not pure
+  // foreground - compositing them as-is leaves a background-tinted fringe
+  // (a teal halo here). Since the exact background color at every pixel is
+  // known (the clean plate), it can be unmixed out proportionally to alpha:
+  // fg = bg + (observed - bg) / alpha. This is the same idea as Photoshop's
+  // "Decontaminate Colors", but exact instead of estimated, because the true
+  // background is known rather than guessed from nearby pixels.
   const outRgba = Buffer.alloc(width * height * 4);
   for (let i = 0, p = 0; i < outRgba.length; i += 4, p++) {
-    outRgba[i] = a[i];
-    outRgba[i + 1] = a[i + 1];
-    outRgba[i + 2] = a[i + 2];
-    outRgba[i + 3] = feathered[p];
+    const alpha01 = blended[p] / 255;
+    if (alpha01 > 0.02 && alpha01 < 0.98) {
+      for (let c = 0; c < 3; c++) {
+        const observed = a[i + c];
+        const bg = b[i + c];
+        const fg = bg + (observed - bg) / alpha01;
+        outRgba[i + c] = Math.max(0, Math.min(255, Math.round(fg)));
+      }
+    } else {
+      outRgba[i] = a[i];
+      outRgba[i + 1] = a[i + 1];
+      outRgba[i + 2] = a[i + 2];
+    }
+    outRgba[i + 3] = blended[p];
   }
 
   await sharp(outRgba, { raw: { width, height, channels: 4 } })
