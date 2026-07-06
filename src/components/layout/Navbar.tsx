@@ -36,20 +36,13 @@ export function Navbar(): ReactElement {
         <Link
           href="/"
           className={cn(
-            "text-sm font-semibold tracking-tight transition-colors",
+            "whitespace-nowrap text-sm font-semibold tracking-tight transition-colors",
             overHero
               ? "text-white hover:text-white/80"
               : "text-ink-1 hover:text-brand",
           )}
         >
-          <span className="hidden sm:inline">{siteConfig.name}</span>
-          <span className="sm:hidden">
-            Leonardo
-            <span className={cn(overHero ? "text-white/80" : "text-brand")}>
-              .
-            </span>
-            AB
-          </span>
+          {siteConfig.name}
         </Link>
 
         <div className="hidden sm:flex items-center gap-5 lg:gap-6">
