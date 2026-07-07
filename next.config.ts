@@ -14,6 +14,15 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
   serverExternalPackages: ["@react-pdf/renderer"],
+  // Pin the project root explicitly. Without this, Turbopack/Next infer the
+  // root by climbing for a lockfile - and since every git worktree (see
+  // CLAUDE.md <worktree>) carries its own pnpm-lock.yaml nested under the
+  // main repo's, that climb can resolve to the main repo instead of the
+  // worktree actually being run, serving stale code.
+  outputFileTracingRoot: __dirname,
+  turbopack: {
+    root: __dirname,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
