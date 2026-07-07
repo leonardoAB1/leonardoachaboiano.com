@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.2...v1.15.3) (2026-07-07)
+
+
+### Bug Fixes
+
+* pin next.js workspace root to fix turbopack root detection in worktrees ([#317](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/317)) ([805cc22](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/805cc22a2d50991eb8fd05041625553c2e118ffa))
+
 ## [1.15.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.1...v1.15.2) (2026-07-07)
 
 
