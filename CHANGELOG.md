@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.15.2](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.1...v1.15.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* clamp cv timeline scroll so the globe never leaves view ([#312](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/312)) ([fc0af96](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/fc0af968555f280fd52b7d8d3c43fe98013d0027))
+* clamp cv timeline scroll so the globe never leaves view (closes [#236](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/236)) ([fc0af96](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/fc0af968555f280fd52b7d8d3c43fe98013d0027))
+
+## [1.15.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.0...v1.15.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* restore full name in mobile navbar ([#313](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/313)) ([abfbbfa](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/abfbbfad8c6bf4d5436c2424c167734c4a770006))
+
 ## [1.15.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.14.0...v1.15.0) (2026-07-05)
 
 
