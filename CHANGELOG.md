@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.0...v1.15.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* restore full name in mobile navbar ([#313](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/313)) ([abfbbfa](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/abfbbfad8c6bf4d5436c2424c167734c4a770006))
+
 ## [1.15.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.14.0...v1.15.0) (2026-07-05)
 
 
