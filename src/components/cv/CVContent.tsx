@@ -59,9 +59,17 @@ const globeSlide: Variants = {
 
 // ---------------------------------------------------------------------------
 
+// The right column is pinned via `lg:top-14` (3.5rem). Kept as a constant so
+// the scroll-clamp math in handleSelect stays in sync with that class.
+const STICKY_TOP_PX = 56;
+
 export function CVContent(): ReactElement {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  // Measure the grid container and the sticky right column so handleSelect
+  // can clamp its scroll target - see the comment there for why.
+  const gridRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
 
   const t = useTranslations("CV");
   const tTimeline = useTranslations("Timeline");
@@ -109,8 +117,26 @@ export function CVContent(): ReactElement {
     const el = itemRefs.current[index];
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const target =
+    let target =
       window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2;
+
+    // On desktop the globe lives in a `sticky` right column that is shorter
+    // than the career-history list next to it. Sticky positioning only holds
+    // the column pinned at STICKY_TOP_PX while there is still room above the
+    // grid's bottom edge; past that point it runs out of room and scrolls
+    // away with the page. Centering a low entry in the list (its natural
+    // target) can ask for more scroll than that, which is what pushed the
+    // globe out of view (issue #236). Clamp the target to the deepest scroll
+    // position where the column is still fully pinned, so the list scrolls
+    // as close to centered as it can without ever hiding the globe.
+    if (isDesktop && gridRef.current && rightColRef.current) {
+      const gridBottomDocY =
+        window.scrollY + gridRef.current.getBoundingClientRect().bottom;
+      const maxScrollY =
+        gridBottomDocY - rightColRef.current.offsetHeight - STICKY_TOP_PX;
+      target = Math.min(target, maxScrollY);
+    }
+
     animate(window.scrollY, target, {
       duration: 1.4,
       ease: [0.22, 1, 0.36, 1],
@@ -120,7 +146,10 @@ export function CVContent(): ReactElement {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-[1fr_22rem] lg:gap-x-12">
+      <div
+        ref={gridRef}
+        className="grid grid-cols-1 gap-y-12 lg:grid-cols-[1fr_22rem] lg:gap-x-12"
+      >
         {/* Left column: career history */}
         <div className="space-y-10">
           {/* Career History - all entries, interactive, linked to the globe */}
@@ -165,7 +194,10 @@ export function CVContent(): ReactElement {
         </div>
 
         {/* Right column: globe (desktop only) + languages/achievements panel */}
-        <div className="lg:sticky lg:top-14 lg:self-start lg:flex lg:flex-col lg:h-[calc(100svh-3.5rem)]">
+        <div
+          ref={rightColRef}
+          className="lg:sticky lg:top-14 lg:self-start lg:flex lg:flex-col lg:h-[calc(100svh-3.5rem)]"
+        >
           {/* Globe: desktop only - hidden on mobile */}
           <m.div
             className="hidden overflow-hidden rounded-2xl lg:block lg:aspect-square lg:w-full lg:flex-shrink-0"
