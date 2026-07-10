@@ -1,6 +1,6 @@
 {
   "name": "leonardoachaboiano.com",
-  "version": "1.15.3",
+  "version": "1.15.4",
   "private": true,
   "packageManager": "pnpm@10.33.2",
   "engines": {
@@ -11,7 +11,7 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "biome format --write .",
     "check": "biome check --write .",
     "typecheck": "tsc --noEmit",
