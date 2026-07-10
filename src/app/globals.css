@@ -259,6 +259,16 @@ html {
   }
 }
 
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 @layer utilities {
   /* Infinite horizontal scroller. Markup contract: an overflow-hidden parent
      containing a .marquee-track with its content duplicated twice. */
@@ -270,6 +280,25 @@ html {
   @media (prefers-reduced-motion: reduce) {
     .marquee-track {
       animation: none;
+    }
+  }
+
+  /* Typewriter caret: a solid bar next to the Hero's typed text, blinking
+     like a real text cursor. Pure decoration, so under reduced motion it's
+     hidden outright rather than scaled down - there's no typing animation
+     left for it to punctuate. */
+  .typewriter-cursor {
+    display: inline-block;
+    width: 0.08em;
+    height: 0.9em;
+    margin-left: 0.05em;
+    background-color: currentColor;
+    vertical-align: -0.05em;
+    animation: caret-blink 1s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-cursor {
+      display: none;
     }
   }
 
