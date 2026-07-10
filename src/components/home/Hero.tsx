@@ -21,6 +21,7 @@ import { Section } from "@/components/layout/Section";
 import { buttonClasses } from "@/components/ui/Button";
 import { Eyebrow, Heading, Text } from "@/components/ui/Typography";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { useTypewriter } from "@/hooks/useTypewriter";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -97,6 +98,11 @@ export function Hero(): ReactElement {
   const breakpoint = useBreakpoint();
   const heroRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
+  // Raw array read (not t()) because this is a list of phrases, not a single
+  // translated string - same t.raw precedent used for Timeline entries in
+  // src/lib/timeline-content.ts.
+  const identities = t.raw("identities") as string[];
+  const { text: typedText } = useTypewriter(identities, prefersReducedMotion);
 
   // scrollYProgress goes 0 -> 1 as the hero scrolls from "just entered the
   // top of the viewport" to "fully scrolled past" - i.e. exactly the range
@@ -208,12 +214,22 @@ export function Hero(): ReactElement {
               <Eyebrow className="text-white/70">{tCommon("role")}</Eyebrow>
             </m.div>
             <m.div variants={item}>
+              {/* The animated span is decorative (aria-hidden): it re-renders
+                  every few hundred ms as it types/deletes, which would spam
+                  assistive tech if it were the H1's accessible name. The
+                  sr-only span instead gives the H1 one stable, readable list
+                  of every identity - the accessible equivalent of what the
+                  animation shows visually over time. */}
               <Heading
                 as="h1"
                 size="xl"
                 className="break-words text-white [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
               >
-                {t("heading")}
+                <span aria-hidden="true">
+                  {typedText}
+                  <span className="typewriter-cursor" />
+                </span>
+                <span className="sr-only">{identities.join(". ")}.</span>
               </Heading>
             </m.div>
             <m.div variants={item}>
