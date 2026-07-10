@@ -284,9 +284,6 @@ export function GlobeVisualization({
     ? GLOBE_FADE_REDUCED_S
     : GLOBE_FADE_DURATION_S;
   const fadeMsRef = useRef(GLOBE_FADE_DURATION_MS);
-  fadeMsRef.current = prefersReducedMotion
-    ? GLOBE_FADE_REDUCED_MS
-    : GLOBE_FADE_DURATION_MS;
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Mutable state shared between the two effects via refs (no re-renders needed).
@@ -317,10 +314,24 @@ export function GlobeVisualization({
   // always call the current onSelectIndex without re-creating the globe.
   const onSelectIndexRef = useRef(onSelectIndex);
 
-  activeIndexRef.current = activeIndex;
-  showLabelRef.current = showLabel;
-  activeLabelRef.current = activeLabel;
-  onSelectIndexRef.current = onSelectIndex;
+  // Keep the "latest value" refs in sync after every render rather than
+  // mutating them during render - refs are only supposed to be written from
+  // effects or event handlers, since a render can in principle run more than
+  // once (e.g. Strict Mode) before it commits. No dependency array: this
+  // effect intentionally reruns after every commit, since these refs exist
+  // purely so long-lived closures elsewhere (the rAF loop, pointer handlers,
+  // async texture loading in Effect 2) can read the current prop values
+  // without forcing Effect 2 to re-create the whole three.js scene whenever
+  // a prop changes.
+  useEffect(() => {
+    fadeMsRef.current = prefersReducedMotion
+      ? GLOBE_FADE_REDUCED_MS
+      : GLOBE_FADE_DURATION_MS;
+    activeIndexRef.current = activeIndex;
+    showLabelRef.current = showLabel;
+    activeLabelRef.current = activeLabel;
+    onSelectIndexRef.current = onSelectIndex;
+  });
 
   // ── Effect 1: react to activeIndex changes ───────────────────────────────
   // Separated from the init effect so changes don't re-create the globe.
