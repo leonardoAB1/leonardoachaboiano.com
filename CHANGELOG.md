@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.4...v1.15.5) (2026-07-10)
+
+
+### Bug Fixes
+
+* clear eslint errors and warnings surfaced by the lint script fix ([#326](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/326)) ([17cadf8](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/17cadf833c69f0adc4765304c757671d828dbeb7))
+
 ## [1.15.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.3...v1.15.4) (2026-07-10)
 
 
