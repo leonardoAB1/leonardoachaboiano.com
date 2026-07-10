@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.5...v1.16.0) (2026-07-10)
+
+
+### Features
+
+* typed text animation in hero ([#321](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/321)) ([21d8b8d](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/21d8b8d67fe55f5cb36d69563c471f9af795b0b9))
+
 ## [1.15.5](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.4...v1.15.5) (2026-07-10)
 
 
