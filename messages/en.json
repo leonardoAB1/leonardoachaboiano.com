@@ -34,11 +34,13 @@
         "Martial Artist",
         "Athlete",
         "Renaissance Engineer",
-        "Older Brother",
+        "Eldest Brother",
         "Eternal Student",
         "Painter",
         "Bolivia's Future President",
-        "Yet-to-Be Entrepreneur"
+        "Yet-to-Be Entrepreneur",
+        "Tech Geek",
+        "Maker"
       ],
       "intro": "I work across electronics design, embedded firmware, control systems, and mechanical engineering, from circuit boards to working mechanisms.",
       "viewCv": "View CV",

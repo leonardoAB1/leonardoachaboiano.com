@@ -34,11 +34,13 @@
         "Kampfkünstler",
         "Sportler",
         "Renaissance-Ingenieur",
-        "Älterer Bruder",
+        "Ältester Bruder",
         "Ewiger Student",
         "Maler",
         "Zukünftiger Präsident Boliviens",
-        "Zukünftiger Unternehmer"
+        "Zukünftiger Unternehmer",
+        "Technik-Nerd",
+        "Maker"
       ],
       "intro": "Ich arbeite an Elektronikdesign, eingebetteter Firmware, Steuerungssystemen und Maschinenbau, von Leiterplatten bis zu funktionierenden Mechanismen.",
       "viewCv": "Lebenslauf ansehen",
