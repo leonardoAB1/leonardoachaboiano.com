@@ -29,7 +29,17 @@
   },
   "Home": {
     "Hero": {
-      "heading": "Ingegnere multidisciplinare",
+      "identities": [
+        "Ingegnere multidisciplinare",
+        "Artista marziale",
+        "Atleta",
+        "Ingegnere rinascimentale",
+        "Fratello maggiore",
+        "Eterno studente",
+        "Pittore",
+        "Futuro presidente della Bolivia",
+        "Futuro imprenditore"
+      ],
       "intro": "Lavoro tra progettazione elettronica, firmware embedded, sistemi di controllo e ingegneria meccanica, dalle schede a circuiti stampati ai meccanismi funzionanti.",
       "viewCv": "Vedi CV",
       "getInTouch": "Contattami"

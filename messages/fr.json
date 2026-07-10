@@ -29,7 +29,17 @@
   },
   "Home": {
     "Hero": {
-      "heading": "Généraliste par choix",
+      "identities": [
+        "Généraliste par choix",
+        "Artiste martial",
+        "Athlète",
+        "Ingénieur de la Renaissance",
+        "Frère aîné",
+        "Éternel étudiant",
+        "Peintre",
+        "Futur président de la Bolivie",
+        "Futur entrepreneur"
+      ],
       "intro": "Je travaille en conception électronique, firmware embarqué, systèmes de contrôle et ingénierie mécanique, des circuits imprimés aux mécanismes en fonctionnement.",
       "viewCv": "Voir le CV",
       "getInTouch": "Me contacter"

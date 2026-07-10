@@ -29,7 +29,17 @@
   },
   "Home": {
     "Hero": {
-      "heading": "Interdisziplinärer Ingenieur",
+      "identities": [
+        "Interdisziplinärer Ingenieur",
+        "Kampfkünstler",
+        "Sportler",
+        "Renaissance-Ingenieur",
+        "Älterer Bruder",
+        "Ewiger Student",
+        "Maler",
+        "Zukünftiger Präsident Boliviens",
+        "Zukünftiger Unternehmer"
+      ],
       "intro": "Ich arbeite an Elektronikdesign, eingebetteter Firmware, Steuerungssystemen und Maschinenbau, von Leiterplatten bis zu funktionierenden Mechanismen.",
       "viewCv": "Lebenslauf ansehen",
       "getInTouch": "Kontakt aufnehmen"
