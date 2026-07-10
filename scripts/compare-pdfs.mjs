@@ -55,32 +55,6 @@ function cropData(data, srcW, srcH, targetW, targetH) {
   return out;
 }
 
-// Box-average downsampling by `factor`. Each output pixel is the mean of a
-// factor×factor block of input pixels. This makes 1-3 px position shifts from
-// different font-metric tables average out within each block, while layout
-// differences larger than `factor` px remain clearly visible.
-function downsample(data, width, height, factor) {
-  const newW = Math.floor(width / factor);
-  const newH = Math.floor(height / factor);
-  const out = Buffer.alloc(newW * newH * 4);
-  for (let y = 0; y < newH; y++) {
-    for (let x = 0; x < newW; x++) {
-      let r = 0, g = 0, b = 0;
-      for (let dy = 0; dy < factor; dy++) {
-        for (let dx = 0; dx < factor; dx++) {
-          const si = ((y * factor + dy) * width + (x * factor + dx)) * 4;
-          r += data[si]; g += data[si + 1]; b += data[si + 2];
-        }
-      }
-      const n = factor * factor;
-      const di = (y * newW + x) * 4;
-      out[di] = r / n; out[di + 1] = g / n;
-      out[di + 2] = b / n; out[di + 3] = 255;
-    }
-  }
-  return { data: out, width: newW, height: newH };
-}
-
 // ---------------------------------------------------------------------------
 
 async function main() {

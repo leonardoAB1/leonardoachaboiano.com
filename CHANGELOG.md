@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.4](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.3...v1.15.4) (2026-07-10)
+
+
+### Bug Fixes
+
+* run eslint directly since next lint was removed from the next cli ([#324](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/324)) ([15cf284](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/15cf2843d2bc07fc03ed7b13614210d2bddfaf4d))
+
 ## [1.15.3](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.2...v1.15.3) (2026-07-07)
 
 

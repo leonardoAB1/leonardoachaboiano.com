@@ -3,7 +3,8 @@
 import { Moon, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { type ReactElement, useEffect, useState } from "react";
+import type { ReactElement } from "react";
+import { useIsClient } from "@/hooks/useIsClient";
 import { cn } from "@/lib/utils";
 
 export function ThemeToggle({
@@ -11,13 +12,9 @@ export function ThemeToggle({
 }: {
   className?: string;
 }): ReactElement {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsClient();
   const { resolvedTheme, setTheme } = useTheme();
   const t = useTranslations("ThemeToggle");
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted) {
     return (

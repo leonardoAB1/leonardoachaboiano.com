@@ -740,6 +740,7 @@ export function CVDocument({
               narrows the contact rows. */}
           <CVQr path={qr.path} viewBox={qr.viewBox} />
           {/* Photo — height sized to border the Summary section */}
+          {/* eslint-disable-next-line jsx-a11y/alt-text -- this is @react-pdf/renderer's Image (a PDF layout primitive), not next/image or an <img>; its props have no alt */}
           <Image style={s.photo} src={photoDataUrl} />
         </View>
 
