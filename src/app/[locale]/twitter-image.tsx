@@ -74,6 +74,7 @@ export default async function Image({
         }}
       >
         {/* biome-ignore lint/performance/noImgElement: Satori (next/og) renders a limited HTML subset and does not support next/image */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- same reason as the biome-ignore above */}
         <img
           src={portraitSrc}
           alt=""
