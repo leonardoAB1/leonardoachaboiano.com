@@ -125,47 +125,47 @@
   },
   "Achievements": {
     "icpc": {
-      "label": "Campione | Concorso Regionale ICPC | agosto 2024",
+      "label": "Campione - Concorso Regionale ICPC",
       "date": "ago 2024",
       "description": "Ha guidato un team di 3 persone al 1° posto nel Concorso di Programmazione"
     },
     "diplomaHonour2": {
-      "label": "Diploma d'Onore | apr 2024",
+      "label": "Diploma d'Onore",
       "date": "apr 2024",
       "description": "2° posto in Ing. Meccatronica semestre 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA) | nov 2023",
+      "label": "Certified SOLIDWORKS Associate (CSWA)",
       "date": "nov 2023",
       "description": "Certifica la competenza nella modellazione 3D CAD"
     },
     "diplomaHonour1": {
-      "label": "Diploma d'Onore | set 2023",
+      "label": "Diploma d'Onore",
       "date": "set 2023",
       "description": "2° posto in Ing. Meccatronica semestre 1-2023"
     },
     "scholarship3": {
-      "label": "Borsa di Studio d'Eccellenza | ott 2022",
+      "label": "Borsa di Studio d'Eccellenza",
       "date": "ott 2022",
       "description": "1° posto in Ing. Meccatronica semestre 1-2022"
     },
     "scholarship2": {
-      "label": "Borsa di Studio d'Eccellenza | apr 2022",
+      "label": "Borsa di Studio d'Eccellenza",
       "date": "apr 2022",
       "description": "1° posto in Ing. Meccatronica semestre 2-2021"
     },
     "scholarship1": {
-      "label": "Borsa di Studio d'Eccellenza | nov 2021",
+      "label": "Borsa di Studio d'Eccellenza",
       "date": "nov 2021",
       "description": "1° posto in Ing. Meccatronica semestre 1-2021"
     },
     "diplomaHonour0": {
-      "label": "Diploma d'Onore | mag 2021",
+      "label": "Diploma d'Onore",
       "date": "mag 2021",
       "description": "3° posto in Ing. Meccatronica semestre 2-2020"
     },
     "rotary": {
-      "label": "Certificato di Merito | Rotary D.4690 | 2019",
+      "label": "Certificato di Merito - Rotary D.4690",
       "date": "2019",
       "description": "Ambasciatore Scambio Giovanile in Canada 2018-2019"
     }

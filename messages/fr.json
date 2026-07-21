@@ -125,47 +125,47 @@
   },
   "Achievements": {
     "icpc": {
-      "label": "Champion | Concours régional ICPC | août 2024",
+      "label": "Champion - Concours régional ICPC",
       "date": "août 2024",
       "description": "A conduit une équipe de 3 personnes à la 1re place au Concours de Programmation"
     },
     "diplomaHonour2": {
-      "label": "Diplôme d'honneur | avr. 2024",
+      "label": "Diplôme d'honneur",
       "date": "avr. 2024",
       "description": "2e place en Ing. Mécatronique semestre 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA) | nov. 2023",
+      "label": "Certified SOLIDWORKS Associate (CSWA)",
       "date": "nov. 2023",
       "description": "Certifie la maîtrise de la modélisation 3D CAO"
     },
     "diplomaHonour1": {
-      "label": "Diplôme d'honneur | sept. 2023",
+      "label": "Diplôme d'honneur",
       "date": "sept. 2023",
       "description": "2e place en Ing. Mécatronique semestre 1-2023"
     },
     "scholarship3": {
-      "label": "Bourse d'excellence | oct. 2022",
+      "label": "Bourse d'excellence",
       "date": "oct. 2022",
       "description": "1re place en Ing. Mécatronique semestre 1-2022"
     },
     "scholarship2": {
-      "label": "Bourse d'excellence | avr. 2022",
+      "label": "Bourse d'excellence",
       "date": "avr. 2022",
       "description": "1re place en Ing. Mécatronique semestre 2-2021"
     },
     "scholarship1": {
-      "label": "Bourse d'excellence | nov. 2021",
+      "label": "Bourse d'excellence",
       "date": "nov. 2021",
       "description": "1re place en Ing. Mécatronique semestre 1-2021"
     },
     "diplomaHonour0": {
-      "label": "Diplôme d'honneur | mai 2021",
+      "label": "Diplôme d'honneur",
       "date": "mai 2021",
       "description": "3e place en Ing. Mécatronique semestre 2-2020"
     },
     "rotary": {
-      "label": "Certificat d'excellence | Rotary D.4690 | 2019",
+      "label": "Certificat d'excellence - Rotary D.4690",
       "date": "2019",
       "description": "Ambassadeur d'échange jeunesse au Canada 2018-2019"
     }
