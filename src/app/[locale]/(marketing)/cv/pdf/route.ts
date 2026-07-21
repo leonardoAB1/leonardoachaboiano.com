@@ -7,18 +7,12 @@ import { createElement } from "react";
 import { CVDocument } from "@/components/cv/pdf/CVDocument";
 import { achievementKeys } from "@/data/achievements";
 import { hardSkills, softSkills } from "@/data/cv-pdf-skills";
+import { languages as languageEntries } from "@/data/languages";
 import { timelineEntries } from "@/data/timeline";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
 import { qrRoundedPath } from "@/lib/qr";
 import { resolveTimelineEntry } from "@/lib/timeline-content";
-
-const LANGUAGE_KEYS = [
-  { nameKey: "spanish", levelKey: "native" },
-  { nameKey: "english", levelKey: "fluent" },
-  { nameKey: "german", levelKey: "a2" },
-  { nameKey: "italian", levelKey: "a2" },
-] as const;
 
 export async function GET(
   _request: Request,
@@ -52,7 +46,7 @@ export async function GET(
     description: tAchievements(`${key}.description`),
   }));
 
-  const languages = LANGUAGE_KEYS.map(({ nameKey, levelKey }) => ({
+  const languages = languageEntries.map(({ nameKey, levelKey }) => ({
     name: tCV(`languageNames.${nameKey}`),
     level: tCV(`languageLevels.${levelKey}`),
   }));
