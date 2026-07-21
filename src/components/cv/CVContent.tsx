@@ -15,6 +15,11 @@ import { achievementKeys } from "@/data/achievements";
 import { skillGroups } from "@/data/skills";
 import { timelineEntries } from "@/data/timeline";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
+  fadeSlideUpCard,
+  staggerContainer,
+  viewport,
+} from "@/lib/motion-variants";
 import { resolveTimelineEntry } from "@/lib/timeline-content";
 import { cn } from "@/lib/utils";
 
@@ -242,15 +247,33 @@ export function CVContent(): ReactElement {
 
             <AnimatedSection delay={0.2}>
               <Eyebrow className="mb-6">{t("sections.achievements")}</Eyebrow>
-              <ul className="space-y-5">
+              <m.ul
+                className="space-y-4"
+                initial="hidden"
+                whileInView="show"
+                viewport={viewport}
+                variants={staggerContainer}
+              >
                 {achievementKeys.map((key) => (
-                  <li key={key} className="flex flex-col gap-0.5">
-                    <span className="text-sm leading-snug text-ink-2">
-                      {tAchievements(`${key}.label`)}
+                  <m.li
+                    key={key}
+                    className="flex flex-col gap-0.5"
+                    variants={fadeSlideUpCard}
+                  >
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="text-sm font-medium text-ink-2">
+                        {tAchievements(`${key}.label`)}
+                      </span>
+                      <span className="text-xs text-ink-4 whitespace-nowrap">
+                        {tAchievements(`${key}.date`)}
+                      </span>
+                    </div>
+                    <span className="text-xs leading-snug text-ink-3">
+                      {tAchievements(`${key}.description`)}
                     </span>
-                  </li>
+                  </m.li>
                 ))}
-              </ul>
+              </m.ul>
             </AnimatedSection>
           </div>
         </div>

@@ -125,47 +125,47 @@
   },
   "Achievements": {
     "icpc": {
-      "label": "Sieger | ICPC Regional Contest | August 2024",
+      "label": "Sieger - ICPC Regional Contest",
       "date": "Aug 2024",
       "description": "Führte ein 3-köpfiges Team zum 1. Platz im Programmierwettbewerb"
     },
     "diplomaHonour2": {
-      "label": "Ehrendiplom | Apr 2024",
+      "label": "Ehrendiplom",
       "date": "Apr 2024",
       "description": "2. Platz in Mechatronik Semester 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA) | Nov 2023",
+      "label": "Certified SOLIDWORKS Associate (CSWA)",
       "date": "Nov 2023",
       "description": "Zertifiziert im 3D-CAD-Modelling mit SolidWorks"
     },
     "diplomaHonour1": {
-      "label": "Ehrendiplom | Sep 2023",
+      "label": "Ehrendiplom",
       "date": "Sep 2023",
       "description": "2. Platz in Mechatronik Semester 1-2023"
     },
     "scholarship3": {
-      "label": "Exzellenz-Stipendium | Okt 2022",
+      "label": "Exzellenz-Stipendium",
       "date": "Okt 2022",
       "description": "1. Platz in Mechatronik Semester 1-2022"
     },
     "scholarship2": {
-      "label": "Exzellenz-Stipendium | Apr 2022",
+      "label": "Exzellenz-Stipendium",
       "date": "Apr 2022",
       "description": "1. Platz in Mechatronik Semester 2-2021"
     },
     "scholarship1": {
-      "label": "Exzellenz-Stipendium | Nov 2021",
+      "label": "Exzellenz-Stipendium",
       "date": "Nov 2021",
       "description": "1. Platz in Mechatronik Semester 1-2021"
     },
     "diplomaHonour0": {
-      "label": "Ehrendiplom | Mai 2021",
+      "label": "Ehrendiplom",
       "date": "Mai 2021",
       "description": "3. Platz in Mechatronik Semester 2-2020"
     },
     "rotary": {
-      "label": "Leistungsurkunde | Rotary D.4690 | 2019",
+      "label": "Leistungsurkunde - Rotary D.4690",
       "date": "2019",
       "description": "Jugendaustausch-Botschafter in Kanada 2018-2019"
     }
