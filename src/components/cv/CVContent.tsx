@@ -12,6 +12,7 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow } from "@/components/ui/Typography";
 import { achievementKeys } from "@/data/achievements";
+import { languages } from "@/data/languages";
 import { skillGroups } from "@/data/skills";
 import { timelineEntries } from "@/data/timeline";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -30,13 +31,6 @@ const GlobeVisualization = dynamic(
     ),
   { ssr: false, loading: () => <GlobePlaceholder /> },
 );
-
-const languages = [
-  { nameKey: "spanish", levelKey: "native", countries: ["bo", "ar"] },
-  { nameKey: "english", levelKey: "fluent", countries: ["us"] },
-  { nameKey: "german", levelKey: "a2", countries: ["de", "ch"] },
-  { nameKey: "italian", levelKey: "a2", countries: ["it"] },
-] as const;
 
 // ---------------------------------------------------------------------------
 // Animation variants
