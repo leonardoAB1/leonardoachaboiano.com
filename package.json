@@ -23,7 +23,7 @@
     "@hookform/resolvers": "^5.4.0",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@next/mdx": "^16.2.9",
+    "@next/mdx": "^16.2.10",
     "@radix-ui/react-dialog": "^1.1.17",
     "@react-pdf/renderer": "^4.5.1",
     "@tailwindcss/typography": "^0.5.19",
