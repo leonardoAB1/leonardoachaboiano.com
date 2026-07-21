@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.16.0...v1.16.1) (2026-07-21)
+
+
+### Bug Fixes
+
+* restructure CV achievements section into aligned rows ([#336](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/336)) ([10d9947](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/10d9947ac1f0e91de2290361a2545a099d4db224))
+
 ## [1.16.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.15.5...v1.16.0) (2026-07-10)
 
 
