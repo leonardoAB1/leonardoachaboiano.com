@@ -125,47 +125,47 @@
   },
   "Achievements": {
     "icpc": {
-      "label": "Campeón | Concurso Regional ICPC | agosto 2024",
+      "label": "Campeón - Concurso Regional ICPC",
       "date": "ago 2024",
       "description": "Lideró un equipo de 3 personas al 1er lugar en el Concurso de Programación"
     },
     "diplomaHonour2": {
-      "label": "Diploma de Honor | abr 2024",
+      "label": "Diploma de Honor",
       "date": "abr 2024",
       "description": "2º lugar en Ing. Mecatrónica semestre 2-2023"
     },
     "cswa": {
-      "label": "Certified SOLIDWORKS Associate (CSWA) | nov 2023",
+      "label": "Certified SOLIDWORKS Associate (CSWA)",
       "date": "nov 2023",
       "description": "Acredita competencia en modelado 3D CAD"
     },
     "diplomaHonour1": {
-      "label": "Diploma de Honor | sep 2023",
+      "label": "Diploma de Honor",
       "date": "sep 2023",
       "description": "2º lugar en Ing. Mecatrónica semestre 1-2023"
     },
     "scholarship3": {
-      "label": "Beca de Excelencia | oct 2022",
+      "label": "Beca de Excelencia",
       "date": "oct 2022",
       "description": "1er lugar en Ing. Mecatrónica semestre 1-2022"
     },
     "scholarship2": {
-      "label": "Beca de Excelencia | abr 2022",
+      "label": "Beca de Excelencia",
       "date": "abr 2022",
       "description": "1er lugar en Ing. Mecatrónica semestre 2-2021"
     },
     "scholarship1": {
-      "label": "Beca de Excelencia | nov 2021",
+      "label": "Beca de Excelencia",
       "date": "nov 2021",
       "description": "1er lugar en Ing. Mecatrónica semestre 1-2021"
     },
     "diplomaHonour0": {
-      "label": "Diploma de Honor | may 2021",
+      "label": "Diploma de Honor",
       "date": "may 2021",
       "description": "3er lugar en Ing. Mecatrónica semestre 2-2020"
     },
     "rotary": {
-      "label": "Certificado de Logro | Rotario D.4690 | 2019",
+      "label": "Certificado de Logro - Rotario D.4690",
       "date": "2019",
       "description": "Embajador Intercambio Juvenil en Canadá 2018-2019"
     }
