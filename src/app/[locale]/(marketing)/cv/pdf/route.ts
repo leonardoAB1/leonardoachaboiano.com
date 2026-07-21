@@ -5,24 +5,13 @@ import { NextResponse } from "next/server";
 import { getTranslations } from "next-intl/server";
 import { createElement } from "react";
 import { CVDocument } from "@/components/cv/pdf/CVDocument";
+import { achievementKeys } from "@/data/achievements";
 import { hardSkills, softSkills } from "@/data/cv-pdf-skills";
 import { timelineEntries } from "@/data/timeline";
 import type { Locale } from "@/i18n/routing";
 import { siteConfig, socialLinks } from "@/lib/constants";
 import { qrRoundedPath } from "@/lib/qr";
 import { resolveTimelineEntry } from "@/lib/timeline-content";
-
-const ACHIEVEMENT_KEYS = [
-  "icpc",
-  "diplomaHonour2",
-  "cswa",
-  "diplomaHonour1",
-  "scholarship3",
-  "scholarship2",
-  "scholarship1",
-  "diplomaHonour0",
-  "rotary",
-] as const;
 
 const LANGUAGE_KEYS = [
   { nameKey: "spanish", levelKey: "native" },
@@ -57,7 +46,7 @@ export async function GET(
       return { ...resolved, dateRange: `${e.start.year} - ${endYear}` };
     });
 
-  const achievements = ACHIEVEMENT_KEYS.map((key) => ({
+  const achievements = achievementKeys.map((key) => ({
     label: tAchievements(`${key}.label`),
     date: tAchievements(`${key}.date`),
     description: tAchievements(`${key}.description`),

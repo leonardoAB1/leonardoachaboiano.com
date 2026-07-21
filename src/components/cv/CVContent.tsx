@@ -11,6 +11,7 @@ import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Separator } from "@/components/ui/Separator";
 import { Eyebrow } from "@/components/ui/Typography";
+import { achievementKeys } from "@/data/achievements";
 import { skillGroups } from "@/data/skills";
 import { timelineEntries } from "@/data/timeline";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -29,18 +30,6 @@ const GlobeVisualization = dynamic(
     ),
   { ssr: false, loading: () => <GlobePlaceholder /> },
 );
-
-const achievementKeys = [
-  "icpc",
-  "diplomaHonour2",
-  "cswa",
-  "diplomaHonour1",
-  "scholarship3",
-  "scholarship2",
-  "scholarship1",
-  "diplomaHonour0",
-  "rotary",
-] as const;
 
 const languages = [
   { nameKey: "spanish", levelKey: "native", countries: ["bo", "ar"] },
