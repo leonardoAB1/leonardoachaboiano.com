@@ -1,0 +1,11 @@
+---
+description: Never add Cursor, AI, or assistant attribution to the repository
+alwaysApply: true
+---
+
+# No tool or assistant attribution
+
+Never add signatures, footers, badges, or bylines that credit Cursor, ChatGPT, Copilot, Claude, or
+any other assistant or AI tool - in commits, code, comments, MDX, README, PR descriptions, issue
+text, or config. The full rule (with examples) lives under **Code Style** in `AGENTS.md`, the
+canonical rulebook. This file keeps the rule `alwaysApply` for Cursor.
