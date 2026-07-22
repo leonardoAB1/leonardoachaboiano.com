@@ -17,6 +17,7 @@ import type {
 } from "three";
 import { GlobePlaceholder } from "@/components/home/GlobePlaceholder";
 import { timelineEntries } from "@/data/timeline";
+import { tripLegs } from "@/data/trips";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { GLOBE_TEXTURES } from "@/lib/globe-textures";
 import { cn } from "@/lib/utils";
@@ -96,6 +97,55 @@ const CAREER_ARCS = [
   // Stafa → Basel (within Switzerland)
   { startLat: 47.2292, startLng: 8.73, endLat: 47.5596, endLng: 7.5886 },
 ];
+
+// Trips are a second, purely decorative arc layer (personal travel, not career
+// history). three-globe only supports one .arcsData() call, so career and trip
+// arcs are merged into one array; `kind` lets arcColor/arcStroke/etc. branch
+// per-arc so trips render dimmer and static (no dash animation) - "an
+// interesting fact, not the main point" per the source issue.
+interface GlobeArc extends CareerArc {
+  kind: "career" | "trip";
+}
+
+// Muted warm sand, low alpha - deliberately a different hue from the brand
+// teal career arcs (#02777C), staying inside the site's warm-neutral palette
+// (see --border in globals.css) rather than introducing a second saturated
+// color. three-globe's arc shader is transparent:true and honors the alpha
+// channel of an rgba() string, so this is genuine per-arc dimming, not just a
+// duller hue.
+const TRIP_ARC_COLOR = "rgba(201,184,150,0.35)";
+
+const ALL_ARCS: GlobeArc[] = [
+  ...CAREER_ARCS.map((arc) => ({ ...arc, kind: "career" as const })),
+  ...tripLegs.map((leg) => ({
+    startLat: leg.fromLat,
+    startLng: leg.fromLng,
+    endLat: leg.toLat,
+    endLng: leg.toLng,
+    kind: "trip" as const,
+  })),
+];
+
+// Deduplicated trip endpoint coordinates, so a recurring home airport (shared
+// by many legs) renders as one marker instead of stacking overlapping sprites.
+// Computed once at module load, same reasoning as COORD_GROUPS below.
+const TRIP_MARKER_COORDS: [number, number][] = (() => {
+  const seen = new Set<string>();
+  const coords: [number, number][] = [];
+  tripLegs.forEach((leg) => {
+    for (const [lat, lng] of [
+      [leg.fromLat, leg.fromLng],
+      [leg.toLat, leg.toLng],
+    ] as const) {
+      const key = `${lat},${lng}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        coords.push([lat, lng]);
+      }
+    }
+  });
+  return coords;
+})();
 
 // Arc altitude proportional to the great-circle angle between endpoints.
 // Close locations (Stafa→Basel, ~22 km) get a nearly flat arc;
@@ -238,6 +288,35 @@ function buildSprites(
   });
 }
 
+// Static, non-clickable markers at each unique trip endpoint. Deliberately not
+// added to spritesRef: findMarkerAt() (the click/hover hit-test below) only
+// ever reads spritesRef, so keeping these in a separate ref is what makes them
+// non-interactive - no extra "clickable" flag needed anywhere.
+function buildTripSprites(
+  camZ: number,
+  THREE: ThreeNamespace,
+  globe: Object3D,
+  tex: CanvasTexture,
+): MarkerSprite[] {
+  const scale = camZ / 320;
+  return TRIP_MARKER_COORDS.map(([lat, lng]) => {
+    const pos = latLngToLocal(lat, lng, 0.01);
+    const mat = new THREE.SpriteMaterial({
+      map: tex,
+      transparent: true,
+      depthTest: true,
+      depthWrite: false,
+    });
+    const sprite = new THREE.Sprite(mat) as MarkerSprite;
+    sprite.position.set(pos.x, pos.y, pos.z);
+    const baseSize = 3;
+    sprite.scale.setScalar(baseSize * scale);
+    sprite.userData = { baseSize, index: -1 };
+    globe.add(sprite);
+    return sprite;
+  });
+}
+
 // Maximum pointer-to-marker screen distance (px) that still counts as a hit.
 // Markers are small billboards, so a generous radius makes them easy to click.
 const MARKER_HIT_RADIUS_PX = 22;
@@ -296,6 +375,10 @@ export function GlobeVisualization({
   const spritesRef = useRef<MarkerSprite[]>([]);
   const activeMarkerTexRef = useRef<CanvasTexture | null>(null);
   const inactiveMarkerTexRef = useRef<CanvasTexture | null>(null);
+  // Trip markers: built once at globe-init and never rebuilt on activeIndex
+  // changes (trips are static, unlike the timeline markers above).
+  const tripSpritesRef = useRef<MarkerSprite[]>([]);
+  const tripMarkerTexRef = useRef<CanvasTexture | null>(null);
   // Target orientation in SO(3). Null until the init effect loads THREE.
   const targetQuatRef = useRef<Quaternion | null>(null);
   const camPosRef = useRef({ x: 0, y: 40, z: 320 });
@@ -471,18 +554,23 @@ export function GlobeVisualization({
         .showAtmosphere(true)
         .atmosphereColor("#02e0e8") // bright cyan glow, matches mockup ring
         .atmosphereAltitude(0.28)
-        // Career journey arcs (animated dashes Bolivia → Stafa → Basel)
-        .arcsData(CAREER_ARCS)
+        // Career journey arcs (animated dashes Bolivia → Stafa → Basel) plus
+        // the dimmer, static trip arcs merged into the same layer.
+        .arcsData(ALL_ARCS)
         .arcStartLat("startLat")
         .arcStartLng("startLng")
         .arcEndLat("endLat")
         .arcEndLng("endLng")
-        .arcColor(() => ["#02777C", "#02777C"])
-        .arcAltitude((d) => naturalArcAltitude(d as CareerArc))
-        .arcStroke(0.4)
+        .arcColor((d: object) =>
+          (d as GlobeArc).kind === "trip"
+            ? TRIP_ARC_COLOR
+            : ["#02777C", "#02777C"],
+        )
+        .arcAltitude((d) => naturalArcAltitude(d as GlobeArc))
+        .arcStroke((d) => ((d as GlobeArc).kind === "trip" ? 0.28 : 0.4))
         .arcDashLength(0.35)
         .arcDashGap(0.15)
-        .arcDashAnimateTime(2400)
+        .arcDashAnimateTime((d) => ((d as GlobeArc).kind === "trip" ? 0 : 2400))
         .arcsTransitionDuration(400);
 
       // HTML label overlay: uses three-globe's built-in projected DOM elements.
@@ -602,6 +690,17 @@ export function GlobeVisualization({
             globe,
             activeMarkerTexRef.current,
             inactiveMarkerTexRef.current,
+          );
+
+          // Trip markers: dimmer, single shared texture (no active/inactive
+          // split - trips have no "active" concept), built once here rather
+          // than in the activeIndex effect since they never change.
+          tripMarkerTexRef.current = makeGlowTexture(THREE, "#c9b896", 0.45);
+          tripSpritesRef.current = buildTripSprites(
+            camPosRef.current.z,
+            THREE,
+            globe,
+            tripMarkerTexRef.current,
           );
 
           if (!cancelled) {
@@ -930,6 +1029,9 @@ export function GlobeVisualization({
           spritesRef.current.forEach((sprite) => {
             sprite.scale.setScalar(sprite.userData.baseSize * s);
           });
+          tripSpritesRef.current.forEach((sprite) => {
+            sprite.scale.setScalar(sprite.userData.baseSize * s);
+          });
         }
 
         // Slow atmospheric drift: clouds move independently of the globe surface.
@@ -972,6 +1074,17 @@ export function GlobeVisualization({
           inactiveMarkerTexRef.current?.dispose();
           inactiveMarkerTexRef.current = null;
           spritesRef.current = [];
+        },
+        // 4b. Dispose trip markers: shared texture plus each sprite's own
+        // material (THREE.Sprite doesn't extend Mesh, so the generic scene
+        // traversal in step 5 below never reaches these).
+        () => {
+          tripMarkerTexRef.current?.dispose();
+          tripMarkerTexRef.current = null;
+          tripSpritesRef.current.forEach((s) => {
+            (s.material as SpriteMaterial).dispose();
+          });
+          tripSpritesRef.current = [];
         },
         // 5. Traverse scene and dispose all GPU resources
         () =>
