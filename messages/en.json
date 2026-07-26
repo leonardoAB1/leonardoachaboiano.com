@@ -178,7 +178,14 @@
     "heading": "Let's talk",
     "intro": "Whether you have a project in mind, a question, or just want to say hi, I'd love to hear from you.",
     "links": {
-      "emailLabel": "Email"
+      "emailLabel": "Email",
+      "intro": "Find my social profiles and contact details below.",
+      "githubDescription": "Source code and open-source work",
+      "linkedinDescription": "Professional profile and updates",
+      "instagramDescription": "Engineering, travel and life updates",
+      "facebookDescription": "Personal profile and updates",
+      "emailTitle": "Send me an email",
+      "emailDescription": "Get in touch directly"
     },
     "Form": {
       "email": "Email",

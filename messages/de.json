@@ -178,7 +178,14 @@
     "heading": "Sprechen wir",
     "intro": "Ob du ein Projekt im Kopf hast, eine Frage stellen oder einfach Hallo sagen möchtest: Ich freue mich, von dir zu hören.",
     "links": {
-      "emailLabel": "E-Mail"
+      "emailLabel": "E-Mail",
+      "intro": "Hier findest du meine sozialen Profile und Kontaktdaten.",
+      "githubDescription": "Quellcode und Open-Source-Projekte",
+      "linkedinDescription": "Berufliches Profil und Neuigkeiten",
+      "instagramDescription": "Technik, Reisen und persönliche Einblicke",
+      "facebookDescription": "Persönliches Profil und Neuigkeiten",
+      "emailTitle": "E-Mail senden",
+      "emailDescription": "Direkt Kontakt aufnehmen"
     },
     "Form": {
       "email": "E-Mail",

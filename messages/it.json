@@ -178,7 +178,14 @@
     "heading": "Parliamone",
     "intro": "Che tu abbia un progetto in mente, una domanda o voglia solo salutare, mi farebbe piacere sentirti.",
     "links": {
-      "emailLabel": "Email"
+      "emailLabel": "Email",
+      "intro": "Trova qui i miei profili social e i contatti.",
+      "githubDescription": "Codice sorgente e progetti open source",
+      "linkedinDescription": "Profilo professionale e aggiornamenti",
+      "instagramDescription": "Ingegneria, viaggi e vita quotidiana",
+      "facebookDescription": "Profilo personale e aggiornamenti",
+      "emailTitle": "Inviami un'email",
+      "emailDescription": "Contattami direttamente"
     },
     "Form": {
       "email": "Email",

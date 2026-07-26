@@ -178,7 +178,14 @@
     "heading": "Hablemos",
     "intro": "Ya sea que tengas un proyecto en mente, una pregunta o solo quieras saludar, me encantaría saber de ti.",
     "links": {
-      "emailLabel": "Correo"
+      "emailLabel": "Correo",
+      "intro": "Encuentra mis perfiles sociales y datos de contacto.",
+      "githubDescription": "Código fuente y trabajo de código abierto",
+      "linkedinDescription": "Perfil profesional y novedades",
+      "instagramDescription": "Ingeniería, viajes y vida personal",
+      "facebookDescription": "Perfil personal y novedades",
+      "emailTitle": "Enviarme un correo",
+      "emailDescription": "Ponte en contacto directamente"
     },
     "Form": {
       "email": "Correo",

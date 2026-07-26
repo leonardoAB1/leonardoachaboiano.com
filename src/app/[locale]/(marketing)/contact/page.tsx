@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { ReactElement, SVGProps } from "react";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { ContactLinkHub } from "@/components/contact/ContactLinkHub";
 import { ProfileQrToggle } from "@/components/contact/ProfileQrToggle";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import {
@@ -105,14 +106,34 @@ export default async function ContactPage({
     // navbar and lg:h-svh pins the whole page to exactly one screen (the
     // global footer is hidden on this route). Below lg the stacked layout
     // scrolls naturally.
-    <section className="-mt-14 flex min-h-svh flex-col px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
+    <section className="-mt-14 flex h-svh flex-col overflow-hidden px-3 pb-2 pt-16 sm:px-6 lg:pb-4 lg:pt-20">
+      <ContactLinkHub
+        heading={t("heading")}
+        intro={t("links.intro")}
+        role={tCommon("role")}
+        outlineLine={t("outlineLine")}
+        githubDescription={t("links.githubDescription")}
+        linkedinDescription={t("links.linkedinDescription")}
+        instagramDescription={t("links.instagramDescription")}
+        facebookDescription={t("links.facebookDescription")}
+        emailTitle={t("links.emailTitle")}
+        emailDescription={t("links.emailDescription")}
+        photoAlt={siteConfig.name}
+        qrAlt={t("qrAlt")}
+        qrPath={qr.path}
+        qrViewBox={qr.viewBox}
+        tapHint={t("tapHint")}
+        qrCaption={t("qrCaption")}
+        showQrLabel={t("showQr")}
+        showPhotoLabel={t("showPhoto")}
+      />
       {/* Single connected box: straight corners so the teal border reads as
           a ruled grid line rather than a card. overflow-hidden clips the
           decorative outline lettering at the border, like the reference.
           Transparent on purpose - the section's paper texture runs through
           continuously (a second .grain here would tile from a different
           origin and seam at the border). */}
-      <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="relative hidden min-h-0 flex-1 flex-col overflow-hidden lg:flex">
         {/* Box edges as drawable rules (reference style): borders cannot be
             scale-animated, so each structural line is its own 1px element
             that draws in, staggered so the grid appears to sketch itself. */}
