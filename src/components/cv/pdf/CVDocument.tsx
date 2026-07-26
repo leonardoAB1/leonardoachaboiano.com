@@ -467,11 +467,21 @@ const s = StyleSheet.create({
   achievementItem: {
     marginBottom: 3,
   },
+  achievementHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+  },
   achievementLabel: {
     fontFamily: "Helvetica-Bold",
     fontSize: 9,
     color: DARK,
     lineHeight: 1.35,
+  },
+  achievementDate: {
+    fontSize: 9,
+    color: GRAY,
+    marginLeft: 4,
   },
   achievementDesc: {
     fontSize: 9,
@@ -800,7 +810,10 @@ export function CVDocument({
             <View style={s.sectionRule} />
             {achievements.map((a) => (
               <View key={a.label} style={s.achievementItem}>
-                <Text style={s.achievementLabel}>{a.label}</Text>
+                <View style={s.achievementHeader}>
+                  <Text style={s.achievementLabel}>{a.label}</Text>
+                  <Text style={s.achievementDate}>{a.date}</Text>
+                </View>
                 {a.description ? (
                   <Text style={s.achievementDesc}>{a.description}</Text>
                 ) : null}

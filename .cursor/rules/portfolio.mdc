@@ -1,0 +1,15 @@
+---
+description: Rules for building Leonardo Acha's personal engineering portfolio
+globs: ["**/*.ts", "**/*.tsx", "**/*.css", "**/*.mdx"]
+alwaysApply: true
+---
+
+# Portfolio Project Rules
+
+The canonical rulebook for this repo lives in `AGENTS.md` at the project root - project overview,
+stack, brand and tone, design rules and references, architecture (folder structure, Server vs Client
+Components, import alias, strict TypeScript), writing style, code style, git conventions, and
+collaboration/explanation requirements.
+
+Cursor reads `AGENTS.md` natively, so follow it as the source of truth. Edit shared rules there, not
+here. This file exists only to keep those rules `alwaysApply` for the globs above.

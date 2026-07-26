@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.16.1...v1.17.0) (2026-07-21)
+
+
+### Features
+
+* show achievement dates in CV PDF export ([#342](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/342)) ([1236732](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/12367329440f1ba88d6e4d85aeb49b65108a0eb6))
+
 ## [1.16.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.16.0...v1.16.1) (2026-07-21)
 
 

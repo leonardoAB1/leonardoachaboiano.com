@@ -64,9 +64,11 @@ next-env.d.ts
 *.swo
 
 # ai tool configs - commit instruction files, ignore runtime artifacts
-.cursor/
+# AGENTS.md is the canonical cross-agent rulebook (read by Codex and Cursor, imported by CLAUDE.md)
+.cursor/*
+!.cursor/rules/
+!.cursor/settings.json
 .claude/
-AGENTS.md
 
 # local planning docs
 PLAN.md
