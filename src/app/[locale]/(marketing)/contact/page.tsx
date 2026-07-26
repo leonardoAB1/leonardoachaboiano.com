@@ -106,7 +106,7 @@ export default async function ContactPage({
     // navbar and lg:h-svh pins the whole page to exactly one screen (the
     // global footer is hidden on this route). Below lg the stacked layout
     // scrolls naturally.
-    <section className="-mt-14 flex min-h-svh flex-col px-4 pb-4 pt-20 sm:px-6 lg:h-svh">
+    <section className="-mt-14 flex h-svh flex-col overflow-hidden px-3 pb-2 pt-16 sm:px-6 lg:pb-4 lg:pt-20">
       <ContactLinkHub
         heading={t("heading")}
         intro={t("links.intro")}

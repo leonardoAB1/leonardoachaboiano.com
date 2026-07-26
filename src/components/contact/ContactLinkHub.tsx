@@ -94,20 +94,23 @@ export function ContactLinkHub({
   ];
 
   return (
-    <div className="relative border border-brand/45 px-5 pb-0 pt-10 lg:hidden">
-      <div className="mx-auto flex max-w-md flex-col items-center text-center">
+    <div className="relative min-h-0 flex-1 overflow-hidden border border-brand/45 px-4 pt-3 lg:hidden">
+      <div className="mx-auto flex h-full max-w-md flex-col items-center text-center">
         <Heading
           as="h1"
           size="xl"
-          className="font-serif tracking-normal text-brand"
+          className="font-serif text-3xl tracking-normal text-brand [@media(min-height:760px)]:text-4xl"
         >
           {heading}
         </Heading>
-        <Text size="lg" className="mt-3 max-w-sm">
+        <Text
+          size="sm"
+          className="mt-1 max-w-sm leading-5 [@media(max-height:700px)]:text-xs"
+        >
           {intro}
         </Text>
 
-        <div className="mt-8 flex flex-col items-center">
+        <div className="mt-3 flex items-center gap-4 text-left [@media(max-height:700px)]:[&_figcaption]:hidden">
           <ProfileQrToggle
             photoSrc="/images/headshot.webp"
             photoAlt={photoAlt}
@@ -120,21 +123,23 @@ export function ContactLinkHub({
             showPhotoLabel={showPhotoLabel}
             qrBgClassName="bg-brand"
             qrColorClassName="text-white"
-            sizeClassName="size-36"
+            sizeClassName="size-20 [@media(min-height:760px)]:size-24"
           />
-          <Heading
-            as="h2"
-            size="md"
-            className="mt-4 font-serif tracking-normal text-brand"
-          >
-            {siteConfig.name}
-          </Heading>
-          <Text size="sm" className="mt-1 text-ink-3">
-            {role}
-          </Text>
+          <div>
+            <Heading
+              as="h2"
+              size="md"
+              className="font-serif text-xl tracking-normal text-brand"
+            >
+              {siteConfig.name}
+            </Heading>
+            <Text size="sm" className="mt-0.5 leading-5 text-ink-3">
+              {role}
+            </Text>
+          </div>
         </div>
 
-        <ul className="mt-8 flex w-full flex-col gap-3 text-left">
+        <ul className="mt-3 flex w-full flex-col gap-1.5 text-left [@media(min-height:760px)]:mt-5 [@media(min-height:760px)]:gap-2">
           {links.map((link) => (
             <li key={link.id}>
               <ContactLinkCard link={link} />
@@ -145,7 +150,7 @@ export function ContactLinkHub({
 
       <div
         aria-hidden="true"
-        className="text-outline -mx-5 mt-10 overflow-hidden whitespace-nowrap font-serif text-[5.25rem] font-bold leading-[0.8]"
+        className="text-outline -mx-4 mt-4 hidden overflow-hidden whitespace-nowrap font-serif text-6xl font-bold leading-[0.8] [@media(min-height:760px)]:block"
       >
         {outlineLine}
       </div>

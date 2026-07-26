@@ -16,14 +16,14 @@ interface ContactLinkCardProps {
 export function ContactLinkCard({ link }: ContactLinkCardProps): ReactElement {
   const content = (
     <>
-      <span className="flex size-11 shrink-0 items-center justify-center text-brand">
+      <span className="flex size-9 shrink-0 items-center justify-center text-brand">
         {link.icon}
       </span>
       <span className="min-w-0 flex-1">
         <span className="block text-base font-medium text-ink-1">
           {link.title}
         </span>
-        <span className="mt-0.5 block text-sm leading-snug text-ink-3">
+        <span className="mt-0.5 block text-xs leading-snug text-ink-3">
           {link.description}
         </span>
       </span>
@@ -34,7 +34,7 @@ export function ContactLinkCard({ link }: ContactLinkCardProps): ReactElement {
     </>
   );
   const className =
-    "group flex min-h-20 items-center gap-3 border border-brand/45 px-4 py-3 outline-offset-4 transition-colors hover:border-brand hover:bg-brand/5 focus-visible:outline-2 focus-visible:outline-brand";
+    "group flex min-h-14 items-center gap-3 border border-brand/45 px-3 py-2 outline-offset-2 transition-colors hover:border-brand hover:bg-brand/5 focus-visible:outline-2 focus-visible:outline-brand";
 
   if (link.id === "email") {
     return (
