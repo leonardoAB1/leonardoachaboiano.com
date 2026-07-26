@@ -223,7 +223,7 @@ export function Hero(): ReactElement {
               <Heading
                 as="h1"
                 size="xl"
-                className="break-words text-white [hyphens:auto] text-[clamp(2rem,5vw,3rem)] leading-tight sm:text-[clamp(2rem,5vw,3rem)]"
+                className="break-normal text-white text-[clamp(1.625rem,6.5vw,3rem)] leading-tight sm:text-[clamp(1.625rem,6.5vw,3rem)]"
               >
                 <span aria-hidden="true">
                   {typedText}
