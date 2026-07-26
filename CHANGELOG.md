@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.17.1...v1.18.0) (2026-07-26)
+
+
+### Features
+
+* add mobile contact link hub ([#355](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/355)) ([dd324b9](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/dd324b9ec5decb366415ce326765e1da2bfaa7dd))
+
 ## [1.17.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.17.0...v1.17.1) (2026-07-26)
 
 
