@@ -178,7 +178,14 @@
     "heading": "Discutons",
     "intro": "Que vous ayez un projet en tête, une question ou simplement envie de dire bonjour, je serais ravi d'avoir de vos nouvelles.",
     "links": {
-      "emailLabel": "E-mail"
+      "emailLabel": "E-mail",
+      "intro": "Retrouvez mes profils sociaux et mes coordonnées.",
+      "githubDescription": "Code source et projets open source",
+      "linkedinDescription": "Profil professionnel et actualités",
+      "instagramDescription": "Ingénierie, voyages et vie quotidienne",
+      "facebookDescription": "Profil personnel et actualités",
+      "emailTitle": "M'envoyer un e-mail",
+      "emailDescription": "Me contacter directement"
     },
     "Form": {
       "email": "E-mail",
