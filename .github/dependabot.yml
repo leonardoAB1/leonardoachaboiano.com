@@ -7,6 +7,13 @@ updates:
       day: monday
     open-pull-requests-limit: 5
     labels: [dependencies]
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
     ignore:
       - dependency-name: "*"
         update-types: [version-update:semver-major]
