@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.1](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.17.0...v1.17.1) (2026-07-26)
+
+
+### Bug Fixes
+
+* stop hero identity text from breaking mid-word ([#352](https://github.com/leonardoAB1/leonardoachaboiano.com/issues/352)) ([ade5af2](https://github.com/leonardoAB1/leonardoachaboiano.com/commit/ade5af2202ebe6156927639a8eb84784b401f4fe))
+
 ## [1.17.0](https://github.com/leonardoAB1/leonardoachaboiano.com/compare/v1.16.1...v1.17.0) (2026-07-21)
 
 
