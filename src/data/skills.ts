@@ -29,6 +29,7 @@ export const skillGroups: SkillGroup[] = [
       "Robot Operator",
       "BLE",
       "CAN",
+      "EtherCAT",
       "MQTT",
     ],
   },
