@@ -6,7 +6,15 @@ export interface SkillGroup {
 export const skillGroups: SkillGroup[] = [
   {
     categoryKey: "programming",
-    skills: ["Python", "C/C++", "MATLAB", "Verilog/VHDL", "LaTeX"],
+    skills: [
+      "Python",
+      "C/C++",
+      "Cython",
+      "PyQt",
+      "MATLAB",
+      "Verilog/VHDL",
+      "LaTeX",
+    ],
   },
   {
     categoryKey: "embeddedRobotics",
@@ -15,6 +23,7 @@ export const skillGroups: SkillGroup[] = [
       "ESP32",
       "Arduino",
       "ROS2",
+      "OpenCV",
       "FreeRTOS",
       "Zephyr",
       "Robot Operator",
@@ -44,6 +53,8 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       "Git",
       "GitHub",
+      "GitHub Actions",
+      "Linux",
       "Industrial Instrumentation",
       "PLC (Tia Portal)",
       "Ladder",
