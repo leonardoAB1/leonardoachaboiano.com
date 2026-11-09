@@ -12,4 +12,5 @@ export const achievementKeys = [
   "scholarship1",
   "diplomaHonour0",
   "rotary",
+  "erhHackathon",
 ] as const;
