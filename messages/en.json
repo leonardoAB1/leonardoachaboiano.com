@@ -276,7 +276,7 @@
         "location": "Basel-Stadt, BS, Switzerland",
         "bullets": [
           "Developing the **ROS2** control software of an automated lab machine, from motion control and cameras to the **PyQt** operator interface",
-          "Contributing to the architecture of the next-generation machine: **PLC** control on **CODESYS** with **OPC UA** and CAN bus drives",
+          "Designing machine control architecture: real-time **PLC** control integrated with **ROS2** process software",
           "Built the release pipeline on **GitHub Actions** and the offline updater",
           "On-site installation, servicing and troubleshooting at client labs"
         ],

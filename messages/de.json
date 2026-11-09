@@ -276,7 +276,7 @@
         "location": "Basel, Schweiz",
         "bullets": [
           "Entwicklung der **ROS2**-Steuerungssoftware einer automatisierten Labormaschine, von Bewegung und Kameras bis zur **PyQt**-Oberfläche",
-          "Mitarbeit an der Architektur der nächsten Maschinengeneration: Steuerung per **SPS** mit **CODESYS** und **OPC UA**, CAN-Bus-Antriebe",
+          "Entwurf der Maschinensteuerungsarchitektur: Echtzeitsteuerung per **SPS**, integriert mit **ROS2**-Prozesssoftware",
           "Release-Pipeline mit **GitHub Actions** und Offline-Updater aufgebaut",
           "Installation, Service und Fehlerbehebung vor Ort in Kundenlaboren"
         ],
