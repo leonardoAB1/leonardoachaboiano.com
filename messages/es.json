@@ -276,7 +276,7 @@
         "location": "Basilea, Suiza",
         "bullets": [
           "Desarrollo del software de control **ROS2** de una máquina de laboratorio automatizada, del control de movimiento a la interfaz en **PyQt**",
-          "Diseño de la arquitectura de control de máquinas: control en tiempo real por **PLC** integrado con software de proceso en **ROS2**",
+          "Diseño de la arquitectura de control de máquinas: **PLC** en tiempo real y E/S **EtherCAT** integrados con software de proceso en **ROS2**",
           "Pipeline de releases en **GitHub Actions** y actualizador offline",
           "Instalación, servicio y resolución de fallos in situ en clientes"
         ],

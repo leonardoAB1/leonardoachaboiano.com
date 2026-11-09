@@ -276,7 +276,7 @@
         "location": "Bâle-Ville, BS, Suisse",
         "bullets": [
           "Développement du logiciel de commande **ROS2** d'une machine de laboratoire automatisée, du mouvement à l'interface **PyQt**",
-          "Architecture de commande : **API** temps réel intégré à **ROS2**",
+          "Architecture de commande : **API** et E/S **EtherCAT** intégrés à **ROS2**",
           "Pipeline de release sur **GitHub Actions** et mise à jour hors ligne",
           "Installation, maintenance et dépannage sur site chez les clients"
         ],

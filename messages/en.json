@@ -276,7 +276,7 @@
         "location": "Basel-Stadt, BS, Switzerland",
         "bullets": [
           "Developing the **ROS2** control software of an automated lab machine, from motion control and cameras to the **PyQt** operator interface",
-          "Designing machine control architecture: real-time **PLC** control integrated with **ROS2** process software",
+          "Designing machine control architecture: real-time **PLC** and **EtherCAT** I/O integrated with **ROS2** process software",
           "Built the release pipeline on **GitHub Actions** and the offline updater",
           "On-site installation, servicing and troubleshooting at client labs"
         ],
