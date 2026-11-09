@@ -275,8 +275,10 @@
         "role": "Ingeniero en Robótica",
         "location": "Basilea, Suiza",
         "bullets": [
-          "Desarrollo y mantenimiento de sistemas robóticos ROS2 con acciones concurrentes e integración de hardware",
-          "Instalación in situ, servicio y mantenimiento preventivo de sistemas desplegados en clientes"
+          "Desarrollo del software de control **ROS2** de una máquina de laboratorio automatizada, del control de movimiento a la interfaz en **PyQt**",
+          "Contribución a la arquitectura de la próxima máquina: control por **PLC** con **CODESYS** y **OPC UA**, bus CAN",
+          "Pipeline de releases en **GitHub Actions** y actualizador offline",
+          "Instalación, servicio y resolución de fallos in situ en clientes"
         ],
         "note": "Work GitHub: github.com/leonardoAB-cw"
       },
@@ -284,6 +286,7 @@
         "role": "Pasante de Robótica",
         "location": "Basilea, Suiza",
         "bullets": [
+          "Diseñé componentes de la interfaz de operador y prototipé **visión por computadora** para verificar procesos y visual servoing",
           "Lideré la estrategia de documentación de toda la empresa en Confluence para compartir conocimiento interno"
         ]
       },
@@ -291,7 +294,7 @@
         "role": "Pasante de Pruebas de Fiabilidad y Diseño de Hardware",
         "location": "Stafa, Suiza",
         "bullets": [
-          "Implementé nuevos métodos de prueba: selección de instrumentos, integración y programación de rutinas de medición",
+          "Construí montajes de prueba electroópticos para dispositivos fotónicos integrados, de la selección de instrumentos a las rutinas de medición",
           "Diseñé PCBs para la fijación de muestras y el enrutamiento eléctrico",
           "Operaciones de laboratorio: configuración de instrumentos, instalación de hardware, desarrollo de rutinas de calibración"
         ]
