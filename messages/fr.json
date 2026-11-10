@@ -168,6 +168,11 @@
       "label": "Certificat d'excellence - Rotary D.4690",
       "date": "2019",
       "description": "Ambassadeur d'échange jeunesse au Canada 2018-2019"
+    },
+    "erhHackathon": {
+      "label": "1re place - ERH Physical AI Hackathon",
+      "date": "oct. 2026",
+      "description": "Vainqueur général et du track co:prod, Zurich"
     }
   },
   "Contact": {
@@ -270,8 +275,10 @@
         "role": "Ingénieur en robotique",
         "location": "Bâle-Ville, BS, Suisse",
         "bullets": [
-          "Développement et maintenance de systèmes robotiques **ROS2** avec actions concurrentes et intégration matérielle",
-          "Installation sur site, maintenance et entretien préventif des systèmes déployés chez les clients"
+          "Développement du logiciel de commande **ROS2** d'une machine de laboratoire automatisée, du mouvement à l'interface **PyQt**",
+          "Architecture de commande : **API** et E/S **EtherCAT** intégrés à **ROS2**",
+          "Pipeline de release sur **GitHub Actions** et mise à jour hors ligne",
+          "Installation, maintenance et dépannage sur site chez les clients"
         ],
         "note": "Work GitHub: github.com/leonardoAB-cw"
       },
@@ -279,6 +286,7 @@
         "role": "Stagiaire en robotique",
         "location": "Bâle, Suisse",
         "bullets": [
+          "Interface opérateur et prototypage de **vision par ordinateur**",
           "Pilotage de la stratégie de documentation de l'entreprise sur **Confluence** pour le partage des connaissances internes"
         ]
       },
@@ -286,7 +294,7 @@
         "role": "Stagiaire en tests de fiabilité et conception matérielle",
         "location": "Stäfa, ZH, Suisse",
         "bullets": [
-          "Mise en place de nouvelles méthodes de test : sélection des instruments, intégration et codage des routines de mesure",
+          "Réalisation de bancs de test électro-optiques pour composants photoniques intégrés, du choix des instruments aux routines de mesure",
           "Conception de **PCB** pour la fixation d'échantillons et le routage électrique",
           "Opérations de laboratoire : configuration des instruments, installation matérielle, développement des routines d'étalonnage"
         ]

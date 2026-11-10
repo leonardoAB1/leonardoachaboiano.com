@@ -168,6 +168,11 @@
       "label": "Certificato di Merito - Rotary D.4690",
       "date": "2019",
       "description": "Ambasciatore Scambio Giovanile in Canada 2018-2019"
+    },
+    "erhHackathon": {
+      "label": "1° posto - ERH Physical AI Hackathon",
+      "date": "ott 2026",
+      "description": "Vincitore assoluto e del track co:prod, Zurigo"
     }
   },
   "Contact": {
@@ -270,8 +275,10 @@
         "role": "Ingegnere Robotico",
         "location": "Basilea, Svizzera",
         "bullets": [
-          "Sviluppo e manutenzione di sistemi robotici ROS2 con azioni concorrenti e integrazione hardware",
-          "Installazione in loco, assistenza e manutenzione preventiva dei sistemi installati presso i clienti"
+          "Sviluppo del software di controllo **ROS2** di una macchina da laboratorio automatizzata, dal movimento all'interfaccia **PyQt**",
+          "Progettazione dell'architettura di controllo: **PLC** in tempo reale e I/O **EtherCAT** integrati con software di processo **ROS2**",
+          "Pipeline di release su **GitHub Actions** e aggiornamento offline",
+          "Installazione, assistenza e risoluzione dei guasti in loco presso i clienti"
         ],
         "note": "Work GitHub: github.com/leonardoAB-cw"
       },
@@ -279,6 +286,7 @@
         "role": "Tirocinante in Robotica",
         "location": "Basilea, Svizzera",
         "bullets": [
+          "Progettazione di componenti dell'interfaccia operatore e prototipazione di **visione artificiale** per il controllo di processo e il visual servoing",
           "Ho guidato la strategia di documentazione aziendale in Confluence per la condivisione interna delle conoscenze"
         ]
       },
@@ -286,7 +294,7 @@
         "role": "Tirocinante in Test di Affidabilità e Progettazione Hardware",
         "location": "Stäfa, Svizzera",
         "bullets": [
-          "Ho implementato nuovi metodi di test: selezione degli strumenti, integrazione e programmazione delle routine di misura",
+          "Realizzazione di banchi di prova elettro-ottici per dispositivi fotonici integrati, dalla scelta degli strumenti alle routine di misura",
           "Ho progettato PCB per il fissaggio dei campioni e l'instradamento elettrico",
           "Operazioni di laboratorio: configurazione strumenti, installazione hardware, sviluppo di routine di calibrazione"
         ]

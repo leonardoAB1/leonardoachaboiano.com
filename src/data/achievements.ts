@@ -3,6 +3,7 @@
 // drift out of sync. Translated label/date/description text lives in
 // messages under `Achievements.<key>` and is pulled in at render time.
 export const achievementKeys = [
+  "erhHackathon",
   "icpc",
   "diplomaHonour2",
   "cswa",

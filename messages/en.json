@@ -168,6 +168,11 @@
       "label": "Certificate of Achievement - Rotary D.4690",
       "date": "2019",
       "description": "Youth Exchange Ambassador to Canada 2018-2019"
+    },
+    "erhHackathon": {
+      "label": "1st Place - ERH Physical AI Hackathon",
+      "date": "Oct 2026",
+      "description": "Overall winner and co:prod track winner, Zurich"
     }
   },
   "Contact": {
@@ -270,8 +275,10 @@
         "role": "Robotics Engineer",
         "location": "Basel-Stadt, BS, Switzerland",
         "bullets": [
-          "Developing and maintaining **ROS2** robotic systems, including concurrent actions and hardware integration",
-          "Performing on-site system installation, servicing, and preventive maintenance for deployed client systems"
+          "Developing the **ROS2** control software of an automated lab machine, from motion control and cameras to the **PyQt** operator interface",
+          "Designing machine control architecture: real-time **PLC** and **EtherCAT** I/O integrated with **ROS2** process software",
+          "Built the release pipeline on **GitHub Actions** and the offline updater",
+          "On-site installation, servicing and troubleshooting at client labs"
         ],
         "note": "Work GitHub: github.com/leonardoAB-cw"
       },
@@ -279,6 +286,7 @@
         "role": "Robotics Intern",
         "location": "Basel, Switzerland",
         "bullets": [
+          "Designed operator interface components and prototyped **computer vision** for process checks and visual servoing",
           "Spearheaded the rollout of a company-wide documentation strategy in **Confluence** for internal knowledge sharing"
         ]
       },
@@ -286,7 +294,7 @@
         "role": "Reliability Testing and Hardware Design Intern",
         "location": "Stäfa, ZH, Switzerland",
         "bullets": [
-          "Implemented new test methods, including instrument selection, integration, and coding measurement routines",
+          "Built electro-optical test setups for integrated photonic devices, from instrument selection to measurement routines",
           "Designed **PCBs** for sample fixation and electrical routing",
           "Performed lab operations: instrument setup, hardware installation, and calibration routine development"
         ]

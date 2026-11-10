@@ -168,6 +168,11 @@
       "label": "Leistungsurkunde - Rotary D.4690",
       "date": "2019",
       "description": "Jugendaustausch-Botschafter in Kanada 2018-2019"
+    },
+    "erhHackathon": {
+      "label": "1. Platz - ERH Physical AI Hackathon",
+      "date": "Okt 2026",
+      "description": "Gesamtsieg und Sieg im co:prod-Track, Zürich"
     }
   },
   "Contact": {
@@ -270,8 +275,10 @@
         "role": "Robotikingenieur",
         "location": "Basel, Schweiz",
         "bullets": [
-          "Entwicklung und Wartung von ROS2-Robotersystemen mit nebenläufigen Aktionen und Hardware-Integration",
-          "Installation vor Ort, Service und vorbeugende Wartung von ausgelieferten Kundensystemen"
+          "Entwicklung der **ROS2**-Steuerungssoftware einer automatisierten Labormaschine, von Bewegung und Kameras bis zur **PyQt**-Oberfläche",
+          "Entwurf der Maschinensteuerungsarchitektur: Echtzeit-**SPS** und **EtherCAT**-I/O, integriert mit **ROS2**-Prozesssoftware",
+          "Release-Pipeline mit **GitHub Actions** und Offline-Updater aufgebaut",
+          "Installation, Service und Fehlerbehebung vor Ort in Kundenlaboren"
         ],
         "note": "Work GitHub: github.com/leonardoAB-cw"
       },
@@ -279,6 +286,7 @@
         "role": "Praktikant Robotik",
         "location": "Basel, Schweiz",
         "bullets": [
+          "Entwurf von Komponenten der Bedienoberfläche und Prototypen für **Computer Vision** zur Prozessprüfung und für Visual Servoing",
           "Leitete die unternehmensweite Dokumentationsstrategie in Confluence für den internen Wissensaustausch"
         ]
       },
@@ -286,7 +294,7 @@
         "role": "Praktikant Zuverlässigkeitsprüfung & Hardware-Design",
         "location": "Stäfa, Schweiz",
         "bullets": [
-          "Implementierte neue Testmethoden: Geräteauswahl, Integration und Programmierung von Messroutinen",
+          "Aufbau elektrooptischer Teststände für integrierte photonische Bauelemente, von der Geräteauswahl bis zu Messroutinen",
           "Entwarf Leiterplatten zur Probenfixierung und elektrischen Leitungsführung",
           "Laborbetrieb: Geräteeinrichtung, Hardware-Installation, Entwicklung von Kalibrierroutinen"
         ]
